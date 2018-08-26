@@ -1,7 +1,5 @@
-import axios from 'axios'
 export default {
     created() {
-             
         this.listasLoader();
         this.basePath += this.tabla + '/' 
         this.getData();

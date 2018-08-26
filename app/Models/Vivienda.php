@@ -16,9 +16,9 @@ class Vivienda extends Model
                             'id_persona',
                             'id_ubicacion',
                             'id_tipo_vivienda',
-                            'id_pais',
-                            'id_estado',
-                            'id_ciudad',
+                            'co_pais',
+                            'nb_estado',
+                            'nb_ciudad',
                             'tx_calle',
                             'tx_casa',
                             'nu_personas',
@@ -46,17 +46,17 @@ class Vivienda extends Model
 
     public function pais()
     {
-        return $this->BelongsTo('App\Models\Pais', 'id_pais');
+        return $this->BelongsTo('App\Models\Pais', 'co_pais');
     }
 
     public function estado()
     {
-        return $this->BelongsTo('App\Models\Estado', 'id_estado');
+        return $this->BelongsTo('App\Models\Estado', 'nb_estado');
     }
 
     public function ciudad()
     {
-        return $this->BelongsTo('App\Models\Ciudad', 'id_ciudad');
+        return $this->BelongsTo('App\Models\Ciudad', 'nb_ciudad');
     }
 
     public function status()

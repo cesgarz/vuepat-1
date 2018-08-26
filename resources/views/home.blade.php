@@ -2,7 +2,8 @@
 @section('content')
 
 <v-container fluid grid-list-md text-xs-center>
-  <!--- <home></home> --->
+  <!--- <home></home> <datos-situacionales></datos-situacionales>--->
   <registro></registro>
+  
 </v-container>
 @endsection

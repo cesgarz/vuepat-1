@@ -8,6 +8,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('estadoCivil', 'EstadoCivilController');
     Route::apiResource('tipoDiscapacidad', 'TipoDiscapacidadController');
     Route::apiResource('persona', 'PersonaController');
+    Route::apiResource('pais', 'PaisController');
+    Route::apiResource('estado', 'EstadoController');
+    Route::apiResource('tipoVivienda', 'TipoViviendaController');
 
 
 

@@ -13,23 +13,36 @@
         
         <v-flex sm4>
         <v-autocomplete        
-        :items="paises"
+        :items="listas.pais"
         label="Pais de Residencia"
+        item-text="nb_pais"
+        item-value="co_pais"
+        v-model="form.ext.co_pais"
         required
+        @change="getRegion()"
         ></v-autocomplete>
         </v-flex>
 
         <v-flex sm4>
         <v-select
-        :items="['Buenos Aires', 'Bogota', 'La Paz', 'Ciudad Mexico', 'Santiago', 'Managua', 'San Salvador']"
+        :items="ubicacion.estado"
+        item-text="region"
+        item-value="region"
+        v-model="form.ext.nb_estado"
         label="Estado/Provincia"
+        :loading="ubicacion.regionLoad"
         required
+        @change="getCiudad()"
         ></v-select>
         </v-flex>
 
         <v-flex sm4>
         <v-select
-        :items="['Buenos Aires', 'Bogota', 'La Paz', 'Ciudad Mexico', 'Santiago', 'Managua', 'San Salvador']"
+        :items="ubicacion.ciudad"
+        item-text="city"
+        item-value="city"
+        v-model="form.ext.nb_ciudad"
+        :loading="ubicacion.ciudadLoad"
         label="Ciudad"
         required
         ></v-select>
@@ -69,7 +82,7 @@
 
         <v-flex sm4>
         <v-slider
-            v-model="value"
+            v-model="form.ext.nu_personas"
             hint="Nro. de personas que habitan en la vivienda"
             label="Personas"
             persistent-hint
@@ -141,7 +154,7 @@
 
         <v-flex sm4>
         <v-slider
-            v-model="value"
+            v-model="form.nac.nu_personas"
             hint="Nro. de personas que habitan en la vivienda"
             label="Personas"
             persistent-hint
@@ -153,7 +166,7 @@
         ></v-slider>
         </v-flex>
 
-
+<pre>{{$data}}</pre>
 
 
     </v-layout>
@@ -162,33 +175,152 @@
 </template>
 
 <script>
+
+import formHelper   from '../../components/mixins/formHelper';
+import withSnackbar from '../../components/mixins/withSnackbar';
+import VueJsonp from 'vue-jsonp'
+Vue.use(VueJsonp)
+
 export default {
     name: 'datos-situacionales',
+    mixins: [ formHelper, withSnackbar ],
     data() 
     {
         return {
-            picker: 0,
-            checkbox: false,
-            value: 0,
+            tabla: 'vivienda',
             form: {
-                apellidos: null,
-                nombres: null,
-                cedula: null,
-                sexo: null,
-                fe_nacimiento: null,
-                apellidos: null,
-                apellidos: null,
+                ext:    
+                {
+                    id_ubicacion:   2,
+                    id_tipo_vivienda: null,
+                    co_pais:     null,
+                    nb_estado:   null,
+                    nb_ciudad:   null,
+                    tx_calle:    null,
+                    tx_casa:     null,
+                    tx_telefono: null,
+                    id_status:   null,
+                    nu_personas: 0,
+                },
+                nac:
+                {
+                    id_ubicacion:   1,
+                    id_tipo_vivienda: null,
+                    co_pais:     've',
+                    nb_estado:   null,
+                    nb_ciudad:   null,
+                    tx_calle:    null,
+                    tx_casa:     null,
+                    tx_telefono: null,
+                    id_status:   null,
+                    nu_personas: 0,
+                    servicios:[]
+                }
+
             },
-            paises: ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Cote D\u0027Ivoire (Ivory Coast)","Croatia (Hrvatska)","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Federated States of Micronesia","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Great Britain (UK)","Greece","Greenland","Grenada","Guadeloupe","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea (North)","Korea (South)","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Moldova","Monaco","Mongolia","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand (Aotearoa)","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","NULL","Oman","Pakistan","Palau","Palestinian Territory","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Qatar","Reunion","Romania","Russian Federation","Rwanda","S. Georgia and S. Sandwich Islands","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United States of America","Uruguay","Uzbekistan","Vanuatu","Venezuela","Viet Nam","Virgin Islands (British)","Virgin Islands (U.S.)","Wallis and Futuna","Western Sahara","Yemen","Zaire (former)","Zambia","Zimbabwe"],
+            listas:{
+                pais:         [],
+                tipoVivienda: [],
+                //estado:       [],
+            },
+            ubicacion:{
+                key:     "32b8a15ada11d325f3efd61000bb6974",
+                url:     "https://battuta.medunes.net/api/",
+                estado:  [],
+                ciudad:  [],
+                regionLoad: false,
+                ciudadLoad: false,
+            },
             estados: ['DTTO. CAPITAL','ANZOATEGUI','APURE','ARAGUA','BARINAS','BOLIVAR','CARABOBO','COJEDES','FALCON','GUARICO','LARA','MERIDA','MIRANDA','MONAGAS','NUEVA ESPARTA','PORTUGUESA','SUCRE','TACHIRA','TRUJILLO','YARACUY','ZULIA','AMAZONAS','DELTA AMACURO','VARGAS'],
             ciudades:['CARACAS', 'VALENCIA', 'MARACAIBO', 'LOS TEQUES', 'GUANARE', 'SAN CARLOS', 'CORO'],
-            row: 0, 
-            rules:{
+        }
+    },
 
+    methods:
+    {
+        getRegion()
+        {   
+            
+            let co_pais = this.form.ext.co_pais;
+            console.log('region',co_pais)
+            if(co_pais)
+            {
+               this.ubicacion.regionLoad = true;
+               this.$jsonp(this.ubicacion.url + 'region/' + co_pais + '/all/?key=' + this.ubicacion.key, { })
+                .then(json => {
+                    this.ubicacion.estado = json;
+                    this.ubicacion.regionLoad = false;
+                }).catch(err => {
+                    this.showError(error);
+                })
             }
+        },
+        getCiudad()
+        {
+            
+            let co_pais   = this.form.ext.co_pais;
+            let nb_estado = this.form.ext.nb_estado;
+            console.log('ciudad',co_pais, nb_estado)
+            if(co_pais && nb_estado)
+            {
+               this.ubicacion.ciudadLoad = true;
+               this.$jsonp(this.ubicacion.url + 'city/' + co_pais + '/search/?region='+ nb_estado+'&key=' + this.ubicacion.key, { })
+                .then(json => {
+                    this.ubicacion.ciudad = json;
+                    this.ubicacion.ciudadLoad = false;
+                }).catch(err => {
+                    this.showError(error);
+                })
+            }
+
+        },
+        getData()
+        {
+            
+            /*
+            axios.get(this.basePath + this.$store.getters.user.id_usuario)
+            .then(respuesta => 
+            {
+                this.datos = respuesta.data;
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
+            */
+        },
+        store()
+        {
+            axios.post(this.basePath, this.form)
+            .then(respuesta => 
+            {
+                this.showMessage(respuesta.data.msj)
+                this.$emit('completado', true);
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+                this.$emit('completado', false);
+            })
+        },
+        update()
+        {
+            axios.put(this.basePath + this.form.id_persona, this.form)
+            .then(respuesta => 
+            {
+                this.showMessage(respuesta.data.msj)
+                this.$emit('completado', true);
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
         }
     }
 }
+
+
+
 </script>
 
 <style>

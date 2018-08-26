@@ -14,12 +14,13 @@ class Pais extends Model
 
     protected $fillable   = [
                             'nb_pais',
+                            'co_pais',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_pais','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

@@ -1,5 +1,5 @@
 <template>
-     <div><datos-situacionales></datos-situacionales>
+     <div>
     <v-stepper v-model="e1">
     <v-stepper-header>
       

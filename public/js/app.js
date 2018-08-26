@@ -39540,14 +39540,10 @@ class AutoNumericHelper {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     created: function created() {
-
         this.listasLoader();
         this.basePath += this.tabla + '/';
         this.getData();
@@ -39645,14 +39641,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             for (var lista in objListas) {
                 var parametro = objListas[lista] ? objListas[lista] : '';
 
-                peticiones.push(__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(this.basePath + lista + parametro));
+                peticiones.push(axios.get(this.basePath + lista + parametro));
             }
-            return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.all(peticiones);
+            return axios.all(peticiones);
         },
         listasLoader: function listasLoader() {
             var _this = this;
 
-            this.listRequests(this.listas).then(__WEBPACK_IMPORTED_MODULE_0_axios___default.a.spread(function () {
+            this.listRequests(this.listas).then(axios.spread(function () {
                 for (var _len = arguments.length, dataLists = Array(_len), _key = 0; _key < _len; _key++) {
                     dataLists[_key] = arguments[_key];
                 }
@@ -55015,50 +55011,21 @@ var app = new Vue({
 /* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
 window.axios = __webpack_require__(15);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 var userHeader = document.head.querySelector('meta[name="user"]');
 window.user = null;
 if (userHeader) if (userHeader.content) window.user = JSON.parse(userHeader.content);
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
 
 /***/ }),
 /* 164 */
@@ -79358,8 +79325,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("datos-situacionales"),
-      _vm._v(" "),
       _c(
         "v-stepper",
         {
@@ -80412,7 +80377,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -80423,194 +80388,313 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'datos-situacionales',
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
-        var _form;
-
         return {
-            picker: 0,
-            checkbox: false,
-            value: 0,
-            form: (_form = {
-                apellidos: null,
-                nombres: null,
-                cedula: null,
-                sexo: null,
-                fe_nacimiento: null
-            }, _defineProperty(_form, "apellidos", null), _defineProperty(_form, "apellidos", null), _form),
-            paises: ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Cook Islands", "Costa Rica", "Cote D'Ivoire (Ivory Coast)", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Federated States of Micronesia", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Great Britain (UK)", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Moldova", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand (Aotearoa)", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "NULL", "Oman", "Pakistan", "Palau", "Palestinian Territory", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "S. Georgia and S. Sandwich Islands", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Viet Nam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna", "Western Sahara", "Yemen", "Zaire (former)", "Zambia", "Zimbabwe"],
+            tabla: 'vivienda',
+            form: {
+                ext: {
+                    id_ubicacion: 2,
+                    id_tipo_vivienda: null,
+                    co_pais: null,
+                    nb_estado: null,
+                    nb_ciudad: null,
+                    tx_calle: null,
+                    tx_casa: null,
+                    tx_telefono: null,
+                    id_status: null,
+                    nu_personas: 0
+                },
+                nac: {
+                    id_ubicacion: 1,
+                    id_tipo_vivienda: null,
+                    co_pais: 've',
+                    nb_estado: null,
+                    nb_ciudad: null,
+                    tx_calle: null,
+                    tx_casa: null,
+                    tx_telefono: null,
+                    id_status: null,
+                    nu_personas: 0,
+                    servicios: []
+                }
+
+            },
+            listas: {
+                pais: [],
+                tipoVivienda: []
+                //estado:       [],
+            },
+            ubicacion: {
+                key: "32b8a15ada11d325f3efd61000bb6974",
+                url: "https://battuta.medunes.net/api/",
+                estado: [],
+                ciudad: [],
+                regionLoad: false,
+                ciudadLoad: false
+            },
             estados: ['DTTO. CAPITAL', 'ANZOATEGUI', 'APURE', 'ARAGUA', 'BARINAS', 'BOLIVAR', 'CARABOBO', 'COJEDES', 'FALCON', 'GUARICO', 'LARA', 'MERIDA', 'MIRANDA', 'MONAGAS', 'NUEVA ESPARTA', 'PORTUGUESA', 'SUCRE', 'TACHIRA', 'TRUJILLO', 'YARACUY', 'ZULIA', 'AMAZONAS', 'DELTA AMACURO', 'VARGAS'],
-            ciudades: ['CARACAS', 'VALENCIA', 'MARACAIBO', 'LOS TEQUES', 'GUANARE', 'SAN CARLOS', 'CORO'],
-            row: 0,
-            rules: {}
+            ciudades: ['CARACAS', 'VALENCIA', 'MARACAIBO', 'LOS TEQUES', 'GUANARE', 'SAN CARLOS', 'CORO']
         };
+    },
+
+
+    methods: {
+        getRegion: function getRegion() {
+            var _this = this;
+
+            var co_pais = this.form.ext.co_pais;
+            console.log('region', co_pais);
+            if (co_pais) {
+                this.ubicacion.regionLoad = true;
+                this.$jsonp(this.ubicacion.url + 'region/' + co_pais + '/all/?key=' + this.ubicacion.key, {}).then(function (json) {
+                    _this.ubicacion.estado = json;
+                    _this.ubicacion.regionLoad = false;
+                }).catch(function (err) {
+                    _this.showError(error);
+                });
+            }
+        },
+        getCiudad: function getCiudad() {
+            var _this2 = this;
+
+            var co_pais = this.form.ext.co_pais;
+            var nb_estado = this.form.ext.nb_estado;
+            console.log('ciudad', co_pais, nb_estado);
+            if (co_pais && nb_estado) {
+                this.ubicacion.ciudadLoad = true;
+                this.$jsonp(this.ubicacion.url + 'city/' + co_pais + '/search/?region=' + nb_estado + '&key=' + this.ubicacion.key, {}).then(function (json) {
+                    _this2.ubicacion.ciudad = json;
+                    _this2.ubicacion.ciudadLoad = false;
+                }).catch(function (err) {
+                    _this2.showError(error);
+                });
+            }
+        },
+        getData: function getData() {
+
+            /*
+            axios.get(this.basePath + this.$store.getters.user.id_usuario)
+            .then(respuesta => 
+            {
+                this.datos = respuesta.data;
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
+            */
+        },
+        store: function store() {
+            var _this3 = this;
+
+            axios.post(this.basePath, this.form).then(function (respuesta) {
+                _this3.showMessage(respuesta.data.msj);
+                _this3.$emit('completado', true);
+            }).catch(function (error) {
+                _this3.showError(error);
+                _this3.$emit('completado', false);
+            });
+        },
+        update: function update() {
+            var _this4 = this;
+
+            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+                _this4.showMessage(respuesta.data.msj);
+                _this4.$emit('completado', true);
+            }).catch(function (error) {
+                _this4.showError(error);
+            });
+        }
     }
 });
 
@@ -80642,7 +80726,7 @@ var render = function() {
                     [
                       _c("v-icon", [_vm._v("home")]),
                       _vm._v(
-                        "\n              Vivienda Actual (Extranjero)\n            "
+                        "\n                  Vivienda Actual (Extranjero)\n                "
                       )
                     ],
                     1
@@ -80659,9 +80743,23 @@ var render = function() {
                 [
                   _c("v-autocomplete", {
                     attrs: {
-                      items: _vm.paises,
+                      items: _vm.listas.pais,
                       label: "Pais de Residencia",
+                      "item-text": "nb_pais",
+                      "item-value": "co_pais",
                       required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.getRegion()
+                      }
+                    },
+                    model: {
+                      value: _vm.form.ext.co_pais,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "co_pais", $$v)
+                      },
+                      expression: "form.ext.co_pais"
                     }
                   })
                 ],
@@ -80674,17 +80772,24 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Buenos Aires",
-                        "Bogota",
-                        "La Paz",
-                        "Ciudad Mexico",
-                        "Santiago",
-                        "Managua",
-                        "San Salvador"
-                      ],
+                      items: _vm.ubicacion.estado,
+                      "item-text": "region",
+                      "item-value": "region",
                       label: "Estado/Provincia",
+                      loading: _vm.ubicacion.regionLoad,
                       required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.getCiudad()
+                      }
+                    },
+                    model: {
+                      value: _vm.form.ext.nb_estado,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "nb_estado", $$v)
+                      },
+                      expression: "form.ext.nb_estado"
                     }
                   })
                 ],
@@ -80697,17 +80802,19 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Buenos Aires",
-                        "Bogota",
-                        "La Paz",
-                        "Ciudad Mexico",
-                        "Santiago",
-                        "Managua",
-                        "San Salvador"
-                      ],
+                      items: _vm.ubicacion.ciudad,
+                      "item-text": "city",
+                      "item-value": "city",
+                      loading: _vm.ubicacion.ciudadLoad,
                       label: "Ciudad",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.ext.nb_ciudad,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "nb_ciudad", $$v)
+                      },
+                      expression: "form.ext.nb_ciudad"
                     }
                   })
                 ],
@@ -80794,11 +80901,11 @@ var render = function() {
                       ticks: ""
                     },
                     model: {
-                      value: _vm.value,
+                      value: _vm.form.ext.nu_personas,
                       callback: function($$v) {
-                        _vm.value = $$v
+                        _vm.$set(_vm.form.ext, "nu_personas", $$v)
                       },
-                      expression: "value"
+                      expression: "form.ext.nu_personas"
                     }
                   })
                 ],
@@ -80814,7 +80921,7 @@ var render = function() {
                     { staticClass: "primary", attrs: { dark: "" } },
                     [
                       _c("v-icon", [_vm._v("home")]),
-                      _vm._v(" Vivienda en Venezuela\n        ")
+                      _vm._v(" Vivienda en Venezuela\n            ")
                     ],
                     1
                   ),
@@ -80944,16 +81051,18 @@ var render = function() {
                       ticks: ""
                     },
                     model: {
-                      value: _vm.value,
+                      value: _vm.form.nac.nu_personas,
                       callback: function($$v) {
-                        _vm.value = $$v
+                        _vm.$set(_vm.form.nac, "nu_personas", $$v)
                       },
-                      expression: "value"
+                      expression: "form.nac.nu_personas"
                     }
                   })
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("pre", [_vm._v(_vm._s(_vm.$data))])
             ],
             1
           )
@@ -108411,6 +108520,205 @@ exports.default = Object.freeze({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;;(function(root, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.vueJsonp = factory();
+  }
+}(this, function() {
+/**
+ * Vue Jsonp By LancerComet at 16:35, 2016.10.17.
+ * # Carry Your World #
+ *
+ * @author: LancerComet
+ * @license: MIT
+ */
+
+var _timeout = null
+
+var vueJsonp = {
+  install: function (Vue, options) {
+    Vue.jsonp = jsonp
+    Vue.prototype.$jsonp = jsonp
+
+    if (typeof options === 'number') {
+      _timeout = options
+    }
+  }
+}
+
+/**
+ * JSONP function.
+ * @param { String } url Target URL address.
+ * @param { Object } params Querying params object.
+ * @param { Number } timeout Timeout setting (ms).
+ *
+ * @example
+ *   Vue.jsonp('/url', {
+ *     callbackQuery: ''
+ *     callbackName: '',
+ *     name: 'LancerComet',
+ *     age: 26
+ *   }, 1000)
+ */
+function jsonp (url, params, timeout) {
+  params = params || {}
+  timeout = timeout || _timeout
+
+  return new Promise(function (resolve, reject) {
+    if (typeof url !== 'string') {
+      throw new Error('[Vue.jsonp] Type of param "url" is not string.')
+    }
+
+    var callbackQuery = params.callbackQuery || 'callback'
+    var callbackName = params.callbackName || 'jsonp_' + randomStr()
+
+    params[callbackQuery] = callbackName
+
+    // Remove callbackQuery and callbackName.
+    delete params.callbackQuery
+    delete params.callbackName
+
+    // Convert params to querying str.
+    var queryStrs = []
+    Object.keys(params).forEach(function (queryName) {
+      queryStrs = queryStrs.concat(formatParams(queryName, params[queryName]))
+    })
+
+    var queryStr = flatten(queryStrs).join('&')
+
+    // Timeout timer.
+    var timeoutTimer = null
+
+    // Setup timeout.
+    if (typeof timeout === 'number') {
+      timeoutTimer = setTimeout(function () {
+        removeErrorListener()
+        headNode.removeChild(paddingScript)
+        delete window[callbackName]
+        reject({ statusText: 'Request Timeout', status: 408 })
+      }, timeout)
+    }
+
+    // Create global function.
+    window[callbackName] = function (json) {
+      clearTimeout(timeoutTimer)
+      removeErrorListener()
+      headNode.removeChild(paddingScript)
+      resolve(json)
+      delete window[callbackName]
+    }
+
+    // Create script element.
+    var headNode = document.querySelector('head')
+    var paddingScript = document.createElement('script')
+
+    // Add error listener.
+    paddingScript.addEventListener('error', onError)
+
+    // Append to head element.
+    paddingScript.src = url + (/\?/.test(url) ? '&' : '?') + queryStr
+    headNode.appendChild(paddingScript)
+
+    /**
+     * Padding script on-error event.
+     * @param {Event} event
+     */
+    function onError (event) {
+      removeErrorListener()
+      clearTimeout(timeoutTimer)
+      reject({
+        status: 400,
+        statusText: 'Bad Request'
+      })
+    }
+
+    /**
+     * Remove on-error event listener.
+     */
+    function removeErrorListener () {
+      paddingScript.removeEventListener('error', onError)
+    }
+  })
+
+}
+
+/**
+ * Generate random string.
+ * @return { String }
+ */
+function randomStr () {
+  return (Math.floor(Math.random() * 100000) * Date.now()).toString(16)
+}
+
+/**
+ * Format params into querying string.
+ * @param {{}}
+ * @return {string[]}
+ */
+function formatParams (queryName, value) {
+  queryName = queryName.replace(/=/g, '')
+  var result = []
+
+  switch (value.constructor) {
+    case String:
+    case Number:
+    case Boolean:
+      result.push(encodeURIComponent(queryName) + '=' + encodeURIComponent(value))
+      break
+
+    case Array:
+      value.forEach(function (item) {
+        result = result.concat(formatParams(queryName + '[]=', item))
+      })
+      break
+
+    case Object:
+      Object.keys(value).forEach(function (key) {
+        var item = value[key]
+        result = result.concat(formatParams(queryName + '[' + key + ']', item))
+      })
+      break
+  }
+
+  return result
+}
+
+/**
+ * Flat querys.
+ *
+ * @param {any} array
+ * @returns
+ */
+function flatten (array) {
+  var querys = []
+  array.forEach(function (item) {
+    if (typeof item === 'string') {
+      querys.push(item)
+    } else {
+      querys = querys.concat(flatten(item))
+    }
+  })
+  return querys
+}
+
+return vueJsonp;
+}));
+
 
 /***/ })
 /******/ ]);

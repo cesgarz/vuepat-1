@@ -14,7 +14,11 @@ class PaisController extends Controller
      */
     public function index()
     {
-        $pais = Pais::with(['usuario', 'status'])->get();
+        $pais = Pais::select('id_pais', 'nb_pais', 'co_pais')
+                      ->where('id_status', 1)
+                      ->orderBy('nb_pais')
+                      ->get();
+
         return $pais;
     }
 
@@ -28,6 +32,7 @@ class PaisController extends Controller
     {
         $validate = request()->validate([
             'nb_pais'           => 'required|max:50',
+            'co_pais'           => 'required|max:2',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'
@@ -60,6 +65,7 @@ class PaisController extends Controller
     {
         $validate = request()->validate([
             'nb_pais'           => 'required|max:50',
+            'co_pais'           => 'required|max:2',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'

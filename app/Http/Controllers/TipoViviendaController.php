@@ -14,8 +14,10 @@ class TipoViviendaController extends Controller
      */
     public function index()
     {
-        $tiposVivienda = TipoVivienda::with(['usuario', 'status'])->get();
-        
+        $tiposVivienda = TipoVivienda::select('id_tipo_vivienda', 'nb_tipo_vivienda')
+                                      ->where('id_status', 1)
+                                      ->get();
+
         return $tiposVivienda;
     }
 
