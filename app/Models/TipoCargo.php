@@ -19,7 +19,7 @@ class TipoCargo extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_tipo_cargo','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

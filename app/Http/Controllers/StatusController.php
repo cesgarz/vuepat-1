@@ -19,6 +19,16 @@ class StatusController extends Controller
         return $status;
     }
 
+    public function statusGrupo($grupo)
+    {
+        $status = Status::select('id_status' , 'nb_status')
+                          ->where('nb_grupo', $grupo)
+                          ->where('bo_activo', 1)
+                          ->get();
+        
+        return $status;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -14,7 +14,9 @@ class MonedaController extends Controller
      */
     public function index()
     {
-        $moneda = Moneda::with(['usuario', 'status'])->get();
+        $moneda = Moneda::select('id_moneda', 'nb_moneda', 'co_moneda', 'tx_signo')
+                        ->where('id_status', 1)
+                        ->get();
         return $moneda;
     }
 

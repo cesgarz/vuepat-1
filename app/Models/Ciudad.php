@@ -20,7 +20,7 @@ class Ciudad extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_ciudad','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function estado()
     {

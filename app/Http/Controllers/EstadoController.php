@@ -14,7 +14,11 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estado = Discapacidad::with(['pais', 'usuario', 'status'])->get();
+        $estado = Estado::select('id_estado', 'nb_estado')
+                            ->where('id_status', 1)
+                            ->where('id_pais'  , 1)
+                            ->get();
+
         return $estado;
     }
 

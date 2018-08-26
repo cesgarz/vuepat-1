@@ -14,7 +14,9 @@ class TipoCargoController extends Controller
      */
     public function index()
     {
-        $tiposCargo = TipoCargo::with(['usuario', 'status'])->get();
+        $tiposCargo = TipoCargo::select('id_tipo_cargo', 'nb_tipo_cargo')
+                                ->where('id_status', 1)
+                                ->get();
         
         return $tiposCargo;
     }

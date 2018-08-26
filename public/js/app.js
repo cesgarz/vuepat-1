@@ -80377,7 +80377,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -80392,6 +80392,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp__ = __webpack_require__(380);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -80607,13 +80645,16 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
                     nu_personas: 0,
                     servicios: []
                 }
-
             },
             listas: {
                 pais: [],
-                tipoVivienda: []
-                //estado:       [],
+                tipoVivienda: [],
+                estado: [],
+                servicio: [],
+                ciudad: ['/estado/0'],
+                status: ['/grupo/VIVIENDA']
             },
+            listaCiudadLoad: false,
             ubicacion: {
                 key: "32b8a15ada11d325f3efd61000bb6974",
                 url: "https://battuta.medunes.net/api/",
@@ -80621,9 +80662,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
                 ciudad: [],
                 regionLoad: false,
                 ciudadLoad: false
-            },
-            estados: ['DTTO. CAPITAL', 'ANZOATEGUI', 'APURE', 'ARAGUA', 'BARINAS', 'BOLIVAR', 'CARABOBO', 'COJEDES', 'FALCON', 'GUARICO', 'LARA', 'MERIDA', 'MIRANDA', 'MONAGAS', 'NUEVA ESPARTA', 'PORTUGUESA', 'SUCRE', 'TACHIRA', 'TRUJILLO', 'YARACUY', 'ZULIA', 'AMAZONAS', 'DELTA AMACURO', 'VARGAS'],
-            ciudades: ['CARACAS', 'VALENCIA', 'MARACAIBO', 'LOS TEQUES', 'GUANARE', 'SAN CARLOS', 'CORO']
+            }
         };
     },
 
@@ -80633,7 +80672,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
             var _this = this;
 
             var co_pais = this.form.ext.co_pais;
-            console.log('region', co_pais);
+
             if (co_pais) {
                 this.ubicacion.regionLoad = true;
                 this.$jsonp(this.ubicacion.url + 'region/' + co_pais + '/all/?key=' + this.ubicacion.key, {}).then(function (json) {
@@ -80649,7 +80688,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
 
             var co_pais = this.form.ext.co_pais;
             var nb_estado = this.form.ext.nb_estado;
-            console.log('ciudad', co_pais, nb_estado);
+
             if (co_pais && nb_estado) {
                 this.ubicacion.ciudadLoad = true;
                 this.$jsonp(this.ubicacion.url + 'city/' + co_pais + '/search/?region=' + nb_estado + '&key=' + this.ubicacion.key, {}).then(function (json) {
@@ -80657,6 +80696,20 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
                     _this2.ubicacion.ciudadLoad = false;
                 }).catch(function (err) {
                     _this2.showError(error);
+                });
+            }
+        },
+        getListaCiudad: function getListaCiudad() {
+            var _this3 = this;
+
+            console.log('listaCiudad', this.form.nac.nb_estado);
+            if (this.form.nac.nb_estado) {
+                this.listaCiudadLoad = true;
+                axios.get('/api/v1/ciudad/estado/' + this.form.nac.nb_estado).then(function (respuesta) {
+                    _this3.listas.ciudad = respuesta.data;
+                    _this3.listaCiudadLoad = false;
+                }).catch(function (error) {
+                    _this3.showError(error);
                 });
             }
         },
@@ -80675,24 +80728,24 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
             */
         },
         store: function store() {
-            var _this3 = this;
-
-            axios.post(this.basePath, this.form).then(function (respuesta) {
-                _this3.showMessage(respuesta.data.msj);
-                _this3.$emit('completado', true);
-            }).catch(function (error) {
-                _this3.showError(error);
-                _this3.$emit('completado', false);
-            });
-        },
-        update: function update() {
             var _this4 = this;
 
-            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+            axios.post(this.basePath, this.form).then(function (respuesta) {
                 _this4.showMessage(respuesta.data.msj);
                 _this4.$emit('completado', true);
             }).catch(function (error) {
                 _this4.showError(error);
+                _this4.$emit('completado', false);
+            });
+        },
+        update: function update() {
+            var _this5 = this;
+
+            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+                _this5.showMessage(respuesta.data.msj);
+                _this5.$emit('completado', true);
+            }).catch(function (error) {
+                _this5.showError(error);
             });
         }
     }
@@ -80747,6 +80800,7 @@ var render = function() {
                       label: "Pais de Residencia",
                       "item-text": "nb_pais",
                       "item-value": "co_pais",
+                      rules: _vm.rules.select,
                       required: ""
                     },
                     on: {
@@ -80777,7 +80831,9 @@ var render = function() {
                       "item-value": "region",
                       label: "Estado/Provincia",
                       loading: _vm.ubicacion.regionLoad,
-                      required: ""
+                      rules: _vm.rules.select,
+                      required: "",
+                      "no-data-text": "Sin Datos"
                     },
                     on: {
                       change: function($event) {
@@ -80806,8 +80862,10 @@ var render = function() {
                       "item-text": "city",
                       "item-value": "city",
                       loading: _vm.ubicacion.ciudadLoad,
+                      rules: _vm.rules.select,
                       label: "Ciudad",
-                      required: ""
+                      required: "",
+                      "no-data-text": "Sin Datos"
                     },
                     model: {
                       value: _vm.form.ext.nb_ciudad,
@@ -80829,7 +80887,14 @@ var render = function() {
                     attrs: {
                       name: "name",
                       label: "Calle / Avenida / Carrera",
-                      id: "id"
+                      rules: _vm.rules.requerido
+                    },
+                    model: {
+                      value: _vm.form.ext.tx_calle,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "tx_calle", $$v)
+                      },
+                      expression: "form.ext.tx_calle"
                     }
                   })
                 ],
@@ -80841,7 +80906,18 @@ var render = function() {
                 { attrs: { sm4: "" } },
                 [
                   _c("v-text-field", {
-                    attrs: { name: "name", label: "Casa /Edificio", id: "id" }
+                    attrs: {
+                      name: "name",
+                      label: "Casa /Edificio",
+                      rules: _vm.rules.requerido
+                    },
+                    model: {
+                      value: _vm.form.ext.tx_casa,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "tx_casa", $$v)
+                      },
+                      expression: "form.ext.tx_casa"
+                    }
                   })
                 ],
                 1
@@ -80855,7 +80931,14 @@ var render = function() {
                     attrs: {
                       name: "name",
                       label: "Telf. de Habitacion",
-                      id: "id"
+                      rules: _vm.rules.requerido
+                    },
+                    model: {
+                      value: _vm.form.ext.tx_telefono,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "tx_telefono", $$v)
+                      },
+                      expression: "form.ext.tx_telefono"
                     }
                   })
                 ],
@@ -80868,17 +80951,19 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Alquilada",
-                        "Comodato",
-                        "Cedida/Heredada",
-                        "Nucleo Familiar",
-                        "Propia Pagada",
-                        "Propia Pangandose",
-                        "Prestada"
-                      ],
+                      items: _vm.listas.status,
+                      "item-text": "nb_status",
+                      "item-value": "id_status",
+                      rules: _vm.rules.select,
                       label: "Status de la Vivienda",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.ext.id_status,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.ext, "id_status", $$v)
+                      },
+                      expression: "form.ext.id_status"
                     }
                   })
                 ],
@@ -80898,6 +80983,7 @@ var render = function() {
                       "thumb-label": "always",
                       value: [0, 5],
                       max: "5",
+                      rules: _vm.rules.requerido,
                       ticks: ""
                     },
                     model: {
@@ -80937,9 +81023,19 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: ["Casa", "Apartamento", "Otros (Especifique)"],
+                      items: _vm.listas.tipoVivienda,
+                      "item-text": "nb_tipo_vivienda",
+                      "item-value": "id_tipo_vivienda",
+                      rules: _vm.rules.select,
                       label: "Tipo de Vivienda",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.nac.id_tipo_vivienda,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "id_tipo_vivienda", $$v)
+                      },
+                      expression: "form.nac.id_tipo_vivienda"
                     }
                   })
                 ],
@@ -80952,17 +81048,19 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Alquilada",
-                        "Comodato",
-                        "Cedida/Heredada",
-                        "Nucleo Familiar",
-                        "Propia Pagada",
-                        "Propia Pangandose",
-                        "Prestada"
-                      ],
+                      items: _vm.listas.status,
+                      "item-text": "nb_status",
+                      "item-value": "id_status",
+                      rules: _vm.rules.select,
                       label: "Status de la Vivienda",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.nac.id_status,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "id_status", $$v)
+                      },
+                      expression: "form.nac.id_status"
                     }
                   })
                 ],
@@ -80974,7 +81072,26 @@ var render = function() {
                 { attrs: { sm4: "" } },
                 [
                   _c("v-select", {
-                    attrs: { items: _vm.estados, label: "Estado", required: "" }
+                    attrs: {
+                      items: _vm.listas.estado,
+                      "item-text": "nb_estado",
+                      "item-value": "nb_estado",
+                      rules: _vm.rules.select,
+                      label: "Estado",
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.getListaCiudad()
+                      }
+                    },
+                    model: {
+                      value: _vm.form.nac.nb_estado,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "nb_estado", $$v)
+                      },
+                      expression: "form.nac.nb_estado"
+                    }
                   })
                 ],
                 1
@@ -80986,9 +81103,21 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: _vm.ciudades,
+                      items: _vm.listas.ciudad,
+                      "item-text": "nb_ciudad",
+                      "item-value": "nb_ciudad",
+                      rules: _vm.rules.select,
+                      loading: _vm.listaCiudadLoad,
                       label: "Ciudad",
-                      required: ""
+                      required: "",
+                      "no-data-text": "Sin Datos"
+                    },
+                    model: {
+                      value: _vm.form.nac.nb_ciudad,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "nb_ciudad", $$v)
+                      },
+                      expression: "form.nac.nb_ciudad"
                     }
                   })
                 ],
@@ -81003,7 +81132,14 @@ var render = function() {
                     attrs: {
                       name: "name",
                       label: "Calle / Avenida / Barrio",
-                      id: "id"
+                      rules: _vm.rules.requerido
+                    },
+                    model: {
+                      value: _vm.form.nac.tx_calle,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "tx_calle", $$v)
+                      },
+                      expression: "form.nac.tx_calle"
                     }
                   })
                 ],
@@ -81018,17 +81154,20 @@ var render = function() {
                     attrs: {
                       chips: "",
                       "deletable-chips": "",
-                      items: [
-                        "Electicidad",
-                        "Agua potable",
-                        "Agua Servida",
-                        "Linea Telefonica",
-                        "Gas domestico",
-                        "Otros"
-                      ],
+                      items: _vm.listas.servicio,
+                      "item-text": "nb_servicio",
+                      "item-value": "id_servicio",
+                      rules: _vm.rules.select,
                       label: "Servicios Basicos",
                       required: "",
                       multiple: ""
+                    },
+                    model: {
+                      value: _vm.form.nac.servicios,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.nac, "servicios", $$v)
+                      },
+                      expression: "form.nac.servicios"
                     }
                   })
                 ],
@@ -81048,6 +81187,7 @@ var render = function() {
                       "thumb-label": "always",
                       value: [0, 5],
                       max: "5",
+                      rules: _vm.rules.requerido,
                       ticks: ""
                     },
                     model: {
@@ -82331,7 +82471,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82342,6 +82482,28 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(7);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -82513,22 +82675,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'datos-situacionales',
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
             picker: 0,
             checkbox: false,
             value: 0,
             form: {
-                tipoCargo: false,
-                jornada: false,
-                remuneracion: false,
-                propio: false
+                id_empleo: false,
+                id_persona: false,
+                tx_empresa: false,
+                id_sector: false,
+                id_tipo_cargo: false,
+                tx_cargo: false,
+                id_jornada: false,
+                id_remuneracion: false,
+                id_moneda: false,
+                mo_remuneracion: false,
+                bo_empresa_propia: false,
+                nb_empresa_propia: false,
+                tx_observaciones: false,
+                id_status: false,
+                id_usuario: false,
+                id_nivel_estudio: false
+            },
+            listaEmpleos: [],
+            listas: {
+                nivelEstudio: [],
+                sector: [],
+                tipoCargo: [],
+                jornada: [],
+                remuneracion: [],
+                moneda: []
             },
             row: 0,
             rules: {}
         };
+    },
+
+    methods: {
+        getData: function getData() {
+
+            /*
+            axios.get(this.basePath + this.$store.getters.user.id_usuario)
+            .then(respuesta => 
+            {
+                this.datos = respuesta.data;
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
+            */
+        },
+        store: function store() {
+            var _this = this;
+
+            axios.post(this.basePath, this.form).then(function (respuesta) {
+                _this.showMessage(respuesta.data.msj);
+                _this.$emit('completado', true);
+            }).catch(function (error) {
+                _this.showError(error);
+                _this.$emit('completado', false);
+            });
+        },
+        update: function update() {
+            var _this2 = this;
+
+            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+                _this2.showMessage(respuesta.data.msj);
+                _this2.$emit('completado', true);
+            }).catch(function (error) {
+                _this2.showError(error);
+            });
+        }
     }
 });
 
@@ -82556,17 +82780,20 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Primaria",
-                        "Bachillerato",
-                        "TSU",
-                        "Universitaria",
-                        "Cuarto Nivel",
-                        "PHD"
-                      ],
+                      items: _vm.listas.nivelEstudio,
                       label: "Nivel de Estudio",
+                      "item-text": "nb_nivel_estudio",
+                      "item-value": "id_nivel_estudio",
+                      rules: _vm.rules.select,
                       "prepend-icon": "school",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.id_nivel_estudio,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "id_nivel_estudio", $$v)
+                      },
+                      expression: "form.id_nivel_estudio"
                     }
                   })
                 ],
@@ -82586,6 +82813,13 @@ var render = function() {
                       hint: "Nombre o Razon Social de la Empresa",
                       "prepend-icon": "business",
                       id: "id"
+                    },
+                    model: {
+                      value: _vm.form.tx_empresa,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tx_empresa", $$v)
+                      },
+                      expression: "form.tx_empresa"
                     }
                   })
                 ],
@@ -82598,27 +82832,20 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Agricola",
-                        "Pecuaria",
-                        "Construcción Civil",
-                        "Obras Civiles",
-                        "Comercio",
-                        "Turismo",
-                        "Educación",
-                        "Salud",
-                        "Finanzas",
-                        "Ambiental",
-                        "Pesca",
-                        "Alimentos",
-                        "Textil",
-                        "Confección",
-                        "Metalmecanica",
-                        "Forestal"
-                      ],
+                      items: _vm.listas.sector,
                       label: "Sector",
+                      "item-text": "nb_sector",
+                      "item-value": "id_sector",
+                      rules: _vm.rules.select,
                       hint: "Sector en el que se desempeña",
                       required: ""
+                    },
+                    model: {
+                      value: _vm.form.id_sector,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "id_sector", $$v)
+                      },
+                      expression: "form.id_sector"
                     }
                   })
                 ],
@@ -82631,21 +82858,20 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "Obrero (especifique)",
-                        "Administrativo (especifique)",
-                        "Otros (especifique)"
-                      ],
+                      items: _vm.listas.tipoCargo,
                       label: "Tipo de Cargo",
+                      "item-text": "nb_tipo_cargo",
+                      "item-value": "id_tipo_cargo",
+                      rules: _vm.rules.select,
                       required: "",
                       "prepend-icon": "work_outline"
                     },
                     model: {
-                      value: _vm.form.tipoCargo,
+                      value: _vm.form.id_tipo_cargo,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "tipoCargo", $$v)
+                        _vm.$set(_vm.form, "id_tipo_cargo", $$v)
                       },
-                      expression: "form.tipoCargo"
+                      expression: "form.id_tipo_cargo"
                     }
                   })
                 ],
@@ -82661,11 +82887,18 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.form.tipoCargo,
-                        expression: "form.tipoCargo"
+                        value: _vm.form.id_tipo_cargo,
+                        expression: "form.id_tipo_cargo"
                       }
                     ],
-                    attrs: { name: "name", label: "Cargo", id: "id" }
+                    attrs: { label: "Cargo" },
+                    model: {
+                      value: _vm.form.tx_cargo,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tx_cargo", $$v)
+                      },
+                      expression: "form.tx_cargo"
+                    }
                   })
                 ],
                 1
@@ -82677,23 +82910,21 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      items: [
-                        "4 HORAS",
-                        "8 HORAS",
-                        "12 HORAS",
-                        "MÁS DE 12 HORAS"
-                      ],
+                      items: _vm.listas.jornada,
+                      "item-text": "nb_jornada",
+                      "item-value": "id_jornada",
+                      rules: _vm.rules.select,
                       label: "Jornada de trabajo",
                       hint: "Indique las horas de trabajo al dia",
                       "prepend-icon": "timer",
                       required: ""
                     },
                     model: {
-                      value: _vm.form.jornada,
+                      value: _vm.form.id_jornada,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "jornada", $$v)
+                        _vm.$set(_vm.form, "id_jornada", $$v)
                       },
-                      expression: "form.jornada"
+                      expression: "form.id_jornada"
                     }
                   })
                 ],
@@ -82709,22 +82940,25 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.form.jornada,
-                        expression: "form.jornada"
+                        value: _vm.form.id_jornada,
+                        expression: "form.id_jornada"
                       }
                     ],
                     attrs: {
-                      items: ["Por Hora", "Días", "Semanas", "Mes"],
+                      items: _vm.listas.remuneracion,
                       label: "Remuneracion",
+                      "item-text": "nb_remuneracion",
+                      "item-value": "id_remuneracion",
+                      rules: _vm.rules.select,
                       "prepend-icon": "attach_money",
                       required: ""
                     },
                     model: {
-                      value: _vm.form.remuneracion,
+                      value: _vm.form.id_remuneracion,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "remuneracion", $$v)
+                        _vm.$set(_vm.form, "id_remuneracion", $$v)
                       },
-                      expression: "form.remuneracion"
+                      expression: "form.id_remuneracion"
                     }
                   })
                 ],
@@ -82740,29 +82974,23 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.form.remuneracion,
-                        expression: "form.remuneracion"
+                        value: _vm.form.id_remuneracion,
+                        expression: "form.id_remuneracion"
                       }
                     ],
                     attrs: {
-                      items: [
-                        "Soles",
-                        "Pesos",
-                        "Boliviano",
-                        "Lempira",
-                        "Real",
-                        "Dolares",
-                        "Euros"
-                      ],
+                      items: _vm.listas.moneda,
+                      "item-text": "nb_moneda",
+                      "item-value": "id_moneda",
                       label: "Moneda",
                       required: ""
                     },
                     model: {
-                      value: _vm.form.moneda,
+                      value: _vm.form.id_moneda,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "moneda", $$v)
+                        _vm.$set(_vm.form, "id_moneda", $$v)
                       },
-                      expression: "form.moneda"
+                      expression: "form.id_moneda"
                     }
                   })
                 ],
@@ -82778,8 +83006,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.form.remuneracion,
-                        expression: "form.remuneracion"
+                        value: _vm.form.id_remuneracion,
+                        expression: "form.id_remuneracion"
                       }
                     ],
                     attrs: { name: "name", label: "Monto", id: "id" }
@@ -82798,11 +83026,11 @@ var render = function() {
                       "prepend-icon": "shop"
                     },
                     model: {
-                      value: _vm.form.propio,
+                      value: _vm.form.bo_negocio_propio,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "propio", $$v)
+                        _vm.$set(_vm.form, "bo_negocio_propio", $$v)
                       },
-                      expression: "form.propio"
+                      expression: "form.bo_negocio_propio"
                     }
                   })
                 ],
@@ -82816,8 +83044,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.form.propio,
-                      expression: "form.propio"
+                      value: _vm.form.bo_negocio_propio,
+                      expression: "form.bo_negocio_propio"
                     }
                   ],
                   attrs: { sm9: "" }
@@ -82933,7 +83161,9 @@ var render = function() {
                   })
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("pre", [_vm._v(_vm._s(_vm.$data))])
             ],
             1
           )

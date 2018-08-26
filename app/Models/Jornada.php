@@ -19,7 +19,7 @@ class Jornada extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_jornada','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

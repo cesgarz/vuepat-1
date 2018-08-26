@@ -18,6 +18,7 @@
         item-text="nb_pais"
         item-value="co_pais"
         v-model="form.ext.co_pais"
+        :rules="rules.select"
         required
         @change="getRegion()"
         ></v-autocomplete>
@@ -31,8 +32,10 @@
         v-model="form.ext.nb_estado"
         label="Estado/Provincia"
         :loading="ubicacion.regionLoad"
+        :rules="rules.select"
         required
         @change="getCiudad()"
+        no-data-text="Sin Datos"
         ></v-select>
         </v-flex>
 
@@ -43,8 +46,10 @@
         item-value="city"
         v-model="form.ext.nb_ciudad"
         :loading="ubicacion.ciudadLoad"
+        :rules="rules.select"
         label="Ciudad"
         required
+        no-data-text="Sin Datos"
         ></v-select>
         </v-flex>
 
@@ -52,7 +57,8 @@
         <v-text-field
             name="name"
             label="Calle / Avenida / Carrera"
-            id="id"
+            v-model="form.ext.tx_calle"
+            :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
@@ -60,7 +66,8 @@
         <v-text-field
             name="name"
             label="Casa /Edificio"
-            id="id"
+            v-model="form.ext.tx_casa"
+            :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
@@ -68,13 +75,18 @@
         <v-text-field
             name="name"
             label="Telf. de Habitacion"
-            id="id"
+            v-model="form.ext.tx_telefono"
+            :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
         <v-flex sm4>
             <v-select
-            :items="['Alquilada','Comodato','Cedida/Heredada', 'Nucleo Familiar', 'Propia Pagada', 'Propia Pangandose', 'Prestada']"
+            :items="listas.status"
+            item-text="nb_status"
+            item-value="id_status"
+            v-model="form.ext.id_status"
+            :rules="rules.select"
             label="Status de la Vivienda"
             required
             ></v-select>
@@ -90,6 +102,7 @@
             thumb-label="always"
             :value="[0, 5]"
             max="5"
+            :rules="rules.requerido"
             ticks
         ></v-slider>
         </v-flex>
@@ -103,15 +116,23 @@
     
         <v-flex sm4>
         <v-select
-        :items="['Casa', 'Apartamento', 'Otros (Especifique)']"
-        label="Tipo de Vivienda"
-        required
+            :items="listas.tipoVivienda"
+            item-text="nb_tipo_vivienda"
+            item-value="id_tipo_vivienda"
+            v-model="form.nac.id_tipo_vivienda"
+            :rules="rules.select"
+            label="Tipo de Vivienda"
+            required
         ></v-select>
         </v-flex>
 
         <v-flex sm4>
             <v-select
-            :items="['Alquilada','Comodato','Cedida/Heredada', 'Nucleo Familiar', 'Propia Pagada', 'Propia Pangandose', 'Prestada']"
+            :items="listas.status"
+            item-text="nb_status"
+            item-value="id_status"
+            v-model="form.nac.id_status"
+            :rules="rules.select"
             label="Status de la Vivienda"
             required
             ></v-select>
@@ -119,17 +140,28 @@
 
         <v-flex sm4>
             <v-select
-            :items="estados"
+            :items="listas.estado"
+            item-text="nb_estado"
+            item-value="nb_estado"
+            v-model="form.nac.nb_estado"
+            :rules="rules.select"
             label="Estado"
+            @change="getListaCiudad()"
             required
             ></v-select>
         </v-flex>
 
         <v-flex sm4>
             <v-select
-            :items="ciudades"
+            :items="listas.ciudad"
+            item-text="nb_ciudad"
+            item-value="nb_ciudad"
+            :rules="rules.select"
+            v-model="form.nac.nb_ciudad"
+            :loading="listaCiudadLoad"
             label="Ciudad"
             required
+            no-data-text="Sin Datos"
             ></v-select>
         </v-flex>
 
@@ -137,7 +169,8 @@
         <v-text-field
             name="name"
             label="Calle / Avenida / Barrio"
-            id="id"
+            v-model="form.nac.tx_calle"
+            :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
@@ -145,7 +178,11 @@
             <v-select
             chips
             deletable-chips
-            :items="['Electicidad','Agua potable','Agua Servida','Linea Telefonica','Gas domestico','Otros']"
+            :items="listas.servicio"
+            item-text="nb_servicio"
+            item-value="id_servicio"
+            v-model="form.nac.servicios"
+            :rules="rules.select"
             label="Servicios Basicos"
             required
             multiple
@@ -162,11 +199,12 @@
             thumb-label="always"
             :value="[0, 5]"
             max="5"
+            :rules="rules.requerido"
             ticks
         ></v-slider>
         </v-flex>
 
-<pre>{{$data}}</pre>
+<pre>{{'$data'}}</pre>
 
 
     </v-layout>
@@ -216,13 +254,16 @@ export default {
                     nu_personas: 0,
                     servicios:[]
                 }
-
             },
             listas:{
                 pais:         [],
                 tipoVivienda: [],
-                //estado:       [],
+                estado:       [],
+                servicio:     [],
+                ciudad:       ['/estado/0'],
+                status:       ['/grupo/VIVIENDA']
             },
+            listaCiudadLoad: false,
             ubicacion:{
                 key:     "32b8a15ada11d325f3efd61000bb6974",
                 url:     "https://battuta.medunes.net/api/",
@@ -231,8 +272,6 @@ export default {
                 regionLoad: false,
                 ciudadLoad: false,
             },
-            estados: ['DTTO. CAPITAL','ANZOATEGUI','APURE','ARAGUA','BARINAS','BOLIVAR','CARABOBO','COJEDES','FALCON','GUARICO','LARA','MERIDA','MIRANDA','MONAGAS','NUEVA ESPARTA','PORTUGUESA','SUCRE','TACHIRA','TRUJILLO','YARACUY','ZULIA','AMAZONAS','DELTA AMACURO','VARGAS'],
-            ciudades:['CARACAS', 'VALENCIA', 'MARACAIBO', 'LOS TEQUES', 'GUANARE', 'SAN CARLOS', 'CORO'],
         }
     },
 
@@ -242,7 +281,7 @@ export default {
         {   
             
             let co_pais = this.form.ext.co_pais;
-            console.log('region',co_pais)
+
             if(co_pais)
             {
                this.ubicacion.regionLoad = true;
@@ -260,7 +299,7 @@ export default {
             
             let co_pais   = this.form.ext.co_pais;
             let nb_estado = this.form.ext.nb_estado;
-            console.log('ciudad',co_pais, nb_estado)
+
             if(co_pais && nb_estado)
             {
                this.ubicacion.ciudadLoad = true;
@@ -273,6 +312,26 @@ export default {
                 })
             }
 
+        },
+        getListaCiudad()
+        {
+            console.log('listaCiudad', this.form.nac.nb_estado)
+            if(this.form.nac.nb_estado)
+            {
+                this.listaCiudadLoad = true;
+                axios.get('/api/v1/ciudad/estado/' + this.form.nac.nb_estado )
+                .then(respuesta => 
+                {
+                    this.listas.ciudad = respuesta.data;
+                    this.listaCiudadLoad = false;
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+                
+            }
+            
         },
         getData()
         {

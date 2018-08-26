@@ -14,8 +14,10 @@ class RemuneracionController extends Controller
      */
     public function index()
     {
-        $remuneracion = Remuneracion::with(['usuario', 'status'])->get();
-        
+        $remuneracion = Remuneracion::select('id_remuneracion', 'nb_remuneracion')
+                                    ->where('id_status', 1)
+                                    ->get();
+                                    
         return $remuneracion;
     }
 

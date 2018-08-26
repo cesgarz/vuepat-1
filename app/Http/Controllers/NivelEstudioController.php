@@ -14,7 +14,9 @@ class NivelEstudioController extends Controller
      */
     public function index()
     {
-         $nivelEstudio = NivelEstudio::with(['usuario', 'status'])->get();
+         $nivelEstudio = NivelEstudio::select('id_nivel_estudio', 'nb_nivel_estudio')
+                                    ->where('id_status', 1)
+                                    ->get();
         return $nivelEstudio;
     }
 

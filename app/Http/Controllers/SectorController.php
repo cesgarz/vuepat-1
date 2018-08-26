@@ -14,8 +14,10 @@ class SectorController extends Controller
      */
     public function index()
     {
-         $sectores = Sector::with(['usuario', 'status'])->get();
-        
+        $sectores = Sector::select('id_sector', 'nb_sector')
+                            ->where('id_status', 1)
+                            ->get();
+                            
         return $sectores;
     }
 

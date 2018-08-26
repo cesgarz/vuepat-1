@@ -14,7 +14,10 @@ class JornadaController extends Controller
      */
     public function index()
     {
-        $jornada = Jornada::with(['usuario', 'status'])->get();
+        $jornada = Jornada::select('id_jornada', 'nb_jornada')
+                            ->where('id_status', 1)
+                            ->get();
+
         return $jornada;
     }
 

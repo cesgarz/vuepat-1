@@ -19,7 +19,7 @@ class Sector extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_sector','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

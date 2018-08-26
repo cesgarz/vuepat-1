@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudad;
+use App\Models\Estado;
 use Illuminate\Http\Request;
 
 class CiudadController extends Controller
@@ -14,9 +15,30 @@ class CiudadController extends Controller
      */
     public function index()
     {
-        $ciudades = Ciudad::with(['estado', 'usuario', 'status'])->get();
+        $ciudad = Ciudad::select('id_ciudad', 'nb_ciudad')
+                            ->where('id_status', 1)
+                            ->get();
+        return $ciudad;
+    }
+
+    public function ciudadEstado($nb_estado)
+    {
+        $estado = Estado::where('nb_estado', $nb_estado)->first();
         
-        return $ciudades;
+        if( count($estado) > 0 )
+        {
+            $ciudad = Ciudad::select('id_ciudad', 'nb_ciudad')
+                            ->where('id_status', 1)
+                            ->where('id_estado', $estado->id_estado)
+                            ->get();
+
+        }
+        else
+        {
+            $ciudad = [];
+        }
+        
+        return $ciudad;
     }
 
     /**
