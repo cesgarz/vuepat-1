@@ -435,6 +435,50 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for rol_id_rol_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."rol_id_rol_seq";
+CREATE SEQUENCE "public"."rol_id_rol_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for menu_id_menu_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."menu_id_menu_seq";
+CREATE SEQUENCE "public"."menu_id_menu_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for rol_usuario_id_rol_usuario_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."rol_usuario_id_rol_usuario_seq";
+CREATE SEQUENCE "public"."rol_usuario_id_rol_usuario_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for rol_menu_id_rol_menu_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."rol_menu_id_rol_menu_seq";
+CREATE SEQUENCE "public"."rol_menu_id_rol_menu_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Table structure for ciudad
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."ciudad";
@@ -2068,6 +2112,72 @@ CREATE TABLE "public"."vivienda_servicio" (
 ;
 
 -- ----------------------------
+-- Table structure for rol
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."rol";
+CREATE TABLE "public"."rol" (
+  "id_rol" int4 NOT NULL DEFAULT nextval('rol_id_rol_seq'::regclass),
+  "nb_rol" int4 NOT NULL,
+  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
+  "id_status" int4 NOT NULL,
+  "id_usuario" int4 NOT NULL,
+  "fe_creado" timestamp(6),
+  "fe_actualizado" timestamp(6)
+)
+;
+
+-- ----------------------------
+-- Records of rol
+-- ----------------------------
+INSERT INTO "public"."rol" VALUES (1, 'general', NULL, 1, 1, '2018-08-23 10:33:22', '2018-08-26 20:42:22');
+INSERT INTO "public"."rol" VALUES (2, 'administrador', NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."menu";
+CREATE TABLE "public"."menu" (
+  "id_menu" int4 NOT NULL DEFAULT nextval('menu_id_menu_seq'::regclass),
+  "nb_menu" int4 NOT NULL,
+  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
+  "id_status" int4 NOT NULL,
+  "id_usuario" int4 NOT NULL,
+  "fe_creado" timestamp(6),
+  "fe_actualizado" timestamp(6)
+)
+;
+
+-- ----------------------------
+-- Table structure for rol_usuario
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."rol_usuario";
+CREATE TABLE "public"."rol_usuario" (
+  "id_rol_usuario" int4 NOT NULL DEFAULT nextval('rol_usuario_id_rol_usuario_seq'::regclass),
+  "id_usuario" int4 NOT NULL,
+  "id_rol" int4 NOT NULL,
+  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
+  "id_status" int4 NOT NULL,
+  "fe_creado" timestamp(6),
+  "fe_actualizado" timestamp(6)
+)
+;
+
+-- ----------------------------
+-- Table structure for rol_menu
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."rol_menu";
+CREATE TABLE "public"."rol_menu" (
+  "id_rol_menu" int4 NOT NULL DEFAULT nextval('rol_menu_id_rol_menu_seq'::regclass),
+  "id_rol" int4 NOT NULL,
+  "id_menu" int4 NOT NULL,
+  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
+  "id_status" int4 NOT NULL,
+  "fe_creado" timestamp(6),
+  "fe_actualizado" timestamp(6)
+)
+;
+
+-- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 SELECT setval('"public"."ciudad_id_ciudad_seq"', 2, false);
@@ -2108,6 +2218,7 @@ SELECT setval('"public"."usuario_persona_id_usuario_persona_seq"', 3, false);
 SELECT setval('"public"."vivienda_id_vivienta_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicio_id_vivienda_servicio_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicios_id_vivienda_servicios_seq"', 3, false);
+SELECT setval('"public"."rol"', 3, false);
 
 -- ----------------------------
 -- Uniques structure for table ciudad
@@ -2414,3 +2525,33 @@ ALTER TABLE "public"."vivienda_servicio" ADD CONSTRAINT "uk_vivienda_servicio" U
 -- Primary Key structure for table vivienda_servicio
 -- ----------------------------
 ALTER TABLE "public"."vivienda_servicio" ADD CONSTRAINT "pk_id_vivienda_servicio" PRIMARY KEY ("id_vivienda_servicio");
+
+-- ----------------------------
+-- Uniques structure for table rol
+-- ----------------------------
+ALTER TABLE "public"."rol" ADD CONSTRAINT "uk_rol" UNIQUE ("nb_rol");
+
+-- ----------------------------
+-- Primary Key structure for table rol
+-- ----------------------------
+ALTER TABLE "public"."rol" ADD CONSTRAINT "pk_id_rol" PRIMARY KEY ("id_rol");
+
+-- ----------------------------
+-- Uniques structure for table menu
+-- ----------------------------
+ALTER TABLE "public"."menu" ADD CONSTRAINT "uk_menu" UNIQUE ("nb_menu");
+
+-- ----------------------------
+-- Primary Key structure for table menu
+-- ----------------------------
+ALTER TABLE "public"."menu" ADD CONSTRAINT "pk_id_menu" PRIMARY KEY ("id_menu");
+
+-- ----------------------------
+-- Primary Key structure for table rol_usuario
+-- ----------------------------
+ALTER TABLE "public"."rol_usuario" ADD CONSTRAINT "pk_id_rol_usuario" PRIMARY KEY ("id_rol_usuario");
+
+-- ----------------------------
+-- Primary Key structure for table rol_menu
+-- ----------------------------
+ALTER TABLE "public"."rol_menu" ADD CONSTRAINT "pk_id_rol_menu" PRIMARY KEY ("id_rol_menu");
