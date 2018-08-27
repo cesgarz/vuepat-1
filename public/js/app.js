@@ -82944,7 +82944,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82959,6 +82959,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_registro_EmpleoLista_vue__ = __webpack_require__(381);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_registro_EmpleoLista_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_registro_EmpleoLista_vue__);
+//
+//
 //
 //
 //
@@ -83228,303 +83230,311 @@ var render = function() {
                 },
                 [
                   _c(
-                    "v-flex",
-                    { attrs: { sm4: "" } },
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
                     [
-                      _c("v-select", {
-                        attrs: {
-                          items: _vm.listas.nivelEstudio,
-                          label: "Nivel de Estudio",
-                          "item-text": "nb_nivel_estudio",
-                          "item-value": "id_nivel_estudio",
-                          rules: _vm.rules.select,
-                          "prepend-icon": "school",
-                          required: ""
-                        },
-                        model: {
-                          value: _vm.form.id_nivel_estudio,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "id_nivel_estudio", $$v)
-                          },
-                          expression: "form.id_nivel_estudio"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("v-flex", { attrs: { sm8: "" } }),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm8: "" } },
-                    [
-                      _c("v-text-field", {
-                        attrs: {
-                          name: "name",
-                          label: "Empresa/local Donde Trabaja",
-                          hint: "Nombre o Razon Social de la Empresa/local",
-                          "prepend-icon": "business",
-                          id: "id"
-                        },
-                        model: {
-                          value: _vm.form.tx_empresa,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "tx_empresa", $$v)
-                          },
-                          expression: "form.tx_empresa"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm4: "" } },
-                    [
-                      _c("v-select", {
-                        attrs: {
-                          items: _vm.listas.sector,
-                          label: "Sector",
-                          "item-text": "nb_sector",
-                          "item-value": "id_sector",
-                          rules: _vm.rules.select,
-                          hint: "Sector en el que se desempeña",
-                          required: ""
-                        },
-                        model: {
-                          value: _vm.form.id_sector,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "id_sector", $$v)
-                          },
-                          expression: "form.id_sector"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm4: "" } },
-                    [
-                      _c("v-select", {
-                        attrs: {
-                          items: _vm.listas.tipoCargo,
-                          label: "Tipo de Cargo",
-                          "item-text": "nb_tipo_cargo",
-                          "item-value": "id_tipo_cargo",
-                          rules: _vm.rules.select,
-                          required: "",
-                          "prepend-icon": "work_outline"
-                        },
-                        model: {
-                          value: _vm.form.id_tipo_cargo,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "id_tipo_cargo", $$v)
-                          },
-                          expression: "form.id_tipo_cargo"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm8: "" } },
-                    [
-                      _vm.form.id_tipo_cargo
-                        ? _c("v-text-field", {
-                            attrs: {
-                              label: "Cargo",
-                              rules: _vm.rules.requerido,
-                              required: ""
-                            },
-                            model: {
-                              value: _vm.form.tx_cargo,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "tx_cargo", $$v)
-                              },
-                              expression: "form.tx_cargo"
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm3: "" } },
-                    [
-                      _c("v-select", {
-                        attrs: {
-                          items: _vm.listas.jornada,
-                          "item-text": "nb_jornada",
-                          "item-value": "id_jornada",
-                          rules: _vm.rules.select,
-                          label: "Jornada de trabajo",
-                          hint: "Indique las horas de trabajo al dia",
-                          "prepend-icon": "timer",
-                          required: ""
-                        },
-                        model: {
-                          value: _vm.form.id_jornada,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "id_jornada", $$v)
-                          },
-                          expression: "form.id_jornada"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm3: "" } },
-                    [
-                      _vm.form.id_jornada
-                        ? _c("v-select", {
-                            attrs: {
-                              items: _vm.listas.remuneracion,
-                              label: "Remuneracion",
-                              "item-text": "nb_remuneracion",
-                              "item-value": "id_remuneracion",
-                              rules: _vm.rules.select,
-                              "prepend-icon": "attach_money",
-                              required: ""
-                            },
-                            model: {
-                              value: _vm.form.id_remuneracion,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "id_remuneracion", $$v)
-                              },
-                              expression: "form.id_remuneracion"
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm3: "" } },
-                    [
-                      _vm.form.id_remuneracion
-                        ? _c("v-select", {
-                            attrs: {
-                              items: _vm.listas.moneda,
-                              "item-text": "nb_moneda",
-                              "item-value": "id_moneda",
-                              label: "Moneda",
-                              required: ""
-                            },
-                            model: {
-                              value: _vm.form.id_moneda,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "id_moneda", $$v)
-                              },
-                              expression: "form.id_moneda"
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm3: "" } },
-                    [
-                      _c("v-text-field", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.form.id_remuneracion,
-                            expression: "form.id_remuneracion"
-                          }
-                        ],
-                        attrs: { label: "Monto" },
-                        model: {
-                          value: _vm.form.mo_remuneracion,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "mo_remuneracion", $$v)
-                          },
-                          expression: "form.mo_remuneracion"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", sm3: "" } },
-                    [
-                      _c("v-checkbox", {
-                        attrs: {
-                          label: "Empresa/Negocio Propio?",
-                          "prepend-icon": "shop"
-                        },
-                        model: {
-                          value: _vm.form.bo_empresa_propia,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "bo_empresa_propia", $$v)
-                          },
-                          expression: "form.bo_empresa_propia"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.form.bo_empresa_propia
-                    ? _c(
+                      _c(
                         "v-flex",
-                        { attrs: { sm9: "" } },
+                        { attrs: { sm4: "" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.listas.nivelEstudio,
+                              label: "Nivel de Estudio",
+                              "item-text": "nb_nivel_estudio",
+                              "item-value": "id_nivel_estudio",
+                              rules: _vm.rules.select,
+                              "prepend-icon": "school",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.id_nivel_estudio,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "id_nivel_estudio", $$v)
+                              },
+                              expression: "form.id_nivel_estudio"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { sm8: "" } }),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm8: "" } },
                         [
                           _c("v-text-field", {
                             attrs: {
-                              label: "Negocio o Empresa",
-                              rules: _vm.rules.requerido,
+                              name: "name",
+                              label: "Empresa/local Donde Trabaja",
+                              hint: "Nombre o Razon Social de la Empresa/local",
+                              "prepend-icon": "business",
+                              id: "id"
+                            },
+                            model: {
+                              value: _vm.form.tx_empresa,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_empresa", $$v)
+                              },
+                              expression: "form.tx_empresa"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm4: "" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.listas.sector,
+                              label: "Sector",
+                              "item-text": "nb_sector",
+                              "item-value": "id_sector",
+                              rules: _vm.rules.select,
+                              hint: "Sector en el que se desempeña",
                               required: ""
                             },
                             model: {
-                              value: _vm.form.nb_empresa_propia,
+                              value: _vm.form.id_sector,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "nb_empresa_propia", $$v)
+                                _vm.$set(_vm.form, "id_sector", $$v)
                               },
-                              expression: "form.nb_empresa_propia"
+                              expression: "form.id_sector"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm4: "" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.listas.tipoCargo,
+                              label: "Tipo de Cargo",
+                              "item-text": "nb_tipo_cargo",
+                              "item-value": "id_tipo_cargo",
+                              rules: _vm.rules.select,
+                              required: "",
+                              "prepend-icon": "work_outline"
+                            },
+                            model: {
+                              value: _vm.form.id_tipo_cargo,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "id_tipo_cargo", $$v)
+                              },
+                              expression: "form.id_tipo_cargo"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm8: "" } },
+                        [
+                          _vm.form.id_tipo_cargo
+                            ? _c("v-text-field", {
+                                attrs: {
+                                  label: "Cargo",
+                                  rules: _vm.rules.requerido,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.tx_cargo,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "tx_cargo", $$v)
+                                  },
+                                  expression: "form.tx_cargo"
+                                }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm3: "" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.listas.jornada,
+                              "item-text": "nb_jornada",
+                              "item-value": "id_jornada",
+                              rules: _vm.rules.select,
+                              label: "Jornada de trabajo",
+                              hint: "Indique las horas de trabajo al dia",
+                              "prepend-icon": "timer",
+                              required: ""
+                            },
+                            model: {
+                              value: _vm.form.id_jornada,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "id_jornada", $$v)
+                              },
+                              expression: "form.id_jornada"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm3: "" } },
+                        [
+                          _vm.form.id_jornada
+                            ? _c("v-select", {
+                                attrs: {
+                                  items: _vm.listas.remuneracion,
+                                  label: "Remuneracion",
+                                  "item-text": "nb_remuneracion",
+                                  "item-value": "id_remuneracion",
+                                  rules: _vm.rules.select,
+                                  "prepend-icon": "attach_money",
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.id_remuneracion,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "id_remuneracion", $$v)
+                                  },
+                                  expression: "form.id_remuneracion"
+                                }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm3: "" } },
+                        [
+                          _vm.form.id_remuneracion
+                            ? _c("v-select", {
+                                attrs: {
+                                  items: _vm.listas.moneda,
+                                  "item-text": "nb_moneda",
+                                  "item-value": "id_moneda",
+                                  label: "Moneda",
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.id_moneda,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "id_moneda", $$v)
+                                  },
+                                  expression: "form.id_moneda"
+                                }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm3: "" } },
+                        [
+                          _c("v-text-field", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.form.id_remuneracion,
+                                expression: "form.id_remuneracion"
+                              }
+                            ],
+                            attrs: { label: "Monto" },
+                            model: {
+                              value: _vm.form.mo_remuneracion,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "mo_remuneracion", $$v)
+                              },
+                              expression: "form.mo_remuneracion"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", sm3: "" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: {
+                              label: "Empresa/Negocio Propio?",
+                              "prepend-icon": "shop"
+                            },
+                            model: {
+                              value: _vm.form.bo_empresa_propia,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "bo_empresa_propia", $$v)
+                              },
+                              expression: "form.bo_empresa_propia"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.form.bo_empresa_propia
+                        ? _c(
+                            "v-flex",
+                            { attrs: { sm9: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Negocio o Empresa",
+                                  rules: _vm.rules.requerido,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.nb_empresa_propia,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "nb_empresa_propia", $$v)
+                                  },
+                                  expression: "form.nb_empresa_propia"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { sm12: "" } },
+                        [
+                          _c("v-textarea", {
+                            attrs: {
+                              label: "Perspectiva Laboral",
+                              hint:
+                                "¿En que area laboral desearia ser incluido?",
+                              box: ""
+                            },
+                            model: {
+                              value: _vm.form.tx_observaciones,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_observaciones", $$v)
+                              },
+                              expression: "form.tx_observaciones"
                             }
                           })
                         ],
                         1
                       )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "v-flex",
-                    { attrs: { sm12: "" } },
-                    [
-                      _c("v-textarea", {
-                        attrs: {
-                          label: "Perspectiva Laboral",
-                          hint: "¿En que area laboral desearia ser incluido?",
-                          box: ""
-                        },
-                        model: {
-                          value: _vm.form.tx_observaciones,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "tx_observaciones", $$v)
-                          },
-                          expression: "form.tx_observaciones"
-                        }
-                      })
                     ],
                     1
                   )

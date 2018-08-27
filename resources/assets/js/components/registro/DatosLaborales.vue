@@ -3,7 +3,9 @@
     <v-card>
     <v-card-text>        
     <v-form ref="form" v-model="valido" lazy-validation>
-
+    <v-layout row wrap>
+        
+    
         <v-flex sm4>
             <v-select
             :items="listas.nivelEstudio"
@@ -135,7 +137,7 @@
             box
         ></v-textarea>
         </v-flex>
-    
+    </v-layout>
     </v-form>
 
     </v-card-text>
