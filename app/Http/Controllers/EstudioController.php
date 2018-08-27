@@ -29,6 +29,7 @@ class EstudioController extends Controller
          $validate = request()->validate([
             'id_persona'           => 'required',
             'id_nivel_estudio'     => 'required',
+            'tx_titulo'            => 'required',
             'tx_observaciones'     => 'max:100',
             'id_usuario'           => 'required',
             'id_status'            => 'required'
@@ -62,6 +63,7 @@ class EstudioController extends Controller
         $validate = request()->validate([
             'id_persona'           => 'required',
             'id_nivel_estudio'     => 'required',
+            'tx_titulo'            => 'required',
             'tx_observaciones'     => 'max:100',
             'id_usuario'           => 'required',
             'id_status'            => 'required'

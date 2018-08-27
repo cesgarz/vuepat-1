@@ -15,6 +15,7 @@ class Estudio extends Model
     protected $fillable   = [
                             'id_persona',
                             'id_nivel_estudio',
+                            'tx_titulo',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
