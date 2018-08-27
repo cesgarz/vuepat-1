@@ -2178,6 +2178,9 @@ DROP TABLE IF EXISTS "public"."menu";
 CREATE TABLE "public"."menu" (
   "id_menu" int4 NOT NULL DEFAULT nextval('menu_id_menu_seq'::regclass),
   "nb_menu" varchar(20) COLLATE "pg_catalog"."default",
+  "nb_icon" varchar(20) COLLATE "pg_catalog"."default", 
+  "tx_ruta" varchar(20) COLLATE "pg_catalog"."default",
+  "id_padre" int4 NOT NULL DEFAULT 0,
   "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
   "id_status" int4 NOT NULL,
   "id_usuario" int4 NOT NULL,
@@ -2186,6 +2189,14 @@ CREATE TABLE "public"."menu" (
 )
 ;
 
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO "public"."menu" VALUES (1, 'Modulos', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 10:33:22', '2018-08-26 20:42:22');
+INSERT INTO "public"."menu" VALUES (2, 'Datos Maestros', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (3, 'Reportes', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (4, 'Administracion', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (5, 'Inicio', 'home', '/home', 1, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 -- ----------------------------
 -- Table structure for rol_usuario
 -- ----------------------------
@@ -2259,6 +2270,7 @@ SELECT setval('"public"."vivienda_id_vivienta_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicio_id_vivienda_servicio_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicios_id_vivienda_servicios_seq"', 3, false);
 SELECT setval('"public"."rol_id_rol_seq"', 3, false);
+SELECT setval('"public"."menu_id_menu_seq"', 6, false);
 
 -- ----------------------------
 -- Uniques structure for table ciudad
