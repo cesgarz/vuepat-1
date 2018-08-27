@@ -11,7 +11,7 @@
           :rules="usernameRules"
           color="blue"
           dark
-          label="Nombre"
+          label="Username"
           name="username"
           required
           v-model="username"></v-text-field>
@@ -41,8 +41,8 @@
           :type="showPass ? 'text' : 'password'"
           color="blue"
           dark
-          label="Confirmar Password"
-          name="confirmPassword"
+          label="Password Confirmation"
+          name="passwordConfirmation"
           required
           v-model="confirmPassword"></v-text-field>
       </v-form>
@@ -87,19 +87,22 @@
         username: '',
         usernameRules: [
           (v) => !!v || 'El nombre de usuario es obligatorio'
+          (v) => v.length >= 6 || 'El nombre de usuario debe tener almenos 6 caracteres'
         ],
         email: '',
         emailRules: [
-          (v) => !!v || 'El correo es obligatorio'
+          (v) => !!v || 'El correo es obligatorio',
+          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email inválido'
         ],
         password: '',
         passwordRules: [
-          (v) => !!v || 'La contraseña es obligatoria'
+          (v) => !!v || 'La contraseña es obligatoria',
+          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres'
         ],
-        confirmPassword: '',
-        confirmPasswordRules: [
-          (v) => !!v || 'La confirmacion de contraseña es obligatoria',
-          (v) => v != password || 'Los campos Password y Confirmar Password no coinciden'
+        passwordConfirmation: '',
+        passwordConfirmationRules: [
+          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres',
+          (v) => this.password === this.passwordConfirmation || 'Las contraseñas no coinciden'
         ],
         form: {
                     nb_usuario: this.username,
