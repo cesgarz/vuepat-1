@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<v-app id="app" v-cloak>
+<v-app light id="app" v-cloak>
     <snackbar></snackbar>
     <v-navigation-drawer
             fixed

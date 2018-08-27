@@ -54975,10 +54975,10 @@ var app = new Vue({
       drawerRight: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'monetization_on', text: 'Ingresos', href: '/ingreso' }, { icon: 'record_voice_over', text: 'Solicitudes', href: '/solicitud' }, { icon: 'playlist_add_check', text: 'Intrucciones', href: '/instruccion' }, { icon: 'assignment_returned', text: 'Pagos', href: '/pago' }, { icon: 'assessment', text: 'Cuentas', href: '/cuenta' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
-        children: [{ icon: 'account_balance', text: 'Banco', href: '/banco' }, { icon: 'store_mall_directory', text: 'Entes', href: '/ente' }, { icon: 'format_list_numbered_rtl', text: 'Categorias de Pago', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }, { icon: 'view_quilt', text: 'Esquema de Pago', href: '/esquema' }, { icon: 'move_to_inbox', text: 'Tipo de Ingreso', href: '/tipoIngreso' }]
+      items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
+        children: [{ icon: 'star_border', text: 'Misiones', href: '/banco' }, { icon: 'accessible', text: 'Discapacidad', href: '/ente' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-        children: [{ icon: 'description', text: 'General', href: '/reports.general' }, { icon: 'description', text: 'Ingresos', href: '/reports.ingreso' }, { icon: 'description', text: 'Solicitudes', href: '/reports.solicitud' }, { icon: 'description', text: 'Intrucciones', href: '/reports.instruccion' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }, { icon: 'description', text: 'Bancos', href: '/reports.banco' }]
+        children: [{ icon: 'description', text: 'Usuarios', href: '/reports.general' }, { icon: 'description', text: 'Personas', href: '/reports.ingreso' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
       }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }]
     };
   },
