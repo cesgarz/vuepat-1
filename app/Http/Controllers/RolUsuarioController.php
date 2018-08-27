@@ -28,7 +28,6 @@ class RolUsuarioController extends Controller
     public function store(Request $request)
     {
         $validate = request()->validate([
-            'id_usuario'        => 'required',              
             'id_rol'            => 'required',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
