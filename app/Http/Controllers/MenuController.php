@@ -14,17 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+         $menus = Menu::with(['usuario', 'status'])->get();
+        
+        return $menus;
     }
 
     /**
@@ -35,7 +27,16 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+            'nb_menu'           => 'required|max:20',
+            'tx_observaciones'  => 'max:100',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required'
+        ]);
+
+        $menu = Menu::create($request->all());
+        
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('menu') ];
     }
 
     /**
@@ -46,18 +47,7 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Menu $menu)
-    {
-        //
+        return $menu;
     }
 
     /**
@@ -69,7 +59,16 @@ class MenuController extends Controller
      */
     public function update(Request $request, Menu $menu)
     {
-        //
+        $validate = request()->validate([
+            'nb_menu'           => 'required|max:20',
+            'tx_observaciones'  => 'max:100',
+            'id_usuario'        => 'required',
+            'id_status'         => 'required'
+        ]);
+
+        $menu = $menu->update($request->all());
+        
+        return [ 'msj' => 'Registro Editado Correctamente', compact('menu') ];
     }
 
     /**
@@ -80,6 +79,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        //
+        $menu = $menu->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('menu')];
     }
 }
