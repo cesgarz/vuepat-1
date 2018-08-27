@@ -38,7 +38,7 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50',
             'nb_apellido'       => 'required|max:50',
-            'tx_cedula'         => 'required|max:10|unique:persona,tx_cedula',
+            'tx_cedula'         => 'required|max:10|min:6|unique:persona,tx_cedula',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
             'id_parentesco'     => 'required',
@@ -105,7 +105,7 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50',
             'nb_apellido'       => 'required|max:50',
-            'tx_cedula'         => 'required|max:10|unique:persona,tx_cedula',
+            'tx_cedula'         => 'required|max:10|min:6',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
             'id_parentesco'     => 'required',

@@ -1,5 +1,6 @@
 export default {
     created() {
+        
         this.listasLoader();
         this.basePath += this.tabla + '/' 
         this.getData();
@@ -44,6 +45,7 @@ export default {
         },
         validar(val)
         {
+            console.log(val);
             if (this.$refs.form.validate())
             {
                 if(this.accion == 'ins')
@@ -156,7 +158,6 @@ export default {
                         this.form[key]  =  this.datos[key];
                     }
                 }
-                this.accion = 'upd';
             }
             else if (this.item)
             {

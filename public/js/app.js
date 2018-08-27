@@ -5066,6 +5066,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           case 404:
             msg = '404 No Encontrado';
             break;
+          case 429:
+            msg = 'Demasiadas peticiones';
+            break;
 
           default:
             break;
@@ -14713,6 +14716,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     created: function created() {
+
         this.listasLoader();
         this.basePath += this.tabla + '/';
         this.getData();
@@ -14756,6 +14760,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             this.mapForm();
         },
         validar: function validar(val) {
+            console.log(val);
             if (this.$refs.form.validate()) {
                 if (this.accion == 'ins') {
                     this.store();
@@ -14858,7 +14863,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                         this.form[key] = this.datos[key];
                     }
                 }
-                this.accion = 'upd';
             } else if (this.item) {
                 for (var key in this.item) {
                     if (this.form.hasOwnProperty(key)) {
@@ -79317,19 +79321,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         validar: function validar(datos) {
             switch (datos) {
                 case 'personales':
-                    this.datos.personales.valido = !this.datos.personales.valido;
+                    if (this.datos.personales.valido) {
+                        this.datos.personales.valido = false;
+                    };
                     break;
                 case 'familiares':
-                    this.datos.familiares.valido = !this.datos.familiares.valido;
+                    if (this.datos.familiares.valido) {
+                        this.datos.familiares.valido = false;
+                    };
                     break;
                 case 'laborales':
-                    this.datos.laborales.valido = !this.datos.laborales.valido;
+                    if (this.datos.laborales.valido) {
+                        this.datos.laborales.valido = false;
+                    };
                     break;
                 case 'situacional':
-                    this.datos.situacional.valido = !this.datos.situacional.valido;
+                    if (this.datos.situacional.valido) {
+                        this.datos.situacional.valido = false;
+                    };
                     break;
                 case 'motivacion':
-                    this.datos.motivacion.valido = !this.datos.motivacion.valido;
+                    if (this.datos.motivacion.valido) {
+                        this.datos.motivacion.valido = false;
+                    };
                     break;
                 default:
                     break;
@@ -79693,7 +79707,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -79899,22 +79913,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.tipoDiscap = null;
             }
+        },
+        picker: function picker(val) {
+            var _this = this;
+
+            val && this.$nextTick(function () {
+                return _this.$refs.picker.activePicker = 'YEAR';
+            });
         }
     },
-    picker: function picker(val) {
-        var _this = this;
-
-        val && this.$nextTick(function () {
-            return _this.$refs.picker.activePicker = 'YEAR';
-        });
-    },
-
     methods: {
         getData: function getData() {
             var _this2 = this;
 
             axios.get(this.basePath + this.$store.getters.user.id_usuario).then(function (respuesta) {
                 _this2.datos = respuesta.data;
+                if (_this2.datos) {
+                    console.log('complete');
+                    _this2.$emit('completado', true);
+                }
             }).catch(function (error) {
                 _this2.showError(error);
             });
@@ -80316,7 +80333,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s("$data"))])
+      _c("pre", [_vm._v(_vm._s(_vm.validar))])
     ],
     1
   )
@@ -83624,7 +83641,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -83763,7 +83780,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
-
+            transporte: null,
             form: {
                 id_migracion: null,
                 id_persona: null,
@@ -83796,7 +83813,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.$refs.picker.activePicker = 'YEAR';
             });
         }
+    },
+    methods: {
+        getData: function getData() {}
     }
+
 });
 
 /***/ }),
@@ -84032,11 +84053,11 @@ var render = function() {
                     {
                       attrs: { row: "", label: "Medio de Transporte" },
                       model: {
-                        value: _vm.row,
+                        value: _vm.transporte,
                         callback: function($$v) {
-                          _vm.row = $$v
+                          _vm.transporte = $$v
                         },
-                        expression: "row"
+                        expression: "transporte"
                       }
                     },
                     [
@@ -84071,8 +84092,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.row,
-                        expression: "row"
+                        value: _vm.transporte,
+                        expression: "transporte"
                       }
                     ],
                     attrs: {
@@ -84082,11 +84103,11 @@ var render = function() {
                       id: "id"
                     },
                     model: {
-                      value: _vm.row,
+                      value: _vm.transporte,
                       callback: function($$v) {
-                        _vm.row = $$v
+                        _vm.transporte = $$v
                       },
-                      expression: "row"
+                      expression: "transporte"
                     }
                   })
                 ],

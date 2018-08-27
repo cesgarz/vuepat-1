@@ -146,7 +146,7 @@
     </v-layout>
     </v-card-text>
     </v-card>
-    <pre>{{'$data'}}</pre>
+    <pre>{{validar}}</pre>
     </v-form>   
 </template>
 
@@ -185,19 +185,20 @@ export default {
 
         }
     },
-    watch:{
-            discapacidad(val)
-            {
-                if(!val){
-                    
-                    this.tipoDiscap = null
-                }
-            },
+    watch:
+    {
+        discapacidad(val)
+        {
+            if(!val){
+                
+                this.tipoDiscap = null
+            }
         },
         picker (val) {
             
             val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
-      },
+        },
+    },
     methods:
     {
         getData()
@@ -206,6 +207,11 @@ export default {
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
+                if(this.datos)
+                {
+                    console.log('complete')
+                    this.$emit('completado', true);
+                }
             })
             .catch(error => 
             {

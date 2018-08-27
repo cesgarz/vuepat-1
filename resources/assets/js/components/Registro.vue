@@ -117,19 +117,19 @@ name: 'home-view',
         switch (datos) 
         {
             case 'personales':
-                this.datos.personales.valido = !this.datos.personales.valido;
+                if(this.datos.personales.valido) { this.datos.personales.valido = false};
                 break;
             case 'familiares':
-                this.datos.familiares.valido = !this.datos.familiares.valido;
+                if(this.datos.familiares.valido) {this.datos.familiares.valido = false};
                 break;
             case 'laborales':
-                this.datos.laborales.valido = !this.datos.laborales.valido;
+                if(this.datos.laborales.valido) {this.datos.laborales.valido = false};
                 break;
             case 'situacional':
-                this.datos.situacional.valido = !this.datos.situacional.valido;
+                if(this.datos.situacional.valido) {this.datos.situacional.valido = false};
                 break;
             case 'motivacion':
-                this.datos.motivacion.valido = !this.datos.motivacion.valido;
+                if(this.datos.motivacion.valido) {this.datos.motivacion.valido = false};
                 break;
             default:
             break;

@@ -85,7 +85,7 @@
         </v-flex>
 
         <v-flex sm4>
-        <v-radio-group v-model="row" row label="Medio de Transporte">
+        <v-radio-group v-model="transporte" row label="Medio de Transporte">
             <v-icon>directions_boat</v-icon>
         <v-radio label="" value="Maritimo" ></v-radio>
         <v-icon>directions_bus</v-icon>
@@ -97,9 +97,9 @@
         </v-flex>
 
         <v-flex sm2>
-         <v-text-field v-show="row"
+         <v-text-field v-show="transporte"
           name="name"
-          v-model="row"
+          v-model="transporte"
           label="Transporte"
           readonly
           id="id"
@@ -125,7 +125,7 @@ export default {
     data() 
     {
         return {
-
+            transporte: null,
             form: {
                 id_migracion:       null,
                 id_persona:         null,
@@ -149,12 +149,21 @@ export default {
 
         }
     },
-    watch:{
+    watch:
+    {
+        picker (val) 
+        {
+            val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
+        }
+    },
+    methods:
+    {
+        getData()
+        {
 
-             picker (val) {
-                    val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
-                }
+        }
     }
+
 }
 </script>
 

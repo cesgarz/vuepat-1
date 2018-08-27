@@ -33,6 +33,9 @@ export default {
           case 404:
             msg = '404 No Encontrado'
           break;
+          case 429:
+            msg = 'Demasiadas peticiones'
+          break;
         
           default:
             break;
