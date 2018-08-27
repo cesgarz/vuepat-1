@@ -2117,7 +2117,7 @@ CREATE TABLE "public"."vivienda_servicio" (
 DROP TABLE IF EXISTS "public"."rol";
 CREATE TABLE "public"."rol" (
   "id_rol" int4 NOT NULL DEFAULT nextval('rol_id_rol_seq'::regclass),
-  "nb_rol" int4 NOT NULL,
+  "nb_rol" varchar(20) COLLATE "pg_catalog"."default",
   "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
   "id_status" int4 NOT NULL,
   "id_usuario" int4 NOT NULL,
@@ -2138,7 +2138,7 @@ INSERT INTO "public"."rol" VALUES (2, 'administrador', NULL, 1, 1, '2018-08-23 1
 DROP TABLE IF EXISTS "public"."menu";
 CREATE TABLE "public"."menu" (
   "id_menu" int4 NOT NULL DEFAULT nextval('menu_id_menu_seq'::regclass),
-  "nb_menu" int4 NOT NULL,
+  "nb_menu" varchar(20) COLLATE "pg_catalog"."default",
   "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
   "id_status" int4 NOT NULL,
   "id_usuario" int4 NOT NULL,
@@ -2218,7 +2218,7 @@ SELECT setval('"public"."usuario_persona_id_usuario_persona_seq"', 3, false);
 SELECT setval('"public"."vivienda_id_vivienta_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicio_id_vivienda_servicio_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicios_id_vivienda_servicios_seq"', 3, false);
-SELECT setval('"public"."rol"', 3, false);
+SELECT setval('"public"."rol_id_rol_seq"', 3, false);
 
 -- ----------------------------
 -- Uniques structure for table ciudad
