@@ -1,0 +1,198 @@
+<template>
+  <v-card>
+    <v-card-title>
+      <span class="headline">Registro</span>
+    </v-card-title>
+    <v-card-text>
+      <v-form ref="registerForm" v-model="valid" color="white">
+        <v-text-field
+          :error="errors['username']"
+          :error-messages="errors['username']"
+          :rules="usernameRules"
+          color="blue"
+          dark
+          label="Nombre"
+          name="username"
+          required
+          v-model="username"></v-text-field>
+        <v-text-field
+          :error="errors['email']"
+          :error-messages="errors['email']"
+          :rules="emailRules"
+          color="blue"
+          dark
+          label="Email"
+          name="email"
+          required
+          v-model="email"></v-text-field>
+        <v-text-field
+          :append-icon="showPass ? 'visibility_off' : 'visibility'"
+          :append-icon-cb="() => (showPass = !showPass)"
+          :rules="passwordRules"
+          :type="showPass ? 'text' : 'password'"
+          color="blue"
+          dark
+          label="Password"
+          name="password"
+          required
+          v-model="password"></v-text-field>
+          <v-text-field
+          :rules="confirmPasswordRules"
+          :type="showPass ? 'text' : 'password'"
+          color="blue"
+          dark
+          label="Confirmar Password"
+          name="confirmPassword"
+          required
+          v-model="confirmPassword"></v-text-field>
+      </v-form>
+      <v-container grid-list-md text-xs-left>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-alert
+              :type="alertOpts.type"
+              v-model="alertOpts.show"
+              dismissible>
+              {{ alertOpts.message }}
+            </v-alert>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
+      <v-spacer></v-spacer>
+    </v-card-actions>
+  </v-card>
+</template>
+
+
+<script>
+  import * as actions from '../../store/action-types'
+  import withSnackbar from '../mixins/withSnackbar'
+  import formHelper from '../../components/mixins/formHelper';
+  import $ from "jquery";
+  export default {
+    mixins: [withSnackbar],
+    data () {
+      return {
+        alertOpts: {
+          message: "",
+          show:    false,
+          type:    "info"
+        },
+        showPass: false,
+        errors: [],
+        username: '',
+        usernameRules: [
+          (v) => !!v || 'El nombre de usuario es obligatorio'
+        ],
+        email: '',
+        emailRules: [
+          (v) => !!v || 'El correo es obligatorio'
+        ],
+        password: '',
+        passwordRules: [
+          (v) => !!v || 'La contraseña es obligatoria'
+        ],
+        confirmPassword: '',
+        confirmPasswordRules: [
+          (v) => !!v || 'La confirmacion de contraseña es obligatoria',
+          (v) => v != password || 'Los campos Password y Confirmar Password no coinciden'
+        ],
+        form: {
+                    nb_usuario: this.username,
+                    password:   this.password,
+                    tx_email:   this.email,
+            },
+      }
+    },
+    props: {},
+    computed: {},
+    methods: {
+      register () {
+
+        axios.post('/api/register', this.form)
+            .then(respuesta => 
+            {
+                console.log(respuesta)//this.showMessage(respuesta.data.msj)
+                //this.$emit('completado', true);
+                this.login()
+            })
+            .catch(error => 
+            {
+                console.log(error)
+
+                this.alertOpts = {
+                  message: "Ocurrio un error, por favor intente registrarse nuevamente",
+                  show:    true,
+                  type:    "error"
+                }
+            })
+
+      },
+      login () {
+
+          const credentials = {
+            'tx_email': this.email,
+            'password': this.password
+          }
+
+          this.$store.dispatch(actions.LOGIN, credentials).then(response => {
+
+            window.location = '/home'
+
+          }).catch(error => {
+            
+            this.alertOpts = {
+              message: "Ocurrio un error, por favor intente ingresar nuevamente desde el Inicio de Sesion",
+              show:    true,
+              type:    "error"
+            }
+
+
+          }).then(() => {
+            window.location = '/'
+          })
+      },
+    }
+  }
+</script>
+
+<style scoped lang="less">
+
+  .card{
+    background-color:transparent;
+
+    .card__title{
+      color:rgba(255,255,255,1);
+      text-align:center ;
+
+      span{
+        width: 100%;
+      }
+
+    }
+
+    .card__text{
+
+      .recuperar-clave{
+        color: rgba(255,255,255,1);
+        transition: all 0.2s;
+
+        &:hover{
+          color: rgba(33,150,243,1);
+        }
+
+      }
+
+      .alert{
+        padding:6px;
+      }
+
+    }
+
+  }
+
+</style>

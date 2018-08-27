@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Auth\Usuario;
+use App\Models\RolUsuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -44,8 +45,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nb_usuario' => 'required|max:255',
-            'tx_email' => 'required|email|max:255|unique:usuario',
-            'password' => 'required|min:8',
+            'tx_email'   => 'required|email|max:255|unique:usuario',
+            'password'   => 'required|min:8'
         ]);
     }
 
@@ -57,12 +58,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Usuario::create([
+        $usuario = Usuario::create([
             'nb_usuario'  => $data['nb_usuario'],
             'tx_email'    => $data['tx_email'],
-            'password' => bcrypt($data['tx_password']),
+            'password' => bcrypt($data['password']),
             'id_status'   => 1,
             'id_usuario_e'  => 1
         ]);
+
+        $rolUsuario = RolUsuario::create([
+            'id_rol'        => 1,
+            'id_usuario'    => $usuario->id,
+            'id_status'     => 1, 
+        ]);
+
+        return $usuario;
     }
 }
