@@ -14,7 +14,9 @@ class MotivoController extends Controller
      */
     public function index()
     {
-        $motivo = Motivo::with(['usuario', 'status'])->get();
+        $motivo = Motivo::select('id_motivo', 'nb_motivo')
+                            ->where('id_status', 1)
+                            ->get();
         return $motivo;
     }
 

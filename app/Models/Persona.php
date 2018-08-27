@@ -44,9 +44,14 @@ class Persona extends Model
     	return $this->BelongsTo('App\Models\Auth\Usuario', 'id_usuario');
     }
 
-    public function PersonaDiscapacidad()
+    public function personaDiscapacidad()
     {
     	return $this->BelongsTo('App\Models\PersonaDiscapacidad', 'id_persona');
+    }
+
+    public function parentesco()
+    {
+    	return $this->BelongsTo('App\Models\Parentesco', 'id_parentesco');
     }
 
 }

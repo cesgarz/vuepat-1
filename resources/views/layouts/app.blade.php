@@ -18,7 +18,6 @@
 <v-app id="app" v-cloak>
     <snackbar></snackbar>
     <v-navigation-drawer
-            dark
             fixed
             clipped
             app
@@ -91,7 +90,7 @@
     >
         <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-xs-only">{{ config('app.shortname', 'SIGESPAD') }}</span>
+            <span class="hidden-xs-only">{{ config('app.shortname', 'VUELTA A LA PATRIA') }}</span>
         </v-toolbar-title>
         <div class="d-flex align-center" style="margin-left: auto">
             <v-btn icon>

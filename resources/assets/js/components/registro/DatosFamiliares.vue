@@ -36,10 +36,15 @@
             >
 
             <template slot="items" slot-scope="item">
-                <td class="text-xs-left">{{ item.item.nombres    }}</td>
-                <td class="text-xs-left">{{ item.item.apellidos  }}</td>
-                <td class="text-xs-left">{{ item.item.cedula     }}</td>
-                <td class="text-xs-left">{{ item.item.parentesco }}</td>
+                <td class="text-xs-left">{{ item.item.nb_nombre    }}</td>
+                <td class="text-xs-left">{{ item.item.nb_apellido  }}</td>
+                <td class="text-xs-left">{{ item.item.tx_cedula     }}</td>
+                <td class="text-xs-left">{{ item.item.parentesco.nb_parentesco }}</td>
+                <!--acciones-->
+                <td class="text-xs-left">
+                    <list-buttons  @editar="updItem(item.item)" @eliminar="delForm(item.item)">
+                    </list-buttons>
+                </td>
 
             </template>
 
@@ -53,11 +58,19 @@
 
             </v-data-table>
 
-
             <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-                <form-familiares></form-familiares> 
+                <form-familiares :accion="accion" :item="item" @cerrarModal="cerrarModal"></form-familiares> 
             </form-container>
-</v-card-text>
+
+            <dialogo 
+            :dialogo="dialogo" 
+            :mensaje="'¿Desea Eliminar el Familiar? ' "
+            @delItem="delItem"
+            @delCancel="delCancel"
+            >
+            </dialogo>
+
+    </v-card-text>
       
 
     </v-layout>
@@ -67,46 +80,58 @@
 
 <script>
 import listHelper from '../../components/mixins/listHelper';
+import withSnackbar from '../../components/mixins/withSnackbar';
 import FormContainer from '../../components/registro/FormContainer.vue'
 import FormFamiliares from '../../components/registro/FormFamiliares.vue'
 
 export default {
-    mixins:[listHelper],
+    mixins:[ listHelper, withSnackbar ],
     components: {
     'form-container':       FormContainer,
     'form-familiares':      FormFamiliares,
-    },
-    created()
-    {
-      this.list();
     },
     name: 'datos-personales',
     data() 
     {
         return {
-            buscar: null,
-
-            IsLoading: false,
-            items: [],
+            tabla: 'persona',
             headers: [
-            { text: 'Nombre',    value: 'nombres' },
-            { text: 'apellidos', value: 'apellidos' },
-            { text: 'Cedula',    value: 'cedula' },
-            { text: 'Parentesco',value: 'parentesco'  },
+            { text: 'Nombres'   ,value: 'nb_nombre' },
+            { text: 'Apellidos' ,value: 'nb_apellido' },
+            { text: 'Cedula'    ,value: 'tx_cedula' },
+            { text: 'Parentesco',value: 'parentesco.nb_parentesco'  },
+            { text: 'Acciones'  ,value: 'id_status'  },
             ]
         }
     },
     methods:
     {
         list () {
-            this.items = [  
-                            {nombres: 'Luisa', apellidos: 'Tovar', cedula:'16087829', parentesco:'esposa'  },
-                            {nombres: 'Jean',  apellidos: 'Pierre', cedula:'31297122', parentesco:'hijo'  }
-                        ];
-
-
-
+                        
+            axios.get(this.basePath +'persona/familiar/' + this.$store.getters.user.id_usuario)
+            .then(respuesta => 
+            {
+                this.items = respuesta.data;
+                this.IsLoading = false;
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
         },
+        delItem(){
+
+            axios.delete(this.basePath +'persona/'+this.item.id_persona)
+            .then(respuesta => {
+                this.showMessage(respuesta.data.msj)
+                this.list();
+                this.item = '';
+                this.dialogo = false;
+            })
+            .catch(error => {
+                this.showError(error)    
+            })
+        }
 
 
 

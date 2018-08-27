@@ -9,19 +9,38 @@ export default {
   },
   methods: {
     showMessage (message) {
+      console.log(message);
+
       this.showSnackBar(message, 'success')
     },
     showError (error) {
-                
+           
       if(error.hasOwnProperty('response'))
       {
-      
+        console.log(error.response); 
+        
+        let status = error.response.status;
         let msg    = '';
 
         for (var idx in error.response.data.errors) {
           msg = msg + error.response.data.errors[idx];
         }
-         this.showSnackBar(msg, 'error')
+
+        switch (status) {
+          case 500:
+            msg = 'Error interno ->' + error.response.data.message
+            break;
+          case 404:
+            msg = '404 No Encontrado'
+          break;
+        
+          default:
+            break;
+        }
+
+        console.log(status); 
+        
+        this.showSnackBar(msg, 'error')
 
       }else{
 

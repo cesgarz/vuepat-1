@@ -27,12 +27,11 @@ Vue.component('home', require('./components/Home.vue'));
 
 Vue.component('registro', require('./components/Registro.vue'));
 
-Vue.component('DatosPersonales', require('./components/registro/DatosPersonales.vue'));
-Vue.component('DatosSituacionales', require('./components/registro/DatosSituacionales.vue'));
-Vue.component('DatosFamiliares', require('./components/registro/DatosFamiliares.vue'));
-Vue.component('DatosLaborales', require('./components/registro/DatosLaborales.vue'));
-Vue.component('MotivoSalida', require('./components/registro/MotivoSalida.vue'));
-
+Vue.component('datos-personales', require('./components/registro/DatosPersonales.vue'));
+Vue.component('datos-situacionales', require('./components/registro/DatosSituacionales.vue'));
+Vue.component('datos-familiares', require('./components/registro/DatosFamiliares.vue'));
+Vue.component('motivo-salida', require('./components/registro/MotivoSalida.vue'));
+Vue.component('datos-laborales', require('./components/registro/DatosLaborales.vue'));
 
 
 //Componentes Frontend

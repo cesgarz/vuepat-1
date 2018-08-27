@@ -18,6 +18,15 @@ class PersonaController extends Controller
         return $persona;
     }
 
+    public function personaFamiliar($id_persona)
+    {
+        $persona = Persona::with(['personaDiscapacidad', 'parentesco:id_parentesco,nb_parentesco'])
+                                ->where('id_usuario',  $id_persona)
+                                ->where('id_parentesco', '<>',  99)
+                                ->get();
+        return $persona;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -29,21 +38,44 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50',
             'nb_apellido'       => 'required|max:50',
-            'tx_cedula'         => 'required|max:10',
+            'tx_cedula'         => 'required|max:10|unique:persona,tx_cedula',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
             'id_parentesco'     => 'required',
             'id_estado_civil'   => 'required',
-            'tx_telefono'       => 'required|max:20',
-            'tx_celular'        => 'required|max:20',
+            'tx_telefono'       => 'max:20',
+            'tx_celular'        => 'max:20',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'
+        ],
+        [
+			'tx_cedula.unique'   => 'Ya existe la cedula en nuestros Registros'
         ]);
+        
+        if( count($request->misiones) > 0)
+        {
+            $this->storeMisiones($request);
+        }
+
+        if($request->bo_discapacidad)
+        {
+            $this->storeDiscapacidad($request);
+        }
 
         $persona = Persona::create($request->all());
         
         return [ 'msj' => 'Registro Agregado Correctamente', compact('persona') ];
+    }
+
+    public function storeMisiones($request)
+    {
+        dd('misiones',$request->misiones);
+    }
+
+    public function storeDiscapacidad($request)
+    {
+        dd('discapacidad',$request);
     }
 
     /**
@@ -73,13 +105,13 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50',
             'nb_apellido'       => 'required|max:50',
-            'tx_cedula'         => 'required|max:10',
+            'tx_cedula'         => 'required|max:10|unique:persona,tx_cedula',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
             'id_parentesco'     => 'required',
             'id_estado_civil'   => 'required',
-            'tx_telefono'       => 'required|max:20',
-            'tx_celular'        => 'required|max:20',
+            'tx_telefono'       => 'max:20',
+            'tx_celular'        => 'max:20',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'

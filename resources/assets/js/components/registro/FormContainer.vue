@@ -1,6 +1,6 @@
 <template>
 
-<v-dialog v-model="modal" width="800" >
+<v-dialog v-model="modal" persistent width="850" >
     <v-card>
 
         <v-toolbar dark color="red darken-1 lighten-4 white--text">

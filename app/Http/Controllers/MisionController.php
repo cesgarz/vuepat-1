@@ -14,7 +14,9 @@ class MisionController extends Controller
      */
     public function index()
     {
-         $mision = Mision::with(['usuario', 'status'])->get();
+         $mision = Mision::select('id_mision', 'nb_mision')
+                            ->where('id_status', 1)
+                            ->get(); 
         return $mision;
     }
 

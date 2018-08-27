@@ -19,7 +19,7 @@ class Recurso extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_recurso','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

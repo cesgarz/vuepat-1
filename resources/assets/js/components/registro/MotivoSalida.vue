@@ -116,40 +116,45 @@
 </template>
 
 <script>
+import formHelper   from '../../components/mixins/formHelper';
+import withSnackbar from '../../components/mixins/withSnackbar';
+
 export default {
     name: 'datos-personales',
+    mixins: [ formHelper, withSnackbar ],
     data() 
     {
         return {
-            picker: 0,
-            checkbox: false,
-            discapacidad: false,
-            tipoDiscap: '',
-            row: false,
+
             form: {
-                motivo: false,
-                recursos:false,
-                grupo:false,
-
+                id_migracion:       null,
+                id_persona:         null,
+                id_motivo:          null,
+                tx_motivo:          null,
+                id_recurso:         null,
+                tx_recurso:         null,
+                id_grupo_migracion: null,
+                tx_grupo_migracion: null,
+                id_transporte:      null,
+                fe_salida:          null,
+                tx_observaciones:   null,
+                id_status:          null,
+                id_usuario:         null,
             },
-            row: 0, 
-            rules:{
+            listas:{
+                motivo:         [],
+                recurso:        [],
+                grupoMigracion: [],
+            },
 
-            }
         }
     },
     watch:{
-                discapacidad(val)
-                {
-                   console.log(val)
-                   if(!val){
-                        this.tipoDiscap = null
-                    }
-                }
-            },
+
              picker (val) {
-        val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
-      }
+                    val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
+                }
+    }
 }
 </script>
 

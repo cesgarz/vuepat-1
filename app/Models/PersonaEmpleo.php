@@ -4,22 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mision extends Model
+class PersonaEmpleo extends Model
 {
-    protected $table 	  = 'mision';
-	protected $primaryKey = 'id_mision';
+    protected $table 	  = 'persona_empleo';
+	protected $primaryKey = 'id_persona_empleo';
 	
 	const 	  CREATED_AT  = 'fe_creado';
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'nb_mision',
+                            'id_persona',
+                            'tx_empresa',
+                            'tx_cargo',
+                            'nu_tiempo',
+                            'id_periodo',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
                             ]; 
     
     protected $hidden     = ['fe_creado','fe_actualizado'];
+
+    public function persona()
+    {
+    	return $this->BelongsTo('App\Models\Persona', 'id_persona');
+    }
+
+    public function empleo()
+    {
+    	return $this->BelongsTo('App\Models\empleo', 'id_empleo');
+    }
 
     public function status()
     {
@@ -30,4 +44,5 @@ class Mision extends Model
     {
     	return $this->BelongsTo('App\Models\Auth\Usuario', 'id_usuario');
     }
+
 }

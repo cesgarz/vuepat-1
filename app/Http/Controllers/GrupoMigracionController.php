@@ -14,7 +14,9 @@ class GrupoMigracionController extends Controller
      */
     public function index()
     {
-        $grupoMigracion = GrupoMigracion::with(['usuario', 'status'])->get();
+        $grupoMigracion = GrupoMigracion::select('id_grupo_migracion', 'nb_grupo_migracion')
+                                            ->where('id_status', 1)
+                                            ->get();  
         return $grupoMigracion;
     }
 

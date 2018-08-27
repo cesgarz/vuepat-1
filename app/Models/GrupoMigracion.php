@@ -19,7 +19,7 @@ class GrupoMigracion extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_grupo_migracion','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

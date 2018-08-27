@@ -1,7 +1,8 @@
 <template>
+    <div>
     <v-card>
-    <v-card-text>
-    <v-layout wrap>
+    <v-card-text>        
+    <v-form ref="form" v-model="valido" lazy-validation>
 
         <v-flex sm4>
             <v-select
@@ -21,8 +22,8 @@
         <v-flex sm8>
         <v-text-field
             name="name"
-            label="Empresa Donde Trabaja"
-            hint="Nombre o Razon Social de la Empresa"
+            label="Empresa/local Donde Trabaja"
+            hint="Nombre o Razon Social de la Empresa/local"
             v-model="form.tx_empresa"
             prepend-icon="business"
             id="id"
@@ -56,10 +57,11 @@
         </v-flex>
 
         <v-flex sm8>
-        <v-text-field  v-show="form.id_tipo_cargo"
+        <v-text-field  v-if="form.id_tipo_cargo"
             label="Cargo"
             v-model="form.tx_cargo"
-            
+            :rules="rules.requerido"
+            required
         ></v-text-field>
         </v-flex>
 
@@ -78,7 +80,7 @@
         </v-flex>
 
         <v-flex sm3>
-            <v-select  v-show="form.id_jornada"
+            <v-select  v-if="form.id_jornada"
             :items="listas.remuneracion"
             label="Remuneracion"
             item-text="nb_remuneracion"
@@ -91,7 +93,7 @@
         </v-flex>
 
         <v-flex sm3>
-            <v-select v-show="form.id_remuneracion"
+            <v-select v-if="form.id_remuneracion"
             :items="listas.moneda"
             item-text="nb_moneda"
             item-value="id_moneda"
@@ -103,97 +105,62 @@
 
         <v-flex sm3>
         <v-text-field v-show="form.id_remuneracion"
-            name="name"
             label="Monto"
-            id="id"
+            v-model="form.mo_remuneracion"
         ></v-text-field>
         </v-flex>
 
         <v-flex xs12 sm3>
           <v-checkbox
             label="Empresa/Negocio Propio?"
-            v-model="form.bo_negocio_propio"
+            v-model="form.bo_empresa_propia"
             prepend-icon="shop"
           ></v-checkbox>
         </v-flex>
 
-        <v-flex sm9 v-show="form.bo_negocio_propio">
+        <v-flex sm9 v-if="form.bo_empresa_propia">
         <v-text-field 
-            name="name"
             label="Negocio o Empresa"
-            id="id"
+            v-model="form.nb_empresa_propia"
+            :rules="rules.requerido"
+            required
         ></v-text-field>
         </v-flex>
 
-
-        <v-flex sm12>
-        <v-subheader dark class="primary"><v-icon>work</v-icon> Empleos en Venezuela (Ultimos 2)</v-subheader>
+        <v-flex sm12 >
+        <v-textarea 
+            label="Perspectiva Laboral"
+            hint="¿En que area laboral desearia ser incluido?"
+            v-model="form.tx_observaciones"
+            box
+        ></v-textarea>
         </v-flex>
+    
+    </v-form>
 
-        <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Empresa"
-            id="id"
-            prepend-icon="business"
-        ></v-text-field>
-        </v-flex>
-
-         <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Cargo"
-            id="id"
-        ></v-text-field>
-        </v-flex>
-
-        <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Tiempo en la Empresa"
-            id="id"
-        ></v-text-field>
-        </v-flex>
-
-        <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Empresa"
-            id="id"
-            prepend-icon="business"
-        ></v-text-field>
-        </v-flex>
-
-         <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Cargo"
-            id="id"
-        ></v-text-field>
-        </v-flex>
-
-        <v-flex sm4>
-        <v-text-field
-            name="name"
-            label="Tiempo en la Empresa"
-            id="id"
-        ></v-text-field>
-        </v-flex>
-
-
-<pre>{{'$data'}}</pre>
-
-    </v-layout>
     </v-card-text>
     </v-card>
+    <v-card>
+        <v-card-text>
+            <empleo-lista></empleo-lista>
+        </v-card-text>
+    </v-card>
+    <pre>{{'$data'}}</pre>
+    </div>
 </template>
 
 <script>
 import formHelper   from '../../components/mixins/formHelper';
 import withSnackbar from '../../components/mixins/withSnackbar';
+
+import EmpleoLista from '../../components/registro/EmpleoLista.vue'
+
 export default {
     name: 'datos-situacionales',
     mixins: [ formHelper, withSnackbar ],
+    components: {
+    'empleo-lista':     EmpleoLista,
+    },
     data() 
     {
         return {
@@ -201,22 +168,22 @@ export default {
             checkbox: false,
             value: 0,
             form: {
-                id_empleo:          false,
-                id_persona:         false,
-                tx_empresa:         false,
-                id_sector:          false,
-                id_tipo_cargo:      false,
-                tx_cargo:           false,
-                id_jornada:         false,
-                id_remuneracion:    false,
-                id_moneda:          false,
-                mo_remuneracion:    false,
+                id_empleo:          null,
+                id_persona:         null,
+                tx_empresa:         null,
+                id_sector:          null,
+                id_tipo_cargo:      null,
+                tx_cargo:           null,
+                id_jornada:         null,
+                id_remuneracion:    null,
+                id_moneda:          null,
+                mo_remuneracion:    null,
                 bo_empresa_propia:  false,
-                nb_empresa_propia:  false,
-                tx_observaciones:   false,
-                id_status:          false,
-                id_usuario:         false,
-                id_nivel_estudio:   false,
+                nb_empresa_propia:  null,
+                tx_observaciones:   null,
+                id_status:          null,
+                id_usuario:         null,
+                id_nivel_estudio:   null,
             },
             listaEmpleos:   [],
             listas:{
@@ -227,10 +194,6 @@ export default {
                 remuneracion: [],
                 moneda:       []
             },
-            row: 0, 
-            rules:{
-
-            }
         }
     },
     methods:

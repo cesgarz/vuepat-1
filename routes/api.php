@@ -8,12 +8,17 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('status',           'StatusController');
     Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
+    Route::apiResource('persona',       'PersonaController');
+    Route::get('persona/familiar/{id_usuario}', 'PersonaController@personaFamiliar');
 
-    Route::apiResource('persona',        'PersonaController');
-    Route::apiResource('estadoCivil',    'EstadoCivilController');
-    Route::apiResource('tipoDiscapacidad', 'TipoDiscapacidadController');
+    Route::apiResource('personaEmpleo', 'PersonaEmpleoController');
+    Route::get('personaEmpleo/usuario/{id_usuario}', 'PersonaEmpleoController@personaEmpleoUsuario');
+
+    Route::apiResource('tipoDiscapacidad','TipoDiscapacidadController');
+    Route::apiResource('estadoCivil',   'EstadoCivilController');
+    Route::apiResource('parentesco',    'ParentescoController');
+    Route::apiResource('mision',        'MisionController');
     
-
     Route::apiResource('pais',          'PaisController');
     Route::apiResource('estado',        'EstadoController');
     Route::apiResource('ciudad',        'CiudadController');
@@ -22,7 +27,6 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('tipoVivienda',  'TipoViviendaController');
     Route::apiResource('servicio',      'ServicioController');
 
-
     Route::apiResource('nivelEstudio',  'NivelEstudioController');
     Route::apiResource('sector',        'SectorController');
     Route::apiResource('tipoCargo',     'TipoCargoController');
@@ -30,7 +34,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('remuneracion',  'RemuneracionController');
     Route::apiResource('moneda',        'MonedaController');
 
-    
+    Route::apiResource('motivo',        'MotivoController');
+    Route::apiResource('recurso',       'RecursoController');
+    Route::apiResource('grupoMigracion','GrupoMigracionController');
 
     Route::post('logout', 'Auth\LoginController@logout');
 

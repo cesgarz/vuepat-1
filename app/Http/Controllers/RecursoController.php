@@ -14,8 +14,9 @@ class RecursoController extends Controller
      */
     public function index()
     {
-        $recurso = Recurso::with(['usuario', 'status'])->get();
-        
+        $recurso = Recurso::select('id_recurso', 'nb_recurso')
+                                ->where('id_status', 1)
+                                ->get();        
         return $recurso;
     }
 

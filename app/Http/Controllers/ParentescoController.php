@@ -14,7 +14,10 @@ class ParentescoController extends Controller
      */
     public function index()
     {
-        $parentesco = Parentesco::with(['usuario', 'status'])->get();
+        $parentesco = Parentesco::select('id_parentesco', 'nb_parentesco')
+                                ->where('id_status', 1)
+                                ->orderBy('id_parentesco')
+                                ->get(); 
         return $parentesco;
     }
 

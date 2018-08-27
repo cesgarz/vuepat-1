@@ -11,7 +11,6 @@ export default {
            
             basePath: '/api/v1/',
             datos: null,
-            accion: false,
             valido: false,
             btnAccion: '',
             picker: false,
@@ -23,6 +22,9 @@ export default {
                 requerido: [
                     v => !!v || 'Campo Requerido',
                     ],
+                radio: [
+                    v => !!v || 'Seleccione una Opcion (Requerido)',
+                    ],
                 monto: [
                     v => !!v || 'Monto Requerido',
                    ],
@@ -33,7 +35,7 @@ export default {
 
         }
     },
-    props: ['validar'],
+    props: ['validar','accion','item'],
 
     watch: {
 
@@ -42,8 +44,6 @@ export default {
         },
         validar(val)
         {
-            console.log('validar',val)
-
             if (this.$refs.form.validate())
             {
                 if(this.accion == 'ins')
@@ -59,6 +59,23 @@ export default {
             {
                 this.$emit('completado', false);
             }
+        },
+        accion: function (val) 
+        {
+            this.btnAccion = val;
+
+            if(val=='upd')
+            {
+                this.mapForm();
+                
+            }else
+            {
+                this.clear();
+            } 
+            
+        },
+        item: function (val) {
+            this.mapForm()
         }
     },
     filters: {
@@ -141,9 +158,21 @@ export default {
                 }
                 this.accion = 'upd';
             }
-            else
+            else if (this.item)
             {
-                
+                for(var key in this.item) 
+                {
+                    if(this.form.hasOwnProperty(key)) 
+                    {
+                        if(key.substr(0, 2) == 'fe')
+                        {
+                            this.dates[key] =  this.formatDate(this.item[key]);
+                        }
+                        this.form[key]  =  this.item[key];
+                    }
+                }
+            }else
+            {
                 this.rstForm()
                 this.upate = 'ins';
             }
