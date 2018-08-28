@@ -44,7 +44,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('recurso',       'RecursoController');
     Route::apiResource('grupoMigracion','GrupoMigracionController');
     Route::apiResource('transporte',    'transporteController');
+
     Route::apiResource('migracion',     'migracionController');
+    Route::get('migracion/usuario/{id_usuario}',  'migracionController@migracionUsuario');
 
     Route::post('logout', 'Auth\LoginController@logout');
 

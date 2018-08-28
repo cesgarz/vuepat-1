@@ -14,8 +14,16 @@ class MigracionController extends Controller
      */
     public function index()
     {
-        $migracion = Discapacidad::with(['persona', 'motivo', 'recurso', 'grupoMigracion', 'transporte', 'usuario', 'status'])->get();
+        $migracion = Migracion::with(['persona', 'motivo', 'recurso', 'grupoMigracion', 'transporte', 'usuario', 'status'])->get();
         return $migracion;
+    }
+
+    public function migracionUsuario($id_usuario)
+    {
+        $empleo = Migracion::with(['status'])
+                            ->where('id_usuario', $id_usuario)
+                            ->first();
+        return $empleo;
     }
 
     /**
@@ -67,9 +75,11 @@ class MigracionController extends Controller
     {
         $validate = request()->validate([
             'id_motivo'            => 'required',
+            'tx_motivo'            => 'max:50',
             'id_recurso'           => 'required',
+            'tx_recurso'           => 'max:50',
             'id_grupo_migracion'   => 'required',
-            'tx_grupo_migracion'   => 'required|max:50',
+            'tx_grupo_migracion'   => 'max:50',
             'id_transporte'        => 'required',
             'fe_salida'            => 'required|date',
             'tx_observaciones'     => 'max:100',

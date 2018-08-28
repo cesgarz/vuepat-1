@@ -162,8 +162,6 @@ export default {
     {
         return {
             tabla: 'persona',
-            discapacidad: false,
-            tipoDiscap: '',
             form: {
                     id_persona:         null,
                     nb_nombre:          null,
@@ -177,6 +175,11 @@ export default {
                     tx_celular:         null,
                     id_status:          1,
                     id_usuario:         1,
+                    bo_discapacidad:    false,   
+                    id_tipo_discapacidad: null,
+                    id_discapacidad:    null,
+                    tx_discapacidad:    null
+
             },
             listas:{
                 estadoCivil:        [],

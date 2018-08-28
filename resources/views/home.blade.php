@@ -4,7 +4,7 @@
 <v-container fluid grid-list-md text-xs-center>
   <!--- <home></home>  <datos-laborales></datos-laborales>
  <registro></registro>--->
- <motivo-salida></motivo-salida>  
+ <datos-personales></datos-personales>  
   
   
 </v-container>

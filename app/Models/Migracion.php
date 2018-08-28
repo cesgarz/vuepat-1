@@ -15,7 +15,9 @@ class Migracion extends Model
     protected $fillable   = [
                             'id_persona',
                             'id_motivo',
+                            'tx_motivo',
                             'id_recurso',
+                            'tx_reurso',
                             'id_grupo_migracion',
                             'tx_grupo_migracion',
                             'id_transporte',

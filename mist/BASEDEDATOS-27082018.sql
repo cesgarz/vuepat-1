@@ -1768,7 +1768,9 @@ DROP TABLE IF EXISTS "public"."persona_discapacidad";
 CREATE TABLE "public"."persona_discapacidad" (
   "id_persona_discapacidad" int4 NOT NULL DEFAULT nextval('persona_discapacidad_id_persona_discapacidad_seq'::regclass),
   "id_persona" int4 NOT NULL,
+	"id_tipo_discapacidad" int4 NOT NULL,
   "id_discapacidad" int4 NOT NULL,
+	"tx_discapacidad" varchar(100),
   "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
   "id_status" int4 NOT NULL,
   "id_usuario" int4 NOT NULL,

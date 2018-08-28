@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
+use App\Models\Misiones;
+use App\Models\Discapacidad;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -57,25 +59,39 @@ class PersonaController extends Controller
 
         if( count($request->misiones) > 0)
         {
-            $this->storeMisiones($request);
+            $this->storeMisiones($request, $persona->id_persona);
         }
 
-        if($request->bo_discapacidad)
+        if($request->bo_discapacidad, $persona->id_persona)
         {
-            $this->storeDiscapacidad($request);
+            $this->storeDiscapacidad($request,  $persona->id_persona);
         }
         
         return [ 'msj' => 'Registro Agregado Correctamente', compact('persona') ];
     }
 
-    public function storeMisiones($request)
+    public function storeMisiones($request, $id_persona)
     {
-        dd('misiones',$request->misiones);
+        $validate = request()->validate([
+            'id_mision'            => 'required',
+            'id_usuario'           => 'required',
+            'id_status'            => 'required'
+        ]);
+
+        $personaMision = PersonaMision::create($request->all());
     }
 
-    public function storeDiscapacidad($request)
+    public function storeDiscapacidad($request, $id_persona)
     {
-        dd('discapacidad',$request);
+        
+        $validate = request()->validate([
+            'id_discapacidad'      => 'required',
+            'tx_observaciones'     => 'max:100',
+            'id_usuario'           => 'required',
+            'id_status'            => 'required'
+        ]);
+
+        $personaDiscapacidad = PersonaDiscapacidad::create($request->all());
     }
 
     /**

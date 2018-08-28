@@ -131,7 +131,6 @@ export default {
     {
         return {
             tabla: 'migracion',
-            transporte: null,
             form: {
                 id_migracion:       null,
                 id_motivo:          null,
@@ -166,6 +165,15 @@ export default {
     {
         getData()
         {
+            axios.get(this.basePath +  'usuario/' + this.$store.getters.user.id_usuario)
+            .then(respuesta => 
+            {
+                this.datos = respuesta.data;
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
 
         },
         store()
@@ -192,7 +200,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {
-                axios.put(this.basePath + this.form.id_empleo, this.form)
+                axios.put(this.basePath + this.form.id_migracion, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
