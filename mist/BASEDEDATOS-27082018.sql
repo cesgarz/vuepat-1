@@ -2197,6 +2197,7 @@ INSERT INTO "public"."menu" VALUES (2, 'Datos Maestros', NULL, NULL, 0, NULL, 1,
 INSERT INTO "public"."menu" VALUES (3, 'Reportes', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 INSERT INTO "public"."menu" VALUES (4, 'Administracion', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 INSERT INTO "public"."menu" VALUES (5, 'Inicio', 'home', '/home', 1, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+
 -- ----------------------------
 -- Table structure for rol_usuario
 -- ----------------------------

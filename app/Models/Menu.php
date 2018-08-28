@@ -14,6 +14,9 @@ class Menu extends Model
 
     protected $fillable   = [
                             'nb_menu',
+                            'nb_icon',
+                            'tx_ruta',
+                            'id_padre',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'

@@ -14,28 +14,39 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::select(
+
+                                 'id_usuario',
+                                 'nb_usuario', 
+                                 'nb_nombre', 
+                                 'nb_apellido', 
+                                 'tx_email'
+
+                                )->with(['status'])->get();
+        
+        return $usuarios;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function list()
     {
-        //
-    }
+        $usuarios = Usuario::with([
+            
+                                'persona', 'estadoCivil', 'usuarioPersona', 
+                                'tipoPersona', 'discapacidad', 'tipoDiscapacidad', 
+                                'personaDiscapacidad', 'parentesco', 'mision', 
+                                'personaMision', 'nivelEstudio', 'estudio', 
+                                'empleo', 'tipoCargo', 'migracion', 
+                                'motivo', 'recurso', 'grupoMigracion', 
+                                'transporte', 'sector', 'personaEmpresa', 
+                                'jornada', 'remuneracion', 'moneda', 
+                                'vivienda', 'ubicacion', 'tipoVivienda', 
+                                'servicio', 'viviendaServicio', 'viviendaServicios', 
+                                'pais', 'estado', 'cudad', 
+                                'rolUsuario', 'status'
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+                            ])->get();
+
+        return $usuarios;
     }
 
     /**
@@ -46,30 +57,7 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Usuario $usuario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Usuario $usuario)
-    {
-        //
+        return $usuario;
     }
 
     /**
@@ -80,6 +68,8 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+        $usuario = $usuario->delete();
+ 
+        return [ 'msj' => 'Registro Eliminado' , compact('usuario')];
     }
 }

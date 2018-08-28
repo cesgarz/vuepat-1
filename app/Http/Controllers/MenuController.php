@@ -29,6 +29,9 @@ class MenuController extends Controller
     {
         $validate = request()->validate([
             'nb_menu'           => 'required|max:20',
+            'nb_icon'           => 'required|max:20', 
+            'tx_ruta'           => 'required|max:20',
+            'id_padre'          => 'required', 
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'
@@ -61,6 +64,9 @@ class MenuController extends Controller
     {
         $validate = request()->validate([
             'nb_menu'           => 'required|max:20',
+            'nb_icon'           => 'required|max:20', 
+            'tx_ruta'           => 'required|max:20',
+            'id_padre'          => 'required', 
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
             'id_status'         => 'required'

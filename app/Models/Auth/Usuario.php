@@ -21,6 +21,8 @@ class Usuario extends Authenticatable
                             'nb_usuario',
                             'password',
                             'tx_email',
+                            'nb_nombre',
+                            'nb_apellido',
                             'tx_token',
                             'tx_observaciones',
                             'id_status',
@@ -222,6 +224,11 @@ class Usuario extends Authenticatable
     public function rolUsuario()
     {
         return $this->hasMany('App\Models\RolUsuario', 'id_usuario');
+    }
+
+    public function viviendaServicios()
+    {
+        return $this->hasMany('App\Models\ViviendaServicios', 'id_vivienda_servicios');
     }
         
 }
