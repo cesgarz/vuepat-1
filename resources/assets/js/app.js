@@ -103,9 +103,9 @@ const app = new Vue({
       { icon: 'assignment', text: 'Datos Maestros',
         children:
         [
-          { icon: 'star_border', text: 'Misiones', href: '/banco' },
-          { icon: 'accessible', text: 'Discapacidad', href: '/ente' },
-          { icon: 'directions_run', text: 'Motivos de Viaje', href: '/categoria' },
+          { icon: 'star_border', text: 'Misiones', href: '/mision' },
+          { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' },
+          { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' },
           { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
         ],
       },
