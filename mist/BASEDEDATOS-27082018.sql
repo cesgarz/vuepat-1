@@ -2197,6 +2197,18 @@ INSERT INTO "public"."menu" VALUES (2, 'Datos Maestros', NULL, NULL, 0, NULL, 1,
 INSERT INTO "public"."menu" VALUES (3, 'Reportes', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 INSERT INTO "public"."menu" VALUES (4, 'Administracion', NULL, NULL, 0, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 INSERT INTO "public"."menu" VALUES (5, 'Inicio', 'home', '/home', 1, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (6, 'Registro', 'assignment_ind', '/home', 1, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (7, 'Plantilla', 'print', '/home', 1, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (8, 'Datos Maestros', 'assignment', NULL, 2, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (9, 'Misiones', 'star_border', '/banco', 8, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (10, 'Discapacidad', 'accessible', '/ente', 8, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (11, 'Motivos de Viaje', 'directions_run', '/categoria', 8, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (12, 'Monedas', 'attach_money', '/moneda', 8, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (13, 'Reportes', 'description', NULL, 3, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (14, 'Usuarios', 'description', '/reports.general', 13, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (15, 'Personas', 'description', '/reports.ingreso', 13, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (16, 'Bitacora', 'description', '/reports.bitacora', 13, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
+INSERT INTO "public"."menu" VALUES (17, 'Usuarios', 'person', '/usuario', 4, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-26 20:42:30');
 
 -- ----------------------------
 -- Table structure for rol_usuario
@@ -2271,7 +2283,7 @@ SELECT setval('"public"."vivienda_id_vivienta_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicio_id_vivienda_servicio_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicios_id_vivienda_servicios_seq"', 3, false);
 SELECT setval('"public"."rol_id_rol_seq"', 3, false);
-SELECT setval('"public"."menu_id_menu_seq"', 6, false);
+SELECT setval('"public"."menu_id_menu_seq"', 18, false);
 
 -- ----------------------------
 -- Uniques structure for table ciudad
