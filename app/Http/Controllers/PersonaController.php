@@ -53,6 +53,8 @@ class PersonaController extends Controller
 			'tx_cedula.unique'   => 'Ya existe la cedula en nuestros Registros'
         ]);
         
+        $persona = Persona::create($request->all());
+
         if( count($request->misiones) > 0)
         {
             $this->storeMisiones($request);
@@ -62,8 +64,6 @@ class PersonaController extends Controller
         {
             $this->storeDiscapacidad($request);
         }
-
-        $persona = Persona::create($request->all());
         
         return [ 'msj' => 'Registro Agregado Correctamente', compact('persona') ];
     }

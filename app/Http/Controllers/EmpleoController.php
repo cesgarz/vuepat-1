@@ -35,6 +35,8 @@ class EmpleoController extends Controller
             'id_remuneracion'   => 'required', 
             'id_moneda'         => 'required',
             'mo_remuneracion'   => 'required|numeric|min:2|max:15',
+            'bo_empresa_propia' => 'boolean',
+            'nb_empresa_propia' => 'max:100',
             'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',
             'id_usuario'        => 'required'
@@ -53,7 +55,7 @@ class EmpleoController extends Controller
      */
     public function show(Empleo $empleo)
     {
-        return $empleo
+        return $empleo;
     }
 
     /**
@@ -73,8 +75,10 @@ class EmpleoController extends Controller
             'id_jornada'        => 'required',
             'id_remuneracion'   => 'required', 
             'id_moneda'         => 'required',
-            'mo_remuneracion'   => 'required|numeric|min:2|max:15', 
-            'tx_observaciones'  => 'max:100',
+            'mo_remuneracion'   => 'required|numeric|min:2|max:15',
+            'bo_empresa_propia' => 'boolean',
+            'nb_empresa_propia' => 'max:100',
+            'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',
             'id_usuario'        => 'required'
         ]);
@@ -94,6 +98,6 @@ class EmpleoController extends Controller
     {
         $empleo = $empleo->delete();
  
-        return [ 'msj' => 'Registro Eliminado' , compact('empleo')];empleo
+        return [ 'msj' => 'Registro Eliminado' , compact('empleo')];
     }
 }

@@ -20,6 +20,12 @@ class Servicio extends Model
                             ]; 
     
     protected $hidden     = ['id_servicio','fe_creado','fe_actualizado'];
+    
+    public function viviendaServicio()
+    {
+        return $this->BelongsTo('App\Models\ViviendaServicio', 'id_servicio');
+    }
+
 
     public function status()
     {

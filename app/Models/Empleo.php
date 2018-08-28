@@ -26,7 +26,7 @@ class Empleo extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_empleo','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function persona()
     {

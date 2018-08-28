@@ -1,4 +1,5 @@
 <template>
+    <v-form ref="form" v-model="valido" lazy-validation>
     <v-card>
     <v-card-text>
     <v-layout wrap>
@@ -206,10 +207,13 @@
 
 <pre>{{'$data'}}</pre>
 
+    <v-btn outline color="primary" dark @click="store">guardar</v-btn>
+    <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
 
     </v-layout>
     </v-card-text>
     </v-card>
+    </v-form> 
 </template>
 
 <script>
@@ -229,8 +233,9 @@ export default {
             form: {
                 ext:    
                 {
+                    id_vivienda:  null,
                     id_ubicacion:   2,
-                    id_tipo_vivienda: null,
+                    id_tipo_vivienda: 1,
                     co_pais:     null,
                     nb_estado:   null,
                     nb_ciudad:   null,
@@ -239,19 +244,22 @@ export default {
                     tx_telefono: null,
                     id_status:   null,
                     nu_personas: 0,
+                    id_usuario:  this.$store.getters.user.id_usuario
                 },
                 nac:
                 {
+                    id_vivienda:  null,
                     id_ubicacion:   1,
                     id_tipo_vivienda: null,
                     co_pais:     've',
                     nb_estado:   null,
                     nb_ciudad:   null,
                     tx_calle:    null,
-                    tx_casa:     null,
+                    tx_casa:     'casa',
                     tx_telefono: null,
                     id_status:   null,
                     nu_personas: 0,
+                    id_usuario:  this.$store.getters.user.id_usuario,
                     servicios:[]
                 }
             },
@@ -336,44 +344,67 @@ export default {
         getData()
         {
             
-            /*
-            axios.get(this.basePath + this.$store.getters.user.id_usuario)
+            axios.get(this.basePath + 'usuario/' + this.$store.getters.user.id_usuario)
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
+                this.mapDatos()
             })
             .catch(error => 
             {
                 this.showError(error);
             })
-            */
+            
         },
         store()
         {
-            axios.post(this.basePath, this.form)
-            .then(respuesta => 
-            {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-                this.$emit('completado', false);
-            })
+            if (this.$refs.form.validate()) 
+            {      
+                axios.post(this.basePath, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('completado', true);
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                    this.$emit('completado', false);
+                })
+            }
         },
         update()
         {
-            axios.put(this.basePath + this.form.id_persona, this.form)
-            .then(respuesta => 
+            if (this.$refs.form.validate()) 
+            { 
+                axios.put(this.basePath + 0, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('completado', true);
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
+        },
+        mapDatos()
+        {
+            if(this.datos)
             {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
+                for(var key0 in this.datos) {
+
+                    let ubi = (this.datos[key0]['id_ubicacion'] == '1') ? 'nac': 'ext';
+
+                    for(var key in this.datos[key0]) {
+                
+                            this.form[ubi][key]  =  this.datos[key0][key];
+                    }
+                }
+
+            }
+
         }
     }
 }

@@ -19,16 +19,20 @@
             ></v-select>
         </v-flex>
         <v-flex sm8>
+        <v-text-field
+            label="Titulo Obtenido"
+            v-model="form.tx_titulo"
+            :rules="rules.requerido"
+        ></v-text-field>
         </v-flex>
 
         <v-flex sm8>
         <v-text-field
-            name="name"
             label="Empresa/local Donde Trabaja"
             hint="Nombre o Razon Social de la Empresa/local"
             v-model="form.tx_empresa"
             prepend-icon="business"
-            id="id"
+            :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
@@ -41,7 +45,6 @@
             v-model="form.id_sector"
             :rules="rules.select"
             hint="Sector en el que se desempeña"
-            required
             ></v-select>
         </v-flex>
 
@@ -53,7 +56,6 @@
             item-value="id_tipo_cargo"
             v-model="form.id_tipo_cargo"
             :rules="rules.select"
-            required
             prepend-icon="work_outline"
             ></v-select>
         </v-flex>
@@ -63,7 +65,6 @@
             label="Cargo"
             v-model="form.tx_cargo"
             :rules="rules.requerido"
-            required
         ></v-text-field>
         </v-flex>
 
@@ -77,7 +78,6 @@
             label="Jornada de trabajo"
             hint="Indique las horas de trabajo al dia"
             prepend-icon="timer"
-            required
             ></v-select>
         </v-flex>
 
@@ -90,7 +90,6 @@
             v-model="form.id_remuneracion"
             :rules="rules.select"
             prepend-icon="attach_money"
-            required
             ></v-select>
         </v-flex>
 
@@ -101,7 +100,6 @@
             item-value="id_moneda"
             v-model="form.id_moneda"
             label="Moneda"
-            required
             ></v-select>
         </v-flex>
 
@@ -125,7 +123,6 @@
             label="Negocio o Empresa"
             v-model="form.nb_empresa_propia"
             :rules="rules.requerido"
-            required
         ></v-text-field>
         </v-flex>
 
@@ -139,15 +136,12 @@
         </v-flex>
     </v-layout>
     </v-form>
-
+    <empleo-lista></empleo-lista>
     </v-card-text>
-    </v-card>
-    <v-card>
-        <v-card-text>
-            <empleo-lista></empleo-lista>
-        </v-card-text>
-    </v-card>
     <pre>{{'$data'}}</pre>
+    <v-btn outline color="primary" dark @click="store">guardar</v-btn>
+    <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
+    </v-card>
     </div>
 </template>
 
@@ -160,15 +154,14 @@ import EmpleoLista from '../../components/registro/EmpleoLista.vue'
 export default {
     name: 'datos-situacionales',
     mixins: [ formHelper, withSnackbar ],
-    components: {
-    'empleo-lista':     EmpleoLista,
+    components: 
+    {
+        'empleo-lista':     EmpleoLista,
     },
     data() 
     {
         return {
-            picker: 0,
-            checkbox: false,
-            value: 0,
+            tabla: 'vivienda',
             form: {
                 id_empleo:          null,
                 id_persona:         null,
@@ -186,6 +179,7 @@ export default {
                 id_status:          null,
                 id_usuario:         null,
                 id_nivel_estudio:   null,
+                tx_titulo:          null,
             },
             listaEmpleos:   [],
             listas:{
@@ -217,30 +211,36 @@ export default {
         },
         store()
         {
-            axios.post(this.basePath, this.form)
-            .then(respuesta => 
-            {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-                this.$emit('completado', false);
-            })
+            if (this.$refs.form.validate()) 
+            {  
+                axios.post(this.basePath, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('completado', true);
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                    this.$emit('completado', false);
+                })
+            }
         },
         update()
         {
-            axios.put(this.basePath + this.form.id_persona, this.form)
-            .then(respuesta => 
+            if (this.$refs.form.validate()) 
             {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
+                axios.put(this.basePath + this.form.id_persona, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('completado', true);
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         }
     }
 }

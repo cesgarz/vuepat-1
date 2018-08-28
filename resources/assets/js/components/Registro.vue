@@ -142,10 +142,10 @@ name: 'home-view',
         switch (datos) 
           {
             case 'personales':
-
+                    
                 if(completado)
                 {
-                    this.datos.personales.completado = true;
+                    //this.datos.personales.completado = true;
                     this.e1 = 2;
                 }
                 break;

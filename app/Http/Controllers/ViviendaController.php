@@ -19,6 +19,15 @@ class ViviendaController extends Controller
         return $vivienda;
     }
 
+    public function viviendaUsuario($id_usuario)
+    {
+        $vivienda = Vivienda::with(['viviendaServicio'])
+                             ->where('id_usuario', $id_usuario)
+                             ->get();
+
+        return $vivienda;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -27,23 +36,32 @@ class ViviendaController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = request()->validate([
-            'id_persona'        => 'required',
-            'id_ubicacion'      => 'required',
-            'id_tipo_vivienda'  => 'required',
-            'co_pais'           => 'required|max:2',
-            'nb_estado'         => 'max:100',
-            'nb_ciudad'         => 'max:100',
-            'tx_calle'          => 'required|max:100',
-            'tx_casa'           => 'required|max:100',
-            'nu_personas'       => 'required|numeric',
-            'tx_observaciones'  => 'max:100',
-            'id_usuario'        => 'required',
-            'id_status'         => 'required'
-        ]);
+        $vivienda = [];
 
-        $vivienda = Vivienda::create($request->all());
-        
+       // \DB::transaction(function () {
+            
+            foreach ($request->all() as $key => $value) {
+            
+                $validate = request()->validate([
+                    $key.'.id_ubicacion'      => 'required',
+                    $key.'.id_tipo_vivienda'  => 'required',
+                    $key.'.co_pais'           => 'required|max:2',
+                    $key.'.nb_estado'         => 'max:100',
+                    $key.'.nb_ciudad'         => 'max:100',
+                    $key.'.tx_calle'          => 'required|max:100',
+                    $key.'.tx_casa'           => 'required|max:100',
+                    $key.'.tx_telefono'       => 'max:20',
+                    $key.'.nu_personas'       => 'required|numeric',
+                    $key.'.tx_observaciones'  => 'max:100',
+                    $key.'.id_usuario'        => 'required',
+                    $key.'.id_status'         => 'required'
+                ]);
+    
+                $vivienda[] = Vivienda::create($validate[$key]);
+            }
+
+       // }); 
+
         return [ 'msj' => 'Registro Agregado Correctamente', compact('vivienda') ];
     }
 
@@ -65,26 +83,34 @@ class ViviendaController extends Controller
      * @param  \App\Models\Vivienda  $vivienda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vivienda $vivienda)
+    public function update(Request $request)
     {
-         $validate = request()->validate([
-            'id_persona'        => 'required',
-            'id_ubicacion'      => 'required',
-            'id_tipo_vivienda'  => 'required',
-            'co_pais'           => 'required|max:2',
-            'nb_estado'         => 'max:100',
-            'nb_ciudad'         => 'max:100',
-            'tx_calle'          => 'required|max:100',
-            'tx_casa'           => 'required|max:100',
-            'nu_personas'       => 'required|numeric',
-            'tx_observaciones'  => 'max:100',
-            'id_usuario'        => 'required',
-            'id_status'         => 'required'
-        ]);
-        
-        $ciudad = $ciudad->update($request->all());
+        $vivienda = [];
 
-        return [ 'msj' => 'Registro Editado' , compact('ciudad')];
+        // \DB::transaction(function () {
+             
+             foreach ($request->all() as $key => $value) {
+             
+                 $validate = request()->validate([
+                     $key.'.id_ubicacion'      => 'required',
+                     $key.'.id_tipo_vivienda'  => 'required',
+                     $key.'.co_pais'           => 'required|max:2',
+                     $key.'.nb_estado'         => 'max:100',
+                     $key.'.nb_ciudad'         => 'max:100',
+                     $key.'.tx_calle'          => 'required|max:100',
+                     $key.'.tx_casa'           => 'required|max:100',
+                     $key.'.tx_telefono'       => 'max:20',
+                     $key.'.nu_personas'       => 'required|numeric',
+                     $key.'.tx_observaciones'  => 'max:100',
+                     $key.'.id_usuario'        => 'required',
+                     $key.'.id_status'         => 'required'
+                 ]);
+                
+                 $vivienda[] = Vivienda::find($validate[$key]['id_vivienda'])->update($validate[$key]);
+
+             }
+        
+        return [ 'msj' => 'Registro Editado' , compact('vivienda')];
     }
 
     /**

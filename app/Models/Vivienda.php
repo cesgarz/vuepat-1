@@ -27,7 +27,7 @@ class Vivienda extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_vivienda','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function persona()
     {
@@ -57,6 +57,11 @@ class Vivienda extends Model
     public function ciudad()
     {
         return $this->BelongsTo('App\Models\Ciudad', 'nb_ciudad');
+    }
+
+    public function viviendaServicio()
+    {
+        return $this->HasMany('App\Models\ViviendaServicio', 'id_vivienda');
     }
 
     public function status()

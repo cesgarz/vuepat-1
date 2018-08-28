@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('ciudad',        'CiudadController');
     Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
 
+    Route::apiResource('vivienda',  'ViviendaController');
+    Route::get('vivienda/usuario/{id_usuario}',  'ViviendaController@viviendaUsuario');
+
     Route::apiResource('tipoVivienda',  'TipoViviendaController');
     Route::apiResource('servicio',      'ServicioController');
 
