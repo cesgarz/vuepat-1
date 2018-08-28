@@ -14,6 +14,7 @@ class Discapacidad extends Model
 
     protected $fillable   = [
                             'nb_discapacidad',
+                            'id_tipo_discapacidad'
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
