@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('ciudad',        'CiudadController');
     Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
 
+    Route::apiResource('empleo',        'EmpleoController');
+    Route::get('empleo/usuario/{id_usuario}',  'EmpleoController@empleoUsuario');
+
     Route::apiResource('vivienda',  'ViviendaController');
     Route::get('vivienda/usuario/{id_usuario}',  'ViviendaController@viviendaUsuario');
 
@@ -40,6 +43,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('motivo',        'MotivoController');
     Route::apiResource('recurso',       'RecursoController');
     Route::apiResource('grupoMigracion','GrupoMigracionController');
+    Route::apiResource('transporte',    'transporteController');
+    Route::apiResource('migracion',     'migracionController');
 
     Route::post('logout', 'Auth\LoginController@logout');
 

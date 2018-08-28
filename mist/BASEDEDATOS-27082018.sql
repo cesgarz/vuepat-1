@@ -1037,7 +1037,6 @@ INSERT INTO "public"."discapacidad" VALUES (4, 'Visual', 2, NULL, 1, 1, NULL, NU
 DROP TABLE IF EXISTS "public"."empleo";
 CREATE TABLE "public"."empleo" (
   "id_empleo" int4 NOT NULL DEFAULT nextval('empleo_id_empleo_seq'::regclass),
-  "id_persona" int4 NOT NULL,
   "tx_empresa" varchar(100) COLLATE "pg_catalog"."default",
   "id_sector" int4 NOT NULL,
   "id_tipo_cargo" int4 NOT NULL,
@@ -1046,7 +1045,7 @@ CREATE TABLE "public"."empleo" (
   "id_remuneracion" int4 NOT NULL,
   "id_moneda" int4 NOT NULL,
   "mo_remuneracion" numeric(15,2),
-  "bo_empresa_propia" bool,
+  "bo_empresa_propia" boolean,
   "nb_empresa_propia" varchar(100) COLLATE "pg_catalog"."default",
   "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
   "id_status" int4 NOT NULL,
@@ -1191,21 +1190,22 @@ INSERT INTO "public"."jornada" VALUES (4, 'MÁS DE 12 HORAS', NULL, 1, 1, NULL, 
 -- ----------------------------
 -- Table structure for migracion
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."migracion";
-CREATE TABLE "public"."migracion" (
-  "id_migracion" int4 NOT NULL DEFAULT nextval('migracion_id_migracion_seq'::regclass),
-  "id_persona" int4 NOT NULL,
-  "id_motivo" int4 NOT NULL,
-  "id_recurso" int4 NOT NULL,
-  "id_grupo_migracion" int4 NOT NULL,
-  "tx_grupo_migracion" varchar(50) COLLATE "pg_catalog"."default",
-  "id_transporte" int4 NOT NULL,
-  "fe_salida" timestamp(6),
-  "tx_observaciones" varchar(100) COLLATE "pg_catalog"."default",
-  "id_status" int4 NOT NULL,
-  "id_usuario" int4 NOT NULL,
-  "fe_creado" timestamp(6),
-  "fe_actualizado" timestamp(6)
+DROP TABLE IF EXISTS public.migracion;
+CREATE TABLE public.migracion (
+  id_migracion int4 NOT NULL DEFAULT nextval('migracion_id_migracion_seq'::regclass),
+  id_motivo int4 NOT NULL,
+	tx_motivo varchar(100),
+  id_recurso int4 NOT NULL,
+	tx_recurso varchar(100),
+  id_grupo_migracion int4 NOT NULL,
+  tx_grupo_migracion varchar(50),
+  id_transporte int4 NOT NULL,
+  fe_salida timestamp(6),
+  tx_observaciones varchar(100),
+  id_status int4 NOT NULL,
+  id_usuario int4 NOT NULL,
+  fe_creado timestamp(6),
+  fe_actualizado timestamp(6)
 )
 ;
 

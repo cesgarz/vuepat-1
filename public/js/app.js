@@ -83000,7 +83000,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -83130,6 +83130,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -83139,10 +83144,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
         return {
+            tabla: 'migracion',
             transporte: null,
             form: {
                 id_migracion: null,
-                id_persona: null,
                 id_motivo: null,
                 tx_motivo: null,
                 id_recurso: null,
@@ -83158,7 +83163,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 motivo: [],
                 recurso: [],
-                grupoMigracion: []
+                grupoMigracion: [],
+                transporte: []
             }
 
         };
@@ -83174,7 +83180,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        getData: function getData() {}
+        getData: function getData() {},
+        store: function store() {
+            var _this2 = this;
+
+            this.form.id_status = 1;
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
+
+            if (this.$refs.form.validate()) {
+                axios.post(this.basePath, this.form).then(function (respuesta) {
+                    _this2.showMessage(respuesta.data.msj);
+                    _this2.$emit('completado', true);
+                }).catch(function (error) {
+                    _this2.showError(error);
+                    _this2.$emit('completado', false);
+                });
+            }
+        },
+        update: function update() {
+            var _this3 = this;
+
+            if (this.$refs.form.validate()) {
+                axios.put(this.basePath + this.form.id_empleo, this.form).then(function (respuesta) {
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.$emit('completado', true);
+                }).catch(function (error) {
+                    _this3.showError(error);
+                });
+            }
+        }
     }
 
 });
@@ -83194,62 +83228,295 @@ var render = function() {
         "v-card-text",
         [
           _c(
-            "v-layout",
-            { attrs: { wrap: "" } },
+            "v-form",
+            {
+              ref: "form",
+              attrs: { "lazy-validation": "" },
+              model: {
+                value: _vm.valido,
+                callback: function($$v) {
+                  _vm.valido = $$v
+                },
+                expression: "valido"
+              }
+            },
             [
               _c(
-                "v-flex",
-                { attrs: { xs12: "", sm6: "" } },
+                "v-layout",
+                { attrs: { wrap: "" } },
                 [
                   _c(
-                    "v-menu",
-                    {
-                      ref: "picker",
-                      attrs: {
-                        "full-width": "",
-                        "min-width": "290px",
-                        lazy: ""
-                      },
-                      model: {
-                        value: _vm.picker,
-                        callback: function($$v) {
-                          _vm.picker = $$v
-                        },
-                        expression: "picker"
-                      }
-                    },
+                    "v-flex",
+                    { attrs: { xs12: "", sm6: "" } },
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          slot: "activator",
-                          rules: _vm.rules.fecha,
-                          label: "Fecha de salida de Venezuela",
-                          "prepend-icon": "event",
-                          readonly: "",
-                          required: ""
-                        },
-                        slot: "activator",
-                        model: {
-                          value: _vm.form.fe_nacimiento,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "fe_nacimiento", $$v)
+                      _c(
+                        "v-menu",
+                        {
+                          ref: "picker",
+                          attrs: {
+                            "full-width": "",
+                            "min-width": "290px",
+                            lazy: ""
                           },
-                          expression: "form.fe_nacimiento"
+                          model: {
+                            value: _vm.picker,
+                            callback: function($$v) {
+                              _vm.picker = $$v
+                            },
+                            expression: "picker"
+                          }
+                        },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              slot: "activator",
+                              rules: _vm.rules.fecha,
+                              label: "Fecha de salida de Venezuela",
+                              "prepend-icon": "event",
+                              readonly: "",
+                              required: ""
+                            },
+                            slot: "activator",
+                            model: {
+                              value: _vm.form.fe_salida,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "fe_salida", $$v)
+                              },
+                              expression: "form.fe_salida"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-date-picker", {
+                            attrs: {
+                              locale: "es",
+                              max: new Date().toISOString().substr(0, 10),
+                              min: "1950-01-01"
+                            },
+                            model: {
+                              value: _vm.form.fe_salida,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "fe_salida", $$v)
+                              },
+                              expression: "form.fe_salida"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-flex", { attrs: { sm6: "" } }),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _c("v-select", {
+                        attrs: {
+                          items: _vm.listas.motivo,
+                          "item-text": "nb_motivo",
+                          "item-value": "id_motivo",
+                          rules: _vm.rules.select,
+                          label: "Motivo de salida del Pais",
+                          "prepend-icon": "directions_run"
+                        },
+                        model: {
+                          value: _vm.form.id_motivo,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "id_motivo", $$v)
+                          },
+                          expression: "form.id_motivo"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("v-date-picker", {
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _vm.form.id_motivo == 5
+                        ? _c("v-text-field", {
+                            attrs: {
+                              rules: _vm.rules.requerido,
+                              label: "Indique Motivo del salida del pais"
+                            },
+                            model: {
+                              value: _vm.form.tx_motivo,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_motivo", $$v)
+                              },
+                              expression: "form.tx_motivo"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _c("v-select", {
                         attrs: {
-                          locale: "es",
-                          max: new Date().toISOString().substr(0, 10),
-                          min: "1950-01-01"
+                          items: _vm.listas.recurso,
+                          "item-text": "nb_recurso",
+                          "item-value": "id_recurso",
+                          rules: _vm.rules.select,
+                          label: "Recursos para el viaje",
+                          "prepend-icon": "credit_card"
                         },
                         model: {
-                          value: _vm.form.fe_nacimiento,
+                          value: _vm.form.id_recurso,
                           callback: function($$v) {
-                            _vm.$set(_vm.form, "fe_nacimiento", $$v)
+                            _vm.$set(_vm.form, "id_recurso", $$v)
                           },
-                          expression: "form.fe_nacimiento"
+                          expression: "form.id_recurso"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _vm.form.id_recurso == "4"
+                        ? _c("v-text-field", {
+                            attrs: {
+                              rules: _vm.rules.requerido,
+                              label: "Indique Recursos"
+                            },
+                            model: {
+                              value: _vm.form.tx_recurso,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_recurso", $$v)
+                              },
+                              expression: "form.tx_recurso"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _c("v-select", {
+                        attrs: {
+                          items: _vm.listas.grupoMigracion,
+                          "item-text": "nb_grupo_migracion",
+                          "item-value": "id_grupo_migracion",
+                          rules: _vm.rules.select,
+                          label: "El Viaje lo Realizo",
+                          "prepend-icon": "group"
+                        },
+                        model: {
+                          value: _vm.form.id_grupo_migracion,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "id_grupo_migracion", $$v)
+                          },
+                          expression: "form.id_grupo_migracion"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm6: "" } },
+                    [
+                      _vm.form.id_grupo_migracion == 5
+                        ? _c("v-text-field", {
+                            attrs: {
+                              rules: _vm.rules.requerido,
+                              label: "Indique con quien(es) realizo el Viaje"
+                            },
+                            model: {
+                              value: _vm.form.tx_grupo_migracion,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_grupo_migracion", $$v)
+                              },
+                              expression: "form.tx_grupo_migracion"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm4: "" } },
+                    [
+                      _c(
+                        "v-radio-group",
+                        {
+                          attrs: {
+                            row: "",
+                            label: "Medio de Transporte ",
+                            rules: _vm.rules.requerido
+                          },
+                          model: {
+                            value: _vm.form.id_transporte,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "id_transporte", $$v)
+                            },
+                            expression: "form.id_transporte"
+                          }
+                        },
+                        [
+                          _c("v-icon", [_vm._v("directions_boat")]),
+                          _vm._v(" "),
+                          _c("v-radio", { attrs: { label: "", value: 1 } }),
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("directions_bus")]),
+                          _vm._v(" "),
+                          _c("v-radio", { attrs: { label: "", value: 2 } }),
+                          _vm._v(" "),
+                          _c("v-icon", [_vm._v("flight")]),
+                          _vm._v(" "),
+                          _c("v-radio", { attrs: { label: "", value: 3 } })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm2: "" } },
+                    [
+                      _c("v-select", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.form.id_transporte,
+                            expression: "form.id_transporte"
+                          }
+                        ],
+                        attrs: {
+                          items: _vm.listas.transporte,
+                          "item-text": "nb_transporte",
+                          "item-value": "id_transporte",
+                          label: "Transporte"
+                        },
+                        model: {
+                          value: _vm.form.id_transporte,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "id_transporte", $$v)
+                          },
+                          expression: "form.id_transporte"
                         }
                       })
                     ],
@@ -83259,219 +83526,25 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("v-flex", { attrs: { sm6: "" } }),
-              _vm._v(" "),
               _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-select", {
-                    attrs: {
-                      items: [
-                        "Oferta de Trabajo Recibida",
-                        "Busqueda de nuevas experiencias",
-                        "Situación económica",
-                        "Estudios",
-                        "Otros"
-                      ],
-                      label: "Motivo",
-                      required: "",
-                      "prepend-icon": "directions_run"
-                    },
-                    model: {
-                      value: _vm.form.motivo,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "motivo", $$v)
-                      },
-                      expression: "form.motivo"
-                    }
-                  })
-                ],
-                1
+                "v-btn",
+                {
+                  attrs: { outline: "", color: "primary", dark: "" },
+                  on: { click: _vm.store }
+                },
+                [_vm._v("guardar")]
               ),
               _vm._v(" "),
               _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.form.motivo == "Otros",
-                        expression: "form.motivo == 'Otros'"
-                      }
-                    ],
-                    attrs: { name: "name", label: "Indique Motivo", id: "id" }
-                  })
-                ],
-                1
+                "v-btn",
+                {
+                  attrs: { outline: "", color: "primary", dark: "" },
+                  on: { click: _vm.update }
+                },
+                [_vm._v("actualizar")]
               ),
               _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-select", {
-                    attrs: {
-                      items: ["Propios", "Crédito", "Prestamo", "Otros"],
-                      label: "Recursos para el viaje",
-                      required: "",
-                      "prepend-icon": "credit_card"
-                    },
-                    model: {
-                      value: _vm.form.recursos,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "recursos", $$v)
-                      },
-                      expression: "form.recursos"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.form.recursos == "Otros",
-                        expression: "form.recursos == 'Otros'"
-                      }
-                    ],
-                    attrs: { name: "name", label: "Indique Recursos", id: "id" }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-select", {
-                    attrs: {
-                      items: [
-                        "Solo",
-                        "Con su Pareja",
-                        "Con el núcleo Familiar",
-                        "En Grupo de Amigos",
-                        "Otros"
-                      ],
-                      label: "El Viaje lo Realizo",
-                      required: "",
-                      "prepend-icon": "group"
-                    },
-                    model: {
-                      value: _vm.form.grupo,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "grupo", $$v)
-                      },
-                      expression: "form.grupo"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm6: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.form.grupo == "Otros",
-                        expression: "form.grupo == 'Otros'"
-                      }
-                    ],
-                    attrs: {
-                      name: "name",
-                      label: "Indique con quien(es) realizo el Viaje",
-                      id: "id"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm4: "" } },
-                [
-                  _c(
-                    "v-radio-group",
-                    {
-                      attrs: { row: "", label: "Medio de Transporte" },
-                      model: {
-                        value: _vm.transporte,
-                        callback: function($$v) {
-                          _vm.transporte = $$v
-                        },
-                        expression: "transporte"
-                      }
-                    },
-                    [
-                      _c("v-icon", [_vm._v("directions_boat")]),
-                      _vm._v(" "),
-                      _c("v-radio", {
-                        attrs: { label: "", value: "Maritimo" }
-                      }),
-                      _vm._v(" "),
-                      _c("v-icon", [_vm._v("directions_bus")]),
-                      _vm._v(" "),
-                      _c("v-radio", {
-                        attrs: { label: "", value: "Terrestre" }
-                      }),
-                      _vm._v(" "),
-                      _c("v-icon", [_vm._v("flight")]),
-                      _vm._v(" "),
-                      _c("v-radio", { attrs: { label: "", value: "Aereo" } })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { sm2: "" } },
-                [
-                  _c("v-text-field", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.transporte,
-                        expression: "transporte"
-                      }
-                    ],
-                    attrs: {
-                      name: "name",
-                      label: "Transporte",
-                      readonly: "",
-                      id: "id"
-                    },
-                    model: {
-                      value: _vm.transporte,
-                      callback: function($$v) {
-                        _vm.transporte = $$v
-                      },
-                      expression: "transporte"
-                    }
-                  })
-                ],
-                1
-              )
+              _c("pre", [_vm._v(_vm._s(_vm.$data))])
             ],
             1
           )
@@ -83578,7 +83651,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -83740,6 +83813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -83754,10 +83828,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            tabla: 'vivienda',
+            tabla: 'empleo',
             form: {
                 id_empleo: null,
-                id_persona: null,
                 tx_empresa: null,
                 id_sector: null,
                 id_tipo_cargo: null,
@@ -83769,8 +83842,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 bo_empresa_propia: false,
                 nb_empresa_propia: null,
                 tx_observaciones: null,
-                id_status: null,
-                id_usuario: null,
+                id_status: 1,
+                id_usuario: this.$store.getters.user.id_usuario,
                 id_nivel_estudio: null,
                 tx_titulo: null
             },
@@ -83788,41 +83861,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getData: function getData() {
+            var _this = this;
 
-            /*
-            axios.get(this.basePath + this.$store.getters.user.id_usuario)
-            .then(respuesta => 
-            {
-                this.datos = respuesta.data;
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
-            */
+            axios.get(this.basePath + 'usuario/' + this.$store.getters.user.id_usuario).then(function (respuesta) {
+                _this.datos = respuesta.data;
+            }).catch(function (error) {
+                _this.showError(error);
+            });
         },
         store: function store() {
-            var _this = this;
+            var _this2 = this;
+
+            this.form.id_status = 1;
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
-                    _this.showMessage(respuesta.data.msj);
-                    _this.$emit('completado', true);
-                }).catch(function (error) {
-                    _this.showError(error);
-                    _this.$emit('completado', false);
-                });
-            }
-        },
-        update: function update() {
-            var _this2 = this;
-
-            if (this.$refs.form.validate()) {
-                axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
                     _this2.showMessage(respuesta.data.msj);
                     _this2.$emit('completado', true);
                 }).catch(function (error) {
                     _this2.showError(error);
+                    _this2.$emit('completado', false);
+                });
+            }
+        },
+        update: function update() {
+            var _this3 = this;
+
+            if (this.$refs.form.validate()) {
+                axios.put(this.basePath + this.form.id_empleo, this.form).then(function (respuesta) {
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.$emit('completado', true);
+                }).catch(function (error) {
+                    _this3.showError(error);
                 });
             }
         }
@@ -84982,8 +85053,6 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("pre", [_vm._v(_vm._s("$data"))]),
-          _vm._v(" "),
           _c(
             "v-btn",
             {
@@ -85000,7 +85069,9 @@ var render = function() {
               on: { click: _vm.update }
             },
             [_vm._v("actualizar")]
-          )
+          ),
+          _vm._v(" "),
+          _c("pre", [_vm._v(_vm._s("$data"))])
         ],
         1
       )

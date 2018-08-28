@@ -138,9 +138,10 @@
     </v-form>
     <empleo-lista></empleo-lista>
     </v-card-text>
-    <pre>{{'$data'}}</pre>
     <v-btn outline color="primary" dark @click="store">guardar</v-btn>
     <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
+    <pre>{{'$data'}}</pre>
+    
     </v-card>
     </div>
 </template>
@@ -161,10 +162,9 @@ export default {
     data() 
     {
         return {
-            tabla: 'vivienda',
+            tabla: 'empleo',
             form: {
                 id_empleo:          null,
-                id_persona:         null,
                 tx_empresa:         null,
                 id_sector:          null,
                 id_tipo_cargo:      null,
@@ -176,8 +176,8 @@ export default {
                 bo_empresa_propia:  false,
                 nb_empresa_propia:  null,
                 tx_observaciones:   null,
-                id_status:          null,
-                id_usuario:         null,
+                id_status:          1,
+                id_usuario:         this.$store.getters.user.id_usuario,
                 id_nivel_estudio:   null,
                 tx_titulo:          null,
             },
@@ -195,10 +195,8 @@ export default {
     methods:
     {
         getData()
-        {
-            
-            /*
-            axios.get(this.basePath + this.$store.getters.user.id_usuario)
+        {            
+            axios.get(this.basePath +  'usuario/' + this.$store.getters.user.id_usuario)
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
@@ -207,10 +205,13 @@ export default {
             {
                 this.showError(error);
             })
-            */
+            
         },
         store()
         {
+            this.form.id_status  = 1;
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
+            
             if (this.$refs.form.validate()) 
             {  
                 axios.post(this.basePath, this.form)
@@ -230,7 +231,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {
-                axios.put(this.basePath + this.form.id_persona, this.form)
+                axios.put(this.basePath + this.form.id_empleo, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)

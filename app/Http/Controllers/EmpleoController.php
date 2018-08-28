@@ -18,6 +18,14 @@ class EmpleoController extends Controller
         return $empleo;
     }
 
+    public function empleoUsuario($id_usuario)
+    {
+        $empleo = Empleo::with(['status'])
+                        ->where('id_usuario', $id_usuario)
+                        ->first();
+        return $empleo;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -27,15 +35,15 @@ class EmpleoController extends Controller
     public function store(Request $request)
     {
         $validate = request()->validate([
-            'id_persona'        => 'required',
             'tx_empresa'        => 'required|max:100',
+            'id_sector'         => 'required',
             'id_tipo_cargo'     => 'required',
             'tx_cargo'          => 'required|max:100',
             'id_jornada'        => 'required',
             'id_remuneracion'   => 'required', 
-            'id_moneda'         => 'required',
-            'mo_remuneracion'   => 'required|numeric|min:2|max:15',
-            'bo_empresa_propia' => 'boolean',
+            'id_moneda'         => 'integer|nullable',
+            'mo_remuneracion'   => 'nullable|numeric|min:1',
+            'bo_empresa_propia' => 'nullable|boolean',
             'nb_empresa_propia' => 'max:100',
             'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',
@@ -68,15 +76,15 @@ class EmpleoController extends Controller
     public function update(Request $request, Empleo $empleo)
     {
         $validate = request()->validate([
-            'id_persona'        => 'required',
             'tx_empresa'        => 'required|max:100',
+            'id_sector'         => 'required',
             'id_tipo_cargo'     => 'required',
             'tx_cargo'          => 'required|max:100',
             'id_jornada'        => 'required',
             'id_remuneracion'   => 'required', 
-            'id_moneda'         => 'required',
-            'mo_remuneracion'   => 'required|numeric|min:2|max:15',
-            'bo_empresa_propia' => 'boolean',
+            'id_moneda'         => 'integer|nullable',
+            'mo_remuneracion'   => 'nullable|numeric|min:1',
+            'bo_empresa_propia' => 'nullable|boolean',
             'nb_empresa_propia' => 'max:100',
             'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',

@@ -14,8 +14,10 @@ class TransporteController extends Controller
      */
     public function index()
     {
-        $transportes = Transporte::with(['usuario', 'status'])->get();
-        
+        $transportes = Transporte::select('id_transporte', 'nb_transporte')
+                                    ->where('id_status', 1)
+                                    ->get();
+   
         return $transportes;
     }
 

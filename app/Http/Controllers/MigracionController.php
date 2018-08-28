@@ -27,11 +27,12 @@ class MigracionController extends Controller
     public function store(Request $request)
     {
         $validate = request()->validate([
-            'id_persona'           => 'required',
             'id_motivo'            => 'required',
+            'tx_motivo'            => 'max:50',
             'id_recurso'           => 'required',
+            'tx_recurso'           => 'max:50',
             'id_grupo_migracion'   => 'required',
-            'tx_grupo_migracion'   => 'required|max:50',
+            'tx_grupo_migracion'   => 'max:50',
             'id_transporte'        => 'required',
             'fe_salida'            => 'required|date',
             'tx_observaciones'     => 'max:100',
@@ -65,7 +66,6 @@ class MigracionController extends Controller
     public function update(Request $request, Migracion $migracion)
     {
         $validate = request()->validate([
-            'id_persona'           => 'required',
             'id_motivo'            => 'required',
             'id_recurso'           => 'required',
             'id_grupo_migracion'   => 'required',

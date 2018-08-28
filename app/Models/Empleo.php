@@ -13,8 +13,8 @@ class Empleo extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'id_persona',
                             'tx_empresa',
+                            'id_sector',
                             'id_tipo_cargo',
                             'tx_cargo',
                             'id_jornada',
