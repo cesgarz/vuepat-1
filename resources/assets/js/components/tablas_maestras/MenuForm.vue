@@ -16,7 +16,7 @@
             <v-text-field
                 v-model="form.nb_menu"
                 :rules="rules.requerido"
-                label="Nombre de la menu"
+                label="Nombre del menu"
                 placeholder="Indique Nombre"
                 required
             ></v-text-field>
