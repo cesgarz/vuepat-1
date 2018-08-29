@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
+    Route::get('/usuario/lista', 'UsuarioController@lista');
     Route::apiResource('/usuario', 'UsuarioController');
     Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
     

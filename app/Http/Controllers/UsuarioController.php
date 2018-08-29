@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Auth\Usuario;
 use Illuminate\Http\Request;
+use Hash;
 
 class UsuarioController extends Controller
 {
@@ -27,6 +28,16 @@ class UsuarioController extends Controller
         return $usuarios;
     }
 
+    public function lista()
+    {
+         $usuario = Usuario::with('status')
+                            ->get(); 
+        return $usuario;
+    }
+
+
+
+
     public function list()
     {
         $usuarios = Usuario::with([
@@ -49,6 +60,17 @@ class UsuarioController extends Controller
         return $usuarios;
     }
 
+    public function updatePassword(Request $request, Usuario $usuario)
+    {
+        $validate = request()->validate([
+            'id_usuario'  => 'required',
+            'password'  => 'required',
+        ]);
+        $usuario = $usuario->update([
+            'password'    =>  Hash::make($request->password),
+        ]);
+        return [ 'msj' => 'Password Actualizado Correctamente', compact('usuario') ];
+    }
     /**
      * Display the specified resource.
      *

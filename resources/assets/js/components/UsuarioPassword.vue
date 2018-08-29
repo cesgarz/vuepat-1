@@ -14,7 +14,7 @@
         
             <v-flex xs12 >
             <v-text-field
-                v-model="form.usuario"
+                v-model="form.nb_usuario"
                 :rules="rules.requerido"
                 label="Nombre del Usuario"
                 prepend-icon="account_circle"
@@ -84,7 +84,7 @@ export default {
             checkPasswd: null,
             form:{
                     id_usuario:       '',
-                    usuario:          '',
+                    nb_usuario:       '',
                     password:         '',
             },
             listas:{

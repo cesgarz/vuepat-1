@@ -36,10 +36,8 @@
 
             <template slot="items" slot-scope="item">
                 
-                <td class="text-xs-left">{{ item.item.usuario }}</td>
-                <td class="text-xs-left">{{ item.item.nu_cedula }}</td>
-                <td class="text-xs-left">{{ item.item.nb_nombre }}</td>
-                <td class="text-xs-left">{{ item.item.nb_apellido }}</td>
+                <td class="text-xs-left">{{ item.item.nb_usuario }}</td>
+                <td class="text-xs-left">{{ item.item.tx_email }}</td>
                 <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
@@ -102,10 +100,8 @@ export default {
     return {
         modalPasw : false,
         headers: [
-        { text: 'Usuario',  value: 'usuario' },
-        { text: 'Cedula',   value: 'nu_cedula' },
-        { text: 'Nombre',   value: 'nb_nombre' },
-        { text: 'Apellido', value: 'nb_apellido'  },
+        { text: 'Usuario',  value: 'nb_usuario' },
+        { text: 'Correo',   value: 'tx_email' },
         { text: 'Status',   value: 'status.nb_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]
@@ -115,7 +111,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/usuario')
+            axios.get('/api/v1/usuario/lista')
             .then(respuesta => {
                 this.items = respuesta.data;
             })

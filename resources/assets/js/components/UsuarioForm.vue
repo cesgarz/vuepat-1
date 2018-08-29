@@ -14,7 +14,7 @@
         
             <v-flex xs12 sm6 >
             <v-text-field
-                v-model="form.usuario"
+                v-model="form.nb_usuario"
                 :rules="rules.requerido"
                 label="Usuario"
                 prepend-icon="account_circle"
@@ -25,27 +25,9 @@
 
             <v-flex xs12 sm6 >
             <v-text-field
-                v-model="form.nu_cedula"
+                v-model="form.tx_email"
                 :rules="rules.requerido"
-                label="Cedula del Usuario"
-                required
-            ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12 sm6 >
-            <v-text-field
-                v-model="form.nb_nombre"
-                :rules="rules.requerido"
-                label="Nombre del Usuario"
-                required
-            ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12 sm6 >
-            <v-text-field
-                v-model="form.nb_apellido"
-                :rules="rules.requerido"
-                label="Apellido del Usuario"
+                label="Correo del Usuario"
                 required
             ></v-text-field>
             </v-flex>
@@ -84,7 +66,6 @@
                 v-model="form.id_status"
                 :rules="rules.select"
                 label="Status del Usuario"
-                autocomplete
                 required
                 ></v-select>
             </v-flex>
@@ -135,17 +116,15 @@ export default {
             form:
             {
                 id_usuario:       '',
-                usuario:          '',
+                nb_usuario:       '',
                 password:         '',
-                nu_cedula:        '',
-                nb_nombre:        '',
-                nb_apellido:      '',
+                tx_email:        '',
                 tx_observaciones: '',
                 id_status:        '',
             },
             listas:
             {
-                status:     ['/grupo/5']
+                status:     ['/grupo/GRAL']
             },
             rules:{
                 password1: [

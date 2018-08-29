@@ -61606,7 +61606,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -61710,8 +61710,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -61722,7 +61720,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             modalPasw: false,
-            headers: [{ text: 'Usuario', value: 'usuario' }, { text: 'Cedula', value: 'nu_cedula' }, { text: 'Nombre', value: 'nb_nombre' }, { text: 'Apellido', value: 'nb_apellido' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Usuario', value: 'nb_usuario' }, { text: 'Correo', value: 'tx_email' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -61730,7 +61728,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         list: function list() {
             var _this = this;
 
-            axios.get('/api/v1/usuario').then(function (respuesta) {
+            axios.get('/api/v1/usuario/lista').then(function (respuesta) {
                 _this.items = respuesta.data;
             }).catch(function (error) {
                 _this.showError(error);
@@ -61857,19 +61855,11 @@ var render = function() {
                               fn: function(item) {
                                 return [
                                   _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.usuario))
+                                    _vm._v(_vm._s(item.item.nb_usuario))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.nu_cedula))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.nb_nombre))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.nb_apellido))
+                                    _vm._v(_vm._s(item.item.tx_email))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
@@ -62204,25 +62194,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -62238,16 +62209,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             checkPasswd: null,
             form: {
                 id_usuario: '',
-                usuario: '',
+                nb_usuario: '',
                 password: '',
-                nu_cedula: '',
-                nb_nombre: '',
-                nb_apellido: '',
+                tx_email: '',
                 tx_observaciones: '',
                 id_status: ''
             },
             listas: {
-                status: ['/grupo/5']
+                status: ['/grupo/GRAL']
             },
             rules: {
                 password1: [function (v) {
@@ -62363,11 +62332,11 @@ var render = function() {
                                       readonly: _vm.btnAccion == "upd"
                                     },
                                     model: {
-                                      value: _vm.form.usuario,
+                                      value: _vm.form.nb_usuario,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "usuario", $$v)
+                                        _vm.$set(_vm.form, "nb_usuario", $$v)
                                       },
-                                      expression: "form.usuario"
+                                      expression: "form.nb_usuario"
                                     }
                                   })
                                 ],
@@ -62381,59 +62350,15 @@ var render = function() {
                                   _c("v-text-field", {
                                     attrs: {
                                       rules: _vm.rules.requerido,
-                                      label: "Cedula del Usuario",
+                                      label: "Correo del Usuario",
                                       required: ""
                                     },
                                     model: {
-                                      value: _vm.form.nu_cedula,
+                                      value: _vm.form.tx_email,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "nu_cedula", $$v)
+                                        _vm.$set(_vm.form, "tx_email", $$v)
                                       },
-                                      expression: "form.nu_cedula"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      rules: _vm.rules.requerido,
-                                      label: "Nombre del Usuario",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.form.nb_nombre,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "nb_nombre", $$v)
-                                      },
-                                      expression: "form.nb_nombre"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      rules: _vm.rules.requerido,
-                                      label: "Apellido del Usuario",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.form.nb_apellido,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "nb_apellido", $$v)
-                                      },
-                                      expression: "form.nb_apellido"
+                                      expression: "form.tx_email"
                                     }
                                   })
                                 ],
@@ -62514,7 +62439,6 @@ var render = function() {
                                       "item-value": "id_status",
                                       rules: _vm.rules.select,
                                       label: "Status del Usuario",
-                                      autocomplete: "",
                                       required: ""
                                     },
                                     model: {
@@ -62747,7 +62671,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             checkPasswd: null,
             form: {
                 id_usuario: '',
-                usuario: '',
+                nb_usuario: '',
                 password: ''
             },
             listas: {},
@@ -62859,11 +62783,11 @@ var render = function() {
                                       readonly: ""
                                     },
                                     model: {
-                                      value: _vm.form.usuario,
+                                      value: _vm.form.nb_usuario,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "usuario", $$v)
+                                        _vm.$set(_vm.form, "nb_usuario", $$v)
                                       },
-                                      expression: "form.usuario"
+                                      expression: "form.nb_usuario"
                                     }
                                   })
                                 ],
