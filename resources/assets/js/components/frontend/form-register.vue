@@ -117,7 +117,7 @@
           }
 
             this.$store.dispatch(actions.REGISTER, form).then(response => {
-
+              
               this.login()
 
             }).catch(error => {

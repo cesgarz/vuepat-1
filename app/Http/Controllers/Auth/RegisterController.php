@@ -67,11 +67,12 @@ class RegisterController extends Controller
         ]);
 
         $rolUsuario = RolUsuario::create([
-            'id_rol'        => 1,
-            'id_usuario'    => $usuario->id,
-            'id_status'     => 1, 
+                'id_rol'        => 1,
+                'id_usuario'    => $usuario->id_usuario,
+                'id_status'     => 1, 
         ]);
-
+   
         return $usuario;
+
     }
 }

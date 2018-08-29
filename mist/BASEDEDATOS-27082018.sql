@@ -2110,9 +2110,9 @@ CREATE TABLE "public"."usuario" (
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
-INSERT INTO "public"."usuario" VALUES (7, 'prueba', '$2y$10$TGdvCW4gvRgxvVkRMrtvBO9NUeNV1bdWlr6KTj1OxTBUEW273y5DK', NULL, NULL, 'prueba@bandes.gob.ve', NULL, NULL, 1, 1, '2018-08-23 10:33:22', '2018-08-23 10:33:22');
-INSERT INTO "public"."usuario" VALUES (8, 'bandes', '$2y$10$G.w8aXhqieLXCOGgfLHlUeG2BGYD/qLxm5Z8/ZRdsHuCWQxrhvIji', NULL, NULL, 'bandes@bandes.gob.ve', NULL, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-23 11:04:24');
 INSERT INTO "public"."usuario" VALUES (1, 'admin', '$2y$10$XnVGzwUpYVFbpFgVptJvyOv0/TiuzOvE1fkLEAOlCXz7/jkwzLV9q', NULL, NULL, 'admin@bandes.gob.ve', 'BrgngWlHxUYNLd1w57PLeVaMz89Pm5do1rRggppqdv9NXNwDRek66dE9rMAy', NULL, 1, 1, '2018-08-23 10:30:32', '2018-08-23 10:30:32');
+INSERT INTO "public"."usuario" VALUES (2, 'bandes', '$2y$10$G.w8aXhqieLXCOGgfLHlUeG2BGYD/qLxm5Z8/ZRdsHuCWQxrhvIji', NULL, NULL, 'bandes@bandes.gob.ve', NULL, NULL, 1, 1, '2018-08-23 11:04:24', '2018-08-23 11:04:24');
+INSERT INTO "public"."usuario" VALUES (3, 'prueba', '$2y$10$TGdvCW4gvRgxvVkRMrtvBO9NUeNV1bdWlr6KTj1OxTBUEW273y5DK', NULL, NULL, 'prueba@bandes.gob.ve', NULL, NULL, 1, 1, '2018-08-23 10:33:22', '2018-08-23 10:33:22');
 
 -- ----------------------------
 -- Table structure for vivienda
@@ -2279,8 +2279,8 @@ SELECT setval('"public"."tipo_discapacidad_id_tipo_discapacidad_seq"', 6, true);
 SELECT setval('"public"."tipo_persona_id_tipo_persona_seq"', 3, false);
 SELECT setval('"public"."tipo_vivienda_id_tipo_vivienda_seq"', 5, true);
 SELECT setval('"public"."transporte_id_transporte_seq"', 5, true);
-SELECT setval('"public"."ubicacion_id_ubicacion_seq"', 4, true);
-SELECT setval('"public"."usuario_id_usuario_seq"', 9, true);
+SELECT setval('"public"."ubicacion_id_ubicacion_seq"', 3, true);
+SELECT setval('"public"."usuario_id_usuario_seq"', 3, true);
 SELECT setval('"public"."usuario_persona_id_usuario_persona_seq"', 3, false);
 SELECT setval('"public"."vivienda_id_vivienta_seq"', 3, false);
 SELECT setval('"public"."vivienda_servicio_id_vivienda_servicio_seq"', 3, false);
