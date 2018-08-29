@@ -75,7 +75,9 @@ if (window.user) {
 
 }else{
   
-    if(window.location.pathname != '/')
+    if(window.location.pathname != '/' &&
+       window.location.pathname != '/welcome' &&
+       window.location.pathname != '/registration')
     {
       alert('La session actual es Invalida Favor Ingresar nuevamente');  
       window.location = '/'
