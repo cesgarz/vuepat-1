@@ -93,39 +93,36 @@
             prepend-icon="accessible"
           ></v-checkbox>
         </v-flex>
-        
-        <v-flex sm4 v-if="form.bo_discapacidad">
-            <v-select
-            :items="listas.tipoDiscapacidad"
-            item-text="nb_tipo_discapacidad"
-            item-value="id_tipo_discapacidad"
-            v-model="form.id_tipo_discapacidad"
-            label="Tipo de Discapacidad"
-            
-            ></v-select>
+
+        <v-flex sm3 v-if="form.bo_discapacidad">
+              <v-select
+              :items="listas.tipoDiscapacidad"
+              item-text="nb_tipo_discapacidad"
+              item-value="id_tipo_discapacidad"
+              v-model="form.id_tipo_discapacidad"
+              label="Tipo de Discapacidad"
+              :rules="rules.select"
+              @change="getDiscapacidad"
+              ></v-select>
         </v-flex>
 
-        <v-flex sm4 v-if="form.id_tipo_discapacidad == '1'">
-            <v-select
-            :items="['Miembros  superiores', 'Miembros  inferiores']"
-            label="Discapacidad Fisica"
-            
-            ></v-select>
+        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
+              <v-select
+              :items="discapacidad"
+              item-text="nb_discapacidad"
+              item-value="id_discapacidad"
+              v-model="form.id_discapacidad"
+              label=" Indique Discapacidad"
+              :rules="rules.select"
+              ></v-select>
         </v-flex>
 
-        <v-flex sm4 v-if="form.id_tipo_discapacidad == '2'">
-            <v-select
-            :items="['Auditiva', 'Visual']"
-            label="Discapacidad Sensorial"
-            
-            ></v-select>
-        </v-flex>
-
-        <v-flex sm4 v-if="form.id_tipo_discapacidad == '4'">
+        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
             <v-text-field
-            v-model="form.tx_discapacidad"
-            label="Otros (Indique)"
+            label="Otros"
             hint="indique discapacidad"
+            v-model="form.tx_discapacidad"
+            :rules="rules.requerido"
             ></v-text-field>
         </v-flex>
 
@@ -171,7 +168,6 @@ export default {
                 tx_observaciones: null,
                 id_status:        1,
                 id_usuario:       null,
-                id_discapacidad:  null,
                 misiones:         [],
                 bo_discapacidad:  false,
                 id_tipo_discapacidad: null,
@@ -213,6 +209,26 @@ export default {
                 this.showError(error);
             })
             */
+        },
+        getDiscapacidad()
+        {
+            if(this.form.id_tipo_discapacidad != 4)
+            {
+                axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad)
+                .then(respuesta => 
+                {
+                    this.discapacidad = respuesta.data;
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
+            else
+            {
+                this.form.id_discapacidad = 0
+            }
+                
         },
         store()
         {

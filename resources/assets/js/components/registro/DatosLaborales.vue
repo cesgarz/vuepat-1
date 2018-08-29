@@ -222,6 +222,7 @@ export default {
         {
             this.form.id_status  = 1;
             this.form.id_usuario = this.$store.getters.user.id_usuario;
+            this.form.id_moneda  = 0;
             
             if (this.$refs.form.validate()) 
             {  
@@ -242,6 +243,7 @@ export default {
         },
         update()
         {
+            this.form.id_moneda  = 0;
             if (this.$refs.form.validate()) 
             {
                 axios.put(this.basePath + this.form.id_empleo, this.form)

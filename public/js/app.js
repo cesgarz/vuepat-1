@@ -82294,7 +82294,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82307,11 +82307,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(6);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
 //
 //
 //
@@ -82465,11 +82460,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     name: 'datos-personales',
     mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__["a" /* default */]],
     data: function data() {
-        var _form;
-
         return {
             tabla: 'persona',
-            form: (_form = {
+            form: {
                 id_persona: null,
                 nb_nombre: null,
                 nb_apellido: null,
@@ -82483,11 +82476,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 tx_observaciones: null,
                 id_status: 1,
                 id_usuario: null,
-                id_discapacidad: null,
                 misiones: [],
                 bo_discapacidad: false,
-                id_tipo_discapacidad: null
-            }, _defineProperty(_form, 'id_discapacidad', null), _defineProperty(_form, 'tx_discapacidad', null), _form),
+                id_tipo_discapacidad: null,
+                id_discapacidad: null,
+                tx_discapacidad: null
+            },
             listas: {
                 estadoCivil: [],
                 parentesco: [],
@@ -82520,8 +82514,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             })
             */
         },
-        store: function store() {
+        getDiscapacidad: function getDiscapacidad() {
             var _this = this;
+
+            if (this.form.id_tipo_discapacidad != 4) {
+                axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad).then(function (respuesta) {
+                    _this.discapacidad = respuesta.data;
+                }).catch(function (error) {
+                    _this.showError(error);
+                });
+            } else {
+                this.form.id_discapacidad = 0;
+            }
+        },
+        store: function store() {
+            var _this2 = this;
 
             this.form.id_status = 1;
             this.form.id_estado_civil = 1;
@@ -82529,21 +82536,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
-                    _this.showMessage(respuesta.data.msj);
-                    _this.$emit('cerrarModal');
+                    _this2.showMessage(respuesta.data.msj);
+                    _this2.$emit('cerrarModal');
                 }).catch(function (error) {
-                    _this.showError(error);
+                    _this2.showError(error);
                 });
             }
         },
         update: function update() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
-                _this2.showMessage(respuesta.data.msj);
-                _this2.$emit('cerrarModal');
+                _this3.showMessage(respuesta.data.msj);
+                _this3.$emit('cerrarModal');
             }).catch(function (error) {
-                _this2.showError(error);
+                _this3.showError(error);
             });
         }
     }
@@ -82813,15 +82820,17 @@ var render = function() {
                   _vm.form.bo_discapacidad
                     ? _c(
                         "v-flex",
-                        { attrs: { sm4: "" } },
+                        { attrs: { sm3: "" } },
                         [
                           _c("v-select", {
                             attrs: {
                               items: _vm.listas.tipoDiscapacidad,
                               "item-text": "nb_tipo_discapacidad",
                               "item-value": "id_tipo_discapacidad",
-                              label: "Tipo de Discapacidad"
+                              label: "Tipo de Discapacidad",
+                              rules: _vm.rules.select
                             },
+                            on: { change: _vm.getDiscapacidad },
                             model: {
                               value: _vm.form.id_tipo_discapacidad,
                               callback: function($$v) {
@@ -82835,18 +82844,27 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.form.id_tipo_discapacidad == "1"
+                  _vm.form.bo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad != 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm4: "" } },
+                        { attrs: { sm3: "" } },
                         [
                           _c("v-select", {
                             attrs: {
-                              items: [
-                                "Miembros  superiores",
-                                "Miembros  inferiores"
-                              ],
-                              label: "Discapacidad Fisica"
+                              items: _vm.discapacidad,
+                              "item-text": "nb_discapacidad",
+                              "item-value": "id_discapacidad",
+                              label: " Indique Discapacidad",
+                              rules: _vm.rules.select
+                            },
+                            model: {
+                              value: _vm.form.id_discapacidad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "id_discapacidad", $$v)
+                              },
+                              expression: "form.id_discapacidad"
                             }
                           })
                         ],
@@ -82854,31 +82872,18 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.form.id_tipo_discapacidad == "2"
+                  _vm.form.bo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad == 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm4: "" } },
-                        [
-                          _c("v-select", {
-                            attrs: {
-                              items: ["Auditiva", "Visual"],
-                              label: "Discapacidad Sensorial"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.form.id_tipo_discapacidad == "4"
-                    ? _c(
-                        "v-flex",
-                        { attrs: { sm4: "" } },
+                        { attrs: { sm3: "" } },
                         [
                           _c("v-text-field", {
                             attrs: {
-                              label: "Otros (Indique)",
-                              hint: "indique discapacidad"
+                              label: "Otros",
+                              hint: "indique discapacidad",
+                              rules: _vm.rules.requerido
                             },
                             model: {
                               value: _vm.form.tx_discapacidad,
@@ -83236,7 +83241,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -83440,6 +83445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
+                    _this3.form.id_migracion = respuesta.data[0].migracion.id_migracion;
                     _this3.showMessage(respuesta.data.msj);
                     _this3.btnAccion = 'upd';
                     _this3.$emit('completado', true);
@@ -83454,7 +83460,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 axios.put(this.basePath + this.form.id_migracion, this.form).then(function (respuesta) {
-                    _this4.form.id_migracion = respuesta.data[0].migracion.id_migracion;
+
                     _this4.showMessage(respuesta.data.msj);
                     _this4.$emit('completado', true);
                 }).catch(function (error) {
@@ -83898,7 +83904,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -84131,6 +84137,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form.id_status = 1;
             this.form.id_usuario = this.$store.getters.user.id_usuario;
+            this.form.id_moneda = 0;
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
@@ -84147,6 +84154,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this3 = this;
 
+            this.form.id_moneda = 0;
             if (this.$refs.form.validate()) {
                 axios.put(this.basePath + this.form.id_empleo, this.form).then(function (respuesta) {
                     _this3.showMessage(respuesta.data.msj);

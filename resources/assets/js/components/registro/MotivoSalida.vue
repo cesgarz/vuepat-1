@@ -195,6 +195,7 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
+                    this.form.id_migracion = respuesta.data[0].migracion.id_migracion
                     this.showMessage(respuesta.data.msj)
                     this.btnAccion = 'upd'
                     this.$emit('completado', true);
@@ -213,7 +214,7 @@ export default {
                 axios.put(this.basePath + this.form.id_migracion, this.form)
                 .then(respuesta => 
                 {
-                    this.form.id_migracion = respuesta.data[0].migracion.id_migracion
+                    
                     this.showMessage(respuesta.data.msj)
                     this.$emit('completado', true);
                 })

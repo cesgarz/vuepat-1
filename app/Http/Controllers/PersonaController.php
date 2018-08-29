@@ -78,6 +78,7 @@ class PersonaController extends Controller
         foreach ($request->misiones as $key => $value) {
             
             $datos = [
+                'id_persona'           => $id_persona,
                 'id_mision'            => $value,
                 'id_usuario'           => $request->id_usuario,
                 'id_status'            => $request->id_status
