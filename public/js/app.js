@@ -54963,7 +54963,7 @@ if (window.user) {
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["a" /* LOGGED */], true);
 } else {
 
-  if (window.location.pathname != '/' && window.location.pathname != 'registro') {
+  if (window.location.pathname != '/' && window.location.pathname != '/welcome' && window.location.pathname != '/registration') {
     alert('La session actual es Invalida Favor Ingresar nuevamente');
     window.location = '/';
   }
@@ -55062,6 +55062,13 @@ var app = new Vue({
         } else {
           window.location.href = item.href;
         }
+      }
+    },
+    onWelcomePageButtonSelected: function onWelcomePageButtonSelected(action) {
+      if (action == 'login') {
+        window.location.href = '/welcome';
+      } else if (action == 'registration') {
+        window.location.href = '/registration';
       }
     },
     changePassword: function changePassword() {
@@ -110630,6 +110637,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: "info"
       },
       showPass: false,
+      valid: false,
       errors: [],
       username: '',
       usernameRules: [function (v) {
@@ -110810,7 +110818,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-text-field", {
                 attrs: {
-                  rules: _vm.confirmPasswordRules,
+                  rules: _vm.passwordConfirmationRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
                   dark: "",
@@ -110819,11 +110827,11 @@ var render = function() {
                   required: ""
                 },
                 model: {
-                  value: _vm.confirmPassword,
+                  value: _vm.passwordConfirmation,
                   callback: function($$v) {
-                    _vm.confirmPassword = $$v
+                    _vm.passwordConfirmation = $$v
                   },
-                  expression: "confirmPassword"
+                  expression: "passwordConfirmation"
                 }
               })
             ],
@@ -110891,7 +110899,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Ingresar")]
+            [_vm._v("Registrar")]
           ),
           _vm._v(" "),
           _c("v-spacer")

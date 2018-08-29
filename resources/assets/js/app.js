@@ -75,7 +75,9 @@ if (window.user) {
 
 }else{
   
-    if(window.location.pathname != '/' && window.location.pathname != 'registro' )
+    if(window.location.pathname != '/' &&
+       window.location.pathname != '/welcome' &&
+       window.location.pathname != '/registration')
     {
       alert('La session actual es Invalida Favor Ingresar nuevamente');  
       window.location = '/'
@@ -205,6 +207,14 @@ const app = new Vue({
         } else {
           window.location.href = item.href
         }
+      }
+    },
+    onWelcomePageButtonSelected (action) {
+      if (action == 'login') {
+        window.location.href = '/welcome'
+      }
+      else if (action == 'registration') {
+        window.location.href = '/registration'
       }
     },
     changePassword () {

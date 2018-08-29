@@ -44,12 +44,17 @@
       <v-parallax ref="parallax" :src="parallax.images" :height="parallax.height">
         <v-container fluid>
           
-        <v-layout column align-center justify-center >
-            <v-flex xs12 >
-                <div id="wrapper-form-login">
-                  <form-login></form-login>
-                </div>
-            </v-flex>
+        <v-layout column align-center justify-center>
+            <div class="wrapper-forms">
+                <v-layout row wrap>
+                  <v-flex xs12 class="forms">
+                  
+                      <div id="wrapper-form-register">
+                        <form-register></form-register>
+                      </div>
+                  </v-flex>
+                </v-layout>
+            </div>
           </v-layout>
 
         </v-container>
@@ -65,3 +70,4 @@
 
 </body>
 </html>
+register
