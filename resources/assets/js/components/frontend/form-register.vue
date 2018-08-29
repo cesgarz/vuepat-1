@@ -130,7 +130,7 @@
 
 
             }).then(() => {
-              window.location = '/'
+              //nothing
             })
         }
 
@@ -156,7 +156,7 @@
 
 
           }).then(() => {
-            window.location = '/'
+            //nothing
           })
       },
     }
