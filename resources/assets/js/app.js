@@ -99,7 +99,7 @@ const app = new Vue({
       { heading: 'Modulos' },
       { icon: 'home', text: 'Inicio', href: '/home' },
       { icon: 'assignment_ind', text: 'Registro', href: '/home' },
-      { icon: 'print', text: 'Planilla', href: '/home' },
+      { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' },
       { heading: 'Datos Maestros' },
       { icon: 'assignment', text: 'Datos Maestros',
         children:

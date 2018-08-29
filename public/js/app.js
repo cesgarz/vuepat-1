@@ -54980,7 +54980,7 @@ var app = new Vue({
       drawerRight: false,
       changingPassword: false,
       updatingUser: false,
-      items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
+      items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
         children: [{ icon: 'star_border', text: 'Misiones', href: '/mision' }, { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
         children: [{ icon: 'description', text: 'Usuarios', href: '/reports.general' }, { icon: 'description', text: 'Personas', href: '/reports.ingreso' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
@@ -79647,8 +79647,12 @@ var render = function() {
                       _c(
                         "v-btn",
                         {
-                          attrs: { dark: "", color: "red" },
-                          on: { click: true }
+                          attrs: {
+                            dark: "",
+                            color: "red",
+                            href: "/PlanillaPdf",
+                            target: "_bank"
+                          }
                         },
                         [
                           _vm._v("Ver Planilla "),

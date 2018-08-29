@@ -65,7 +65,7 @@
         <datos-familiares></datos-familiares>
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="e1 = 4"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn dark color="red" @click="true">Ver Planilla <v-icon>print</v-icon></v-btn>
+        <v-btn dark color="red" href="/PlanillaPdf" target="_bank">Ver Planilla <v-icon>print</v-icon></v-btn>
 
       </v-stepper-content>
 
