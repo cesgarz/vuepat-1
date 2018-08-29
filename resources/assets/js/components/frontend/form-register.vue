@@ -10,7 +10,6 @@
           :error-messages="errors['username']"
           :rules="usernameRules"
           color="blue"
-          dark
           label="Username"
           name="username"
           required
@@ -20,7 +19,6 @@
           :error-messages="errors['email']"
           :rules="emailRules"
           color="blue"
-          dark
           label="Email"
           name="email"
           required
@@ -31,7 +29,6 @@
           :rules="passwordRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          dark
           label="Password"
           name="password"
           required
@@ -40,7 +37,6 @@
           :rules="passwordConfirmationRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          dark
           label="Password Confirmation"
           name="passwordConfirmation"
           required
