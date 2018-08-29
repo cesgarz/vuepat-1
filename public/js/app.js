@@ -55064,7 +55064,7 @@ var app = new Vue({
         }
       }
     },
-    onWelcomePageButtonSelected: function onWelcomePageButtonSelected(action) {
+    onWelcomePageButtonClicked: function onWelcomePageButtonClicked(action) {
       if (action == 'login') {
         window.location.href = '/welcome';
       } else if (action == 'registration') {
@@ -63151,29 +63151,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -63198,9 +63175,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapte
         otros: 0,
         total: 0
       },
-      chartProcesos: {},
-      chartIngresos: {},
-      chartInstrucciones: {}
+      chartProcesos: {
+        data: [{ name: 'Usuarios Regitrados', data: { '2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5 } }]
+      },
+      chartIngresos: {
+        data: [['mujeres', 44], ['Hombres', 23]]
+      }
     };
   },
   created: function created() {
@@ -63218,20 +63198,22 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapte
   },
   methods: {
     list: function list() {
-      var _this = this;
-
-      axios.get('/api/v1/home/totales').then(function (respuesta) {
-        _this.cuenta = respuesta.data.cuenta;
-        _this.ingreso = respuesta.data.ingreso;
-        _this.instruccion = respuesta.data.instruccion;
-        _this.procesos = respuesta.data.procesos;
-        _this.setCuenta();
-        _this.setProcesos();
-        _this.setIngresos();
-        _this.setInstruccion();
-      }).catch(function (error) {
-        _this.showError(error);
-      });
+      /*
+        axios.get('/api/v1/home/totales')
+          .then(respuesta => {
+              this.cuenta      = respuesta.data.cuenta
+              this.ingreso     = respuesta.data.ingreso
+              this.instruccion = respuesta.data.instruccion
+              this.procesos    = respuesta.data.procesos
+              this.setCuenta()
+              this.setProcesos()
+              this.setIngresos()
+              this.setInstruccion()
+            })
+          .catch(error => {
+              this.showError(error)
+          })
+      */
     },
     setCuenta: function setCuenta() {
       this.montos.otros = 0;
@@ -78542,7 +78524,7 @@ var render = function() {
                         { staticClass: "text-xs-center" },
                         [
                           _c("v-icon", { attrs: { "x-large": "" } }, [
-                            _vm._v("euro_symbol")
+                            _vm._v("person")
                           ])
                         ],
                         1
@@ -78572,7 +78554,7 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _vm._v("Ingreso Euros")
+                                    _vm._v("Usuario Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
@@ -78624,7 +78606,7 @@ var render = function() {
                         { staticClass: "text-xs-center" },
                         [
                           _c("v-icon", { attrs: { "x-large": "" } }, [
-                            _vm._v("attach_money")
+                            _vm._v("language")
                           ])
                         ],
                         1
@@ -78654,7 +78636,7 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _vm._v("Ingreso Dolar")
+                                    _vm._v("Paises Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
@@ -78706,7 +78688,7 @@ var render = function() {
                         { staticClass: "text-xs-center" },
                         [
                           _c("v-icon", { attrs: { "x-large": "" } }, [
-                            _vm._v("shop_two")
+                            _vm._v("accessible")
                           ])
                         ],
                         1
@@ -78736,7 +78718,7 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _vm._v("Otros Ingresos")
+                                    _vm._v("Discapacitados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
@@ -78788,7 +78770,7 @@ var render = function() {
                         { staticClass: "text-xs-center" },
                         [
                           _c("v-icon", { attrs: { "x-large": "" } }, [
-                            _vm._v("account_balance")
+                            _vm._v("supervisor_account")
                           ])
                         ],
                         1
@@ -78818,7 +78800,7 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _vm._v("Total Ingresos")
+                                    _vm._v("Familiares Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
@@ -78904,13 +78886,11 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _c("h3", [_vm._v("Procesos")])
+                                    _c("h3", [_vm._v("Usuario")])
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      "Ingresos / Solicitudes / Intruciones / Pagos "
-                                    )
+                                    _vm._v("Cantidad X Dia")
                                   ])
                                 ],
                                 1
@@ -78987,11 +78967,11 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _c("h3", [_vm._v("Ingresos")])
+                                    _c("h3", [_vm._v("Sexo")])
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("Segun Tipo")
+                                    _vm._v("hombres/mujeres")
                                   ])
                                 ],
                                 1
@@ -79015,89 +78995,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-flex", { staticClass: "separador", attrs: { xs12: "" } }),
-      _vm._v(" "),
-      _c(
-        "v-flex",
-        { attrs: { xs12: "", md6: "" } },
-        [
-          _c(
-            "v-card",
-            [
-              _c(
-                "v-flex",
-                { attrs: { flat: "", xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    { attrs: { color: "" } },
-                    [
-                      _c(
-                        "v-card-text",
-                        { staticClass: "text-xs-center" },
-                        [
-                          _c("pie-chart", {
-                            attrs: {
-                              data: _vm.chartInstrucciones.data,
-                              colors: _vm.chartInstrucciones.colors,
-                              download: true
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { flat: "", xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    { attrs: { color: "" } },
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c(
-                            "v-list-tile",
-                            [
-                              _c(
-                                "v-list-tile-content",
-                                [
-                                  _c("v-list-tile-title", [
-                                    _c("h3", [_vm._v("Intrucciones")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("v-list-tile-sub-title", [
-                                    _vm._v("Segun Categorias")
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
+      _c("v-flex", { staticClass: "separador", attrs: { xs12: "" } })
     ],
     1
   )
@@ -110616,10 +110514,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -110759,7 +110653,6 @@ var render = function() {
                   "error-messages": _vm.errors["username"],
                   rules: _vm.usernameRules,
                   color: "blue",
-                  dark: "",
                   label: "Username",
                   name: "username",
                   required: ""
@@ -110779,7 +110672,6 @@ var render = function() {
                   "error-messages": _vm.errors["email"],
                   rules: _vm.emailRules,
                   color: "blue",
-                  dark: "",
                   label: "Email",
                   name: "email",
                   required: ""
@@ -110802,7 +110694,6 @@ var render = function() {
                   rules: _vm.passwordRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  dark: "",
                   label: "Password",
                   name: "password",
                   required: ""
@@ -110821,7 +110712,6 @@ var render = function() {
                   rules: _vm.passwordConfirmationRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  dark: "",
                   label: "Password Confirmation",
                   name: "passwordConfirmation",
                   required: ""

@@ -11,7 +11,7 @@
         <v-flex flat xs12>
           <v-card dark color="blue">
             <v-card-text class="text-xs-center">
-              <v-icon x-large>euro_symbol</v-icon>
+              <v-icon x-large>person</v-icon>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -20,7 +20,7 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>Ingreso Euros</v-list-tile-title>
+                  <v-list-tile-title>Usuario Registrados</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.euro | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -34,7 +34,7 @@
         <v-flex flat xs12>
           <v-card dark color="red">
             <v-card-text class="text-xs-center">
-              <v-icon x-large>attach_money</v-icon>
+              <v-icon x-large>language</v-icon>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -43,7 +43,7 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>Ingreso Dolar</v-list-tile-title>
+                  <v-list-tile-title>Paises Registrados</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.dolar | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -57,7 +57,7 @@
         <v-flex flat xs12>
           <v-card dark color="green">
             <v-card-text class="text-xs-center">
-              <v-icon x-large>shop_two</v-icon>
+              <v-icon x-large>accessible</v-icon>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -66,7 +66,7 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>Otros Ingresos</v-list-tile-title>
+                  <v-list-tile-title>Discapacitados</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.otros | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -80,7 +80,7 @@
         <v-flex flat xs12>
           <v-card dark color="orange">
             <v-card-text class="text-xs-center">
-              <v-icon x-large>account_balance</v-icon>
+              <v-icon x-large>supervisor_account</v-icon>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -89,7 +89,7 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>Total Ingresos</v-list-tile-title>
+                  <v-list-tile-title>Familiares Registrados</v-list-tile-title>
                   <v-list-tile-sub-title>{{ montos.total | formatNumber}}</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -113,8 +113,8 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title><h3>Procesos</h3></v-list-tile-title>
-                  <v-list-tile-sub-title>Ingresos / Solicitudes / Intruciones / Pagos </v-list-tile-sub-title>
+                  <v-list-tile-title><h3>Usuario</h3></v-list-tile-title>
+                  <v-list-tile-sub-title>Cantidad X Dia</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -136,8 +136,8 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title><h3>Ingresos</h3></v-list-tile-title>
-                  <v-list-tile-sub-title>Segun Tipo</v-list-tile-sub-title>
+                  <v-list-tile-title><h3>Sexo</h3></v-list-tile-title>
+                  <v-list-tile-sub-title>hombres/mujeres</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -146,29 +146,6 @@
       </v-card>
     </v-flex>
     <v-flex xs12 class="separador"></v-flex>
-    <v-flex xs12 md6>
-      <v-card>
-        <v-flex flat xs12>
-          <v-card  color="">
-            <v-card-text class="text-xs-center">
-              <pie-chart :data="chartInstrucciones.data" :colors="chartInstrucciones.colors" :download="true"></pie-chart>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-        <v-flex flat xs12>
-          <v-card color="">
-            <v-card-text>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title><h3>Intrucciones</h3></v-list-tile-title>
-                  <v-list-tile-sub-title>Segun Categorias</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-card>
-    </v-flex>
 
   </v-layout>
   
@@ -198,9 +175,14 @@ export default {
               otros: 0,
               total: 0
         },
-        chartProcesos:      {},
-        chartIngresos:      {},
-        chartInstrucciones: {}
+        chartProcesos:      {
+          data: [
+            {name: 'Usuarios Regitrados', data: {'2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5}},
+          ],
+        },
+        chartIngresos:      {
+          data: [['mujeres', 44], ['Hombres', 23]],
+        },
       }
     },
     created() {
@@ -221,6 +203,7 @@ export default {
 
       list()
       {
+        /*
           axios.get('/api/v1/home/totales')
             .then(respuesta => {
                 this.cuenta      = respuesta.data.cuenta
@@ -236,7 +219,7 @@ export default {
             .catch(error => {
                 this.showError(error)
             })
-
+*/
       },
        setCuenta()
         {
