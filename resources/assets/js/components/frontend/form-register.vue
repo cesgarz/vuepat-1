@@ -119,7 +119,7 @@
             'tx_email':   this.email,
           }
 
-            this.$store.dispatch(actions.REGISTER, credentials).then(response => {
+            this.$store.dispatch(actions.REGISTER, form).then(response => {
 
               this.login()
 
