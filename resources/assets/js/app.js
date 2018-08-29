@@ -37,6 +37,7 @@ Vue.component('datos-laborales', require('./components/registro/DatosLaborales.v
 
 //Componentes Frontend
 Vue.component('form-login', require('./components/frontend/form-login.vue'));
+Vue.component('form-register', require('./components/frontend/form-register.vue'));
 Vue.component('form-recovery', require('./components/frontend/form-recovery.vue'));
 
 window.Vuetify = require('vuetify');
