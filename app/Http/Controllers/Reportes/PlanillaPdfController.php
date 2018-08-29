@@ -36,7 +36,7 @@ class PlanillaPdfController extends Controller
 	
 	function Header(){   
 	
-		#$this->fpdf->Image('./assets/modules/recibo_pago/images/logocorpovex.jpg',15,10,60,15); //xywh
+		$this->fpdf->Image('./img/qr/qrcode.png',15,10,50,50); //xywh
 		$this->fpdf->SetY(22);
 
 		$this->fpdf->SetFont('Arial','B',8);
@@ -47,7 +47,7 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->SetXY(170, 19);
 		$this->fpdf->Cell(30,4,'Pagina: '.$this->fpdf->PageNo(),0,0,'L');
 		
-		$this->fpdf->SetY(33);
+		$this->fpdf->SetY(55);
 		$this->fpdf->SetFont('Arial','B',10);
 		$this->fpdf->SetFillColor(00,66,99);
 		$this->fpdf->SetTextColor(255);
@@ -71,10 +71,10 @@ class PlanillaPdfController extends Controller
 			$this->fpdf->SetFillColor(255);
 			$this->fpdf->SetTextColor(0);
 			
-			$this->fpdf->SetY(45);
+			$this->fpdf->SetY(70);
 			
 			$this->fpdf->SetFont('Arial','B',10);
-			$this->fpdf->Cell(NULL,6,utf8_decode('subtitulo'),0,0,'C', true);
+			$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),0,0,'C', true);
 			$this->fpdf->Ln(12);
 			
 			$this->fpdf->SetFont('Arial','B',7);

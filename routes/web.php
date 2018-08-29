@@ -1,6 +1,12 @@
 <?php
 
 
+Route::get('codigo-qr/ejemplo', function () 
+{
+    return QRCode::meCard('John Doe', '1234 Main st.', '+1 001 555-1234', 'john.doe@example.com')->svg();
+
+}); 
+
 Route::get('/PlanillaPdf', 'Reportes\PlanillaPdfController@index');
 
 Route::get('/',        function ()       {   return view('welcome'); });
