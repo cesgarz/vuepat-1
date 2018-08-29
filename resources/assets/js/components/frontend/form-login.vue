@@ -4,13 +4,12 @@
       <span class="headline">Iniciar Sesión</span>
     </v-card-title>
     <v-card-text>
-      <v-form ref="loginForm" v-model="valid" color="white">
+      <v-form ref="loginForm" v-model="valid" color="blue">
         <v-text-field
           :error="errors['email']"
           :error-messages="errors['email']"
           :rules="emailRules"
           color="blue"
-          dark
           label="Email"
           name="email"
           required
@@ -21,7 +20,6 @@
           :rules="passwordRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          dark
           label="Password"
           name="password"
           required

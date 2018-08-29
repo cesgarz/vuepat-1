@@ -54963,7 +54963,7 @@ if (window.user) {
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["a" /* LOGGED */], true);
 } else {
 
-  if (window.location.pathname != '/') {
+  if (window.location.pathname != '/' && window.location.pathname != 'registro') {
     alert('La session actual es Invalida Favor Ingresar nuevamente');
     window.location = '/';
   }
@@ -59553,7 +59553,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59567,8 +59567,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__ = __webpack_require__(6);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-//
-//
 //
 //
 //
@@ -59971,7 +59969,6 @@ var render = function() {
                                           "item-value": "valor",
                                           rules: _vm.rules.select,
                                           label: "Campos a Mostrar",
-                                          autocomplete: "",
                                           chips: "",
                                           "deletable-chips": "",
                                           required: "",
@@ -60049,7 +60046,6 @@ var render = function() {
                                                       "item-text": "nombre",
                                                       "item-value": "valor",
                                                       label: filtro.etiqueta,
-                                                      autocomplete: "",
                                                       multiple: "",
                                                       clearable: ""
                                                     },
@@ -85592,8 +85588,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -85713,7 +85707,7 @@ var render = function() {
             "v-form",
             {
               ref: "loginForm",
-              attrs: { color: "white" },
+              attrs: { color: "blue" },
               model: {
                 value: _vm.valid,
                 callback: function($$v) {
@@ -85729,7 +85723,6 @@ var render = function() {
                   "error-messages": _vm.errors["email"],
                   rules: _vm.emailRules,
                   color: "blue",
-                  dark: "",
                   label: "Email",
                   name: "email",
                   required: ""
@@ -85752,7 +85745,6 @@ var render = function() {
                   rules: _vm.passwordRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  dark: "",
                   label: "Password",
                   name: "password",
                   required: ""

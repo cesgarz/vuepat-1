@@ -44,7 +44,6 @@
                     item-value="valor"
                     :rules="rules.select"
                     label="Campos a Mostrar"
-                    autocomplete
                     chips
                     deletable-chips
                     required
@@ -72,7 +71,6 @@
                     item-text="nombre"
                     item-value="valor"
                     :label="filtro.etiqueta"
-                    autocomplete
                     multiple
                     clearable
                 ></v-select>

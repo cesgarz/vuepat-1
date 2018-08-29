@@ -124,13 +124,13 @@
                     <v-list-tile >
                         <v-list-tile-content>
                             <v-list-tile-title>Nombres y Apellidos </v-list-tile-title>
-                            <v-list-tile-sub-title >@{{ user.nb_nombre }} @{{ user.nb_apellido }}</v-list-tile-sub-title>
+                            <v-list-tile-sub-title >@{{ user.nb_usuario }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile >
                         <v-list-tile-content>
                             <v-list-tile-title>Email </v-list-tile-title>
-                            <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
+                            <v-list-tile-sub-title >@{{ user.tx_email }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
