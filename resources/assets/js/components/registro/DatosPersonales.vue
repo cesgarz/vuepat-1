@@ -102,51 +102,60 @@
         <v-flex xs12 sm3>
           <v-checkbox
             label="Posee anguna Discapacidad?"
-            v-model="discapacidad"
+            v-model="form.bo_discapacidad"
             prepend-icon="accessible"
           ></v-checkbox>
         </v-flex>
 
-        <v-flex sm3 v-if="discapacidad">
+        <v-flex sm3 v-if="form.bo_discapacidad">
               <v-select
               :items="listas.tipoDiscapacidad"
               item-text="nb_tipo_discapacidad"
               item-value="id_tipo_discapacidad"
-              v-model="tipoDiscap"
+              v-model="form.id_tipo_discapacidad"
               label="Tipo de Discapacidad"
-              required
+              :rules="rules.select"
+              @change="getDiscapacidad"
               ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="tipoDiscap == 'Físicas'">
+        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
               <v-select
-              :items="['Miembros  superiores', 'Miembros  inferiores']"
-              label="Discapacidad Fisica"
-              required
+              :items="discapacidad"
+              item-text="nb_discapacidad"
+              item-value="id_discapacidad"
+              v-model="form.id_discapacidad"
+              label=" Indique Discapacidad"
+              :rules="rules.select"
               ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="tipoDiscap == 'Sensorial'">
-              <v-select
-              :items="['Auditiva', 'Visual']"
-              label="Discapacidad Sensorial"
-              required
-              ></v-select>
-        </v-flex>
-
-        <v-flex sm3 v-if="tipoDiscap == 'Otros'">
-         <v-text-field
-          name="name"
-          label="Otros"
-          hint="indique discapacidad"
-          id="id"
-        ></v-text-field>
+        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
+            <v-text-field
+            label="Otros"
+            hint="indique discapacidad"
+            v-model="form.tx_discapacidad"
+            :rules="rules.requerido"
+            ></v-text-field>
         </v-flex>
 
     </v-layout>
     </v-card-text>
     </v-card>
-    <pre>{{validar}}</pre>
+
+    <v-tooltip top>
+        <v-btn slot="activator" fab @click="store" :disabled="!valido"  class="success">
+            <v-icon>save_alt</v-icon>
+        </v-btn>
+    <span>Guardar</span>
+    </v-tooltip>
+
+    <v-tooltip top>
+            <v-btn slot="activator" fab @click="update" :disabled="!valido"  class="warning">
+                <v-icon>edit</v-icon>
+            </v-btn>
+    <span>Editar</span>
+    </v-tooltip>
     </v-form>   
 </template>
 
@@ -162,6 +171,7 @@ export default {
     {
         return {
             tabla: 'persona',
+            discapacidad: [],
             form: {
                     id_persona:         null,
                     nb_nombre:          null,
@@ -179,11 +189,10 @@ export default {
                     id_tipo_discapacidad: null,
                     id_discapacidad:    null,
                     tx_discapacidad:    null
-
             },
             listas:{
                 estadoCivil:        [],
-                tipoDiscapacidad:   []
+                tipoDiscapacidad:   [],
             },
 
         }
@@ -212,7 +221,6 @@ export default {
                 this.datos = respuesta.data;
                 if(this.datos)
                 {
-                    console.log('complete')
                     this.$emit('completado', true);
                 }
             })
@@ -221,32 +229,55 @@ export default {
                 this.showError(error);
             })
         },
+        getDiscapacidad()
+        {
+            if(this.form.id_tipo_discapacidad != 4)
+            {
+                axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad)
+                .then(respuesta => 
+                {
+                    this.discapacidad = respuesta.data;
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
+            else
+            {
+                this.form.id_discapacidad = 0
+            }
+                
+        },
         store()
         {
-            axios.post(this.basePath, this.form)
-            .then(respuesta => 
-            {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-                this.$emit('completado', false);
-            })
+            if (this.$refs.form.validate()) 
+            {  
+                axios.post(this.basePath, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         },
         update()
         {
-            axios.put(this.basePath + this.form.id_persona, this.form)
-            .then(respuesta => 
-            {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('completado', true);
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
+            if (this.$refs.form.validate()) 
+            { 
+                axios.put(this.basePath + this.form.id_persona, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         }
     }
 }

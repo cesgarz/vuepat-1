@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
-use App\Models\Misiones;
-use App\Models\Discapacidad;
+use App\Models\PersonaMision;
+use App\Models\PersonaDiscapacidad;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -59,39 +59,54 @@ class PersonaController extends Controller
 
         if( count($request->misiones) > 0)
         {
-            $this->storeMisiones($request, $persona->id_persona);
+            $misiones = $this->storeMisiones($request, $persona->id_persona);
         }
 
-        if($request->bo_discapacidad, $persona->id_persona)
+        if($request->bo_discapacidad)
         {
-            $this->storeDiscapacidad($request,  $persona->id_persona);
+            $discapacidad = $this->storeDiscapacidad($request,  $persona->id_persona);
         }
         
-        return [ 'msj' => 'Registro Agregado Correctamente', compact('persona') ];
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('persona', 'misiones', 'discapacidad') ];
     }
 
     public function storeMisiones($request, $id_persona)
     {
-        $validate = request()->validate([
-            'id_mision'            => 'required',
-            'id_usuario'           => 'required',
-            'id_status'            => 'required'
-        ]);
+        $personaMision = [];
+        PersonaMision::where('id_usuario', $request->id_usuario)->delete();
 
-        $personaMision = PersonaMision::create($request->all());
+        foreach ($request->misiones as $key => $value) {
+            
+            $datos = [
+                'id_mision'            => $value,
+                'id_usuario'           => $request->id_usuario,
+                'id_status'            => $request->id_status
+                ];
+
+            $personaMision[] = PersonaMision::updateOrCreate($datos);
+            
+        }
+
+        return $personaMision;
     }
 
     public function storeDiscapacidad($request, $id_persona)
     {
         
-        $validate = request()->validate([
-            'id_discapacidad'      => 'required',
-            'tx_observaciones'     => 'max:100',
-            'id_usuario'           => 'required',
-            'id_status'            => 'required'
-        ]);
+        PersonaDiscapacidad::where('id_usuario', $request->id_usuario)->delete();
+        
+        $datos = [
+            'id_persona'           => $id_persona,
+            'bo_discapacidad'      => $request->bo_discapacidad,
+            'id_tipo_discapacidad' => $request->id_tipo_discapacidad,
+            'id_discapacidad'      => $request->id_discapacidad,
+            'tx_discapacidad'      => $request->tx_discapacidad,
+            'id_usuario'           => $request->id_usuario,
+            'id_status'            => $request->id_status
+        ];
+        $personaDiscapacidad = PersonaDiscapacidad::updateOrCreate($datos);
 
-        $personaDiscapacidad = PersonaDiscapacidad::create($request->all());
+        return $personaDiscapacidad;
     }
 
     /**
@@ -132,6 +147,21 @@ class PersonaController extends Controller
             'id_usuario'        => 'required',
             'id_status'         => 'required'
         ]);
+
+        if( count($request->misiones) > 0)
+        {
+            $misiones = $this->storeMisiones($request, $persona->id_persona);
+        }
+
+        if($request->bo_discapacidad)
+        {
+            $discapacidad = $this->storeDiscapacidad($request,  $persona->id_persona);
+        }
+        else
+        {
+            PersonaDiscapacidad::where('id_usuario', $request->id_usuario)->delete();
+        }
+
 
         $persona = $persona->update($request->all());
         

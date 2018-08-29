@@ -54980,7 +54980,7 @@ var app = new Vue({
       changingPassword: false,
       updatingUser: false,
       items: [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
-        children: [{ icon: 'star_border', text: 'Misiones', href: '/banco' }, { icon: 'accessible', text: 'Discapacidad', href: '/ente' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/categoria' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }]
+        children: [{ icon: 'star_border', text: 'Misiones', href: '/mision' }, { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' }, { icon: 'attach_money', text: 'Monedas', href: '/moneda' }]
       }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
         children: [{ icon: 'description', text: 'Usuarios', href: '/reports.general' }, { icon: 'description', text: 'Personas', href: '/reports.ingreso' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
       }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }]
@@ -79286,6 +79286,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'home-view',
@@ -79355,10 +79356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             switch (datos) {
                 case 'personales':
 
-                    if (completado) {
-                        //this.datos.personales.completado = true;
-                        this.e1 = 2;
-                    }
+                    if (completado) {}
                     break;
 
                 default:
@@ -79457,150 +79455,168 @@ var render = function() {
                       attrs: { color: "primary" },
                       on: {
                         click: function($event) {
-                          _vm.validar("personales")
-                        }
-                      }
-                    },
-                    [_vm._v("Siguiente")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-stepper-content",
-                { attrs: { step: "2" } },
-                [
-                  _c("datos-situacionales"),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 1
-                        }
-                      }
-                    },
-                    [_vm._v("Anterior")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 3
-                        }
-                      }
-                    },
-                    [_vm._v("Siguiente")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-stepper-content",
-                { attrs: { step: "3" } },
-                [
-                  _c("datos-laborales"),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
                           _vm.e1 = 2
                         }
                       }
                     },
-                    [_vm._v("Anterior")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 4
-                        }
-                      }
-                    },
-                    [_vm._v("Siguiente")]
+                    [
+                      _vm._v("Siguiente "),
+                      _c("v-icon", [_vm._v("navigate_next")])
+                    ],
+                    1
                   )
                 ],
                 1
               ),
               _vm._v(" "),
-              _c(
-                "v-stepper-content",
-                { attrs: { step: "4" } },
-                [
-                  _c("motivo-salida"),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 3
-                        }
-                      }
-                    },
-                    [_vm._v("Anterior")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 5
-                        }
-                      }
-                    },
-                    [_vm._v("Siguiente")]
+              _vm.e1 > 0
+                ? _c(
+                    "v-stepper-content",
+                    { attrs: { step: "2" } },
+                    [
+                      _c("datos-situacionales"),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 1
+                            }
+                          }
+                        },
+                        [_vm._v("Anterior")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 3
+                            }
+                          }
+                        },
+                        [_vm._v("Siguiente")]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              ),
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "v-stepper-content",
-                { attrs: { step: "5" } },
-                [
-                  _c("datos-familiares"),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          _vm.e1 = 4
-                        }
-                      }
-                    },
-                    [_vm._v("Anterior")]
+              _vm.e1 > 1
+                ? _c(
+                    "v-stepper-content",
+                    { attrs: { step: "3" } },
+                    [
+                      _c("datos-laborales"),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 2
+                            }
+                          }
+                        },
+                        [_vm._v("Anterior")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 4
+                            }
+                          }
+                        },
+                        [_vm._v("Siguiente")]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.e1 > 2
+                ? _c(
+                    "v-stepper-content",
+                    { attrs: { step: "4" } },
+                    [
+                      _c("motivo-salida"),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 3
+                            }
+                          }
+                        },
+                        [_vm._v("Anterior")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 5
+                            }
+                          }
+                        },
+                        [_vm._v("Siguiente")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.e1 > 3
+                ? _c(
+                    "v-stepper-content",
+                    { attrs: { step: "5" } },
+                    [
+                      _c("datos-familiares"),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.e1 = 4
+                            }
+                          }
+                        },
+                        [_vm._v("Anterior")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { color: "primary" }, on: { click: true } },
+                        [_vm._v("Ver Planilla")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -79707,7 +79723,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -79872,6 +79888,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -79883,6 +79908,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             tabla: 'persona',
+            discapacidad: [],
             form: {
                 id_persona: null,
                 nb_nombre: null,
@@ -79900,7 +79926,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_tipo_discapacidad: null,
                 id_discapacidad: null,
                 tx_discapacidad: null
-
             },
             listas: {
                 estadoCivil: [],
@@ -79932,33 +79957,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(this.basePath + this.$store.getters.user.id_usuario).then(function (respuesta) {
                 _this2.datos = respuesta.data;
                 if (_this2.datos) {
-                    console.log('complete');
                     _this2.$emit('completado', true);
                 }
             }).catch(function (error) {
                 _this2.showError(error);
             });
         },
-        store: function store() {
+        getDiscapacidad: function getDiscapacidad() {
             var _this3 = this;
 
-            axios.post(this.basePath, this.form).then(function (respuesta) {
-                _this3.showMessage(respuesta.data.msj);
-                _this3.$emit('completado', true);
-            }).catch(function (error) {
-                _this3.showError(error);
-                _this3.$emit('completado', false);
-            });
+            if (this.form.id_tipo_discapacidad != 4) {
+                axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad).then(function (respuesta) {
+                    _this3.discapacidad = respuesta.data;
+                }).catch(function (error) {
+                    _this3.showError(error);
+                });
+            } else {
+                this.form.id_discapacidad = 0;
+            }
         },
-        update: function update() {
+        store: function store() {
             var _this4 = this;
 
-            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
-                _this4.showMessage(respuesta.data.msj);
-                _this4.$emit('completado', true);
-            }).catch(function (error) {
-                _this4.showError(error);
-            });
+            if (this.$refs.form.validate()) {
+                axios.post(this.basePath, this.form).then(function (respuesta) {
+                    _this4.showMessage(respuesta.data.msj);
+                }).catch(function (error) {
+                    _this4.showError(error);
+                });
+            }
+        },
+        update: function update() {
+            var _this5 = this;
+
+            if (this.$refs.form.validate()) {
+                axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+                    _this5.showMessage(respuesta.data.msj);
+                }).catch(function (error) {
+                    _this5.showError(error);
+                });
+            }
         }
     }
 });
@@ -80235,18 +80273,18 @@ var render = function() {
                           "prepend-icon": "accessible"
                         },
                         model: {
-                          value: _vm.discapacidad,
+                          value: _vm.form.bo_discapacidad,
                           callback: function($$v) {
-                            _vm.discapacidad = $$v
+                            _vm.$set(_vm.form, "bo_discapacidad", $$v)
                           },
-                          expression: "discapacidad"
+                          expression: "form.bo_discapacidad"
                         }
                       })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _vm.discapacidad
+                  _vm.form.bo_discapacidad
                     ? _c(
                         "v-flex",
                         { attrs: { sm3: "" } },
@@ -80257,14 +80295,43 @@ var render = function() {
                               "item-text": "nb_tipo_discapacidad",
                               "item-value": "id_tipo_discapacidad",
                               label: "Tipo de Discapacidad",
-                              required: ""
+                              rules: _vm.rules.select
+                            },
+                            on: { change: _vm.getDiscapacidad },
+                            model: {
+                              value: _vm.form.id_tipo_discapacidad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "id_tipo_discapacidad", $$v)
+                              },
+                              expression: "form.id_tipo_discapacidad"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.bo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad != 4
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm3: "" } },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              items: _vm.discapacidad,
+                              "item-text": "nb_discapacidad",
+                              "item-value": "id_discapacidad",
+                              label: " Indique Discapacidad",
+                              rules: _vm.rules.select
                             },
                             model: {
-                              value: _vm.tipoDiscap,
+                              value: _vm.form.id_discapacidad,
                               callback: function($$v) {
-                                _vm.tipoDiscap = $$v
+                                _vm.$set(_vm.form, "id_discapacidad", $$v)
                               },
-                              expression: "tipoDiscap"
+                              expression: "form.id_discapacidad"
                             }
                           })
                         ],
@@ -80272,54 +80339,25 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.tipoDiscap == "Físicas"
-                    ? _c(
-                        "v-flex",
-                        { attrs: { sm3: "" } },
-                        [
-                          _c("v-select", {
-                            attrs: {
-                              items: [
-                                "Miembros  superiores",
-                                "Miembros  inferiores"
-                              ],
-                              label: "Discapacidad Fisica",
-                              required: ""
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.tipoDiscap == "Sensorial"
-                    ? _c(
-                        "v-flex",
-                        { attrs: { sm3: "" } },
-                        [
-                          _c("v-select", {
-                            attrs: {
-                              items: ["Auditiva", "Visual"],
-                              label: "Discapacidad Sensorial",
-                              required: ""
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.tipoDiscap == "Otros"
+                  _vm.form.bo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad &&
+                  _vm.form.id_tipo_discapacidad == 4
                     ? _c(
                         "v-flex",
                         { attrs: { sm3: "" } },
                         [
                           _c("v-text-field", {
                             attrs: {
-                              name: "name",
                               label: "Otros",
                               hint: "indique discapacidad",
-                              id: "id"
+                              rules: _vm.rules.requerido
+                            },
+                            model: {
+                              value: _vm.form.tx_discapacidad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_discapacidad", $$v)
+                              },
+                              expression: "form.tx_discapacidad"
                             }
                           })
                         ],
@@ -80336,7 +80374,47 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.validar))])
+      _c(
+        "v-tooltip",
+        { attrs: { top: "" } },
+        [
+          _c(
+            "v-btn",
+            {
+              staticClass: "success",
+              attrs: { slot: "activator", fab: "", disabled: !_vm.valido },
+              on: { click: _vm.store },
+              slot: "activator"
+            },
+            [_c("v-icon", [_vm._v("save_alt")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("span", [_vm._v("Guardar")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-tooltip",
+        { attrs: { top: "" } },
+        [
+          _c(
+            "v-btn",
+            {
+              staticClass: "warning",
+              attrs: { slot: "activator", fab: "", disabled: !_vm.valido },
+              on: { click: _vm.update },
+              slot: "activator"
+            },
+            [_c("v-icon", [_vm._v("edit")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("span", [_vm._v("Editar")])
+        ],
+        1
+      )
     ],
     1
   )

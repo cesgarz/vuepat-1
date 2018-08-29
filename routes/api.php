@@ -15,6 +15,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('personaEmpleo/usuario/{id_usuario}', 'PersonaEmpleoController@personaEmpleoUsuario');
 
     Route::apiResource('discapacidad','DiscapacidadController');
+    Route::get('discapacidad/tipo/{id_tipo_discapacidad}','DiscapacidadController@discapacidadTipo');
+    
     Route::apiResource('tipoDiscapacidad','TipoDiscapacidadController');
     Route::apiResource('estadoCivil',   'EstadoCivilController');
     Route::apiResource('parentesco',    'ParentescoController');

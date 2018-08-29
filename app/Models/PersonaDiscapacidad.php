@@ -14,13 +14,16 @@ class PersonaDiscapacidad extends Model
 
     protected $fillable   = [
                             'id_persona',
+                            'bo_discapacidad',
+                            'id_tipo_discapacidad',
                             'id_discapacidad',
+                            'tx_discapacidad',
                             'tx_observaciones',
                             'id_status',
-                            'id_usuario'
+                            'id_usuario',
                             ]; 
-    
-    protected $hidden     = ['id_persona_discapacidad','fe_creado','fe_actualizado'];
+
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function persona()
     {

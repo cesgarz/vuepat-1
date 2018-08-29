@@ -18,6 +18,14 @@ class DiscapacidadController extends Controller
         return $discapacidad;
     }
 
+    public function discapacidadTipo($id_tipo_discapacidad)
+    {
+        $vivienda = Discapacidad::select('id_discapacidad','nb_discapacidad')
+                             ->where('id_tipo_discapacidad', $id_tipo_discapacidad)
+                             ->get();
+        return $vivienda;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -14,13 +14,13 @@ class Discapacidad extends Model
 
     protected $fillable   = [
                             'nb_discapacidad',
-                            'id_tipo_discapacidad'
+                            'id_tipo_discapacidad',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_discapacidad','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function status()
     {

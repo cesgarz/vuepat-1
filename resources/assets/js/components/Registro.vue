@@ -29,11 +29,11 @@
         
         <datos-personales :validar="datos.personales.valido" @completado="completar('personales', $event)"></datos-personales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="validar('personales')" >Siguiente</v-btn>
+        <v-btn color="primary" @click="e1 = 2" >Siguiente <v-icon>navigate_next</v-icon></v-btn>
         
       </v-stepper-content>
 
-      <v-stepper-content step="2">
+      <v-stepper-content step="2" v-if="e1 > 0">
         
         <datos-situacionales></datos-situacionales>
         <v-spacer></v-spacer>
@@ -42,7 +42,7 @@
         
       </v-stepper-content>
 
-      <v-stepper-content step="3">
+      <v-stepper-content step="3" v-if="e1 > 1">
         
         <datos-laborales></datos-laborales>
         <v-spacer></v-spacer>
@@ -51,7 +51,7 @@
 
       </v-stepper-content>
 
-      <v-stepper-content step="4">
+      <v-stepper-content step="4" v-if="e1 > 2">
 
         <motivo-salida></motivo-salida>
         <v-spacer></v-spacer>
@@ -60,11 +60,12 @@
 
       </v-stepper-content>
 
-      <v-stepper-content step="5">
+      <v-stepper-content step="5" v-if="e1 > 3">
 
         <datos-familiares></datos-familiares>
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="e1 = 4">Anterior</v-btn>
+        <v-btn color="primary" @click="true">Ver Planilla</v-btn>
 
       </v-stepper-content>
 
@@ -145,8 +146,7 @@ name: 'home-view',
                     
                 if(completado)
                 {
-                    //this.datos.personales.completado = true;
-                    this.e1 = 2;
+
                 }
                 break;
             

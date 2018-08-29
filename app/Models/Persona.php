@@ -46,7 +46,7 @@ class Persona extends Model
 
     public function personaDiscapacidad()
     {
-    	return $this->BelongsTo('App\Models\PersonaDiscapacidad', 'id_persona');
+    	return $this->HasOne('App\Models\PersonaDiscapacidad', 'id_persona');
     }
 
     public function parentesco()
