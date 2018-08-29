@@ -46,10 +46,10 @@
         <v-flex xs12 sm5>
             <v-menu
                 ref="picker"
+                :close-on-content-click="false"
                 v-model="picker"
                 full-width
                 min-width="290px"
-                lazy
             >
                 <v-text-field
                 slot="activator"
@@ -58,11 +58,13 @@
                 label="Fecha de Nacimiento"
                 prepend-icon="event"
                 readonly
-                required
                 ></v-text-field>
                 <v-date-picker 
-                v-model="form.fe_nacimiento" locale="es" 
+                v-model="form.fe_nacimiento" 
+                locale="es" 
+                @input="dates.fe_nacimiento = formatDate( form.fe_nacimiento )"
                 :max="new Date().toISOString().substr(0, 10)" 
+                @change="save"
                 min="1950-01-01">
                 </v-date-picker>
             </v-menu>
@@ -206,6 +208,9 @@ export default {
     },
     methods:
     {
+        save (date) {
+        this.$refs.picker.save(date)
+      },
         getData()
         {
             axios.get(this.basePath + this.$store.getters.user.id_usuario)
