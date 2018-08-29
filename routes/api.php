@@ -8,24 +8,27 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('status',           'StatusController');
     Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
-    Route::apiResource('persona',       'PersonaController');
+    Route::apiResource('menu',            'MenuController');
+    Route::get('/menu/padre',             'MenuController@menuPadre');
+
+    Route::apiResource('persona',               'PersonaController');
     Route::get('persona/familiar/{id_usuario}', 'PersonaController@personaFamiliar');
 
-    Route::apiResource('personaEmpleo', 'PersonaEmpleoController');
+    Route::apiResource('personaEmpleo',              'PersonaEmpleoController');
     Route::get('personaEmpleo/usuario/{id_usuario}', 'PersonaEmpleoController@personaEmpleoUsuario');
 
-    Route::apiResource('discapacidad','DiscapacidadController');
+    Route::apiResource('discapacidad',    'DiscapacidadController');
     Route::apiResource('tipoDiscapacidad','TipoDiscapacidadController');
-    Route::apiResource('estadoCivil',   'EstadoCivilController');
-    Route::apiResource('parentesco',    'ParentescoController');
-    Route::apiResource('mision',        'MisionController');
+    Route::apiResource('estadoCivil',     'EstadoCivilController');
+    Route::apiResource('parentesco',      'ParentescoController');
+    Route::apiResource('mision',          'MisionController');
     
-    Route::apiResource('pais',          'PaisController');
-    Route::apiResource('estado',        'EstadoController');
-    Route::apiResource('ciudad',        'CiudadController');
+    Route::apiResource('pais',              'PaisController');
+    Route::apiResource('estado',            'EstadoController');
+    Route::apiResource('ciudad',            'CiudadController');
     Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
 
-    Route::apiResource('vivienda',  'ViviendaController');
+    Route::apiResource('vivienda',               'ViviendaController');
     Route::get('vivienda/usuario/{id_usuario}',  'ViviendaController@viviendaUsuario');
 
     Route::apiResource('tipoVivienda',  'TipoViviendaController');
@@ -37,6 +40,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('jornada',       'JornadaController');
     Route::apiResource('remuneracion',  'RemuneracionController');
     Route::apiResource('moneda',        'MonedaController');
+    Route::apiResource('sector',        'SectorController');
+    Route::apiResource('rol',           'RolController');
 
     Route::apiResource('motivo',        'MotivoController');
     Route::apiResource('recurso',       'RecursoController');
@@ -48,7 +53,7 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
         return $request->user();
     });
 
-    Route::patch('settings/profile', 'Settings\UpdateProfile');
+    Route::patch('settings/profile',  'Settings\UpdateProfile');
     Route::patch('settings/password', 'Settings\UpdatePassword');
 
     

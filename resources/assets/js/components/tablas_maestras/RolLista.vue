@@ -5,7 +5,7 @@
         <v-card>
             
             <v-toolbar class="light-blue darken-3 white--text">
-            <h3>Bancos</h3>
+            <h3>Roles</h3>
                 <v-spacer></v-spacer>
                 <v-btn fab @click="insItem" dark small absolute right bottom class="success">
                     <v-icon dark>add</v-icon>
@@ -30,7 +30,7 @@
             :items  ="items"
             :search ="buscar"
             v-model ="selected"
-            item-key="id_banco"
+            item-key="id_rol"
             :loading="IsLoading"
             rows-per-page-text="Res. x Pag"
             disable-initial-sort
@@ -38,9 +38,7 @@
 
             <template slot="items" slot-scope="item">
                 
-                <td class="text-xs-left">{{ item.item.nb_banco }}</td>
-                <td class="text-xs-left">{{ item.item.tipo_banco.nb_tipo_banco }}</td>
-                <td class="text-xs-left">{{ item.item.grupo_banco.nb_grupo_banco }}</td>
+                <td class="text-xs-left">{{ item.item.nb_rol }}</td>
                 <td class="text-xs-center"> 
                     {{ item.item.status.nb_status }}
                      <!-- status
@@ -73,12 +71,12 @@
         </v-layout>
     
         <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-            <banco-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></banco-form>
+            <rol-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></rol-form>
         </form-container>
 
         <dialogo 
             :dialogo="dialogo" 
-            :mensaje="'Desea Eliminar el Banco: ' + item.nb_banco "
+            :mensaje="'Desea Eliminar el Rol: ' + item.nb_rol "
             @delItem="delItem"
             @delCancel="delCancel"
         >
@@ -98,9 +96,7 @@ export default {
     data () {
     return {
         headers: [
-        { text: 'Nombre',   value: 'nb_banco' },
-        { text: 'Tipo',     value: 'tipo_banco.nb_tipo_banco' },
-        { text: 'Grupo',    value: 'grupo_banco.nb_grupo_banco' },
+        { text: 'Nombre',   value: 'nb_rol' },
         { text: 'Status',   value: 'id_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]
@@ -110,7 +106,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/banco')
+            axios.get('/api/v1/rol')
             .then(respuesta => {
                 this.items = respuesta.data;
                 this.IsLoading = false
@@ -121,7 +117,7 @@ export default {
             })
         },
         delItem(){
-            axios.delete('/api/v1/banco/'+this.item.id_banco)
+            axios.delete('/api/v1/rol/'+this.item.id_rol)
             .then(respuesta => {
 
                 this.showMessage(respuesta.data.msj)
