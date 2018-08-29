@@ -19,6 +19,16 @@ class MenuController extends Controller
         return $menus;
     }
 
+
+    public function menuPadre()
+    {
+        $status = Status::select('id_menu' , 'nb_menu')
+                          ->where('status', 1)
+                          ->get();
+        
+        return $status;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
