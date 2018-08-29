@@ -61,7 +61,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
+      <v-btn color="blue darken-2" class="white--text" @click.native="register">Ingresar</v-btn>
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -86,7 +86,7 @@
         errors: [],
         username: '',
         usernameRules: [
-          (v) => !!v || 'El nombre de usuario es obligatorio'
+          (v) => !!v || 'El nombre de usuario es obligatorio',
           (v) => v.length >= 6 || 'El nombre de usuario debe tener almenos 6 caracteres'
         ],
         email: '',
@@ -104,11 +104,6 @@
           (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres',
           (v) => this.password === this.passwordConfirmation || 'Las contraseñas no coinciden'
         ],
-        form: {
-                    nb_usuario: this.username,
-                    password:   this.password,
-                    tx_email:   this.email,
-            },
       }
     },
     props: {},
@@ -116,23 +111,31 @@
     methods: {
       register () {
 
-        axios.post('/api/register', this.form)
-            .then(respuesta => 
-            {
-                console.log(respuesta)//this.showMessage(respuesta.data.msj)
-                //this.$emit('completado', true);
-                this.login()
-            })
-            .catch(error => 
-            {
-                console.log(error)
+        if (this.$refs.registerForm.validate()) {
 
-                this.alertOpts = {
-                  message: "Ocurrio un error, por favor intente registrarse nuevamente",
-                  show:    true,
-                  type:    "error"
-                }
+          const form = {
+            'nb_usuario': this.username,
+            'password':   this.password,
+            'tx_email':   this.email,
+          }
+
+            this.$store.dispatch(actions.REGISTER, form).then(response => {
+
+              this.login()
+
+            }).catch(error => {
+              
+              this.alertOpts = {
+                message: "Ocurrio un error, por favor intente registrarse nuevamente",
+                show:    true,
+                type:    "error"
+              }
+
+
+            }).then(() => {
+              window.location = '/'
             })
+        }
 
       },
       login () {
@@ -144,7 +147,7 @@
 
           this.$store.dispatch(actions.LOGIN, credentials).then(response => {
 
-            window.location = '/home'
+           window.location = '/home'
 
           }).catch(error => {
             

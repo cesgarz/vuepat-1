@@ -13,6 +13,15 @@ export default {
       })
     })
   },
+  [ actions.REGISTER ] (context, form) {
+    return new Promise((resolve, reject) => {
+      auth.register(form).then(response => {
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   [ actions.LOGOUT ] (context) {
     return new Promise((resolve, reject) => {
       auth.logout().then(response => {
