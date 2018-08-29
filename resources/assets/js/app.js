@@ -209,7 +209,7 @@ const app = new Vue({
         }
       }
     },
-    onWelcomePageButtonSelected (action) {
+    onWelcomePageButtonClicked (action) {
       if (action == 'login') {
         window.location.href = '/welcome'
       }
