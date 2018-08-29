@@ -69,7 +69,7 @@
         ></v-text-field>
         </v-flex>
 
-        <v-flex sm3>
+        <v-flex sm4>
             <v-select
             :items="listas.jornada"
             item-text="nb_jornada"
@@ -82,7 +82,7 @@
             ></v-select>
         </v-flex>
 
-        <v-flex sm3>
+        <v-flex sm4>
             <v-select  v-if="form.id_jornada"
             :items="listas.remuneracion"
             label="Remuneracion"
@@ -94,8 +94,8 @@
             ></v-select>
         </v-flex>
 
-        <v-flex sm3>
-            <v-select v-if="form.id_remuneracion"
+        <v-flex sm1>
+            <v-select v-if="false"
             :items="listas.moneda"
             item-text="nb_moneda"
             item-value="id_moneda"
@@ -104,8 +104,8 @@
             ></v-select>
         </v-flex>
 
-        <v-flex sm3>
-        <v-text-field v-show="form.id_remuneracion"
+        <v-flex sm1>
+        <v-text-field v-if="false"
             label="Monto"
             v-model="form.mo_remuneracion"
         ></v-text-field>
@@ -145,7 +145,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <pre>{{'$data'}}</pre> 
+    <!--<pre>{{'$data'}}</pre> -->
     
     </v-form>
     </div>
@@ -176,8 +176,8 @@ export default {
                 tx_cargo:           null,
                 id_jornada:         null,
                 id_remuneracion:    null,
-                id_moneda:          null,
-                mo_remuneracion:    null,
+                id_moneda:          0,
+                mo_remuneracion:    0,
                 bo_empresa_propia:  false,
                 nb_empresa_propia:  null,
                 tx_observaciones:   null,
@@ -205,10 +205,16 @@ export default {
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
+                if(this.datos)
+                {
+                    this.btnAccion = 'upd'
+                    this.$emit('completado', true);
+                }
             })
             .catch(error => 
             {
                 this.showError(error);
+                this.$emit('completado', false);
             })
             
         },
@@ -222,7 +228,9 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
+                    this.form.id_empleo = respuesta.data[0].empleo.id_empleo
                     this.showMessage(respuesta.data.msj)
+                    this.btnAccion = 'upd'
                     this.$emit('completado', true);
                 })
                 .catch(error => 
@@ -245,6 +253,7 @@ export default {
                 .catch(error => 
                 {
                     this.showError(error);
+                    this.$emit('completado', false);
                 })
             }
         }

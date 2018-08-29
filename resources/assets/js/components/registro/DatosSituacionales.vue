@@ -212,7 +212,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <pre>{{'$data'}}</pre> 
+    <!--<pre>{{'$data'}}</pre> --> 
 
     </v-form> 
 </template>
@@ -350,6 +350,11 @@ export default {
             {
                 this.datos = respuesta.data;
                 this.mapDatos()
+                if(this.datos.length > 0)
+                {
+                    this.btnAccion = 'upd'
+                    this.$emit('completado', true);
+                }
             })
             .catch(error => 
             {
@@ -365,6 +370,7 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
+                    this.btnAccion = 'upd'
                     this.$emit('completado', true);
                 })
                 .catch(error => 
@@ -387,6 +393,7 @@ export default {
                 .catch(error => 
                 {
                     this.showError(error);
+                    this.$emit('completado', false);
                 })
             }
         },

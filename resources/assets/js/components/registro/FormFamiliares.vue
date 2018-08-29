@@ -77,7 +77,6 @@
             item-text="nb_mision"
             item-value="id_mision"
             v-model="form.misiones"
-            :rules="rules.select"
             label="Programa o mision recibido"
             prepend-icon="star_border"
             multiple

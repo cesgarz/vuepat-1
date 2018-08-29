@@ -1,25 +1,25 @@
 <template>
      <div>
-    <v-stepper v-model="e1">
+    <v-stepper v-model="etapa">
     <v-stepper-header>
       
-      <v-stepper-step :complete="e1 > 1" color="green" step="1">Datos Personales</v-stepper-step>
+      <v-stepper-step :complete="etapa > 1" color="green" step="1">Datos Personales</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step :complete="e1 > 2" color="green" step="2">Datos Vivienda</v-stepper-step>
+      <v-stepper-step :complete="etapa > 2" color="green" step="2">Datos Familiares</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step :complete="e1 > 3" color="green" step="3">Datos Laborales</v-stepper-step>
+      <v-stepper-step :complete="etapa > 3" color="green" step="3">Datos Vivienda</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step :complete="e1 > 3" color="green" step="4">Motivo del Viaje</v-stepper-step>
+      <v-stepper-step :complete="etapa > 3" color="green" step="4">Motivo del Viaje</v-stepper-step>
 
       <v-divider></v-divider>
 
-      <v-stepper-step step="5">Datos Familiares</v-stepper-step>
+      <v-stepper-step step="5">Datos Laborales</v-stepper-step>
      
     </v-stepper-header>
 
@@ -29,50 +29,50 @@
         
         <datos-personales :validar="datos.personales.valido" @completado="completar('personales', $event)"></datos-personales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 2" v-show="datos.personales.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
+        <v-btn color="primary" @click="etapa = 2" v-show="datos.personales.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
         
       </v-stepper-content>
 
-      <v-stepper-content step="2" v-if="e1 > 0">
+      <v-stepper-content step="2" v-if="etapa > 0">
         
-        <datos-situacionales></datos-situacionales>
+        <datos-familiares :validar="datos.familiares.valido" @completado="completar('familiares', $event)"></datos-familiares>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 1"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 3">Siguiente <v-icon>navigate_next</v-icon></v-btn>
+        <v-btn color="primary" @click="etapa = 1"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="etapa = 3" v-show="datos.familiares.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
         
       </v-stepper-content>
 
-      <v-stepper-content step="3" v-if="e1 > 1">
+      <v-stepper-content step="3" v-if="etapa > 1">
         
-        <datos-laborales></datos-laborales>
+        <datos-situacionales :validar="datos.situacional.valido" @completado="completar('situacional', $event)"></datos-situacionales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 2"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 4">Siguiente <v-icon>navigate_next</v-icon></v-btn>
+        <v-btn color="primary" @click="etapa = 2"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="etapa = 4" v-show="datos.situacional.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
 
       </v-stepper-content>
 
-      <v-stepper-content step="4" v-if="e1 > 2">
+      <v-stepper-content step="4" v-if="etapa > 2">
 
-        <motivo-salida></motivo-salida>
+        <motivo-salida :validar="datos.migracion.valido" @completado="completar('migracion', $event)"></motivo-salida>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 3"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 5">Siguiente <v-icon>navigate_next</v-icon></v-btn>
+        <v-btn color="primary" @click="etapa = 3"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="etapa = 5" v-show="datos.migracion.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
 
       </v-stepper-content>
 
-      <v-stepper-content step="5" v-if="e1 > 3">
+      <v-stepper-content step="5" v-if="etapa > 3">
 
-        <datos-familiares></datos-familiares>
+        <datos-laborales :validar="datos.laborales.valido" @completado="completar('laborales', $event)"></datos-laborales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 4"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn dark color="red" href="/PlanillaPdf" target="_bank">Ver Planilla <v-icon>print</v-icon></v-btn>
+        <v-btn color="primary" @click="etapa = 4"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn dark color="red" href="/PlanillaPdf" target="_bank" v-show="datos.laborales.completado">Ver Planilla <v-icon>print</v-icon></v-btn>
 
       </v-stepper-content>
 
     </v-stepper-items>
   </v-stepper>
   
-  <pre>{{$data}}</pre>
+ <!-- <pre>{{$data}}</pre>-->
 </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
 name: 'home-view',
   data () {
       return {
-        e1: 0,
+        etapa: 0,
         datos:{
             personales: 
             {
@@ -103,7 +103,7 @@ name: 'home-view',
                 valido:     false,
                 completado: false
             },
-            motivacion: 
+            migracion: 
             {
                 valido:     false,
                 completado: false
@@ -138,17 +138,8 @@ name: 'home-view',
       },
       completar(datos, completado)
       {
-        console.log('tipo',datos, completado);
-        
-        switch (datos) 
-          {
-            case 'personales':
-                this.datos.personales.completado = completado;    
-                break;
-            
-            default:
-                break;
-        }
+        console.log('completar datos:', datos, 'status:', completado);
+        this.datos[datos].completado = completado;
       }
     }
 }

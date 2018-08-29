@@ -71,7 +71,6 @@
             </dialogo>
 
     </v-card-text>
-      
 
     </v-layout>
     </v-card-text>
@@ -113,10 +112,12 @@ export default {
             {
                 this.items = respuesta.data;
                 this.IsLoading = false;
+                if(this.items.length > 0 ){   this.$emit('completado', true) }
             })
             .catch(error => 
             {
                 this.showError(error);
+                this.$emit('completado', false) 
             })
         },
         delItem(){

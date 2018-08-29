@@ -28,11 +28,14 @@ Vue.component('home', require('./components/Home.vue'));
 Vue.component('registro', require('./components/Registro.vue'));
 Vue.component('registro-buttons', require('./components/RegistroButtons.vue'));
 
+//Registro
 Vue.component('datos-personales', require('./components/registro/DatosPersonales.vue'));
 Vue.component('datos-situacionales', require('./components/registro/DatosSituacionales.vue'));
 Vue.component('datos-familiares', require('./components/registro/DatosFamiliares.vue'));
 Vue.component('motivo-salida', require('./components/registro/MotivoSalida.vue'));
 Vue.component('datos-laborales', require('./components/registro/DatosLaborales.vue'));
+
+//tablas maestras
 
 
 //Componentes Frontend

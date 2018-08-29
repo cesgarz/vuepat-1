@@ -15,16 +15,6 @@
         </v-flex>
         <v-flex sm8>
         </v-flex>    
-          
-        <v-flex sm6>
-         <v-text-field
-          name="name"
-          label="Apellidos"
-          required
-          v-model="form.nb_nombre"
-          :rules="rules.requerido"
-        ></v-text-field>
-        </v-flex>
 
         <v-flex sm6>
          <v-text-field
@@ -32,6 +22,16 @@
           label="Nombres"
           required
           v-model="form.nb_apellido"
+          :rules="rules.requerido"
+        ></v-text-field>
+        </v-flex>
+
+        <v-flex sm6>
+         <v-text-field
+          name="name"
+          label="Apellidos"
+          required
+          v-model="form.nb_nombre"
           :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
@@ -147,8 +147,8 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <pre>{{'$data'}}</pre> 
- 
+    <!--<pre>{{'$data'}}</pre> -->
+
     </v-form>   
 </template>
 
@@ -214,6 +214,7 @@ export default {
                 this.datos = respuesta.data;
                 if(this.datos)
                 {
+                    this.btnAccion = 'upd'
                     this.$emit('completado', true);
                 }
             })
@@ -244,16 +245,24 @@ export default {
         },
         store()
         {
+            this.form.id_parentesco = 99
+            this.form.id_status  = 1
+            this.form.id_usuario = this.$store.getters.user.id_usuario
+
             if (this.$refs.form.validate()) 
             {  
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
+                    this.form.id_persona = respuesta.data[0].persona.id_persona
                     this.showMessage(respuesta.data.msj)
+                    this.btnAccion = 'upd'
+                    this.$emit('completado', true);
                 })
                 .catch(error => 
                 {
                     this.showError(error);
+                    this.$emit('completado', false);
                 })
             }
         },
@@ -265,10 +274,12 @@ export default {
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)
+                    this.$emit('completado', true);
                 })
                 .catch(error => 
                 {
                     this.showError(error);
+                    this.$emit('completado', false);
                 })
             }
         }
