@@ -207,6 +207,14 @@ const app = new Vue({
         }
       }
     },
+    onWelcomePageButtonSelected (action) {
+      if (action == 'login') {
+        window.location.href = '/welcome'
+      }
+      else if (action == 'registration') {
+        window.location.href = '/registration'
+      }
+    },
     changePassword () {
       this.changingPassword = true
       this.$store.dispatch(actions.REMEMBER_PASSWORD, this.user.email).then(response => {

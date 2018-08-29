@@ -37,14 +37,14 @@
           required
           v-model="password"></v-text-field>
           <v-text-field
-          :rules="confirmPasswordRules"
+          :rules="passwordConfirmationRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
           dark
           label="Password Confirmation"
           name="passwordConfirmation"
           required
-          v-model="confirmPassword"></v-text-field>
+          v-model="passwordConfirmation"></v-text-field>
       </v-form>
       <v-container grid-list-md text-xs-left>
         <v-layout row wrap>
@@ -61,7 +61,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="register">Ingresar</v-btn>
+      <v-btn color="blue darken-2" class="white--text" @click.native="register">Registrar</v-btn>
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -83,6 +83,7 @@
           type:    "info"
         },
         showPass: false,
+        valid: false,
         errors: [],
         username: '',
         usernameRules: [
@@ -112,7 +113,7 @@
       register () {
 
         if (this.$refs.registerForm.validate()) {
-
+          
           const form = {
             'nb_usuario': this.username,
             'password':   this.password,

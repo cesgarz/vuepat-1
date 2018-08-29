@@ -49,8 +49,8 @@
                 <v-layout row wrap>
                   <v-flex xs12 class="forms">
                   
-                      <div id="wrapper-form-login">
-                        <form-login></form-login>
+                      <div id="wrapper-form-register">
+                        <form-register></form-register>
                       </div>
                   </v-flex>
                 </v-layout>
@@ -70,3 +70,4 @@
 
 </body>
 </html>
+register
