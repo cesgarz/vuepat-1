@@ -7,6 +7,8 @@ Route::get('codigo-qr/ejemplo', function ()
 
 }); 
 
+Route::get('/getReporteExcel', 'Reportes\ReporteController@getArchivo');
+
 Route::get('/PlanillaPdf', 'Reportes\PlanillaPdfController@index');
 
 Route::get('/',        function ()       {   return view('welcome'); });
