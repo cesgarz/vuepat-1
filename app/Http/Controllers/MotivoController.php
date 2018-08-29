@@ -20,6 +20,13 @@ class MotivoController extends Controller
         return $motivo;
     }
 
+    public function lista()
+    {
+         $mision = Motivo::with('status')
+                            ->get(); 
+        return $mision;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

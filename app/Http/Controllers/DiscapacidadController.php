@@ -18,6 +18,13 @@ class DiscapacidadController extends Controller
         return $discapacidad;
     }
 
+    public function lista()
+    {
+         $mision = Discapacidad::with('status', 'tipoDiscapacidad')
+                            ->get(); 
+        return $mision;
+    }
+
     public function discapacidadTipo($id_tipo_discapacidad)
     {
         $vivienda = Discapacidad::select('id_discapacidad','nb_discapacidad')
@@ -25,6 +32,7 @@ class DiscapacidadController extends Controller
                              ->get();
         return $vivienda;
     }
+
 
     /**
      * Store a newly created resource in storage.

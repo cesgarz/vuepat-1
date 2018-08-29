@@ -106,7 +106,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/motivo')
+            axios.get('/api/v1/motivo/lista')
             .then(respuesta => {
                 this.items = respuesta.data;
                 this.IsLoading = false

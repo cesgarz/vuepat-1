@@ -22,6 +22,11 @@ class Discapacidad extends Model
     
     protected $hidden     = ['fe_creado','fe_actualizado'];
 
+    public function tipoDiscapacidad()
+    {
+        return $this->BelongsTo('App\Models\TipoDiscapacidad', 'id_tipo_discapacidad');
+    }
+
     public function status()
     {
         return $this->BelongsTo('App\Models\Status', 'id_status');

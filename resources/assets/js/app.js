@@ -45,6 +45,8 @@ Vue.component('discapacidad-form', require('./components/tablas_maestras/Discapa
 Vue.component('motivo-lista', require('./components/tablas_maestras/MotivoLista.vue'));
 Vue.component('motivo-form', require('./components/tablas_maestras/MotivoForm.vue'));
 
+Vue.component('sector-lista', require('./components/tablas_maestras/SectorLista.vue'));
+Vue.component('sector-form', require('./components/tablas_maestras/SectorForm.vue'));
 
 
 
@@ -108,38 +110,13 @@ const app = new Vue({
     drawerRight: false,
     changingPassword: false,
     updatingUser: false,
-    items: [
-
-      { heading: 'Modulos' },
-      { icon: 'home', text: 'Inicio', href: '/home' },
-      { icon: 'assignment_ind', text: 'Registro', href: '/home' },
-      { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' },
-      { heading: 'Datos Maestros' },
-      { icon: 'assignment', text: 'Datos Maestros',
-        children:
-        [
-          { icon: 'star_border', text: 'Misiones', href: '/mision' },
-          { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' },
-          { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' },
-          { icon: 'device_hub', text: 'Sector', href: '/sector' },
-        ],
-      },
-      { heading: 'Reportes' },
-      { icon: 'description', text: 'Reportes',
-        children:
-        [
-          { icon: 'description', text: 'Usuarios', href: '/reports.general' },
-          { icon: 'description', text: 'Personas', href: '/reports.ingreso' },
-          { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' },
-        ], 
-      },
-      { heading: 'Administracion' },
-      { icon: 'person', text: 'Usuarios', href: '/usuario' },
-    ]
+    items: []
   }),
   created: function () {
 
     this.windowResize();
+
+    this.getMenu()
 
   },
   computed: {
@@ -148,6 +125,50 @@ const app = new Vue({
     })
   },
   methods: {
+    getMenu()
+    {
+      //provisionalmente mientras se arreglan los  permisos
+      if(this.$store.getters.user.id_usuario == 1)
+      {
+          this.items = [
+
+            { heading: 'Modulos' },
+            { icon: 'home', text: 'Inicio', href: '/home' },
+            { heading: 'Datos Maestros' },
+            { icon: 'assignment', text: 'Datos Maestros',
+              children:
+              [
+                { icon: 'star_border', text: 'Misiones', href: '/mision' },
+                { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' },
+                { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' },
+                { icon: 'device_hub', text: 'Sector', href: '/sector' },
+              ],
+            },
+            { heading: 'Reportes' },
+            { icon: 'description', text: 'Reportes',
+              children:
+              [
+                { icon: 'description', text: 'Usuarios', href: '/reports.general' },
+                { icon: 'description', text: 'Personas', href: '/reports.ingreso' },
+                { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' },
+              ], 
+            },
+            { heading: 'Administracion' },
+            { icon: 'person', text: 'Usuarios', href: '/usuario' },
+          ]
+      }
+      else
+      {
+        this.items = [
+
+          { heading: 'Modulos' },
+          { icon: 'home', text: 'Inicio', href: '/home' },
+          { icon: 'assignment_ind', text: 'Registro', href: '/home' },
+          { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' },      
+        ]
+      }
+    },
+
     windowResize () {
 
       this.parallax.height = window.innerHeight;

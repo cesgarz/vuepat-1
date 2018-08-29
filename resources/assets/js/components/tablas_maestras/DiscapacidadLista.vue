@@ -108,7 +108,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/discapacidad')
+            axios.get('/api/v1/discapacidad/lista')
             .then(respuesta => {
                 this.items = respuesta.data;
                 this.IsLoading = false

@@ -21,6 +21,13 @@ class SectorController extends Controller
         return $sectores;
     }
 
+    public function lista()
+    {
+         $mision = Sector::with('status')
+                            ->get(); 
+        return $mision;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

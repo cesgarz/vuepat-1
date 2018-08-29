@@ -30,7 +30,6 @@
                 v-model="form.id_tipo_discapacidad"
                 :rules="rules.select"
                 label="Tipo Discapacidad"
-                autocomplete
                 required
                 ></v-select>
             </v-flex>
@@ -42,8 +41,7 @@
                 item-value="id_status"
                 v-model="form.id_status"
                 :rules="rules.select"
-                label="EStatus de la Discapacidad"
-                autocomplete
+                label="Estatus de la Discapacidad"
                 required
                 ></v-select>
             </v-flex>
@@ -100,7 +98,7 @@ export default {
             },
             listas:{
                 tipoDiscapacidad:  [],
-                status:     ['/grupo/5']
+                status:     ['/grupo/GRAL']
             },
             
         }
@@ -109,6 +107,7 @@ export default {
         
         update()
         {
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
             if (this.$refs.form.validate()) 
             {           
                 axios.put(this.basePath + this.form.id_discapacidad, this.form)
@@ -124,6 +123,7 @@ export default {
         },
         store()
         {
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
             if (this.$refs.form.validate()) 
             {
                 axios.post(this.basePath, this.form)
