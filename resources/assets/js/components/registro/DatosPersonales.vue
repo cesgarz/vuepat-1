@@ -143,19 +143,12 @@
     </v-card-text>
     </v-card>
 
-    <v-tooltip top>
-        <v-btn slot="activator" fab @click="store" :disabled="!valido"  class="success">
-            <v-icon>save_alt</v-icon>
-        </v-btn>
-    <span>Guardar</span>
-    </v-tooltip>
-
-    <v-tooltip top>
-            <v-btn slot="activator" fab @click="update" :disabled="!valido"  class="warning">
-                <v-icon>edit</v-icon>
-            </v-btn>
-    <span>Editar</span>
-    </v-tooltip>
+    <v-card-actions>
+        <v-spacer></v-spacer>
+       <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
+    </v-card-actions>
+    <pre>{{'$data'}}</pre> 
+ 
     </v-form>   
 </template>
 

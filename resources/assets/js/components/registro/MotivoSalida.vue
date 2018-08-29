@@ -1,7 +1,7 @@
 <template>
+    <v-form ref="form" v-model="valido" lazy-validation>
     <v-card>
     <v-card-text>
-    <v-form ref="form" v-model="valido" lazy-validation>
     <v-layout wrap>
 
         <v-flex xs12 sm6>
@@ -111,13 +111,17 @@
             ></v-select>
         </v-flex>
     </v-layout>
-    <v-btn outline color="primary" dark @click="store">guardar</v-btn>
-    <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
-    <pre>{{$data}}</pre>
-
-    </v-form>
+  
     </v-card-text>
     </v-card>
+
+    <v-card-actions>
+        <v-spacer></v-spacer>
+       <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
+    </v-card-actions>
+    <pre>{{'$data'}}</pre> 
+
+    </v-form>
 </template>
 
 <script>

@@ -1,8 +1,9 @@
 <template>
     <div>
+    <v-form ref="form" v-model="valido" lazy-validation>
     <v-card>
     <v-card-text>        
-    <v-form ref="form" v-model="valido" lazy-validation>
+    
     <v-layout row wrap>
         
     
@@ -135,14 +136,18 @@
         ></v-textarea>
         </v-flex>
     </v-layout>
-    </v-form>
+    
     <empleo-lista></empleo-lista>
     </v-card-text>
-    <v-btn outline color="primary" dark @click="store">guardar</v-btn>
-    <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
-    <pre>{{'$data'}}</pre>
-    
     </v-card>
+
+    <v-card-actions>
+        <v-spacer></v-spacer>
+       <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
+    </v-card-actions>
+    <pre>{{'$data'}}</pre> 
+    
+    </v-form>
     </div>
 </template>
 

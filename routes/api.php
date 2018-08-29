@@ -30,14 +30,11 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('ciudad',            'CiudadController');
     Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
 
-<<<<<<< HEAD
     Route::apiResource('empleo',        'EmpleoController');
     Route::get('empleo/usuario/{id_usuario}',  'EmpleoController@empleoUsuario');
 
     Route::apiResource('vivienda',  'ViviendaController');
-=======
     Route::apiResource('vivienda',               'ViviendaController');
->>>>>>> d169ac8898224320ab39496fccb4cc090c404cc5
     Route::get('vivienda/usuario/{id_usuario}',  'ViviendaController@viviendaUsuario');
 
     Route::apiResource('tipoVivienda',  'TipoViviendaController');

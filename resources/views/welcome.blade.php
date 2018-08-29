@@ -41,6 +41,7 @@
     </v-toolbar>
     <main>
       <v-content>
+      <v-parallax ref="parallax" :src="parallax.images" :height="parallax.height">
         <v-container fluid>
           
         <v-layout column align-center justify-center>
@@ -57,6 +58,7 @@
           </v-layout>
 
         </v-container>
+      </v-parallax>
       </v-content>
     </main>
   </div>

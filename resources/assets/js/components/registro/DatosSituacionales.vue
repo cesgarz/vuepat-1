@@ -204,15 +204,16 @@
             ticks
         ></v-slider>
         </v-flex>
-
-<pre>{{'$data'}}</pre>
-
-    <v-btn outline color="primary" dark @click="store">guardar</v-btn>
-    <v-btn outline color="primary" dark @click="update">actualizar</v-btn>
-
     </v-layout>
     </v-card-text>
     </v-card>
+    
+    <v-card-actions>
+        <v-spacer></v-spacer>
+       <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
+    </v-card-actions>
+    <pre>{{'$data'}}</pre> 
+
     </v-form> 
 </template>
 

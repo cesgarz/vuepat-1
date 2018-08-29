@@ -54,4 +54,11 @@ class Persona extends Model
     	return $this->BelongsTo('App\Models\Parentesco', 'id_parentesco');
     }
 
+    public function vivienda()
+    {
+    	return $this->HasMany('App\Models\Vivienda', 'id_vivienda');
+    }
+
+    
+
 }

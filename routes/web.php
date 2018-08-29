@@ -1,7 +1,7 @@
 <?php
 
 
-//Route::get('/getReporteExcel', 'Reportes\ReporteController@getArchivo');
+Route::get('/getReportePdf', 'Reportes\PlanillaPdfController@index');
 
 Route::get('/',        function ()       {   return view('welcome'); });
 

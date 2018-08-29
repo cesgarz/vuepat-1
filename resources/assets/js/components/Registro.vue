@@ -29,7 +29,7 @@
         
         <datos-personales :validar="datos.personales.valido" @completado="completar('personales', $event)"></datos-personales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 2" >Siguiente <v-icon>navigate_next</v-icon></v-btn>
+        <v-btn color="primary" @click="e1 = 2" v-show="datos.personales.completado">Siguiente <v-icon>navigate_next</v-icon></v-btn>
         
       </v-stepper-content>
 
@@ -37,8 +37,8 @@
         
         <datos-situacionales></datos-situacionales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 1">Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 3">Siguiente</v-btn>
+        <v-btn color="primary" @click="e1 = 1"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="e1 = 3">Siguiente <v-icon>navigate_next</v-icon></v-btn>
         
       </v-stepper-content>
 
@@ -46,8 +46,8 @@
         
         <datos-laborales></datos-laborales>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 2">Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 4">Siguiente</v-btn>
+        <v-btn color="primary" @click="e1 = 2"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="e1 = 4">Siguiente <v-icon>navigate_next</v-icon></v-btn>
 
       </v-stepper-content>
 
@@ -55,8 +55,8 @@
 
         <motivo-salida></motivo-salida>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 3">Anterior</v-btn>
-        <v-btn color="primary" @click="e1 = 5">Siguiente</v-btn>
+        <v-btn color="primary" @click="e1 = 3"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn color="primary" @click="e1 = 5">Siguiente <v-icon>navigate_next</v-icon></v-btn>
 
       </v-stepper-content>
 
@@ -64,15 +64,15 @@
 
         <datos-familiares></datos-familiares>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="e1 = 4">Anterior</v-btn>
-        <v-btn color="primary" @click="true">Ver Planilla</v-btn>
+        <v-btn color="primary" @click="e1 = 4"><v-icon>navigate_before</v-icon> Anterior</v-btn>
+        <v-btn dark color="red" @click="true">Ver Planilla <v-icon>print</v-icon></v-btn>
 
       </v-stepper-content>
 
     </v-stepper-items>
   </v-stepper>
   
-  
+  <pre>{{$data}}</pre>
 </div>
 </template>
 
@@ -143,11 +143,7 @@ name: 'home-view',
         switch (datos) 
           {
             case 'personales':
-                    
-                if(completado)
-                {
-
-                }
+                this.datos.personales.completado = completado;    
                 break;
             
             default:

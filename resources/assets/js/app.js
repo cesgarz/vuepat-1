@@ -26,6 +26,7 @@ Vue.component('usuario-password', require('./components/UsuarioPassword.vue'));
 Vue.component('home', require('./components/Home.vue'));
 
 Vue.component('registro', require('./components/Registro.vue'));
+Vue.component('registro-buttons', require('./components/RegistroButtons.vue'));
 
 Vue.component('datos-personales', require('./components/registro/DatosPersonales.vue'));
 Vue.component('datos-situacionales', require('./components/registro/DatosSituacionales.vue'));
@@ -81,7 +82,7 @@ const app = new Vue({
   data: () => ({
     parallax: {
       height: 0,
-      images: "/img/salto-angels.jpeg"
+      images: "/img/home.jpeg" 
     },
     slickOptions: {
       draggable: false,
