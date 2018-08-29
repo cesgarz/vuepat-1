@@ -36,6 +36,16 @@ Vue.component('motivo-salida', require('./components/registro/MotivoSalida.vue')
 Vue.component('datos-laborales', require('./components/registro/DatosLaborales.vue'));
 
 //tablas maestras
+Vue.component('mision-lista', require('./components/tablas_maestras/MisionLista.vue'));
+Vue.component('mision-form', require('./components/tablas_maestras/MisionForm.vue'));
+
+Vue.component('discapacidad-lista', require('./components/tablas_maestras/DiscapacidadLista.vue'));
+Vue.component('discapacidad-form', require('./components/tablas_maestras/DiscapacidadForm.vue'));
+
+Vue.component('motivo-lista', require('./components/tablas_maestras/MotivoLista.vue'));
+Vue.component('motivo-form', require('./components/tablas_maestras/MotivoForm.vue'));
+
+
 
 
 //Componentes Frontend
@@ -111,7 +121,7 @@ const app = new Vue({
           { icon: 'star_border', text: 'Misiones', href: '/mision' },
           { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' },
           { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' },
-          { icon: 'attach_money', text: 'Monedas', href: '/moneda' },
+          { icon: 'device_hub', text: 'Sector', href: '/sector' },
         ],
       },
       { heading: 'Reportes' },

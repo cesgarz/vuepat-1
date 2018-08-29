@@ -20,6 +20,13 @@ class MisionController extends Controller
         return $mision;
     }
 
+    public function lista()
+    {
+         $mision = Mision::with('status')
+                            ->get(); 
+        return $mision;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

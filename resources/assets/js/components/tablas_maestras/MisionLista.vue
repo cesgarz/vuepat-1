@@ -71,7 +71,7 @@
         </v-layout>
     
         <form-container :nb-accion="nb_accion" :modal="modal" @cerrarModal="cerrarModal">
-            <banco-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></banco-form>
+            <mision-form :accion="accion" :item="item" @cerrarModal="cerrarModal"></mision-form>
         </form-container>
 
         <dialogo 
@@ -88,8 +88,8 @@
 
 <script>
 
-import withSnackbar from '../components/mixins/withSnackbar';
-import listHelper from '../components/mixins/listHelper';
+import withSnackbar from '../mixins/withSnackbar';
+import listHelper from '../mixins/listHelper';
 
 export default {
     mixins:[ listHelper, withSnackbar ],
@@ -106,7 +106,7 @@ export default {
     {
         list () {
 
-            axios.get('/api/v1/mision')
+            axios.get('/api/v1/mision/lista')
             .then(respuesta => {
                 this.items = respuesta.data;
                 this.IsLoading = false

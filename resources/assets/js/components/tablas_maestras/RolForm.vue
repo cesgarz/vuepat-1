@@ -69,8 +69,8 @@
 
 <script>
 
-import withSnackbar from '../components/mixins/withSnackbar';
-import formHelper from '../components/mixins/formHelper';
+import withSnackbar from '../mixins/withSnackbar';
+import formHelper from '../mixins/formHelper';
 
 export default {
     mixins: [ formHelper, withSnackbar ],

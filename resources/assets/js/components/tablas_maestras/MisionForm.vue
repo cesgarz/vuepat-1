@@ -30,7 +30,6 @@
                 v-model="form.id_status"
                 :rules="rules.select"
                 label="Estatus de la Misión"
-                autocomplete
                 required
                 ></v-select>
             </v-flex>
@@ -69,8 +68,8 @@
 
 <script>
 
-import withSnackbar from '../components/mixins/withSnackbar';
-import formHelper from '../components/mixins/formHelper';
+import withSnackbar from '../mixins/withSnackbar';
+import formHelper from '../mixins/formHelper'; 
 
 export default {
     mixins: [ formHelper, withSnackbar ],
@@ -85,7 +84,7 @@ export default {
                 id_usuario:''
             },
             listas:{
-                status:     ['/grupo/5']
+                status:     ['/grupo/GRAL']
             },
             
         }
@@ -94,6 +93,7 @@ export default {
         
         update()
         {
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
             if (this.$refs.form.validate()) 
             {           
                 axios.put(this.basePath + this.form.id_mision, this.form)
@@ -109,6 +109,7 @@ export default {
         },
         store()
         {
+            this.form.id_usuario = this.$store.getters.user.id_usuario;
             if (this.$refs.form.validate()) 
             {
                 axios.post(this.basePath, this.form)

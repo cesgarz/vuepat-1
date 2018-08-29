@@ -96,6 +96,10 @@ export default {
 
     },
     methods: {
+        getData()
+        {
+
+        },
         formatDate (date) 
         { 
             if (!date) return null

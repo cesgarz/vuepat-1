@@ -5,40 +5,43 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
-    Route::apiResource('status',           'StatusController');
-    Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
+    Route::apiResource('status',                'StatusController');
+    Route::get('/status/grupo/{id_grupo}',      'StatusController@statusGrupo');
 
-    Route::apiResource('menu',            'MenuController');
-    Route::get('/menu/padre',             'MenuController@menuPadre');
+    Route::apiResource('menu',                  'MenuController');
+    Route::get('/menu/padre',                   'MenuController@menuPadre');
 
     Route::apiResource('persona',               'PersonaController');
     Route::get('persona/familiar/{id_usuario}', 'PersonaController@personaFamiliar');
 
-    Route::apiResource('personaEmpleo',              'PersonaEmpleoController');
+    Route::apiResource('personaEmpleo',         'PersonaEmpleoController');
     Route::get('personaEmpleo/usuario/{id_usuario}', 'PersonaEmpleoController@personaEmpleoUsuario');
 
-    Route::apiResource('discapacidad','DiscapacidadController');
+    Route::get('discapacidad/lista',            'DiscapacidadController@lista');
+    Route::apiResource('discapacidad',          'DiscapacidadController');
     Route::get('discapacidad/tipo/{id_tipo_discapacidad}','DiscapacidadController@discapacidadTipo');
     
-    Route::apiResource('tipoDiscapacidad','TipoDiscapacidadController');
-    Route::apiResource('estadoCivil',     'EstadoCivilController');
-    Route::apiResource('parentesco',      'ParentescoController');
-    Route::apiResource('mision',          'MisionController');
+    Route::apiResource('tipoDiscapacidad',      'TipoDiscapacidadController');
+    Route::apiResource('estadoCivil',           'EstadoCivilController');
+    Route::apiResource('parentesco',            'ParentescoController');
+
+    Route::get('mision/lista',                  'MisionController@lista');
+    Route::apiResource('mision',                'MisionController');
     
-    Route::apiResource('pais',              'PaisController');
-    Route::apiResource('estado',            'EstadoController');
-    Route::apiResource('ciudad',            'CiudadController');
-    Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
+    Route::apiResource('pais',                  'PaisController');
+    Route::apiResource('estado',                'EstadoController');
+    Route::apiResource('ciudad',                'CiudadController');
+    Route::get('ciudad/estado/{nb_estado}',     'CiudadController@ciudadEstado');
 
-    Route::apiResource('empleo',        'EmpleoController');
-    Route::get('empleo/usuario/{id_usuario}',  'EmpleoController@empleoUsuario');
+    Route::apiResource('empleo',                'EmpleoController');
+    Route::get('empleo/usuario/{id_usuario}',   'EmpleoController@empleoUsuario');
 
-    Route::apiResource('vivienda',  'ViviendaController');
-    Route::apiResource('vivienda',               'ViviendaController');
-    Route::get('vivienda/usuario/{id_usuario}',  'ViviendaController@viviendaUsuario');
+    Route::apiResource('vivienda',              'ViviendaController');
+    Route::apiResource('vivienda',              'ViviendaController');
+    Route::get('vivienda/usuario/{id_usuario}', 'ViviendaController@viviendaUsuario');
 
-    Route::apiResource('tipoVivienda',  'TipoViviendaController');
-    Route::apiResource('servicio',      'ServicioController');
+    Route::apiResource('tipoVivienda',          'TipoViviendaController');
+    Route::apiResource('servicio',              'ServicioController');
 
     Route::apiResource('nivelEstudio',  'NivelEstudioController');
     Route::apiResource('sector',        'SectorController');

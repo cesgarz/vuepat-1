@@ -88,8 +88,8 @@
 
 <script>
 
-import withSnackbar from '../components/mixins/withSnackbar';
-import listHelper from '../components/mixins/listHelper';
+import withSnackbar from '../mixins/withSnackbar';
+import listHelper from '../mixins/listHelper';
 
 export default {
     mixins:[ listHelper, withSnackbar ],
