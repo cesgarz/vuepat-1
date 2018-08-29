@@ -148,8 +148,7 @@ const app = new Vue({
             { icon: 'description', text: 'Reportes',
               children:
               [
-                { icon: 'description', text: 'Usuarios', href: '/reports.general' },
-                { icon: 'description', text: 'Personas', href: '/reports.ingreso' },
+                { icon: 'description', text: 'Personas', href: '/reports.persona' },
                 { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' },
               ], 
             },

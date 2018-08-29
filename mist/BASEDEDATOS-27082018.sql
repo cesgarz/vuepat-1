@@ -2633,3 +2633,43 @@ ALTER TABLE "public"."rol_usuario" ADD CONSTRAINT "pk_id_rol_usuario" PRIMARY KE
 -- Primary Key structure for table rol_menu
 -- ----------------------------
 ALTER TABLE "public"."rol_menu" ADD CONSTRAINT "pk_id_rol_menu" PRIMARY KEY ("id_rol_menu");
+
+
+create view rep_persona as select 
+				per.nb_nombre,
+				per.nb_apellido,
+				per.tx_cedula,
+				per.tx_sexo,
+				per.fe_nacimiento,
+				per.id_estado_civil,
+				esc.nb_estado_civil,
+				per.tx_telefono,
+				per.tx_celular,
+				viv.co_pais as id_pais,
+				pai.nb_pais,
+				viv.nb_estado,
+				viv.nb_ciudad,
+				viv.tx_calle,
+				viv.tx_casa
+from persona per
+join vivienda viv on viv.id_usuario = per.id_usuario
+join pais pai     on pai.co_pais = viv.co_pais
+join estado_civil esc on esc.id_estado_civil = per.id_estado_civil
+where per.id_parentesco = 99
+and viv.id_ubicacion = 2
+
+COMMENT ON COLUMN rep_persona.nb_nombre IS 'NOMBRE'; 
+COMMENT ON COLUMN rep_persona.nb_apellido IS 'APELLIDO'; 
+COMMENT ON COLUMN rep_persona.tx_cedula IS 'CEDULA'; 
+COMMENT ON COLUMN rep_persona.tx_sexo IS 'SEXO'; 
+COMMENT ON COLUMN rep_persona.fe_nacimiento IS 'FEC NACIMIENTO'; 
+COMMENT ON COLUMN rep_persona.id_estado_civil IS 'ESTADO CIVIL'; 
+COMMENT ON COLUMN rep_persona.nb_estado_civil IS 'ESTADO CIVIL'; 
+COMMENT ON COLUMN rep_persona.tx_telefono IS 'TELEFONO'; 
+COMMENT ON COLUMN rep_persona.tx_celular IS 'CELULAR'; 
+COMMENT ON COLUMN rep_persona.id_pais IS 'PAIS'; 
+COMMENT ON COLUMN rep_persona.nb_pais IS 'PAIS'; 
+COMMENT ON COLUMN rep_persona.nb_estado IS 'REGION'; 
+COMMENT ON COLUMN rep_persona.nb_ciudad IS 'CIUDAD';
+COMMENT ON COLUMN rep_persona.tx_calle IS 'CALLE'; 
+COMMENT ON COLUMN rep_persona.tx_casa IS 'CASA';

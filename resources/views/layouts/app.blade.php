@@ -24,7 +24,7 @@
             v-model="drawer"
     >
     <!-- MENU -->
-    <v-list dense v-for="(item, idx) in items" :key="idx">
+    <v-list  dense v-for="(item, idx) in items" :key="idx">
 
         <!-- header -->
         <v-layout row v-if="item.heading" align-center>                        
@@ -45,7 +45,7 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                    <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
+                    <v-list-tile-title color="primary">@{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
 
             </v-list-tile>
@@ -57,7 +57,7 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                    <v-list-tile-title>@{{ subItem.text }}</v-list-tile-title>
+                    <v-list-tile-title color="primary">@{{ subItem.text }}</v-list-tile-title>
                 </v-list-tile-content>
 
             </v-list-tile>
@@ -72,7 +72,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-                <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
+                <v-list-tile-title color="primary">@{{ item.text }}</v-list-tile-title>
             </v-list-tile-content>
 
         </v-list-tile>

@@ -4,7 +4,7 @@
 
    <v-container fluid grid-list-md text-xs-center>
 
-    <report tabla="vw_bitacora"></report>
+    <report tabla="rep_persona"></report>
 
     </v-container>
 

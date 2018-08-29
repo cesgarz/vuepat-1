@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReporteModel extends Model
 {
-    private $schema = 'pagos';
+    private $schema = 'public';
     private $query  =  null;
     
     public function camposTabla($tabla)
