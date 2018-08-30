@@ -221,8 +221,11 @@ export default {
         },
         mapEstudio(data)
         {
-            this.form.id_nivel_estudio =  data.estudio.id_nivel_estudio
-            this.form.tx_titulo        =  data.estudio.tx_titulo
+            if(data.estudio)
+            {
+                this.form.id_nivel_estudio =  data.estudio.id_nivel_estudio
+                this.form.tx_titulo        =  data.estudio.tx_titulo
+            }
         },
         store()
         {

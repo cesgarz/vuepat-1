@@ -5,43 +5,43 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
-    Route::get('/usuario/lista', 'UsuarioController@lista');
-    Route::apiResource('/usuario', 'UsuarioController');
+    Route::get('/usuario/lista',      'UsuarioController@lista');
+    Route::apiResource('/usuario',    'UsuarioController');
     Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
     
-    Route::apiResource('status',           'StatusController');
+    Route::apiResource('status',      'StatusController');
     Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');
 
-    Route::apiResource('menu',            'MenuController');
-    Route::get('/menu/padre',             'MenuController@menuPadre');
+    Route::apiResource('menu',         'MenuController');
+    Route::get('/menu/padre',          'MenuController@menuPadre');
 
-    Route::apiResource('persona',               'PersonaController');
+    Route::apiResource('persona',      'PersonaController');
     Route::get('persona/familiar/{id_usuario}', 'PersonaController@personaFamiliar');
 
-    Route::apiResource('personaEmpleo',              'PersonaEmpleoController');
+    Route::apiResource('personaEmpleo', 'PersonaEmpleoController');
     Route::get('personaEmpleo/usuario/{id_usuario}', 'PersonaEmpleoController@personaEmpleoUsuario');
 
-    Route::get('discapacidad/lista',      'DiscapacidadController@lista');
-    Route::apiResource('discapacidad',    'DiscapacidadController');
+    Route::get('discapacidad/lista',    'DiscapacidadController@lista');
+    Route::apiResource('discapacidad',  'DiscapacidadController');
     Route::get('discapacidad/tipo/{id_tipo_discapacidad}','DiscapacidadController@discapacidadTipo');
     
     Route::apiResource('tipoDiscapacidad','TipoDiscapacidadController');
-    Route::apiResource('estadoCivil',     'EstadoCivilController');
-    Route::apiResource('parentesco',      'ParentescoController');
+    Route::apiResource('estadoCivil',   'EstadoCivilController');
+    Route::apiResource('parentesco',    'ParentescoController');
 
-    Route::get('mision/lista',            'MisionController@lista');
-    Route::apiResource('mision',          'MisionController');
+    Route::get('mision/lista',          'MisionController@lista');
+    Route::apiResource('mision',        'MisionController');
     
-    Route::apiResource('pais',              'PaisController');
-    Route::apiResource('estado',            'EstadoController');
-    Route::apiResource('ciudad',            'CiudadController');
+    Route::apiResource('pais',          'PaisController');
+    Route::apiResource('estado',        'EstadoController');
+    Route::apiResource('ciudad',        'CiudadController');
     Route::get('ciudad/estado/{nb_estado}', 'CiudadController@ciudadEstado');
 
-    Route::apiResource('empleo',               'EmpleoController');
-    Route::get('empleo/usuario/{id_usuario}',  'EmpleoController@empleoUsuario');
+    Route::apiResource('empleo',        'EmpleoController');
+    Route::get('empleo/usuario/{id_usuario}', 'EmpleoController@empleoUsuario');
 
-    Route::apiResource('vivienda',              'ViviendaController');
-    Route::apiResource('vivienda',              'ViviendaController');
+    Route::apiResource('vivienda',      'ViviendaController');
+    Route::apiResource('vivienda',      'ViviendaController');
     Route::get('vivienda/usuario/{id_usuario}', 'ViviendaController@viviendaUsuario');
 
     Route::apiResource('tipoVivienda',  'TipoViviendaController');
@@ -62,33 +62,27 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('motivo',        'MotivoController');
     Route::apiResource('recurso',       'RecursoController');
     Route::apiResource('grupoMigracion','GrupoMigracionController');
-    Route::apiResource('transporte',    'transporteController');
+    Route::apiResource('transporte',    'TransporteController');
 
-    Route::apiResource('migracion',     'migracionController');
-    Route::get('migracion/usuario/{id_usuario}',  'migracionController@migracionUsuario');
+    Route::apiResource('migracion',     'MigracionController');
+    Route::get('migracion/usuario/{id_usuario}', 'MigracionController@migracionUsuario');
 
-    Route::post('logout', 'Auth\LoginController@logout');
-
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::patch('settings/profile',  'Settings\UpdateProfile');
-    Route::patch('settings/password', 'Settings\UpdatePassword');
-
+    Route::post('logout',               'Auth\LoginController@logout');
+    Route::patch('settings/profile',    'Settings\UpdateProfile');
+    Route::patch('settings/password',   'Settings\UpdatePassword');
     
-    Route::get('/reports/{nb_tabla}', 'Reportes\ReporteController@showReporte');
-    Route::post('/reports', 'Reportes\ReporteController@getReporte');
-    Route::post('/getReporteExcel', 'Reportes\ReporteController@getReporteExcel');
-    
-    
+    Route::get('/reports/{nb_tabla}',   'Reportes\ReporteController@showReporte');
+    Route::post('/reports',             'Reportes\ReporteController@getReporte');
+    Route::post('/getReporteExcel',     'Reportes\ReporteController@getReporteExcel');
 
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-    Route::post('recaptcha', 'Auth\CaptchaController@checkToken');
+
+    Route::post('login',            'Auth\LoginController@login');
+    Route::post('register',         'Auth\RegisterController@register');
+    Route::post('password/email',   'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset',   'Auth\ResetPasswordController@reset');
+    Route::post('recaptcha',        'Auth\CaptchaController@checkToken');
+
 });

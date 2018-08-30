@@ -11,7 +11,7 @@
             v-model="form.tx_cedula"
             required
             :rules="rules.requerido"
-            mask="V-########"
+            mask="########"
             ></v-text-field>
         </v-flex>
         <v-flex sm8>

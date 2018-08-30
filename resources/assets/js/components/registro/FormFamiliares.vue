@@ -22,7 +22,7 @@
             :rules="rules.requerido"
             label="Cedula*"
             hint="SI no posee colocar la de algun padre"
-            mask="V-########"
+            mask="########"
             ></v-text-field>
         </v-flex>
 

@@ -44,3 +44,6 @@
   artisan config:cache 
 
   php artisan storage:link
+
+
+cert **bandes2018.

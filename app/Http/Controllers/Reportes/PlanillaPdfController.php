@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use \App\Models\Persona;
 
 
+
 class PlanillaPdfController extends Controller
 {
     private $fpdf;
@@ -57,8 +58,10 @@ class PlanillaPdfController extends Controller
 	
 	function getDatosReportePDF(){
 				
-           $persona = Persona::with(['estadoCivil:id_estado_civil,nb_estado_civil', 'personaDiscapacidad', 'vivienda'])
-                              ->where('id_usuario', 1)
+			$id_usuario = \Auth::id() ;  
+
+			$persona = Persona::with(['estadoCivil:id_estado_civil,nb_estado_civil', 'personaDiscapacidad', 'vivienda'])
+                              ->where('id_usuario', $id_usuario)
                               ->where('id_parentesco',  99)
                               ->first() ;
            
