@@ -38,8 +38,8 @@ class PersonaController extends Controller
     public function store(Request $request)
     {
         $validate = request()->validate([
-            'nb_nombre'         => 'required|max:50',
-            'nb_apellido'       => 'required|max:50',
+            'nb_nombre'         => 'required|max:50|min:2',
+            'nb_apellido'       => 'required|max:50|min:2',
             'tx_cedula'         => 'required|max:10|min:6|unique:persona,tx_cedula',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',

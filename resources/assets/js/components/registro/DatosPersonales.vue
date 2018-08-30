@@ -5,13 +5,14 @@
     <v-layout wrap>
 
         <v-flex sm6>
-         <v-text-field
-          name="name"
-          label="Cedula / Pasaporte"
-          v-model="form.tx_cedula"
-          required
-          :rules="rules.requerido"
-        ></v-text-field>
+            <v-text-field
+            name="name"
+            label="Cedula"
+            v-model="form.tx_cedula"
+            required
+            :rules="rules.requerido"
+            mask="V-########"
+            ></v-text-field>
         </v-flex>
         <v-flex sm8>
         </v-flex>    
@@ -37,7 +38,7 @@
         </v-flex>
 
         <v-flex sm2>
-        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc">
+        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc" :rules="rules.radio">
             <v-radio label="M" value="M" ></v-radio>
             <v-radio label="F" value="F"></v-radio>
         </v-radio-group>
@@ -53,7 +54,7 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_nacimiento"
+                v-model="dates.fe_nacimiento"
                 :rules="rules.fecha"
                 label="Fecha de Nacimiento"
                 prepend-icon="event"
@@ -89,6 +90,8 @@
           v-model="form.tx_telefono"
           :rules="rules.requerido"
           prepend-icon="phone"
+          mask="+###-###-###-######"
+          hint="Ej +058-212-505-8930"
         ></v-text-field>
         </v-flex>
 
@@ -98,6 +101,8 @@
           label="Celular"
           v-model="form.tx_celular"
           prepend-icon="phone_android"
+          mask="+###-###-###-######"
+          hint="Ej +058-414-505-8930"
         ></v-text-field>
         </v-flex>
 
@@ -129,6 +134,7 @@
               v-model="form.id_discapacidad"
               label=" Indique Discapacidad"
               :rules="rules.select"
+              :loading="discapacidadLoad"
               ></v-select>
         </v-flex>
 
@@ -149,7 +155,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <!--<pre>{{'$data'}}</pre> -->
+    <pre>{{$data}}</pre>
 
     </v-form>   
 </template>
@@ -167,6 +173,7 @@ export default {
         return {
             tabla: 'persona',
             discapacidad: [],
+            discapacidadLoad: false,
             form: {
                     id_persona:         null,
                     nb_nombre:          null,
@@ -201,10 +208,6 @@ export default {
                 this.tipoDiscap = null
             }
         },
-        picker (val) {
-            
-            val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
-        },
     },
     methods:
     {
@@ -217,6 +220,7 @@ export default {
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
+                this.mapDiscapacidad(this.datos)
                 if(this.datos)
                 {
                     this.btnAccion = 'upd'
@@ -228,14 +232,28 @@ export default {
                 this.showError(error);
             })
         },
+        mapDiscapacidad(datos)
+        {
+            if(datos.persona_discapacidad)
+            {
+                this.form.bo_discapacidad       = datos.persona_discapacidad.bo_discapacidad
+                this.form.id_tipo_discapacidad  = datos.persona_discapacidad.id_tipo_discapacidad
+                this.form.id_discapacidad       = datos.persona_discapacidad.id_discapacidad
+                this.form.tx_discapacidad       = datos.persona_discapacidad.tx_discapacidad
+                this.getDiscapacidad()
+            }
+        },
         getDiscapacidad()
         {
             if(this.form.id_tipo_discapacidad != 4)
             {
+                this.discapacidadLoad = true
+                
                 axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad)
                 .then(respuesta => 
                 {
                     this.discapacidad = respuesta.data;
+                    this.discapacidadLoad = false
                 })
                 .catch(error => 
                 {

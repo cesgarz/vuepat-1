@@ -45,7 +45,6 @@ export default {
         },
         validar(val)
         {
-            console.log(val);
             if (this.$refs.form.validate())
             {
                 if(this.accion == 'ins')

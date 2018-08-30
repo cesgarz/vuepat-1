@@ -15,7 +15,7 @@
             >
                 <v-text-field
                 slot="activator"
-                v-model="form.fe_salida"
+                v-model="dates.fe_salida"
                 :rules="rules.fecha"
                 label="Fecha de salida de Venezuela"
                 prepend-icon="event"

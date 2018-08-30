@@ -51,6 +51,7 @@
         <v-flex sm8>
             <v-menu
             ref="picker"
+            :close-on-content-click="false"
             v-model="picker"
             full-width
             min-width="290px"

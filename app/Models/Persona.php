@@ -29,6 +29,16 @@ class Persona extends Model
     
     protected $hidden     = ['fe_creado','fe_actualizado'];
 
+    public function setNbNombreAttribute($value)
+    {
+        $this->attributes['nb_nombre'] = strtoupper($value);
+    }
+
+    public function setNbApellidoAttribute($value)
+    {
+        $this->attributes['nb_apellido'] = strtoupper($value);
+    }
+
     public function estadoCivil()
     {
         return $this->BelongsTo('App\Models\EstadoCivil', 'id_estado_civil');

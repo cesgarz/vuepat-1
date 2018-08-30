@@ -123,7 +123,7 @@
                 <v-list two-line>
                     <v-list-tile >
                         <v-list-tile-content>
-                            <v-list-tile-title>Nombres y Apellidos </v-list-tile-title>
+                            <v-list-tile-title>Usuario</v-list-tile-title>
                             <v-list-tile-sub-title >@{{ user.nb_usuario }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
