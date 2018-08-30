@@ -86,40 +86,39 @@
             multiple
             chips
             deletable-chips
-            
             ></v-select>
         </v-flex>
 
         <v-flex xs12 sm3>
-          <v-checkbox
+            <v-checkbox
             label="Posee anguna Discapacidad?"
             v-model="form.bo_discapacidad"
             prepend-icon="accessible"
-          ></v-checkbox>
+            ></v-checkbox>
         </v-flex>
 
         <v-flex sm3 v-if="form.bo_discapacidad">
-              <v-select
-              :items="listas.tipoDiscapacidad"
-              item-text="nb_tipo_discapacidad"
-              item-value="id_tipo_discapacidad"
-              v-model="form.id_tipo_discapacidad"
-              label="Tipo de Discapacidad"
-              :rules="rules.select"
-              @change="getDiscapacidad"
-              ></v-select>
+            <v-select
+            :items="listas.tipoDiscapacidad"
+            item-text="nb_tipo_discapacidad"
+            item-value="id_tipo_discapacidad"
+            v-model="form.id_tipo_discapacidad"
+            label="Tipo de Discapacidad"
+            :rules="rules.select"
+            @change="getDiscapacidad"
+            ></v-select>
         </v-flex>
 
         <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
-              <v-select
-              :items="discapacidad"
-              item-text="nb_discapacidad"
-              item-value="id_discapacidad"
-              v-model="form.id_discapacidad"
-              label=" Indique Discapacidad"
-              :rules="rules.select"
-              :loading="discapacidadLoad"
-              ></v-select>
+            <v-select
+            :items="discapacidad"
+            item-text="nb_discapacidad"
+            item-value="id_discapacidad"
+            v-model="form.id_discapacidad"
+            label=" Indique Discapacidad"
+            :rules="rules.select"
+            :loading="discapacidadLoad"
+            ></v-select>
         </v-flex>
 
         <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
@@ -144,7 +143,7 @@
         </form-buttons>
     </v-card-actions>
     </v-card>
-    <pre>{{$data}}</pre>
+    <!--<pre>{{$data}}</pre>-->
     </v-form>
 </template>
 
@@ -188,7 +187,6 @@ export default {
                 mision:           [],
                 tipoDiscapacidad: []
             },
- 
         }
     },
     watch:
@@ -198,7 +196,6 @@ export default {
                 this.mapDiscapacidad(this.item)
                 this.mapMisiones(this.item)
         }
-
     },
     methods:
     {   
@@ -246,7 +243,6 @@ export default {
             {
                 this.form.id_discapacidad = 0
             }
-                
         },
         store()
         {

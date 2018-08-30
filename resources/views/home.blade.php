@@ -10,6 +10,6 @@
     <registro></registro> 
   </div>
  --> 
- <datos-familiares> </datos-familiares>
+ <datos-situacionales></datos-situacionales> 
 </v-container>
 @endsection

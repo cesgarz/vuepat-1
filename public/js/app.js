@@ -80699,7 +80699,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -80714,12 +80714,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -81063,6 +81057,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
+                    _this5.mapIdVivienda(respuesta.data[0]);
                     _this5.showMessage(respuesta.data.msj);
                     _this5.btnAccion = 'upd';
                     _this5.$emit('completado', true);
@@ -81092,10 +81087,39 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
                     var ubi = this.datos[key0]['id_ubicacion'] == '1' ? 'nac' : 'ext';
 
                     for (var key in this.datos[key0]) {
-
-                        this.form[ubi][key] = this.datos[key0][key];
+                        if (key == 'vivienda_servicio') {
+                            if (ubi == 'nac') {
+                                this.mapServicios(this.datos[key0][key]);
+                            }
+                        } else {
+                            this.form[ubi][key] = this.datos[key0][key];
+                        }
                     }
                 }
+            }
+        },
+        mapServicios: function mapServicios(servicios) {
+            var _this7 = this;
+
+            if (servicios) {
+                servicios.forEach(function (servicio) {
+                    _this7.form.nac.servicios.push(servicio.id_servicio);
+                });
+            }
+        },
+        mapIdVivienda: function mapIdVivienda(data) {
+            var _this8 = this;
+
+            if (data) {
+                data.vivienda.forEach(function (vivienda) {
+                    if (vivienda.id_ubicacion == 1) {
+                        _this8.form.nac.id_vivienda = vivienda.id_vivienda;
+                    }
+
+                    if (vivienda.id_ubicacion == 2) {
+                        _this8.form.ext.id_vivienda = vivienda.id_vivienda;
+                    }
+                }, this);
             }
         }
     }
@@ -81384,7 +81408,7 @@ var render = function() {
                     "v-flex",
                     { attrs: { sm4: "" } },
                     [
-                      _c("v-select", {
+                      _c("v-autocomplete", {
                         attrs: {
                           items: _vm.ubicacion.estado,
                           "item-text": "region",
@@ -81416,7 +81440,7 @@ var render = function() {
                     "v-flex",
                     { attrs: { sm4: "" } },
                     [
-                      _c("v-select", {
+                      _c("v-autocomplete", {
                         attrs: {
                           items: _vm.ubicacion.ciudad,
                           "item-text": "city",
@@ -81445,7 +81469,6 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
                           label: "Calle / Avenida / Carrera",
                           rules: _vm.rules.requerido
                         },
@@ -81467,7 +81490,6 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
                           label: "Casa /Edificio",
                           rules: _vm.rules.requerido
                         },
@@ -81491,7 +81513,9 @@ var render = function() {
                         attrs: {
                           name: "name",
                           label: "Telf. de Habitacion",
-                          rules: _vm.rules.requerido
+                          rules: _vm.rules.requerido,
+                          mask: "+###-###-###-######",
+                          hint: "Ej +058-212-505-8930"
                         },
                         model: {
                           value: _vm.form.ext.tx_telefono,
@@ -81515,8 +81539,7 @@ var render = function() {
                           "item-text": "nb_status",
                           "item-value": "id_status",
                           rules: _vm.rules.select,
-                          label: "Status de la Vivienda",
-                          required: ""
+                          label: "Status de la Vivienda"
                         },
                         model: {
                           value: _vm.form.ext.id_status,
@@ -81536,7 +81559,8 @@ var render = function() {
                     [
                       _c("v-slider", {
                         attrs: {
-                          hint: "Nro. de personas que habitan en la vivienda",
+                          hint:
+                            "Nro. de personas que habitan en la vivienda ( 1 a 5 o más)",
                           label: "Personas",
                           "persistent-hint": "",
                           step: "1",
@@ -81587,8 +81611,7 @@ var render = function() {
                           "item-text": "nb_tipo_vivienda",
                           "item-value": "id_tipo_vivienda",
                           rules: _vm.rules.select,
-                          label: "Tipo de Vivienda",
-                          required: ""
+                          label: "Tipo de Vivienda"
                         },
                         model: {
                           value: _vm.form.nac.id_tipo_vivienda,
@@ -81612,8 +81635,7 @@ var render = function() {
                           "item-text": "nb_status",
                           "item-value": "id_status",
                           rules: _vm.rules.select,
-                          label: "Status de la Vivienda",
-                          required: ""
+                          label: "Status de la Vivienda"
                         },
                         model: {
                           value: _vm.form.nac.id_status,
@@ -81631,14 +81653,13 @@ var render = function() {
                     "v-flex",
                     { attrs: { sm4: "" } },
                     [
-                      _c("v-select", {
+                      _c("v-autocomplete", {
                         attrs: {
                           items: _vm.listas.estado,
                           "item-text": "nb_estado",
                           "item-value": "nb_estado",
                           rules: _vm.rules.select,
-                          label: "Estado",
-                          required: ""
+                          label: "Estado"
                         },
                         on: {
                           change: function($event) {
@@ -81661,7 +81682,7 @@ var render = function() {
                     "v-flex",
                     { attrs: { sm4: "" } },
                     [
-                      _c("v-select", {
+                      _c("v-autocomplete", {
                         attrs: {
                           items: _vm.listas.ciudad,
                           "item-text": "nb_ciudad",
@@ -81669,7 +81690,6 @@ var render = function() {
                           rules: _vm.rules.select,
                           loading: _vm.listaCiudadLoad,
                           label: "Ciudad",
-                          required: "",
                           "no-data-text": "Sin Datos"
                         },
                         model: {
@@ -81719,7 +81739,6 @@ var render = function() {
                           "item-value": "id_servicio",
                           rules: _vm.rules.select,
                           label: "Servicios Basicos",
-                          required: "",
                           multiple: ""
                         },
                         model: {
@@ -81740,7 +81759,8 @@ var render = function() {
                     [
                       _c("v-slider", {
                         attrs: {
-                          hint: "Nro. de personas que habitan en la vivienda",
+                          hint:
+                            "Nro. de personas que habitan en la vivienda ( 1 a 5 o más)",
                           label: "Personas",
                           "persistent-hint": "",
                           step: "1",
@@ -81782,7 +81802,9 @@ var render = function() {
           })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data))])
     ],
     1
   )
@@ -81883,7 +81905,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82011,6 +82033,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.IsLoading = false;
                 if (_this.items.length > 0) {
                     _this.$emit('completado', true);
+                } else {
+                    _this.$emit('completado', false);
                 }
             }).catch(function (error) {
                 _this.showError(error);
@@ -82327,7 +82351,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82340,7 +82364,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(3);
-//
 //
 //
 //
@@ -82529,7 +82552,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 mision: [],
                 tipoDiscapacidad: []
             }
-
         };
     },
 
@@ -82539,7 +82561,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.mapDiscapacidad(this.item);
             this.mapMisiones(this.item);
         }
-
     },
     methods: {
         save: function save(date) {
@@ -82984,9 +83005,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))])
+      )
     ],
     1
   )
@@ -83088,7 +83107,9 @@ var render = function() {
                         "item-key": "id_banco",
                         loading: _vm.IsLoading,
                         "rows-per-page-text": "Res. x Pag",
-                        "disable-initial-sort": ""
+                        "disable-initial-sort": "",
+                        "no-data-text":
+                          "No se han cargados Familiares. Dar clip en el boton para agregar"
                       },
                       scopedSlots: _vm._u([
                         {

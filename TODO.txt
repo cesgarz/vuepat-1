@@ -1,24 +1,21 @@
-- (listo) Actualizacion ejecucion de pago fix update
-- (listo) tabla categoria no actualiza
-- validacion (listo validacion de formularios) y formateo de montos (pendiente) y fechas (listo)
+- (falta menu y rolMenu) Culminar Controladores
+- listo ()Incluir llamdoa BD para combos
+- Incluir WEBSERVICE saime
+- validacion y formateo de montos  y fechas 
 - (listo) menu  con paneles de expasion
-- (listo) autenticacion con usuario y contraseña (quitar correo y eliminar tabla user)
+- (listo) autenticacion con correao y contraseña ( eliminar tabla user)
 - (listo)metodo completo de autenticacion (metodo emergenci pta trasera)
-- (listo)Alertas en las instrucciones y pagos Iconos
-- (listo) Validar tope de los montos
-- (listo)Validar Cambios de datos en instrucciones y pagos que se puede actualizar y cuando
-- validar triggers en update de instrucciones ingresos pagos.
-- modulo de pagos responsive
-- (listo) tablas maestras faltantes (crud)
+- (en proceso)tablas maestras (crud)
 - (listo) activacion y desactivacion datos maestros (status); 
-- (listo)creacion y edicion de Usuarios 
+- (listo) creacion y edicion de Usuarios 
 - roles de usuarios :
-   analista (edicion de los modulos)
-   coordinador (visulizar modulos)
-   administrador (dar privilegios )
+   general (carga de encuesta y visualizacion de planilla unica)
+   administrador (vusualizar reportes y cambio de tablas maestras)
 - validar montos y fechas en PHP   
 - fin de session
-
+- registro cne from-> http://www.cne.gov.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula=13479149
+- cedula identidad unica VS niños sin cedula
+- en los return de los store/update/delete solo devolver ids
 - documentacion:
     manual de usuario
     diagrama E-R
@@ -26,8 +23,9 @@
     manua api
 
 - reportes:
-  (listo) generar las vistas de los reportes a visualizar
-  (listo) reporte excell
+  crear reporteador
+  generar las vistas de los reportes a visualizar
+  reporte excel
 
 
  - pase a produccion 
@@ -46,6 +44,3 @@
   artisan config:cache 
 
   php artisan storage:link
-
-
-

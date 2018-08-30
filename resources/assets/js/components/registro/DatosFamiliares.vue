@@ -11,7 +11,6 @@
                     <v-btn  fab @click="insItem" dark absolute right bottom class="success">
                         <v-icon dark>group_add</v-icon>
                     </v-btn>
-  
 
             </v-toolbar>
 
@@ -36,6 +35,7 @@
             :loading="IsLoading"
             rows-per-page-text="Res. x Pag"
             disable-initial-sort
+            no-data-text="No se han cargados Familiares. Dar clip en el boton para agregar"
             >
 
             <template slot="items" slot-scope="item">
@@ -115,7 +115,14 @@ export default {
             {
                 this.items = respuesta.data;
                 this.IsLoading = false;
-                if(this.items.length > 0 ){   this.$emit('completado', true) }
+                if(this.items.length > 0 )
+                {   
+                    this.$emit('completado', true) 
+                }
+                else
+                {
+                    this.$emit('completado', false) 
+                }
             })
             .catch(error => 
             {
@@ -136,10 +143,6 @@ export default {
                 this.showError(error)    
             })
         }
-
-
-
-
     }
 }
 </script>

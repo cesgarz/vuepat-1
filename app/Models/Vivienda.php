@@ -21,6 +21,7 @@ class Vivienda extends Model
                             'nb_ciudad',
                             'tx_calle',
                             'tx_casa',
+                            'tx_telefono',
                             'nu_personas',
                             'tx_observaciones',
                             'id_status',

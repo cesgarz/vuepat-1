@@ -26,7 +26,7 @@
         </v-flex>
 
         <v-flex sm4>
-        <v-select
+        <v-autocomplete
         :items="ubicacion.estado"
         item-text="region"
         item-value="region"
@@ -37,11 +37,11 @@
         required
         @change="getCiudad()"
         no-data-text="Sin Datos"
-        ></v-select>
+        ></v-autocomplete>
         </v-flex>
 
         <v-flex sm4>
-        <v-select
+        <v-autocomplete
         :items="ubicacion.ciudad"
         item-text="city"
         item-value="city"
@@ -51,12 +51,11 @@
         label="Ciudad"
         required
         no-data-text="Sin Datos"
-        ></v-select>
+        ></v-autocomplete>
         </v-flex>
 
         <v-flex sm8>
         <v-text-field
-            name="name"
             label="Calle / Avenida / Carrera"
             v-model="form.ext.tx_calle"
             :rules="rules.requerido"
@@ -65,7 +64,6 @@
 
         <v-flex sm4>
         <v-text-field
-            name="name"
             label="Casa /Edificio"
             v-model="form.ext.tx_casa"
             :rules="rules.requerido"
@@ -78,6 +76,8 @@
             label="Telf. de Habitacion"
             v-model="form.ext.tx_telefono"
             :rules="rules.requerido"
+            mask="+###-###-###-######"
+            hint="Ej +058-212-505-8930"
         ></v-text-field>
         </v-flex>
 
@@ -89,14 +89,13 @@
             v-model="form.ext.id_status"
             :rules="rules.select"
             label="Status de la Vivienda"
-            required
             ></v-select>
         </v-flex>
 
         <v-flex sm4>
         <v-slider
             v-model="form.ext.nu_personas"
-            hint="Nro. de personas que habitan en la vivienda"
+            hint="Nro. de personas que habitan en la vivienda ( 1 a 5 o más)"
             label="Personas"
             persistent-hint
             step="1"
@@ -123,7 +122,6 @@
             v-model="form.nac.id_tipo_vivienda"
             :rules="rules.select"
             label="Tipo de Vivienda"
-            required
         ></v-select>
         </v-flex>
 
@@ -135,12 +133,11 @@
             v-model="form.nac.id_status"
             :rules="rules.select"
             label="Status de la Vivienda"
-            required
             ></v-select>
         </v-flex>
 
         <v-flex sm4>
-            <v-select
+            <v-autocomplete
             :items="listas.estado"
             item-text="nb_estado"
             item-value="nb_estado"
@@ -148,12 +145,11 @@
             :rules="rules.select"
             label="Estado"
             @change="getListaCiudad()"
-            required
-            ></v-select>
+            ></v-autocomplete>
         </v-flex>
 
         <v-flex sm4>
-            <v-select
+            <v-autocomplete
             :items="listas.ciudad"
             item-text="nb_ciudad"
             item-value="nb_ciudad"
@@ -161,9 +157,8 @@
             v-model="form.nac.nb_ciudad"
             :loading="listaCiudadLoad"
             label="Ciudad"
-            required
             no-data-text="Sin Datos"
-            ></v-select>
+            ></v-autocomplete>
         </v-flex>
 
         <v-flex sm8>
@@ -185,7 +180,6 @@
             v-model="form.nac.servicios"
             :rules="rules.select"
             label="Servicios Basicos"
-            required
             multiple
             ></v-select>
         </v-flex>
@@ -193,7 +187,7 @@
         <v-flex sm4>
         <v-slider
             v-model="form.nac.nu_personas"
-            hint="Nro. de personas que habitan en la vivienda"
+            hint="Nro. de personas que habitan en la vivienda ( 1 a 5 o más)"
             label="Personas"
             persistent-hint
             step="1"
@@ -212,7 +206,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <!--<pre>{{'$data'}}</pre> --> 
+    <pre>{{$data}}</pre> 
 
     </v-form> 
 </template>
@@ -369,6 +363,7 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
+                    this.mapIdVivienda(respuesta.data[0]);
                     this.showMessage(respuesta.data.msj)
                     this.btnAccion = 'upd'
                     this.$emit('completado', true);
@@ -405,15 +400,55 @@ export default {
 
                     let ubi = (this.datos[key0]['id_ubicacion'] == '1') ? 'nac': 'ext';
 
-                    for(var key in this.datos[key0]) {
-                
+                    for(var key in this.datos[key0]) 
+                    {
+                        if(key == 'vivienda_servicio')
+                        {
+                            if(ubi == 'nac')
+                            {
+                               this.mapServicios(this.datos[key0][key]);
+                            }
+                        }
+                        else
+                        {
                             this.form[ubi][key]  =  this.datos[key0][key];
+                        }
                     }
                 }
 
             }
+        },
+        mapServicios(servicios)
+        {
+            if(servicios)
+            {
+                servicios.forEach(servicio => 
+                {
+                    this.form.nac.servicios.push(servicio.id_servicio)
+                });
+            }
+        },
+        mapIdVivienda(data)
+        {
+            if(data)
+            {
+                data.vivienda.forEach(vivienda => 
+                {
+                    if(vivienda.id_ubicacion == 1)
+                    {
+                        this.form.nac.id_vivienda = vivienda.id_vivienda;
+                    }
 
-        }
+                    if(vivienda.id_ubicacion == 2)
+                    {
+                        this.form.ext.id_vivienda = vivienda.id_vivienda;
+                    }
+                
+                }, this);
+
+            }
+        },
+
     }
 }
 

@@ -156,6 +156,10 @@ class PersonaController extends Controller
         {
             $misiones = $this->storeMisiones($request, $persona->id_persona);
         }
+        else
+        {
+            PersonaMision::where('id_persona', $persona->id_persona)->delete();
+        }
 
         if($request->bo_discapacidad)
         {
