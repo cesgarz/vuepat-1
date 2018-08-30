@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use \App\Models\Persona;
+use \App\Models\Vivienda;
+use \App\Models\Pais;
 
 
 class PlanillaPdfController extends Controller
@@ -49,22 +51,36 @@ class PlanillaPdfController extends Controller
 		
 		$this->fpdf->SetY(55);
 		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->SetFillColor(00,66,99);
-		$this->fpdf->SetTextColor(255);
+		//$this->fpdf->SetFillColor(00,66,99);
+		$this->fpdf->SetFillColor(255, 26, 26);
+		//$this->fpdf->SetTextColor(255);
+		$this->fpdf->SetTextColor(255, 255, 255);
 		$this->fpdf->Cell(0,6,'PLANILLA DE REGISTRO "VUELTA A LA PATRIA"',1,1,'C', true);
 		$this->fpdf->Ln(2.5);
 	}
 	
 	function getDatosReportePDF(){
 				
+		   $user = \Auth::user();
+
            $persona = Persona::with(['estadoCivil:id_estado_civil,nb_estado_civil', 'personaDiscapacidad', 'vivienda'])
-                              ->where('id_usuario', 1)
+                              ->where('id_usuario', $user->id_usuario)
                               ->where('id_parentesco',  99)
                               ->first() ;
-           
-			if( count($persona) < 1 )
-			{
+
+            $vivienda = Vivienda::with(['tipoVivienda:id_tipo_vivienda,nb_tipo_vivienda'])
+                              ->where('id_usuario', $user->id_usuario)
+                              ->where('id_ubicacion', 2)
+                              ->first();
+
+            $pais = Pais::select('nb_pais')
+                              ->where('co_pais', $vivienda->co_pais)
+                              ->first();
+
+           if(!isset($persona) && !isset($vivienda)){
+				
 				exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
+				
 			}
 						
 			$this->fpdf->SetFont('Arial','B',7);
@@ -73,6 +89,8 @@ class PlanillaPdfController extends Controller
 			
 			$this->fpdf->SetY(70);
 			
+			//DATOS PERSONALES
+
 			$this->fpdf->SetFont('Arial','B',10);
 			$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),0,0,'C', true);
 			$this->fpdf->Ln(12);
@@ -82,10 +100,46 @@ class PlanillaPdfController extends Controller
 			$this->fpdf->Cell(91,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),0,1,'D', true);
 			
 			$this->fpdf->Cell(35,6,'Cedula: ',0,0,'D', true);
-			$this->fpdf->Cell(55,6,$persona->tx_cedula,0,0,'D', true);
+			$this->fpdf->Cell(55,6,$persona->tx_cedula,0,1,'D', true);
 
 			$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',0,0,'D', true);
 			$this->fpdf->Cell(35,6,$persona->fe_nacimiento,0,1,'D', true);
+
+			$this->fpdf->Ln(12); 
+
+			//VIVIENDA
+
+			$this->fpdf->SetFont('Arial','B',10);
+			$this->fpdf->Cell(NULL,6,utf8_decode('Vivienda'),0,0,'C', true);
+			$this->fpdf->Ln(12);
+
+			$this->fpdf->SetFont('Arial','B',7);
+
+			$this->fpdf->Cell(35,6,'Pais: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$pais->nb_pais,0,1,'D', true);
+			
+			$this->fpdf->Cell(35,6,'Estado: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->nb_estado,0,1,'D', true);
+
+			$this->fpdf->Cell(35,6,'Ciudad: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->nb_ciudad,0,1,'D', true);
+
+			$this->fpdf->Cell(35,6,'Calle: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->tx_calle,0,1,'D', true);
+
+			$this->fpdf->Cell(35,6,'Casa: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->tx_casa,0,1,'D', true);
+
+			$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->tx_telefono,0,1,'D', true);
+
+			$this->fpdf->Cell(35,6,'Tipo de vivienda: ',0,0,'D', true);
+			$this->fpdf->Cell(35,6,$vivienda->tipoVivienda->nb_tipo_vivienda,0,1,'D', true);
+
+			//IMAGEN FONDO
+
+			$this->fpdf->Image('./img/background-image.jpeg', 60, 180, 80,50);
+
 			/*
 			$this->fpdf->Cell(35,6,'Ubicacion: ',0,0,'D', true);
 	        $this->fpdf->Cell(151,6,utf8_decode($datosEmp['desuniadm']),0,1,'D', true);
