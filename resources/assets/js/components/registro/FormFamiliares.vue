@@ -22,6 +22,7 @@
             :rules="rules.requerido"
             label="Cedula*"
             hint="SI no posee colocar la de algun padre"
+            mask="V-########"
             ></v-text-field>
         </v-flex>
 
@@ -59,7 +60,7 @@
             >
             <v-text-field
             slot="activator"
-            v-model="form.fe_nacimiento"
+            v-model="dates.fe_nacimiento"
             :rules="rules.fecha"
             label="Fecha de Nacimiento*"
             prepend-icon="event"
@@ -67,6 +68,8 @@
             
             ></v-text-field>
             <v-date-picker v-model="form.fe_nacimiento" locale="es" 
+            @input="dates.fe_nacimiento = formatDate( form.fe_nacimiento )"
+            @change="save"
             :max="new Date().toISOString().substr(0, 10)" 
             min="1950-01-01"></v-date-picker>
             </v-menu>
@@ -115,6 +118,7 @@
               v-model="form.id_discapacidad"
               label=" Indique Discapacidad"
               :rules="rules.select"
+              :loading="discapacidadLoad"
               ></v-select>
         </v-flex>
 
@@ -140,6 +144,7 @@
         </form-buttons>
     </v-card-actions>
     </v-card>
+    <pre>{{$data}}</pre>
     </v-form>
 </template>
 
@@ -155,6 +160,8 @@ export default {
     {
         return {
             tabla: 'persona',
+            discapacidad:[],
+            discapacidadLoad: false,
             form: {
                 id_persona:       null,
                 nb_nombre:        null,
@@ -178,38 +185,48 @@ export default {
             listas:{
                 estadoCivil:      [],
                 parentesco:       [],
-                tipoDiscapacidad: [],
-                mision:           []
+                mision:           [],
+                tipoDiscapacidad: []
             },
  
         }
     },
     watch:
     {
-        discapacidad(val)
-        {
-            if(!val)
-            {
-                this.tipoDiscap = null
-            }
+        item: function (val) {
+                this.mapForm()
+                this.mapDiscapacidad(this.item)
+                this.mapMisiones(this.item)
         }
+
     },
     methods:
-    {
-        getData()
+    {   
+        save (date) 
         {
-            
-            /*
-            axios.get(this.basePath + this.$store.getters.user.id_usuario)
-            .then(respuesta => 
+            this.$refs.picker.save(date)
+        },
+        mapMisiones(datos)
+        {
+            if(datos.persona_mision)
             {
-                this.datos = respuesta.data;
-            })
-            .catch(error => 
+                this.form.misiones =[]
+                datos.persona_mision.forEach(element => {
+                    this.form.misiones.push(element.id_mision)
+                    
+                }, this);
+            }
+        },
+        mapDiscapacidad(datos)
+        {
+            if(datos.persona_discapacidad)
             {
-                this.showError(error);
-            })
-            */
+                this.form.bo_discapacidad       = datos.persona_discapacidad.bo_discapacidad
+                this.form.id_tipo_discapacidad  = datos.persona_discapacidad.id_tipo_discapacidad
+                this.form.id_discapacidad       = datos.persona_discapacidad.id_discapacidad
+                this.form.tx_discapacidad       = datos.persona_discapacidad.tx_discapacidad
+                this.getDiscapacidad()
+            }
         },
         getDiscapacidad()
         {
@@ -253,16 +270,19 @@ export default {
         },
         update()
         {
-            axios.put(this.basePath + this.form.id_persona, this.form)
-            .then(respuesta => 
+            if (this.$refs.form.validate()) 
             {
-                this.showMessage(respuesta.data.msj)
-                this.$emit('cerrarModal');
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
+                axios.put(this.basePath + this.form.id_persona, this.form)
+                .then(respuesta => 
+                {
+                    this.showMessage(respuesta.data.msj)
+                    this.$emit('cerrarModal');
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+            }
         }
     }
 }

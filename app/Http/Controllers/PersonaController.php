@@ -22,7 +22,10 @@ class PersonaController extends Controller
 
     public function personaFamiliar($id_persona)
     {
-        $persona = Persona::with(['personaDiscapacidad', 'parentesco:id_parentesco,nb_parentesco'])
+        $persona = Persona::with(['personaDiscapacidad', 
+                                  'parentesco:id_parentesco,nb_parentesco', 
+                                  'personaMision:id_persona_mision,id_mision,id_persona'
+                                ])
                                 ->where('id_usuario',  $id_persona)
                                 ->where('id_parentesco', '<>',  99)
                                 ->get();
@@ -73,7 +76,7 @@ class PersonaController extends Controller
     public function storeMisiones($request, $id_persona)
     {
         $personaMision = [];
-        PersonaMision::where('id_usuario', $request->id_usuario)->delete();
+        PersonaMision::where('id_persona', $id_persona)->delete();
 
         foreach ($request->misiones as $key => $value) {
             
@@ -94,7 +97,7 @@ class PersonaController extends Controller
     public function storeDiscapacidad($request, $id_persona)
     {
         
-        PersonaDiscapacidad::where('id_usuario', $request->id_usuario)->delete();
+        PersonaDiscapacidad::where('id_persona', $id_persona)->delete();
         
         $datos = [
             'id_persona'           => $id_persona,
@@ -160,7 +163,7 @@ class PersonaController extends Controller
         }
         else
         {
-            PersonaDiscapacidad::where('id_usuario', $request->id_usuario)->delete();
+            PersonaDiscapacidad::where('id_persona', $persona->id_persona)->delete();
         }
 
 
@@ -177,6 +180,8 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
+        PersonaDiscapacidad::where('id_persona', $persona->id_persona)->delete();
+        PersonaMision::where('id_persona', $persona->id_persona)->delete();
         $persona = $persona->delete();
  
         return [ 'msj' => 'Registro Eliminado' , compact('persona')];

@@ -79905,7 +79905,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -80119,14 +80119,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    watch: {
-        discapacidad: function discapacidad(val) {
-            if (!val) {
-
-                this.tipoDiscap = null;
-            }
-        }
-    },
     methods: {
         save: function save(date) {
             this.$refs.picker.save(date);
@@ -80606,9 +80598,7 @@ var render = function() {
           })
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))])
+      )
     ],
     1
   )
@@ -81893,7 +81883,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -81910,6 +81900,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_registro_FormContainer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_registro_FormContainer_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_registro_FormFamiliares_vue__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_registro_FormFamiliares_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_registro_FormFamiliares_vue__);
+//
+//
+//
 //
 //
 //
@@ -82334,7 +82327,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82492,6 +82485,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -82503,6 +82501,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             tabla: 'persona',
+            discapacidad: [],
+            discapacidadLoad: false,
             form: {
                 id_persona: null,
                 nb_nombre: null,
@@ -82526,50 +82526,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             listas: {
                 estadoCivil: [],
                 parentesco: [],
-                tipoDiscapacidad: [],
-                mision: []
+                mision: [],
+                tipoDiscapacidad: []
             }
 
         };
     },
 
     watch: {
-        discapacidad: function discapacidad(val) {
-            if (!val) {
-                this.tipoDiscap = null;
-            }
+        item: function item(val) {
+            this.mapForm();
+            this.mapDiscapacidad(this.item);
+            this.mapMisiones(this.item);
         }
+
     },
     methods: {
-        getData: function getData() {
+        save: function save(date) {
+            this.$refs.picker.save(date);
+        },
+        mapMisiones: function mapMisiones(datos) {
+            var _this = this;
 
-            /*
-            axios.get(this.basePath + this.$store.getters.user.id_usuario)
-            .then(respuesta => 
-            {
-                this.datos = respuesta.data;
-            })
-            .catch(error => 
-            {
-                this.showError(error);
-            })
-            */
+            if (datos.persona_mision) {
+                this.form.misiones = [];
+                datos.persona_mision.forEach(function (element) {
+                    _this.form.misiones.push(element.id_mision);
+                }, this);
+            }
+        },
+        mapDiscapacidad: function mapDiscapacidad(datos) {
+            if (datos.persona_discapacidad) {
+                this.form.bo_discapacidad = datos.persona_discapacidad.bo_discapacidad;
+                this.form.id_tipo_discapacidad = datos.persona_discapacidad.id_tipo_discapacidad;
+                this.form.id_discapacidad = datos.persona_discapacidad.id_discapacidad;
+                this.form.tx_discapacidad = datos.persona_discapacidad.tx_discapacidad;
+                this.getDiscapacidad();
+            }
         },
         getDiscapacidad: function getDiscapacidad() {
-            var _this = this;
+            var _this2 = this;
 
             if (this.form.id_tipo_discapacidad != 4) {
                 axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad).then(function (respuesta) {
-                    _this.discapacidad = respuesta.data;
+                    _this2.discapacidad = respuesta.data;
                 }).catch(function (error) {
-                    _this.showError(error);
+                    _this2.showError(error);
                 });
             } else {
                 this.form.id_discapacidad = 0;
             }
         },
         store: function store() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.form.id_status = 1;
             this.form.id_estado_civil = 1;
@@ -82577,22 +82586,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.$refs.form.validate()) {
                 axios.post(this.basePath, this.form).then(function (respuesta) {
-                    _this2.showMessage(respuesta.data.msj);
-                    _this2.$emit('cerrarModal');
+                    _this3.showMessage(respuesta.data.msj);
+                    _this3.$emit('cerrarModal');
                 }).catch(function (error) {
-                    _this2.showError(error);
+                    _this3.showError(error);
                 });
             }
         },
         update: function update() {
-            var _this3 = this;
+            var _this4 = this;
 
-            axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
-                _this3.showMessage(respuesta.data.msj);
-                _this3.$emit('cerrarModal');
-            }).catch(function (error) {
-                _this3.showError(error);
-            });
+            if (this.$refs.form.validate()) {
+                axios.put(this.basePath + this.form.id_persona, this.form).then(function (respuesta) {
+                    _this4.showMessage(respuesta.data.msj);
+                    _this4.$emit('cerrarModal');
+                }).catch(function (error) {
+                    _this4.showError(error);
+                });
+            }
         }
     }
 });
@@ -82662,7 +82673,8 @@ var render = function() {
                         attrs: {
                           rules: _vm.rules.requerido,
                           label: "Cedula*",
-                          hint: "SI no posee colocar la de algun padre"
+                          hint: "SI no posee colocar la de algun padre",
+                          mask: "V-########"
                         },
                         model: {
                           value: _vm.form.tx_cedula,
@@ -82782,11 +82794,11 @@ var render = function() {
                             },
                             slot: "activator",
                             model: {
-                              value: _vm.form.fe_nacimiento,
+                              value: _vm.dates.fe_nacimiento,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "fe_nacimiento", $$v)
+                                _vm.$set(_vm.dates, "fe_nacimiento", $$v)
                               },
-                              expression: "form.fe_nacimiento"
+                              expression: "dates.fe_nacimiento"
                             }
                           }),
                           _vm._v(" "),
@@ -82795,6 +82807,14 @@ var render = function() {
                               locale: "es",
                               max: new Date().toISOString().substr(0, 10),
                               min: "1950-01-01"
+                            },
+                            on: {
+                              input: function($event) {
+                                _vm.dates.fe_nacimiento = _vm.formatDate(
+                                  _vm.form.fe_nacimiento
+                                )
+                              },
+                              change: _vm.save
                             },
                             model: {
                               value: _vm.form.fe_nacimiento,
@@ -82899,7 +82919,8 @@ var render = function() {
                               "item-text": "nb_discapacidad",
                               "item-value": "id_discapacidad",
                               label: " Indique Discapacidad",
-                              rules: _vm.rules.select
+                              rules: _vm.rules.select,
+                              loading: _vm.discapacidadLoad
                             },
                             model: {
                               value: _vm.form.id_discapacidad,
@@ -82963,7 +82984,9 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.$data))])
     ],
     1
   )

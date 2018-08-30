@@ -13,7 +13,6 @@ class PersonaMision extends Model
 	const 	  UPDATED_AT  = 'fe_actualizado';
 
     protected $fillable   = [
-                            'id_persona_mision',
                             'id_persona',
                             'id_mision',
                             'tx_observaciones',
@@ -21,7 +20,7 @@ class PersonaMision extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_persona_mision','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function persona()
     {

@@ -155,7 +155,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <pre>{{$data}}</pre>
+    <!--<pre>{{$data}}</pre>-->
 
     </v-form>   
 </template>
@@ -199,21 +199,11 @@ export default {
 
         }
     },
-    watch:
-    {
-        discapacidad(val)
-        {
-            if(!val){
-                
-                this.tipoDiscap = null
-            }
-        },
-    },
     methods:
     {
         save (date) {
-        this.$refs.picker.save(date)
-      },
+            this.$refs.picker.save(date)
+        },
         getData()
         {
             axios.get(this.basePath + this.$store.getters.user.id_usuario)

@@ -7,9 +7,12 @@
         <v-toolbar dark class="primary">
             <h3>Familiares</h3>
                 <v-spacer></v-spacer>
-                <v-btn fab @click="insItem" dark absolute right bottom class="success">
-                    <v-icon dark>group_add</v-icon>
-                </v-btn>
+         
+                    <v-btn  fab @click="insItem" dark absolute right bottom class="success">
+                        <v-icon dark>group_add</v-icon>
+                    </v-btn>
+  
+
             </v-toolbar>
 
             <v-card-text>

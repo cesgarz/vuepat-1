@@ -39,6 +39,7 @@ class Persona extends Model
         $this->attributes['nb_apellido'] = strtoupper($value);
     }
 
+
     public function estadoCivil()
     {
         return $this->BelongsTo('App\Models\EstadoCivil', 'id_estado_civil');
@@ -57,6 +58,11 @@ class Persona extends Model
     public function personaDiscapacidad()
     {
     	return $this->HasOne('App\Models\PersonaDiscapacidad', 'id_persona');
+    }
+
+    public function personaMision()
+    {
+    	return $this->HasMany('App\Models\PersonaMision', 'id_persona');
     }
 
     public function parentesco()
