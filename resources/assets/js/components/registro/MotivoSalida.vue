@@ -20,10 +20,11 @@
                 label="Fecha de salida de Venezuela"
                 prepend-icon="event"
                 readonly
-                required
                 ></v-text-field>
                 <v-date-picker 
                 v-model="form.fe_salida" locale="es" 
+                @change="save"
+                @input="dates.fe_salida = formatDate( form.fe_salida )"
                 :max="new Date().toISOString().substr(0, 10)" 
                 min="1950-01-01">
                 </v-date-picker>
@@ -156,18 +157,14 @@ export default {
                 grupoMigracion: [],
                 transporte:     [],
             },
-
-        }
-    },
-    watch:
-    {
-        picker (val) 
-        {
-            val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
         }
     },
     methods:
     {
+        save (date) 
+        {
+            this.$refs.picker.save(date)
+        },
         getData()
         {
             axios.get(this.basePath +  'usuario/' + this.$store.getters.user.id_usuario)

@@ -21,11 +21,16 @@ class Estudio extends Model
                             'id_usuario'
                             ]; 
     
-    protected $hidden     = ['id_estudio','fe_creado','fe_actualizado'];
+    protected $hidden     = ['fe_creado','fe_actualizado'];
 
     public function persona()
     {
     	return $this->BelongsTo('App\Models\Persona', 'id_persona');
+    }
+
+    public function empleo()
+    {
+    	return $this->hasOne('App\Models\Empleo', 'id_usuario', 'id_usuario');
     }
 
     public function nivelEstudio()

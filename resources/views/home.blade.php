@@ -10,6 +10,6 @@
     <registro></registro> 
   </div>
  --> 
- <datos-situacionales></datos-situacionales> 
+ <datos-laborales></datos-laborales> 
 </v-container>
 @endsection

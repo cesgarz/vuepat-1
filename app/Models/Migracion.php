@@ -17,7 +17,7 @@ class Migracion extends Model
                             'id_motivo',
                             'tx_motivo',
                             'id_recurso',
-                            'tx_reurso',
+                            'tx_recurso',
                             'id_grupo_migracion',
                             'tx_grupo_migracion',
                             'id_transporte',

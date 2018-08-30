@@ -62,4 +62,9 @@ class Empleo extends Model
     {
     	return $this->BelongsTo('App\Models\Auth\Usuario', 'id_usuario');
     }
+
+    public function estudio()
+    {
+        return $this->HasOne('App\Models\Estudio', 'id_usuario', 'id_usuario');
+    }
 }

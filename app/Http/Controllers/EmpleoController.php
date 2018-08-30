@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Empleo;
 use Illuminate\Http\Request;
+use \App\Models\Persona;
+use \App\Models\Estudio;
 
 class EmpleoController extends Controller
 {
@@ -20,7 +22,7 @@ class EmpleoController extends Controller
 
     public function empleoUsuario($id_usuario)
     {
-        $empleo = Empleo::with(['status'])
+        $empleo = Empleo::with(['estudio:id_estudio,id_usuario,id_nivel_estudio,tx_titulo'])
                         ->where('id_usuario', $id_usuario)
                         ->first();
         return $empleo;
@@ -47,13 +49,51 @@ class EmpleoController extends Controller
             'nb_empresa_propia' => 'max:100',
             'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',
-            'id_usuario'        => 'required'
+            'id_usuario'        => 'required',
+            'id_nivel_estudio'  => 'required',
+            'tx_titulo'         => 'required|max:50'
         ]);
 
         $empleo = Empleo::create($request->all());
+
+        $estudio = $this->storeEstudio($request);
         
-        return [ 'msj' => 'Registro Agregado Correctamente', compact('empleo') ];
+        return [ 'msj' => 'Registro Agregado Correctamente', compact('empleo', 'estudio') ];
     }
+
+    public function storeEstudio($request)
+    {
+        $persona = Persona::where('id_usuario'   , $request->id_usuario)
+                          ->where('id_parentesco',  99)
+                          ->first();
+        
+        $datos = [
+        'id_persona'           => $persona->id_persona,
+        'id_nivel_estudio'     => $request->id_nivel_estudio,
+        'tx_titulo'            => $request->tx_titulo,
+        'id_usuario'           => $request->id_usuario,
+        'id_status'            => $request->id_status
+        ];
+
+        $estudio = Estudio::create($datos);
+
+        return $estudio;
+    }
+
+    public function updateEstudio($request)
+    {
+        
+        $datos = [
+        'id_nivel_estudio'     => $request->id_nivel_estudio,
+        'tx_titulo'            => $request->tx_titulo,
+        ];
+
+        $estudio = Estudio::where('id_usuario', $request->id_usuario)->update($datos);
+
+        return $estudio;
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -88,12 +128,15 @@ class EmpleoController extends Controller
             'nb_empresa_propia' => 'max:100',
             'tx_observaciones'  => 'max:100', 
             'id_status'         => 'required',
-            'id_usuario'        => 'required'
+            'id_usuario'        => 'required',
+            'id_nivel_estudio'  => 'required',
+            'tx_titulo'         => 'required|max:50'
         ]);
 
         $empleo = $empleo->update($request->all());
+        $estudio = $this->updateEstudio($request);
         
-        return [ 'msj' => 'Registro Editado Correctamente', compact('empleo') ];
+        return [ 'msj' => 'Registro Editado Correctamente', compact('empleo', 'estudio') ];
     }
 
     /**
@@ -104,7 +147,8 @@ class EmpleoController extends Controller
      */
     public function destroy(Empleo $empleo)
     {
-        $empleo = $empleo->delete();
+        $empleo  = $empleo->delete();
+        $estudio = Estudio::where('id_usuario', $empleo->id_usuario)->delete();
  
         return [ 'msj' => 'Registro Eliminado' , compact('empleo')];
     }

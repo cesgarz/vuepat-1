@@ -201,7 +201,8 @@ export default {
     },
     methods:
     {
-        save (date) {
+        save (date) 
+        {
             this.$refs.picker.save(date)
         },
         getData()

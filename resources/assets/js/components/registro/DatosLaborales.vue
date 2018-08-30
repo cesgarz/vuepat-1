@@ -205,6 +205,7 @@ export default {
             .then(respuesta => 
             {
                 this.datos = respuesta.data;
+                this.mapEstudio(this.datos);
                 if(this.datos)
                 {
                     this.btnAccion = 'upd'
@@ -217,6 +218,11 @@ export default {
                 this.$emit('completado', false);
             })
             
+        },
+        mapEstudio(data)
+        {
+            this.form.id_nivel_estudio =  data.estudio.id_nivel_estudio
+            this.form.tx_titulo        =  data.estudio.tx_titulo
         },
         store()
         {

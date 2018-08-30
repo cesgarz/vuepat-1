@@ -206,7 +206,7 @@
         <v-spacer></v-spacer>
        <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
     </v-card-actions>
-    <pre>{{$data}}</pre> 
+    <!-- <pre>{{$data}}</pre> --> 
 
     </v-form> 
 </template>
@@ -282,7 +282,6 @@ export default {
     {
         getRegion()
         {   
-            
             let co_pais = this.form.ext.co_pais;
 
             if(co_pais)
@@ -299,7 +298,6 @@ export default {
         },
         getCiudad()
         {
-            
             let co_pais   = this.form.ext.co_pais;
             let nb_estado = this.form.ext.nb_estado;
 
@@ -314,7 +312,6 @@ export default {
                     this.showError(error);
                 })
             }
-
         },
         getListaCiudad()
         {
@@ -334,11 +331,9 @@ export default {
                 })
                 
             }
-            
         },
         getData()
         {
-            
             axios.get(this.basePath + 'usuario/' + this.$store.getters.user.id_usuario)
             .then(respuesta => 
             {
@@ -354,7 +349,6 @@ export default {
             {
                 this.showError(error);
             })
-            
         },
         store()
         {
@@ -443,17 +437,12 @@ export default {
                     {
                         this.form.ext.id_vivienda = vivienda.id_vivienda;
                     }
-                
                 }, this);
-
             }
         },
 
     }
 }
-
-
-
 </script>
 
 <style>
