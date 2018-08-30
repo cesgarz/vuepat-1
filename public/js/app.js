@@ -89377,14 +89377,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.login();
         }).catch(function (error) {
 
-          console.log(error);
+          var msg = '';
 
           if (error.hasOwnProperty('response')) {
 
             for (var idx in error.response.data.errors) {
-              msg = msg + error.response.data.errors[idx];
+              msg = msg + ' ' + error.response.data.errors[idx];
             }
 
+            console.log(msg);
             _this2.alertOpts = {
               message: msg,
               show: true,
@@ -89524,7 +89525,7 @@ var render = function() {
                   rules: _vm.passwordConfirmationRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  label: "COnfiirmar Contraseña",
+                  label: "Confiirmar Contraseña",
                   name: "passwordConfirmation",
                   required: ""
                 },

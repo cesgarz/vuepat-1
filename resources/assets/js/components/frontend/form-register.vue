@@ -37,7 +37,7 @@
           :rules="passwordConfirmationRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          label="COnfiirmar Contraseña"
+          label="Confiirmar Contraseña"
           name="passwordConfirmation"
           required
           v-model="passwordConfirmation"></v-text-field>
@@ -122,15 +122,16 @@
 
             }).catch(error => {
 
-              console.log(error);
+              let msg = '';
               
               if(error.hasOwnProperty('response'))
               {
                 
                 for (var idx in error.response.data.errors) {
-                  msg = msg + error.response.data.errors[idx];
+                  msg = msg + ' ' + error.response.data.errors[idx];
                 }
 
+                console.log(msg)
                 this.alertOpts = {
                         message: msg,
                         show:    true,

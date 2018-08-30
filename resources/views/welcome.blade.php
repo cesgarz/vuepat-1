@@ -34,7 +34,7 @@
       <v-toolbar-items>
         <v-btn flat v-if="false">{{ config('app.name') }}</v-btn>
         <template v-else>
-          <v-btn flat @click="onWelcomePageButtonClicked('login')">Login</v-btn>
+          <v-btn flat @click="onWelcomePageButtonClicked('login')">Ingresar</v-btn>
           <v-btn flat @click="onWelcomePageButtonClicked('registration')">Registro</v-btn>
         </template>
       </v-toolbar-items>
