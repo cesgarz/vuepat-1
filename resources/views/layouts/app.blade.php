@@ -45,7 +45,7 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                    <v-list-tile-title color="primary">@{{ item.text }}</v-list-tile-title>
+                    <v-list-tile-title color="primary" class="blue--text">@{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
 
             </v-list-tile>
@@ -57,7 +57,7 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                    <v-list-tile-title color="primary">@{{ subItem.text }}</v-list-tile-title>
+                    <v-list-tile-title color="primary" class="blue--text">@{{ subItem.text }}</v-list-tile-title>
                 </v-list-tile-content>
 
             </v-list-tile>
@@ -72,7 +72,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-                <v-list-tile-title color="primary">@{{ item.text }}</v-list-tile-title>
+                <v-list-tile-title color="primary" class="blue--text">@{{ item.text }}</v-list-tile-title>
             </v-list-tile-content>
 
         </v-list-tile>

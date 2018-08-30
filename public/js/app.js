@@ -55016,14 +55016,16 @@ var app = new Vue({
   methods: {
     getMenu: function getMenu() {
       //provisionalmente mientras se arreglan los  permisos
-      if (this.$store.getters.user.id_usuario == 1) {
-        this.items = [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
-          children: [{ icon: 'star_border', text: 'Misiones', href: '/mision' }, { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' }, { icon: 'device_hub', text: 'Sector', href: '/sector' }]
-        }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-          children: [{ icon: 'description', text: 'Personas', href: '/reports.persona' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
-        }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }];
-      } else {
-        this.items = [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' }];
+      if (this.$store.getters.user) {
+        if (this.$store.getters.user.id_usuario == 1) {
+          this.items = [{ heading: 'Menu' }, { icon: 'home', text: 'Inicio', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
+            children: [{ icon: 'star_border', text: 'Misiones', href: '/mision' }, { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' }, { icon: 'device_hub', text: 'Sector', href: '/sector' }]
+          }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
+            children: [{ icon: 'description', text: 'Personas', href: '/reports.persona' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
+          }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }];
+        } else {
+          this.items = [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' }];
+        }
       }
     },
     windowResize: function windowResize() {
@@ -89375,11 +89377,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.login();
         }).catch(function (error) {
 
-          _this2.alertOpts = {
-            message: "Ocurrio un error, por favor intente registrarse nuevamente",
-            show: true,
-            type: "error"
-          };
+          console.log(error);
+
+          if (error.hasOwnProperty('response')) {
+
+            for (var idx in error.response.data.errors) {
+              msg = msg + error.response.data.errors[idx];
+            }
+
+            _this2.alertOpts = {
+              message: msg,
+              show: true,
+              type: "error"
+            };
+          } else {
+            _this2.alertOpts = {
+              message: "Ocurrio un error, por favor intente registrarse nuevamente",
+              show: true,
+              type: "error"
+            };
+          }
         }).then(function () {
           //nothing
         });
@@ -89448,7 +89465,7 @@ var render = function() {
                   "error-messages": _vm.errors["username"],
                   rules: _vm.usernameRules,
                   color: "blue",
-                  label: "Username",
+                  label: "Usuario",
                   name: "username",
                   required: ""
                 },
@@ -89467,7 +89484,7 @@ var render = function() {
                   "error-messages": _vm.errors["email"],
                   rules: _vm.emailRules,
                   color: "blue",
-                  label: "Email",
+                  label: "Correo",
                   name: "email",
                   required: ""
                 },
@@ -89489,7 +89506,7 @@ var render = function() {
                   rules: _vm.passwordRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  label: "Password",
+                  label: "Contraseña",
                   name: "password",
                   required: ""
                 },
@@ -89507,7 +89524,7 @@ var render = function() {
                   rules: _vm.passwordConfirmationRules,
                   type: _vm.showPass ? "text" : "password",
                   color: "blue",
-                  label: "Password Confirmation",
+                  label: "COnfiirmar Contraseña",
                   name: "passwordConfirmation",
                   required: ""
                 },

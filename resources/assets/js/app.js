@@ -130,11 +130,13 @@ const app = new Vue({
     getMenu()
     {
       //provisionalmente mientras se arreglan los  permisos
-      if(this.$store.getters.user.id_usuario == 1)
+      if(this.$store.getters.user)
+      {
+        if(this.$store.getters.user.id_usuario == 1)
       {
           this.items = [
 
-            { heading: 'Modulos' },
+            { heading: 'Menu' },
             { icon: 'home', text: 'Inicio', href: '/home' },
             { heading: 'Datos Maestros' },
             { icon: 'assignment', text: 'Datos Maestros',
@@ -168,6 +170,8 @@ const app = new Vue({
           { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' },      
         ]
       }
+      }
+      
     },
 
     windowResize () {

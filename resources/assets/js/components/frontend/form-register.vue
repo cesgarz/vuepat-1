@@ -10,7 +10,7 @@
           :error-messages="errors['username']"
           :rules="usernameRules"
           color="blue"
-          label="Username"
+          label="Usuario"
           name="username"
           required
           v-model="username"></v-text-field>
@@ -19,7 +19,7 @@
           :error-messages="errors['email']"
           :rules="emailRules"
           color="blue"
-          label="Email"
+          label="Correo"
           name="email"
           required
           v-model="email"></v-text-field>
@@ -29,7 +29,7 @@
           :rules="passwordRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          label="Password"
+          label="Contraseña"
           name="password"
           required
           v-model="password"></v-text-field>
@@ -37,7 +37,7 @@
           :rules="passwordConfirmationRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
-          label="Password Confirmation"
+          label="COnfiirmar Contraseña"
           name="passwordConfirmation"
           required
           v-model="passwordConfirmation"></v-text-field>
@@ -121,14 +121,31 @@
               this.login()
 
             }).catch(error => {
+
+              console.log(error);
               
-              this.alertOpts = {
-                message: "Ocurrio un error, por favor intente registrarse nuevamente",
-                show:    true,
-                type:    "error"
+              if(error.hasOwnProperty('response'))
+              {
+                
+                for (var idx in error.response.data.errors) {
+                  msg = msg + error.response.data.errors[idx];
+                }
+
+                this.alertOpts = {
+                        message: msg,
+                        show:    true,
+                        type:    "error"
+                      }
+                  
               }
-
-
+              else
+              {
+                this.alertOpts = {
+                        message: "Ocurrio un error, por favor intente registrarse nuevamente",
+                        show:    true,
+                        type:    "error"
+                      }
+              }
             }).then(() => {
               //nothing
             })

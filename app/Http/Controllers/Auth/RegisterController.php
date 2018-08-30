@@ -44,10 +44,15 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nb_usuario' => 'required|max:255',
-            'tx_email'   => 'required|email|max:255|unique:usuario',
+            'nb_usuario' => 'required|max:255|unique:usuario,nb_usuario',
+            'tx_email'   => 'required|email|max:255|unique:usuario,tx_email',
             'password'   => 'required|min:6'
+        ],
+        [
+            'nb_usuario.unique'   => 'El usuario ya está en uso.',
+            'tx_email.unique'     => 'El correo ya está en uso.',
         ]);
+
     }
 
     /**
@@ -59,10 +64,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $usuario = Usuario::create([
-            'nb_usuario'  => $data['nb_usuario'],
-            'tx_email'    => $data['tx_email'],
-            'password' => bcrypt($data['password']),
-            'id_status'   => 1,
+            'nb_usuario'    => $data['nb_usuario'],
+            'tx_email'      => $data['tx_email'],
+            'password'      => bcrypt($data['password']),
+            'id_status'     => 1,
             'id_usuario_e'  => 1
         ]);
 
