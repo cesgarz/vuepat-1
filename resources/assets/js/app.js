@@ -48,6 +48,9 @@ Vue.component('motivo-form', require('./components/tablas_maestras/MotivoForm.vu
 Vue.component('sector-lista', require('./components/tablas_maestras/SectorLista.vue'));
 Vue.component('sector-form', require('./components/tablas_maestras/SectorForm.vue'));
 
+Vue.component('planilla', require('./components/Planilla.vue'));
+
+
 
 
 //Componentes Frontend
@@ -164,10 +167,9 @@ const app = new Vue({
       {
         this.items = [
 
-          { heading: 'Modulos' },
-          { icon: 'home', text: 'Inicio', href: '/home' },
+          { heading: 'Menu' },
           { icon: 'assignment_ind', text: 'Registro', href: '/home' },
-          { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' },      
+          { icon: 'assignment', text: 'Planilla', href: '/planilla' },      
         ]
       }
       }

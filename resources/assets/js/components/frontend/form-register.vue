@@ -126,12 +126,26 @@
               
               if(error.hasOwnProperty('response'))
               {
-                
                 for (var idx in error.response.data.errors) {
                   msg = msg + ' ' + error.response.data.errors[idx];
                 }
 
-                console.log(msg)
+                switch (status) {
+                  case 500:
+                    msg = 'Error interno ->' + error.response.data.message
+                    break;
+                  case 404:
+                    msg = '404 No Encontrado'
+                  break;
+                  case 401:
+                    msg = 'Session invalida favor Ingresar nuevamente '
+                    window.location.href = '/'
+                  break;
+                  case 429:
+                    msg = 'Demasiadas peticiones'
+                  break;
+                }
+
                 this.alertOpts = {
                         message: msg,
                         show:    true,

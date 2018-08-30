@@ -54942,6 +54942,8 @@ Vue.component('motivo-form', __webpack_require__(383));
 Vue.component('sector-lista', __webpack_require__(386));
 Vue.component('sector-form', __webpack_require__(391));
 
+Vue.component('planilla', __webpack_require__(433));
+
 //Componentes Frontend
 Vue.component('form-login', __webpack_require__(394));
 Vue.component('form-register', __webpack_require__(399));
@@ -55024,7 +55026,7 @@ var app = new Vue({
             children: [{ icon: 'description', text: 'Personas', href: '/reports.persona' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
           }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }];
         } else {
-          this.items = [{ heading: 'Modulos' }, { icon: 'home', text: 'Inicio', href: '/home' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'print', text: 'Planilla', href: '/PlanillaPdf' }];
+          this.items = [{ heading: 'Menu' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'assignment', text: 'Planilla', href: '/planilla' }];
         }
       }
     },
@@ -79565,16 +79567,11 @@ var render = function() {
                               expression: "datos.laborales.completado"
                             }
                           ],
-                          attrs: {
-                            dark: "",
-                            color: "red",
-                            href: "/PlanillaPdf",
-                            target: "_bank"
-                          }
+                          attrs: { dark: "", color: "red", href: "/planilla" }
                         },
                         [
-                          _vm._v("Ver Planilla "),
-                          _c("v-icon", [_vm._v("print")])
+                          _vm._v("Ver Planilla de Registro "),
+                          _c("v-icon", [_vm._v("assignment")])
                         ],
                         1
                       )
@@ -89380,12 +89377,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var msg = '';
 
           if (error.hasOwnProperty('response')) {
-
             for (var idx in error.response.data.errors) {
               msg = msg + ' ' + error.response.data.errors[idx];
             }
 
-            console.log(msg);
+            switch (status) {
+              case 500:
+                msg = 'Error interno ->' + error.response.data.message;
+                break;
+              case 404:
+                msg = '404 No Encontrado';
+                break;
+              case 401:
+                msg = 'Session invalida favor Ingresar nuevamente ';
+                window.location.href = '/';
+                break;
+              case 429:
+                msg = 'Demasiadas peticiones';
+                break;
+            }
+
             _this2.alertOpts = {
               message: msg,
               show: true,
@@ -114195,6 +114206,274 @@ exports.default = Object.freeze({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(434)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(436)
+/* template */
+var __vue_template__ = __webpack_require__(437)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Planilla.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-073a7d38", Component.options)
+  } else {
+    hotAPI.reload("data-v-073a7d38", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 434 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(435);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("ef439394", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-073a7d38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-073a7d38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 435 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 436 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      confirmacion: false,
+      confirmado: false
+    };
+  }
+});
+
+/***/ }),
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    [
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-card-title",
+            { staticClass: "light-blue darken-3 white--text" },
+            [_c("h2", [_vm._v("Planilla de Registro")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            [
+              _c(
+                "v-form",
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", "text-lg-left": "" } },
+                        [
+                          _vm._v(
+                            "\n                DECLARO que los datos consignados en el presente registro son correctos, completos y fiel\n                expresión de la verdad, comprometiéndome a comunicar en forma fehaciente cualquier cambio\n                que se produzca sobre los mismos.\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Aceptar", value: "si" },
+                            model: {
+                              value: _vm.confirmacion,
+                              callback: function($$v) {
+                                _vm.confirmacion = $$v
+                              },
+                              expression: "confirmacion"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.confirmacion,
+                                  expression: "confirmacion"
+                                }
+                              ],
+                              attrs: {
+                                dark: "",
+                                color: "red",
+                                href: "/PlanillaPdf",
+                                target: "_bank"
+                              }
+                            },
+                            [
+                              _vm._v("Ver Planilla de Registro"),
+                              _c("v-icon", [_vm._v("assignment")])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-073a7d38", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

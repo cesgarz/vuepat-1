@@ -65,7 +65,7 @@
         <datos-laborales :validar="datos.laborales.valido" @completado="completar('laborales', $event)"></datos-laborales>
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="etapa = 4"><v-icon>navigate_before</v-icon> Anterior</v-btn>
-        <v-btn dark color="red" href="/PlanillaPdf" target="_bank" v-show="datos.laborales.completado">Ver Planilla <v-icon>print</v-icon></v-btn>
+        <v-btn dark color="red" href="/planilla" v-show="datos.laborales.completado">Ver Planilla de Registro <v-icon>assignment</v-icon></v-btn>
 
       </v-stepper-content>
 
