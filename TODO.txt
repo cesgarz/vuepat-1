@@ -1,6 +1,7 @@
 
 -IMPORTANTE: 
   * Agregar privateKey de google captcha al .env
+      ej: GOOGLE_CAPTCHA_SECRET=*************************
 
 - Habilitar recuperacion de contraseña mediante correo electrónico
 
