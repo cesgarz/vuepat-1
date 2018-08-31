@@ -57,7 +57,16 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="register">Registrar</v-btn>
+      <v-btn color="blue darken-2" class="white--text" @click.native="onSubmit">Registrar</v-btn>
+
+      <vue-recaptcha 
+        ref="invisibleRecaptcha"
+        :sitekey="siteKey"
+        size="invisible"
+        @verify="onVerify"
+        @expired="onExpired"
+      ></vue-recaptcha>
+
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -68,9 +77,14 @@
   import * as actions from '../../store/action-types'
   import withSnackbar from '../mixins/withSnackbar'
   import formHelper from '../../components/mixins/formHelper';
+  import axios from 'axios';
+  import VueRecaptcha from 'vue-recaptcha';
   import $ from "jquery";
   export default {
     mixins: [withSnackbar],
+    components: { 
+      "vue-recaptcha": VueRecaptcha
+     },
     data () {
       return {
         alertOpts: {
@@ -78,6 +92,7 @@
           show:    false,
           type:    "info"
         },
+        siteKey: "6LemDGcUAAAAADEoASQn1k4ZSff8gfnBM8bJy0Wd",
         showPass: false,
         valid: false,
         errors: [],
@@ -106,6 +121,34 @@
     props: {},
     computed: {},
     methods: {
+      onSubmit: function () {
+        this.$refs.invisibleRecaptcha.execute()
+      },
+      onVerify: function (responseFront) {
+
+        var self = this
+
+        axios.post('../api/recaptcha', {
+          token: responseFront
+        })
+        .then(function (responseBack) {
+          if ( responseBack.data.success ) { 
+            self.register()
+          } 
+          else { 
+            self.resetRecaptcha() 
+          }
+        })
+        .catch(function (error) {
+          self.resetRecaptcha()
+        });
+      },
+      onExpired: function () {
+        this.resetRecaptcha()
+      },
+      resetRecaptcha () {
+        this.$refs.invisibleRecaptcha.reset() // Direct call reset method
+      },
       register () {
 
         if (this.$refs.registerForm.validate()) {

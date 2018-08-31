@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
-    </script>
     <link rel="stylesheet" href="{{ url('/assets/googlefonts/css/css.css') }}">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
+    </script>
     <style>
         [v-cloak] > * { display:none; }
         [v-cloak]::before {
@@ -46,12 +46,17 @@
       <v-parallax ref="parallax" :src="parallax.images" :height="parallax.height">
         <v-container fluid>
           
-        <v-layout column align-center justify-center >
-            <v-flex xs12 >
-                <div id="wrapper-form-login">
-                  <form-login></form-login>
-                </div>
-            </v-flex>
+        <v-layout column align-center justify-center>
+            <div class="wrapper-forms">
+                <v-layout row wrap>
+                  <v-flex xs12 class="forms">
+                  
+                      <div id="wrapper-form-recovery">
+                        <form-recovery></form-recovery>
+                      </div>
+                  </v-flex>
+                </v-layout>
+            </div>
           </v-layout>
 
         </v-container>

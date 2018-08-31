@@ -1,21 +1,14 @@
-- (falta menu y rolMenu) Culminar Controladores
-- listo ()Incluir llamdoa BD para combos
-- Incluir WEBSERVICE saime
-- validacion y formateo de montos  y fechas 
-- (listo) menu  con paneles de expasion
-- (listo) autenticacion con correao y contraseña ( eliminar tabla user)
-- (listo)metodo completo de autenticacion (metodo emergenci pta trasera)
-- (en proceso)tablas maestras (crud)
-- (listo) activacion y desactivacion datos maestros (status); 
-- (listo) creacion y edicion de Usuarios 
+
+-IMPORTANTE: 
+  * Agregar privateKey de google captcha al .env
+
+- Habilitar recuperacion de contraseña mediante correo electrónico
+
 - roles de usuarios :
    general (carga de encuesta y visualizacion de planilla unica)
    administrador (vusualizar reportes y cambio de tablas maestras)
-- validar montos y fechas en PHP   
-- fin de session
-- registro cne from-> http://www.cne.gov.ve/web/registro_electoral/ce.php?nacionalidad=V&cedula=13479149
-- cedula identidad unica VS niños sin cedula
 - en los return de los store/update/delete solo devolver ids
+
 - documentacion:
     manual de usuario
     diagrama E-R

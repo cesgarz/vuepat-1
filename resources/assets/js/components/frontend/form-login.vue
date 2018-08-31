@@ -47,7 +47,16 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
+      <v-btn color="blue darken-2" class="white--text" @click.native="onSubmit" :loading="loginLoading">Ingresar</v-btn>
+
+      <vue-recaptcha 
+        ref="invisibleRecaptcha"
+        :sitekey="siteKey"
+        size="invisible"
+        @verify="onVerify"
+        @expired="onExpired"
+      ></vue-recaptcha>
+
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -57,9 +66,14 @@
 <script>
   import * as actions from '../../store/action-types'
   import withSnackbar from '../mixins/withSnackbar'
+  import axios from 'axios';
+  import VueRecaptcha from 'vue-recaptcha';
   import $ from "jquery";
   export default {
     mixins: [withSnackbar],
+    components: { 
+      "vue-recaptcha": VueRecaptcha
+     },
     data () {
       return {
         alertOpts: {
@@ -79,7 +93,8 @@
           (v) => !!v || 'La contraseña es obligatoria'
         ],
         valid: false,
-        loginLoading: false
+        loginLoading: false,
+        siteKey: "6LemDGcUAAAAADEoASQn1k4ZSff8gfnBM8bJy0Wd"
       }
     },
     props: {
@@ -106,11 +121,40 @@
     },
     methods: {
       verFormRecovery () {
-        $(this.$parent.$el).slick('slickNext');
+        //$(this.$parent.$el).slick('slickNext');
+        window.location.href = '/recovery'
+      },
+      onSubmit: function () {
+        this.$refs.invisibleRecaptcha.execute()
+      },
+      onVerify: function (responseFront) {
+
+        var self = this
+
+        axios.post('../api/recaptcha', {
+          token: responseFront
+        })
+        .then(function (responseBack) {
+          if ( responseBack.data.success ) { 
+            self.login()
+          } 
+          else { 
+            self.resetRecaptcha() 
+          }
+        })
+        .catch(function (error) {
+          self.resetRecaptcha()
+        });
+      },
+      onExpired: function () {
+        this.resetRecaptcha()
+      },
+      resetRecaptcha () {
+        this.$refs.invisibleRecaptcha.reset() // Direct call reset method
       },
       login () {
 
-        if (this.$refs.loginForm.validate()) {
+        if(this.$refs.loginForm.validate()) {
 
           this.loginLoading = true
           const credentials = {
