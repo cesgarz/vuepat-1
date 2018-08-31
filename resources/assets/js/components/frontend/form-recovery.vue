@@ -94,7 +94,7 @@
           type: "info"
         },
         showPass: false,
-        siteKey: "6LemDGcUAAAAADEoASQn1k4ZSff8gfnBM8bJy0Wd",
+        siteKey: "6LcDd20UAAAAAAlNkeHG_nW31treqMiS04pPWrj_",
         internalAction: this.action,
         internalEmail: this.email,
         loading: false,
