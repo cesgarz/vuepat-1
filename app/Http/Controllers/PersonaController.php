@@ -76,6 +76,7 @@ class PersonaController extends Controller
     public function storeMisiones($request, $id_persona)
     {
         $personaMision = [];
+
         PersonaMision::where('id_persona', $id_persona)->delete();
 
         foreach ($request->misiones as $key => $value) {
@@ -96,7 +97,6 @@ class PersonaController extends Controller
 
     public function storeDiscapacidad($request, $id_persona)
     {
-        
         PersonaDiscapacidad::where('id_persona', $id_persona)->delete();
         
         $datos = [
@@ -108,6 +108,7 @@ class PersonaController extends Controller
             'id_usuario'           => $request->id_usuario,
             'id_status'            => $request->id_status
         ];
+        
         $personaDiscapacidad = PersonaDiscapacidad::updateOrCreate($datos);
 
         return $personaDiscapacidad;
@@ -169,7 +170,6 @@ class PersonaController extends Controller
         {
             PersonaDiscapacidad::where('id_persona', $persona->id_persona)->delete();
         }
-
 
         $persona = $persona->update($request->all());
         

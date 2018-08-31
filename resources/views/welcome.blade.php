@@ -28,9 +28,9 @@
   <snackbar></snackbar>
 
   <div>
-    <v-toolbar>
+    <v-toolbar color="blue lighten-1" dark >
+      <v-toolbar-title>Vuelta a la Patria</v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon> -->
       <v-toolbar-items>
         <v-btn flat v-if="false">{{ config('app.name') }}</v-btn>
         <template v-else>
