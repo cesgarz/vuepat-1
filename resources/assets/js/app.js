@@ -80,7 +80,8 @@ if (window.user) {
   
     if(window.location.pathname != '/' &&
        window.location.pathname != '/welcome' &&
-       window.location.pathname != '/registration')
+       window.location.pathname != '/registration' &&
+       window.location.pathname != '/recovery')
     {
       alert('La session actual es Invalida Favor Ingresar nuevamente');  
       window.location = '/'

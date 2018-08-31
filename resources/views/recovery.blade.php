@@ -51,8 +51,8 @@
                 <v-layout row wrap>
                   <v-flex xs12 class="forms">
                   
-                      <div id="wrapper-form-register">
-                        <form-register></form-register>
+                      <div id="wrapper-form-recovery">
+                        <form-recovery></form-recovery>
                       </div>
                   </v-flex>
                 </v-layout>
