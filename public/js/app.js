@@ -55084,32 +55084,30 @@ __webpack_require__(164);
 
 window.Vue = __webpack_require__(19);
 
+//tools
 Vue.component('form-buttons', __webpack_require__(185));
-Vue.component('list-buttons', __webpack_require__(191));
-Vue.component('dialogo', __webpack_require__(194));
 Vue.component('form-container', __webpack_require__(199));
-Vue.component('snackbar', __webpack_require__(204));
+Vue.component('list-buttons', __webpack_require__(191));
 
+Vue.component('dialogo', __webpack_require__(194));
+Vue.component('snackbar', __webpack_require__(204));
 Vue.component('v-autonumeric', __webpack_require__(207));
 Vue.component('currency-field', __webpack_require__(217));
 
-Vue.component('report', __webpack_require__(222));
-Vue.component('report-data', __webpack_require__(227));
-
+//login/registro/password
 Vue.component('login-button', __webpack_require__(230));
 Vue.component('remember-password', __webpack_require__(233));
 Vue.component('reset-password', __webpack_require__(236));
 
-Vue.component('usuario-lista', __webpack_require__(239));
-Vue.component('usuario-form', __webpack_require__(244));
-Vue.component('usuario-password', __webpack_require__(247));
+Vue.component('form-login', __webpack_require__(395));
+Vue.component('form-register', __webpack_require__(400));
+Vue.component('form-recovery', __webpack_require__(405));
 
+//Registro
 Vue.component('home', __webpack_require__(250));
-
 Vue.component('registro', __webpack_require__(309));
 Vue.component('registro-buttons', __webpack_require__(312));
 
-//Registro
 Vue.component('datos-personales', __webpack_require__(317));
 Vue.component('datos-situacionales', __webpack_require__(322));
 Vue.component('datos-familiares', __webpack_require__(328));
@@ -55119,22 +55117,22 @@ Vue.component('datos-laborales', __webpack_require__(343));
 //tablas maestras
 Vue.component('mision-lista', __webpack_require__(358));
 Vue.component('mision-form', __webpack_require__(363));
-
 Vue.component('discapacidad-lista', __webpack_require__(366));
 Vue.component('discapacidad-form', __webpack_require__(371));
-
 Vue.component('motivo-lista', __webpack_require__(374));
 Vue.component('motivo-form', __webpack_require__(379));
-
 Vue.component('sector-lista', __webpack_require__(382));
 Vue.component('sector-form', __webpack_require__(387));
 
+//reportes
+Vue.component('report', __webpack_require__(222));
+Vue.component('report-data', __webpack_require__(227));
 Vue.component('planilla', __webpack_require__(390));
 
-//Componentes Frontend
-Vue.component('form-login', __webpack_require__(395));
-Vue.component('form-register', __webpack_require__(400));
-Vue.component('form-recovery', __webpack_require__(405));
+//admin
+Vue.component('usuario-lista', __webpack_require__(239));
+Vue.component('usuario-form', __webpack_require__(244));
+Vue.component('usuario-password', __webpack_require__(247));
 
 window.Vuetify = __webpack_require__(410);
 Vue.use(Vuetify);

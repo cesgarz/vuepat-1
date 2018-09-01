@@ -3,60 +3,56 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('form-buttons', require('./components/FormButtons.vue'));
-Vue.component('list-buttons', require('./components/ListButtons.vue'));
-Vue.component('dialogo', require('./components/Dialogo.vue'));
-Vue.component('form-container', require('./components/FormContainer.vue'));
-Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
+//tools
+Vue.component('form-buttons',        require('./components/FormButtons.vue'));
+Vue.component('form-container',      require('./components/FormContainer.vue'));
+Vue.component('list-buttons',        require('./components/ListButtons.vue'));
 
-Vue.component('v-autonumeric', require('./components/VAutonumeric.vue'));
-Vue.component('currency-field', require('./components/CurrencyField.vue'));
+Vue.component('dialogo',             require('./components/Dialogo.vue'));
+Vue.component('snackbar',            require('./components/SnackBarComponent.vue'));
+Vue.component('v-autonumeric',       require('./components/VAutonumeric.vue'));
+Vue.component('currency-field',      require('./components/CurrencyField.vue'));
 
-Vue.component('report', require('./components/reports/Report.vue'));
-Vue.component('report-data', require('./components/reports/ReportData.vue'));
+//login/registro/password
+Vue.component('login-button',        require('./components/LoginButtonComponent.vue'));
+Vue.component('remember-password',   require('./components/RememberPasswordComponent.vue'));
+Vue.component('reset-password',      require('./components/ResetPasswordComponent.vue'));
 
-Vue.component('login-button', require('./components/LoginButtonComponent.vue'));
-Vue.component('remember-password', require('./components/RememberPasswordComponent.vue'));
-Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
-
-Vue.component('usuario-lista', require('./components/UsuarioLista.vue'));
-Vue.component('usuario-form', require('./components/UsuarioForm.vue'));
-Vue.component('usuario-password', require('./components/UsuarioPassword.vue'));
-
-Vue.component('home', require('./components/Home.vue'));
-
-Vue.component('registro', require('./components/Registro.vue'));
-Vue.component('registro-buttons', require('./components/RegistroButtons.vue'));
+Vue.component('form-login',          require('./components/frontend/form-login.vue'));
+Vue.component('form-register',       require('./components/frontend/form-register.vue'));
+Vue.component('form-recovery',       require('./components/frontend/form-recovery.vue'));
 
 //Registro
-Vue.component('datos-personales', require('./components/registro/DatosPersonales.vue'));
+Vue.component('home',                require('./components/Home.vue'));
+Vue.component('registro',            require('./components/Registro.vue'));
+Vue.component('registro-buttons',    require('./components/RegistroButtons.vue'));
+
+Vue.component('datos-personales',    require('./components/registro/DatosPersonales.vue'));
 Vue.component('datos-situacionales', require('./components/registro/DatosSituacionales.vue'));
-Vue.component('datos-familiares', require('./components/registro/DatosFamiliares.vue'));
-Vue.component('motivo-salida', require('./components/registro/MotivoSalida.vue'));
-Vue.component('datos-laborales', require('./components/registro/DatosLaborales.vue'));
+Vue.component('datos-familiares',    require('./components/registro/DatosFamiliares.vue'));
+Vue.component('motivo-salida',       require('./components/registro/MotivoSalida.vue'));
+Vue.component('datos-laborales',     require('./components/registro/DatosLaborales.vue'));
 
 //tablas maestras
-Vue.component('mision-lista', require('./components/tablas_maestras/MisionLista.vue'));
-Vue.component('mision-form', require('./components/tablas_maestras/MisionForm.vue'));
+Vue.component('mision-lista',        require('./components/tablas_maestras/MisionLista.vue'));
+Vue.component('mision-form',         require('./components/tablas_maestras/MisionForm.vue'));
+Vue.component('discapacidad-lista',  require('./components/tablas_maestras/DiscapacidadLista.vue'));
+Vue.component('discapacidad-form',   require('./components/tablas_maestras/DiscapacidadForm.vue'));
+Vue.component('motivo-lista',        require('./components/tablas_maestras/MotivoLista.vue'));
+Vue.component('motivo-form',         require('./components/tablas_maestras/MotivoForm.vue'));
+Vue.component('sector-lista',        require('./components/tablas_maestras/SectorLista.vue'));
+Vue.component('sector-form',         require('./components/tablas_maestras/SectorForm.vue'));
 
-Vue.component('discapacidad-lista', require('./components/tablas_maestras/DiscapacidadLista.vue'));
-Vue.component('discapacidad-form', require('./components/tablas_maestras/DiscapacidadForm.vue'));
+//reportes
+Vue.component('report',              require('./components/reports/Report.vue'));
+Vue.component('report-data',         require('./components/reports/ReportData.vue'));
+Vue.component('planilla',            require('./components/Planilla.vue'));
 
-Vue.component('motivo-lista', require('./components/tablas_maestras/MotivoLista.vue'));
-Vue.component('motivo-form', require('./components/tablas_maestras/MotivoForm.vue'));
+//admin
+Vue.component('usuario-lista',       require('./components/UsuarioLista.vue'));
+Vue.component('usuario-form',        require('./components/UsuarioForm.vue'));
+Vue.component('usuario-password',    require('./components/UsuarioPassword.vue'));
 
-Vue.component('sector-lista', require('./components/tablas_maestras/SectorLista.vue'));
-Vue.component('sector-form', require('./components/tablas_maestras/SectorForm.vue'));
-
-Vue.component('planilla', require('./components/Planilla.vue'));
-
-
-
-
-//Componentes Frontend
-Vue.component('form-login', require('./components/frontend/form-login.vue'));
-Vue.component('form-register', require('./components/frontend/form-register.vue'));
-Vue.component('form-recovery', require('./components/frontend/form-recovery.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
