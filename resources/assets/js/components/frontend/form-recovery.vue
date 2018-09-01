@@ -1,15 +1,22 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <span class="headline">Recuperar Contraseña</span>
+
+  <v-card class="rounded-10 transparent">
+    <v-card-title class="blue-grey lighten-4">
+
+      <span class="headline"><v-icon large>person_add</v-icon>  Recuperar Contraseña</span>
+
     </v-card-title>
     <v-card-text>
-      <v-form v-model="valid" ref="resetPasswordForm">
+
+      <v-form v-model="valid" ref="resetPasswordForm" color="blue">
+
         <v-text-field
           :rules="emailRules"
           label="Tu Correo"
           required
-          v-model="internalEmail"></v-text-field>
+          v-model="internalEmail"
+          append-icon="mail"></v-text-field>
+
         <v-text-field
           :append-icon="showPass ? 'visibility_off' : 'visibility'"
           :append-icon-cb="() => (showPass = !showPass)"
@@ -21,6 +28,7 @@
           name="password"
           required
           v-model="password"></v-text-field>
+
         <v-text-field
           :append-icon="showPass ? 'visibility_off' : 'visibility'"
           :append-icon-cb="() => (showPass = !showPass)"
@@ -31,8 +39,11 @@
           name="passwordConfirmation"
           min="6"
           v-model="passwordConfirmation"
-          required></v-text-field>
+          required
+          append-icon="lock"></v-text-field>
+
       </v-form>
+
       <v-container grid-list-md text-xs-left>
         <v-layout row wrap>
           <v-flex xs12>
@@ -47,11 +58,13 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-btn
+      <v-btn 
+        flat
         class="white--text"
         color="blue darken-2"
         v-on:click="verFormLogin">Ya estoy registrado</v-btn>
       <v-btn
+        flat
         @click.native="onSubmit"
         :color="done ? 'green' : 'blue darken-2'"
         :loading="loading"
@@ -214,20 +227,5 @@
 </script>
 
 <style scoped lang="less">
-
-  .card{
-    background-color:transparent;
-
-    .card__title{
-      color:rgba(255,255,255,1);
-      text-align:center ;
-
-      span{
-        width: 100%;
-      }
-
-    }
-
-  }
 
 </style>

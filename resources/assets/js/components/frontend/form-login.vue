@@ -6,7 +6,7 @@
         <span class="headline"><v-icon large>account_circle</v-icon> Iniciar Sesión</span>
       
     </v-card-title>
-    <v-card-text>
+  <v-card-text>
 
       <v-form ref="loginForm" v-model="valid" color="blue">
         
@@ -58,7 +58,7 @@
     
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn flat color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
+      <v-btn flat color="blue darken-2" class="white--text" @click.native="onSubmit" :loading="loginLoading">Ingresar</v-btn>
 
       <vue-recaptcha 
         ref="invisibleRecaptcha"
@@ -225,7 +225,5 @@
 </script>
 
 <style scoped lang="less">
-
-
 
 </style>
