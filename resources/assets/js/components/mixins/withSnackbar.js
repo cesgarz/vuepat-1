@@ -17,42 +17,48 @@ export default {
            
       if(error.hasOwnProperty('response'))
       {
-        console.log(error.response); 
+        console.log(error.response.status,error.response.data); 
         
         let status = error.response.status;
         let msg    = '';
-
-        for (var idx in error.response.data.errors) {
-          msg = msg + error.response.data.errors[idx];
-        }
 
         switch (status) {
           case 500:
             msg = 'Error interno ->' + error.response.data.message
             break;
+
           case 404:
-            msg = '404 No Encontrado'
-          break;
+            msg = 'Servicio No disponible'
+            break;
+
           case 401:
             msg = 'Session invalida favor Ingresar nuevamente '
+            this.showSnackBar(msg, 'error')
             window.location.href = '/'
-          break;
+            break;
+
           case 429:
-            msg = 'Demasiadas peticiones'
-          break;
-        
+            msg = 'Servicio Ocupado favor Ingresar en unos Minutos'
+            break;
+
+          case 422:
+            for (var idx in error.response.data.errors) 
+            {
+              msg = msg + error.response.data.errors[idx];
+            }
+            break;
+
           default:
+            msg = error.response.data.message
             break;
         }
 
-        console.log(status); 
+        this.showSnackBar( msg, 'error')
         
-        this.showSnackBar(msg, 'error')
-
       }else{
 
         this.showSnackBar(error, 'error')
-        
+
       }
       
     },

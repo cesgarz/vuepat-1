@@ -211,7 +211,6 @@ export default {
                 this.form.misiones =[]
                 datos.persona_mision.forEach(element => {
                     this.form.misiones.push(element.id_mision)
-                    
                 }, this);
             }
         },
@@ -233,7 +232,7 @@ export default {
                 axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad)
                 .then(respuesta => 
                 {
-                    this.discapacidad = respuesta.data;
+                   this.discapacidad = respuesta.data;
                 })
                 .catch(error => 
                 {
@@ -250,7 +249,6 @@ export default {
             this.form.id_status  = 1;
             this.form.id_estado_civil  = 1;
             this.form.id_usuario = this.$store.getters.user.id_usuario
-            
 
             if (this.$refs.form.validate()) 
             {
@@ -258,8 +256,8 @@ export default {
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
-                    this.showMessage(respuesta.data.msj)
-                    this.$emit('cerrarModal');
+                   this.showMessage(respuesta.data.msj)
+                   this.$emit('cerrarModal');
                 })
                 .catch(error => 
                 {

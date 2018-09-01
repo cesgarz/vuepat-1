@@ -33,10 +33,11 @@
           v-model="password">
         </v-text-field>
 
-      </v-form>
+      
 
       <v-container grid-list-md text-xs-left>
         <v-layout row wrap>
+          <v-btn block color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
           <v-flex xs12>
             <a class="recuperar-clave" v-on:click="verFormRecovery">
               Olvidastes tu Contraseña?
@@ -54,11 +55,12 @@
           </v-flex>
         </v-layout>
       </v-container>
+
+      </v-form>
     </v-card-text>
     
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn flat color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
+      
 
       <vue-recaptcha 
         ref="invisibleRecaptcha"
@@ -68,7 +70,6 @@
         @expired="onExpired"
       ></vue-recaptcha>
 
-      <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
 </template>

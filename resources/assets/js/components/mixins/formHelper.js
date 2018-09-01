@@ -1,5 +1,3 @@
-
-
 export default {
     created() {
         this.setAxios()
@@ -188,43 +186,39 @@ export default {
             
         },
 
-        rstForm(){
-            for(var key in this.form) {
-
+        rstForm()
+        {
+            for(var key in this.form) 
+            {
                 this.form[key] = null;
             }
-            for(var key in this.dates) {
-
+            for(var key in this.dates) 
+            {
                 this.dates[key] = null;
             }
         },
-
-        clear () {
-
+        clear () 
+        {
             this.$refs.form.reset();
             this.rstForm();
-
         },
-
-        cancel(){
-
+        cancel()
+        {
             this.$emit('cerrarModal');
             this.clear();
-
         },
         setAxios()
         {
             let self = this
-            window.axios.interceptors.response.use(function (response) {
-    
+            window.axios.interceptors.response.use(function (response) 
+            {
                 if(self.btnLoad)   {   self.btnLoad = false   }
                 return response;
-            
-            }, function (error) {
-            
+
+            }, function (error) 
+            {
                 if(self.btnLoad)   {   self.btnLoad = false   }
-                return error;
-            
+                return Promise.reject(error);
             });
         }
    
