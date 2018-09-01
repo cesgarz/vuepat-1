@@ -1,10 +1,15 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <span class="headline">Registro</span>
+
+  <v-card class="rounded-10 transparent">
+    <v-card-title class="blue-grey lighten-4">
+
+      <span class="headline"><v-icon large>person_add</v-icon>   Registrarse</span>
+
     </v-card-title>
     <v-card-text>
-      <v-form ref="registerForm" v-model="valid" color="white">
+
+      <v-form ref="registerForm" v-model="valid" color="blue">
+
         <v-text-field
           :error="errors['username']"
           :error-messages="errors['username']"
@@ -13,7 +18,9 @@
           label="Usuario"
           name="username"
           required
-          v-model="username"></v-text-field>
+          v-model="username"
+          append-icon="person"></v-text-field>
+
         <v-text-field
           :error="errors['email']"
           :error-messages="errors['email']"
@@ -22,7 +29,9 @@
           label="Correo"
           name="email"
           required
-          v-model="email"></v-text-field>
+          v-model="email"
+          append-icon="mail"></v-text-field>
+
         <v-text-field
           :append-icon="showPass ? 'visibility_off' : 'visibility'"
           :append-icon-cb="() => (showPass = !showPass)"
@@ -33,6 +42,7 @@
           name="password"
           required
           v-model="password"></v-text-field>
+
           <v-text-field
           :rules="passwordConfirmationRules"
           :type="showPass ? 'text' : 'password'"
@@ -40,8 +50,11 @@
           label="Confiirmar Contraseña"
           name="passwordConfirmation"
           required
-          v-model="passwordConfirmation"></v-text-field>
+          v-model="passwordConfirmation"
+          append-icon="lock"></v-text-field>
+
       </v-form>
+
       <v-container grid-list-md text-xs-left>
         <v-layout row wrap>
           <v-flex xs12>
@@ -55,9 +68,10 @@
         </v-layout>
       </v-container>
     </v-card-text>
+
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="onSubmit">Registrar</v-btn>
+      <v-btn flat color="blue darken-2" class="white--text" @click.native="onSubmit">Registrar</v-btn>
 
       <vue-recaptcha 
         ref="invisibleRecaptcha"
@@ -239,38 +253,5 @@
 </script>
 
 <style scoped lang="less">
-
-  .card{
-    background-color:transparent;
-
-    .card__title{
-      color:rgba(255,255,255,1);
-      text-align:center ;
-
-      span{
-        width: 100%;
-      }
-
-    }
-
-    .card__text{
-
-      .recuperar-clave{
-        color: rgba(255,255,255,1);
-        transition: all 0.2s;
-
-        &:hover{
-          color: rgba(33,150,243,1);
-        }
-
-      }
-
-      .alert{
-        padding:6px;
-      }
-
-    }
-
-  }
 
 </style>

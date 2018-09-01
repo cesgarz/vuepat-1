@@ -89221,6 +89221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -89536,6 +89537,26 @@ var render = function() {
       _c(
         "v-card-actions",
         [
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "white--text",
+              attrs: {
+                flat: "",
+                color: "blue darken-2",
+                loading: _vm.loginLoading
+              },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.onSubmit($event)
+                }
+              }
+            },
+            [_vm._v("Ingresar")]
+          ),
+          _vm._v(" "),
           _c("vue-recaptcha", {
             ref: "invisibleRecaptcha",
             attrs: { sitekey: _vm.siteKey, size: "invisible" },
@@ -89644,7 +89665,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-099be7a6] {\n  background-color: transparent;\n}\n.card .card__title[data-v-099be7a6] {\n  color: #ffffff;\n  text-align: center ;\n}\n.card .card__title span[data-v-099be7a6] {\n  width: 100%;\n}\n.card .card__text .recuperar-clave[data-v-099be7a6] {\n  color: #ffffff;\n  -webkit-transition: all 0.2s;\n  transition: all 0.2s;\n}\n.card .card__text .recuperar-clave[data-v-099be7a6]:hover {\n  color: #2196f3;\n}\n.card .card__text .alert[data-v-099be7a6] {\n  padding: 6px;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -89663,6 +89684,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_recaptcha__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -89910,9 +89945,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
+    { staticClass: "rounded-10 transparent" },
     [
-      _c("v-card-title", [
-        _c("span", { staticClass: "headline" }, [_vm._v("Registro")])
+      _c("v-card-title", { staticClass: "blue-grey lighten-4" }, [
+        _c(
+          "span",
+          { staticClass: "headline" },
+          [
+            _c("v-icon", { attrs: { large: "" } }, [_vm._v("person_add")]),
+            _vm._v("   Registrarse")
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -89922,7 +89966,7 @@ var render = function() {
             "v-form",
             {
               ref: "registerForm",
-              attrs: { color: "white" },
+              attrs: { color: "blue" },
               model: {
                 value: _vm.valid,
                 callback: function($$v) {
@@ -89940,7 +89984,8 @@ var render = function() {
                   color: "blue",
                   label: "Usuario",
                   name: "username",
-                  required: ""
+                  required: "",
+                  "append-icon": "person"
                 },
                 model: {
                   value: _vm.username,
@@ -89959,7 +90004,8 @@ var render = function() {
                   color: "blue",
                   label: "Correo",
                   name: "email",
-                  required: ""
+                  required: "",
+                  "append-icon": "mail"
                 },
                 model: {
                   value: _vm.email,
@@ -89999,7 +90045,8 @@ var render = function() {
                   color: "blue",
                   label: "Confiirmar Contraseña",
                   name: "passwordConfirmation",
-                  required: ""
+                  required: "",
+                  "append-icon": "lock"
                 },
                 model: {
                   value: _vm.passwordConfirmation,
@@ -90067,7 +90114,7 @@ var render = function() {
             "v-btn",
             {
               staticClass: "white--text",
-              attrs: { color: "blue darken-2" },
+              attrs: { flat: "", color: "blue darken-2" },
               nativeOn: {
                 click: function($event) {
                   return _vm.onSubmit($event)
@@ -90187,7 +90234,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-326f20d0] {\n  background-color: transparent;\n}\n.card .card__title[data-v-326f20d0] {\n  color: #ffffff;\n  text-align: center ;\n}\n.card .card__title span[data-v-326f20d0] {\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -90206,6 +90253,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_recaptcha__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90435,11 +90495,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
+    { staticClass: "rounded-10 transparent" },
     [
-      _c("v-card-title", [
-        _c("span", { staticClass: "headline" }, [
-          _vm._v("Recuperar Contraseña")
-        ])
+      _c("v-card-title", { staticClass: "blue-grey lighten-4" }, [
+        _c(
+          "span",
+          { staticClass: "headline" },
+          [
+            _c("v-icon", { attrs: { large: "" } }, [_vm._v("person_add")]),
+            _vm._v("  Recuperar Contraseña")
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -90449,6 +90516,7 @@ var render = function() {
             "v-form",
             {
               ref: "resetPasswordForm",
+              attrs: { color: "blue" },
               model: {
                 value: _vm.valid,
                 callback: function($$v) {
@@ -90462,7 +90530,8 @@ var render = function() {
                 attrs: {
                   rules: _vm.emailRules,
                   label: "Tu Correo",
-                  required: ""
+                  required: "",
+                  "append-icon": "mail"
                 },
                 model: {
                   value: _vm.internalEmail,
@@ -90508,7 +90577,8 @@ var render = function() {
                   label: "Confirma la Contraseña",
                   name: "passwordConfirmation",
                   min: "6",
-                  required: ""
+                  required: "",
+                  "append-icon": "lock"
                 },
                 model: {
                   value: _vm.passwordConfirmation,
@@ -90574,7 +90644,7 @@ var render = function() {
             "v-btn",
             {
               staticClass: "white--text",
-              attrs: { color: "blue darken-2" },
+              attrs: { flat: "", color: "blue darken-2" },
               on: { click: _vm.verFormLogin }
             },
             [_vm._v("Ya estoy registrado")]
@@ -90585,6 +90655,7 @@ var render = function() {
             {
               staticClass: "white--text",
               attrs: {
+                flat: "",
                 color: _vm.done ? "green" : "blue darken-2",
                 loading: _vm.loading
               },

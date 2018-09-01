@@ -1,162 +1,76 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="user" content="{{ Auth::user() }}">
-    <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name') }}</title>
-    <link href='/assets/googlefonts/css/css.css' rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
+    </script>
+    <link rel="stylesheet" href="{{ url('/assets/googlefonts/css/css.css') }}">
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-
+    <style>
+        [v-cloak] > * { display:none; }
+        [v-cloak]::before {
+            content: " ";
+            display: block;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHdpZHRoPSI0MHB4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNDE0MjE7IiB4PSIwcHgiIHk9IjBweCI+CiAgICA8ZGVmcz4KICAgICAgICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWwogICAgICAgICAgICBALXdlYmtpdC1rZXlmcmFtZXMgc3BpbiB7CiAgICAgICAgICAgICAgZnJvbSB7CiAgICAgICAgICAgICAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKDBkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIHRvIHsKICAgICAgICAgICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTM1OWRlZykKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgICAgQGtleWZyYW1lcyBzcGluIHsKICAgICAgICAgICAgICBmcm9tIHsKICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDBkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIHRvIHsKICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKC0zNTlkZWcpCiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgICAgIHN2ZyB7CiAgICAgICAgICAgICAgICAtd2Via2l0LXRyYW5zZm9ybS1vcmlnaW46IDUwJSA1MCU7CiAgICAgICAgICAgICAgICAtd2Via2l0LWFuaW1hdGlvbjogc3BpbiAxLjVzIGxpbmVhciBpbmZpbml0ZTsKICAgICAgICAgICAgICAgIC13ZWJraXQtYmFja2ZhY2UtdmlzaWJpbGl0eTogaGlkZGVuOwogICAgICAgICAgICAgICAgYW5pbWF0aW9uOiBzcGluIDEuNXMgbGluZWFyIGluZmluaXRlOwogICAgICAgICAgICB9CiAgICAgICAgXV0+PC9zdHlsZT4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJvdXRlciI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwwQzIyLjIwNTgsMCAyMy45OTM5LDEuNzg4MTMgMjMuOTkzOSwzLjk5MzlDMjMuOTkzOSw2LjE5OTY4IDIyLjIwNTgsNy45ODc4MSAyMCw3Ljk4NzgxQzE3Ljc5NDIsNy45ODc4MSAxNi4wMDYxLDYuMTk5NjggMTYuMDA2MSwzLjk5MzlDMTYuMDA2MSwxLjc4ODEzIDE3Ljc5NDIsMCAyMCwwWiIgc3R5bGU9ImZpbGw6YmxhY2s7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNNS44NTc4Niw1Ljg1Nzg2QzcuNDE3NTgsNC4yOTgxNSA5Ljk0NjM4LDQuMjk4MTUgMTEuNTA2MSw1Ljg1Nzg2QzEzLjA2NTgsNy40MTc1OCAxMy4wNjU4LDkuOTQ2MzggMTEuNTA2MSwxMS41MDYxQzkuOTQ2MzgsMTMuMDY1OCA3LjQxNzU4LDEzLjA2NTggNS44NTc4NiwxMS41MDYxQzQuMjk4MTUsOS45NDYzOCA0LjI5ODE1LDcuNDE3NTggNS44NTc4Niw1Ljg1Nzg2WiIgc3R5bGU9ImZpbGw6cmdiKDIxMCwyMTAsMjEwKTsiLz4KICAgICAgICA8L2c+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yMCwzMi4wMTIyQzIyLjIwNTgsMzIuMDEyMiAyMy45OTM5LDMzLjgwMDMgMjMuOTkzOSwzNi4wMDYxQzIzLjk5MzksMzguMjExOSAyMi4yMDU4LDQwIDIwLDQwQzE3Ljc5NDIsNDAgMTYuMDA2MSwzOC4yMTE5IDE2LjAwNjEsMzYuMDA2MUMxNi4wMDYxLDMzLjgwMDMgMTcuNzk0MiwzMi4wMTIyIDIwLDMyLjAxMjJaIiBzdHlsZT0iZmlsbDpyZ2IoMTMwLDEzMCwxMzApOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTI4LjQ5MzksMjguNDkzOUMzMC4wNTM2LDI2LjkzNDIgMzIuNTgyNCwyNi45MzQyIDM0LjE0MjEsMjguNDkzOUMzNS43MDE5LDMwLjA1MzYgMzUuNzAxOSwzMi41ODI0IDM0LjE0MjEsMzQuMTQyMUMzMi41ODI0LDM1LjcwMTkgMzAuMDUzNiwzNS43MDE5IDI4LjQ5MzksMzQuMTQyMUMyNi45MzQyLDMyLjU4MjQgMjYuOTM0MiwzMC4wNTM2IDI4LjQ5MzksMjguNDkzOVoiIHN0eWxlPSJmaWxsOnJnYigxMDEsMTAxLDEwMSk7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNMy45OTM5LDE2LjAwNjFDNi4xOTk2OCwxNi4wMDYxIDcuOTg3ODEsMTcuNzk0MiA3Ljk4NzgxLDIwQzcuOTg3ODEsMjIuMjA1OCA2LjE5OTY4LDIzLjk5MzkgMy45OTM5LDIzLjk5MzlDMS43ODgxMywyMy45OTM5IDAsMjIuMjA1OCAwLDIwQzAsMTcuNzk0MiAxLjc4ODEzLDE2LjAwNjEgMy45OTM5LDE2LjAwNjFaIiBzdHlsZT0iZmlsbDpyZ2IoMTg3LDE4NywxODcpOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTUuODU3ODYsMjguNDkzOUM3LjQxNzU4LDI2LjkzNDIgOS45NDYzOCwyNi45MzQyIDExLjUwNjEsMjguNDkzOUMxMy4wNjU4LDMwLjA1MzYgMTMuMDY1OCwzMi41ODI0IDExLjUwNjEsMzQuMTQyMUM5Ljk0NjM4LDM1LjcwMTkgNy40MTc1OCwzNS43MDE5IDUuODU3ODYsMzQuMTQyMUM0LjI5ODE1LDMyLjU4MjQgNC4yOTgxNSwzMC4wNTM2IDUuODU3ODYsMjguNDkzOVoiIHN0eWxlPSJmaWxsOnJnYigxNjQsMTY0LDE2NCk7Ii8+CiAgICAgICAgPC9nPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNMzYuMDA2MSwxNi4wMDYxQzM4LjIxMTksMTYuMDA2MSA0MCwxNy43OTQyIDQwLDIwQzQwLDIyLjIwNTggMzguMjExOSwyMy45OTM5IDM2LjAwNjEsMjMuOTkzOUMzMy44MDAzLDIzLjk5MzkgMzIuMDEyMiwyMi4yMDU4IDMyLjAxMjIsMjBDMzIuMDEyMiwxNy43OTQyIDMzLjgwMDMsMTYuMDA2MSAzNi4wMDYxLDE2LjAwNjFaIiBzdHlsZT0iZmlsbDpyZ2IoNzQsNzQsNzQpOyIvPgogICAgICAgIDwvZz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPHBhdGggZD0iTTI4LjQ5MzksNS44NTc4NkMzMC4wNTM2LDQuMjk4MTUgMzIuNTgyNCw0LjI5ODE1IDM0LjE0MjEsNS44NTc4NkMzNS43MDE5LDcuNDE3NTggMzUuNzAxOSw5Ljk0NjM4IDM0LjE0MjEsMTEuNTA2MUMzMi41ODI0LDEzLjA2NTggMzAuMDUzNiwxMy4wNjU4IDI4LjQ5MzksMTEuNTA2MUMyNi45MzQyLDkuOTQ2MzggMjYuOTM0Miw3LjQxNzU4IDI4LjQ5MzksNS44NTc4NloiIHN0eWxlPSJmaWxsOnJnYig1MCw1MCw1MCk7Ii8+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K');
+        }
+        .rounded-10{
+          border-radius:10px;
+        }
+        .transparent {
+          background-color: white!important;
+          opacity: 0.90;
+          border-color: transparent!important;
+        }
+    </style>
 </head>
 <body>
-<v-app id="app" v-cloak>
-    <snackbar></snackbar>
-    <v-navigation-drawer
-            dark
-            fixed
-            clipped
-            app
-            v-model="drawer"
-    >
-    <!-- MENU -->
-    <v-list dense v-for="(item, idx) in items" :key="idx">
 
-        <!-- header -->
-        <v-layout row v-if="item.heading" align-center>                        
-            <v-flex xs6>
-                <v-subheader v-if="item.heading">
-                    @{{ item.heading }}
-                </v-subheader>
-            </v-flex>
-        </v-layout>
+<div id="app">
+  
+  <v-app v-cloak>
 
-        <!-- subitems -->
-        <v-list-group v-else-if="item.children" v-model="item.model" no-action>
+  <snackbar></snackbar>
 
-            <v-list-tile slot="activator">
+    <v-toolbar color="blue lighten-1" dark >
 
-                <v-list-tile-action>
-                    <v-icon>@{{ item.icon }}</v-icon>
-                </v-list-tile-action>
+      <v-toolbar-title>{{ config('app.name') }}</v-toolbar-title>
 
-                <v-list-tile-content>
-                    <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
-                </v-list-tile-content>
+      <v-spacer></v-spacer>
 
-            </v-list-tile>
+      <v-toolbar-items>
+          <v-btn flat @click="onWelcomePageButtonClicked('login')">Ingresar</v-btn>
+          <v-btn flat @click="onWelcomePageButtonClicked('registration')">Registro</v-btn>
+      </v-toolbar-items>
 
-            <v-list-tile v-for="(subItem, sidx) in item.children" :key="sidx"  @click="menuItemSelected(subItem)">
-                
-                <v-list-tile-action>
-                    <v-icon>@{{ subItem.icon }}</v-icon>
-                </v-list-tile-action>
-
-                <v-list-tile-content>
-                    <v-list-tile-title>@{{ subItem.text }}</v-list-tile-title>
-                </v-list-tile-content>
-
-            </v-list-tile>
-            
-        </v-list-group>
-
-        <!-- default items -->
-        <v-list-tile v-else @click="menuItemSelected(item)">
-            
-            <v-list-tile-action>
-                <v-icon>@{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-                <v-list-tile-title>@{{ item.text }}</v-list-tile-title>
-            </v-list-tile-content>
-
-        </v-list-tile>
-
-</v-list>
-
-    </v-navigation-drawer>
-    <v-toolbar
-            color="red darken-1"
-            dark
-            app
-            clipped-left
-            clipped-right
-            fixed
-    >
-        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
-            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-xs-only">{{ config('app.shortname', 'SIGESPAD') }}</span>
-        </v-toolbar-title>
-        <div class="d-flex align-center" style="margin-left: auto">
-            <v-btn icon>
-                <v-icon>notifications</v-icon>
-            </v-btn>
-            <v-btn icon @click="toogleRightDrawer">
-                <v-icon>account_circle</v-icon>
-            </v-btn>
-        </div>
     </v-toolbar>
-    <v-navigation-drawer
-            fixed
-            v-model="drawerRight"
-            right
-            clipped
-            app
-    >
-        <v-card>
-            <v-container fluid grid-list-md class="grey lighten-4">
-                <v-list-tile >
-                    <v-list-tile-avatar>
-                        <v-icon>account_circle</v-icon>
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                        <v-list-tile-title>@{{ user.usuario }} </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-container>
-            <v-card-text class="px-0 grey lighten-3">
-                <v-list two-line>
-                    <v-list-tile >
-                        <v-list-tile-content>
-                            <v-list-tile-title>Nombres y Apellidos </v-list-tile-title>
-                            <v-list-tile-sub-title >@{{ user.nb_nombre }} @{{ user.nb_apellido }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile >
-                        <v-list-tile-content>
-                            <v-list-tile-title>Email </v-list-tile-title>
-                            <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-card-text>
-            <v-card-actions>
 
-                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">
-                 <v-icon right dark>lock</v-icon>  Password
-                </v-btn>
+    <main>
 
-                <v-btn  @click="logout" flat color="orange">
-                    <v-icon dark>exit_to_app</v-icon> Salir
-                </v-btn>
+        <v-jumbotron :src="parallax.images" height="800px" class="white">
+        <v-container fluid>
+        <v-layout column align-center justify-center >
+        
+            @yield('content')
 
-            </v-card-actions>
-   
-        </v-card>
-    </v-navigation-drawer>
-    <v-content>
-        @yield('content')
-    </v-content>
-</v-app>
+        </v-layout>
+        </v-container> 
+        </v-jumbotron>
+
+    </main>
+
+  </v-app>
+  
+</div>
 @stack('beforeScripts')
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<script src="{{ url (mix('/js/app.js')) }}" type="text/javascript"></script>
 @stack('afterScripts')
 </body>
 </html>
