@@ -1,6 +1,11 @@
 <template>
     <div>
     <v-form ref="form" v-model="valido" lazy-validation>
+
+    <v-toolbar dark class="primary" dense>
+        <h3>Nivel deEstudio / Empleo en el Extranjero</h3>
+    </v-toolbar>
+
     <v-card>
     <v-card-text>        
     
@@ -133,6 +138,9 @@
             hint="¿En que area laboral desearia ser incluido?"
             v-model="form.tx_observaciones"
             box
+            :rows="2"
+            counter="100"
+            maxlength="100"
         ></v-textarea>
         </v-flex>
     </v-layout>
@@ -154,7 +162,6 @@
 <script>
 import formHelper   from '../../components/mixins/formHelper';
 import withSnackbar from '../../components/mixins/withSnackbar';
-
 import EmpleoLista from '../../components/registro/EmpleoLista.vue'
 
 export default {

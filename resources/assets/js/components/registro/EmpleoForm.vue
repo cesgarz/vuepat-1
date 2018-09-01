@@ -53,8 +53,9 @@
         @clear="clear"
         @cancel="cancel"
         :btnAccion="btnAccion"
-        :valido="valido">
-        </form-buttons>
+        :valido="valido"
+        :btnLoad="btnLoad"
+        ></form-buttons>
     </v-card-actions>
     </v-card>
     </v-form>

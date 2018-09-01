@@ -94,7 +94,7 @@
           type: "info"
         },
         showPass: false,
-        siteKey: "6LcDd20UAAAAAAlNkeHG_nW31treqMiS04pPWrj_",
+        siteKey: "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2",
         internalAction: this.action,
         internalEmail: this.email,
         loading: false,
@@ -225,11 +225,6 @@
       span{
         width: 100%;
       }
-
-    }
-
-    .card__text{
-
 
     }
 

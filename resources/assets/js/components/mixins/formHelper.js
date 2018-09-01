@@ -1,25 +1,30 @@
+
+
 export default {
     created() {
-        
+        this.setAxios()
         this.listasLoader();
         this.basePath += this.tabla + '/' 
         this.getData();
-
     },
     data() {
 
         return {
            
-            basePath: '/api/v1/',
-            datos: null,
-            valido: false,
+            basePath:  '/api/v1/',
+            datos:     null,
+            valido:    false,
             btnAccion: '',
-            picker: false,
-            dates: {},
+            picker:    false,
+            btnLoad:   false,
+            dates:     {},
             rules: {
                 select: [
                     v => !!v || 'Seleccione una Opcion (Campo Requerido)',
                     ],
+                mutiple: [
+                    v =>  v.length > 0 || 'Seleccione una Opcion (Campo Requerido)',
+                    ],    
                 requerido: [
                     v => !!v || 'Campo Requerido',
                     ],
@@ -207,6 +212,21 @@ export default {
             this.clear();
 
         },
+        setAxios()
+        {
+            let self = this
+            window.axios.interceptors.response.use(function (response) {
+    
+                if(self.btnLoad)   {   self.btnLoad = false   }
+                return response;
+            
+            }, function (error) {
+            
+                if(self.btnLoad)   {   self.btnLoad = false   }
+                return error;
+            
+            });
+        }
    
     }
 

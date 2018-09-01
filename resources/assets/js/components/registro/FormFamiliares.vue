@@ -139,8 +139,9 @@
         @clear="clear"
         @cancel="cancel"
         :btnAccion="btnAccion"
-        :valido="valido">
-        </form-buttons>
+        :valido="valido"
+        :btnLoad="btnLoad"
+        ></form-buttons>
     </v-card-actions>
     </v-card>
     <!--<pre>{{$data}}</pre>-->
@@ -249,9 +250,11 @@ export default {
             this.form.id_status  = 1;
             this.form.id_estado_civil  = 1;
             this.form.id_usuario = this.$store.getters.user.id_usuario
+            
 
             if (this.$refs.form.validate()) 
             {
+                this.btnLoad = true
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
@@ -268,7 +271,8 @@ export default {
         {
             if (this.$refs.form.validate()) 
             {
-                axios.put(this.basePath + this.form.id_persona, this.form)
+               this.btnLoad = true
+               axios.put(this.basePath + this.form.id_persona, this.form)
                 .then(respuesta => 
                 {
                     this.showMessage(respuesta.data.msj)

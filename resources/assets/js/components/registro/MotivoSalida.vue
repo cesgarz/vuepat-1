@@ -1,5 +1,10 @@
 <template>
     <v-form ref="form" v-model="valido" lazy-validation>
+
+    <v-toolbar dark class="primary" dense>
+        <h3>Motivo de Salida del Pais</h3>
+    </v-toolbar>
+
     <v-card>
     <v-card-text>
     <v-layout wrap>

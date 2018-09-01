@@ -1,10 +1,7 @@
 <template>
     <v-layout>
-        
-    
-        
-   
-    <v-card>
+
+    <v-card class="rounded-10">
 
         <v-card-title class="light-blue darken-3 white--text">
             <h2>Planilla de Registro</h2>  

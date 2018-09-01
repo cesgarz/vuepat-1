@@ -103,7 +103,7 @@ const app = new Vue({
   components: { Slick },
   data: () => ({
     parallax: {
-      height: 0,
+      height: '0px',
       images: "/img/home.jpeg" 
     },
     slickOptions: {
@@ -178,11 +178,9 @@ const app = new Vue({
     },
 
     windowResize () {
-
-      this.parallax.height = window.innerHeight;
-      
+      this.parallax.height = (window.innerHeight-60)+'px';
       window.addEventListener('resize', () => {
-        this.parallax.height = window.innerHeight
+        this.parallax.height = (window.innerHeight-60)+'px'
       });
 
     },

@@ -4,7 +4,7 @@
     <div v-if="btnAccion=='upd'">
 
         <v-tooltip top>
-            <v-btn slot="activator" fab @click="update" :disabled="!valido"  class="warning">
+            <v-btn transition="scale-transition" slot="activator" fab @click="update" :disabled="!valido" :loading="btnLoad" class="warning">
                 <v-icon>edit</v-icon>
             </v-btn>
         <span>Editar</span>
@@ -13,8 +13,8 @@
     </div>
 
     <div v-else>
-        <v-tooltip top>
-            <v-btn slot="activator" fab @click="store" :disabled="!valido"  class="success">
+        <v-tooltip top >
+            <v-btn  transition="scale-transition" slot="activator" fab @click="store" :disabled="!valido" :loading="btnLoad" class="success">
                 <v-icon>save_alt</v-icon>
             </v-btn>
         <span>Guardar</span>
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-    props: ['btnAccion', 'valido'],
+    props: ['btnAccion', 'valido', 'btnLoad'],
     methods:
     {
         update()

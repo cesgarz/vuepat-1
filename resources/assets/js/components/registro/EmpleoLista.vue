@@ -4,7 +4,7 @@
         <v-flex xs12>
             <v-subheader dark class="primary"><v-icon>work</v-icon> Empleos en Venezuela (Ultimos 2)
             <v-spacer></v-spacer>
-            <v-btn fab @click="insItem" dark absolute right class="success" v-show="cantEmpleos < 2">
+            <v-btn fab @click="insItem" dark bottom right class="success" v-show="cantEmpleos < 2">
                 <v-icon dark>playlist_add</v-icon>
             </v-btn>
             </v-subheader>

@@ -1,10 +1,15 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <span class="headline">Iniciar Sesión</span>
+
+  <v-card class="rounded-10 transparent">
+    <v-card-title class="blue-grey lighten-4">
+
+        <span class="headline"><v-icon large>account_circle</v-icon> Iniciar Sesión</span>
+      
     </v-card-title>
     <v-card-text>
+
       <v-form ref="loginForm" v-model="valid" color="blue">
+        
         <v-text-field
           :error="errors['email']"
           :error-messages="errors['email']"
@@ -12,19 +17,24 @@
           color="blue"
           label="Email"
           name="email"
-          required
-          v-model="email"></v-text-field>
+          append-icon="mail"
+          v-model="email">
+        </v-text-field>
+
         <v-text-field
           :append-icon="showPass ? 'visibility_off' : 'visibility'"
-          :append-icon-cb="() => (showPass = !showPass)"
+          @click:append="() => (showPass = !showPass)"
           :rules="passwordRules"
           :type="showPass ? 'text' : 'password'"
           color="blue"
           label="Password"
           name="password"
           required
-          v-model="password"></v-text-field>
+          v-model="password">
+        </v-text-field>
+
       </v-form>
+
       <v-container grid-list-md text-xs-left>
         <v-layout row wrap>
           <v-flex xs12>
@@ -45,9 +55,10 @@
         </v-layout>
       </v-container>
     </v-card-text>
+    
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-2" class="white--text" @click.native="onSubmit" :loading="loginLoading">Ingresar</v-btn>
+      <v-btn flat color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
 
       <vue-recaptcha 
         ref="invisibleRecaptcha"
@@ -94,7 +105,7 @@
         ],
         valid: false,
         loginLoading: false,
-        siteKey: "6LcDd20UAAAAAAlNkeHG_nW31treqMiS04pPWrj_"
+        siteKey: "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2"
       }
     },
     props: {
@@ -121,42 +132,56 @@
     },
     methods: {
       verFormRecovery () {
-        //$(this.$parent.$el).slick('slickNext');
         window.location.href = '/recovery'
       },
-      onSubmit: function () {
+      onSubmit: function () 
+      {
+        this.loginLoading = true
         this.$refs.invisibleRecaptcha.execute()
       },
-      onVerify: function (responseFront) {
-
+      onVerify: function (responseFront) 
+      {
         var self = this
-
-        axios.post('../api/recaptcha', {
+        console.log('VERIFICAR', responseFront)
+        axios.post('../api/recaptcha', 
+        {
           token: responseFront
         })
-        .then(function (responseBack) {
-          if ( responseBack.data.success ) { 
+        .then(function (responseBack) 
+        {
+          if ( responseBack.data.success ) 
+          { 
+            console.log('login')
             self.login()
           } 
-          else { 
+          else 
+          { 
+            console.log('fallo', responseBack.data)
+            this.loginLoading = false
             self.resetRecaptcha() 
           }
         })
         .catch(function (error) {
+          console.log('error', error)
+          self.loginLoading = false
           self.resetRecaptcha()
+
         });
       },
       onExpired: function () {
+        console.log('expired')
         this.resetRecaptcha()
       },
       resetRecaptcha () {
+        console.log('reset')
+
         this.$refs.invisibleRecaptcha.reset() // Direct call reset method
       },
       login () {
-
+         console.log('finlogin')
         if(this.$refs.loginForm.validate()) {
 
-          this.loginLoading = true
+          
           const credentials = {
             'tx_email': this.email,
             'password': this.password
@@ -201,37 +226,6 @@
 
 <style scoped lang="less">
 
-  .card{
-    background-color:transparent;
 
-    .card__title{
-      color:rgba(255,255,255,1);
-      text-align:center ;
-
-      span{
-        width: 100%;
-      }
-
-    }
-
-    .card__text{
-
-      .recuperar-clave{
-        color: rgba(255,255,255,1);
-        transition: all 0.2s;
-
-        &:hover{
-          color: rgba(33,150,243,1);
-        }
-
-      }
-
-      .alert{
-        padding:6px;
-      }
-
-    }
-
-  }
 
 </style>

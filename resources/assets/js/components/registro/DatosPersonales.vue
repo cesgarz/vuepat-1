@@ -1,5 +1,10 @@
 <template>
     <v-form ref="form" v-model="valido" lazy-validation>
+    
+    <v-toolbar dark class="primary"  dense>
+        <h3>Datos Personales</h3>
+    </v-toolbar>
+    
     <v-card>
     <v-card-text>
     <v-layout wrap>
@@ -12,6 +17,7 @@
             required
             :rules="rules.requerido"
             mask="########"
+            prefix="V-"
             ></v-text-field>
         </v-flex>
         <v-flex sm8>
@@ -153,7 +159,13 @@
 
     <v-card-actions>
         <v-spacer></v-spacer>
-       <registro-buttons @update="update" @store="store" :btnAccion="btnAccion" :valido="valido"></registro-buttons>     
+        <registro-buttons 
+        @update="update" 
+        @store="store" 
+        :btnAccion="btnAccion" 
+        :valido="valido"
+        :btnLoad="btnLoad"
+        ></registro-buttons>     
     </v-card-actions>
     <!--<pre>{{$data}}</pre>-->
 
@@ -207,9 +219,11 @@ export default {
         },
         getData()
         {
+            this.btnLoad = true
             axios.get(this.basePath + this.$store.getters.user.id_usuario)
             .then(respuesta => 
             {
+                this.btnLoad = false
                 this.datos = respuesta.data;
                 this.mapDiscapacidad(this.datos)
                 if(this.datos)
@@ -239,7 +253,8 @@ export default {
             if(this.form.id_tipo_discapacidad != 4)
             {
                 this.discapacidadLoad = true
-                
+                this.btnLoad = true
+
                 axios.get('/api/v1/discapacidad/tipo/' + this.form.id_tipo_discapacidad)
                 .then(respuesta => 
                 {
@@ -265,6 +280,7 @@ export default {
 
             if (this.$refs.form.validate()) 
             {  
+                this.btnLoad = true
                 axios.post(this.basePath, this.form)
                 .then(respuesta => 
                 {
@@ -284,6 +300,7 @@ export default {
         {
             if (this.$refs.form.validate()) 
             { 
+                this.btnLoad = true
                 axios.put(this.basePath + this.form.id_persona, this.form)
                 .then(respuesta => 
                 {

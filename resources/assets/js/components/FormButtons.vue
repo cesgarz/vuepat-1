@@ -4,7 +4,7 @@
     <div v-if="btnAccion=='upd'">
 
         <v-tooltip top>
-            <v-btn slot="activator" fab small @click="update" :disabled="!valido"  class="warning">
+            <v-btn slot="activator" fab small @click="update" :disabled="!valido" :loading="btnLoad" class="warning">
                 <v-icon>edit</v-icon>
             </v-btn>
         <span>Editar</span>
@@ -14,7 +14,7 @@
 
     <div v-else>
         <v-tooltip top>
-            <v-btn slot="activator" fab small @click="store" :disabled="!valido"  class="success">
+            <v-btn slot="activator" fab small @click="store" :disabled="!valido" :loading="btnLoad" class="success">
                 <v-icon>save_alt</v-icon>
             </v-btn>
         <span>Guardar</span>
@@ -22,7 +22,7 @@
 
 
         <v-tooltip top>
-            <v-btn  slot="activator" fab small @click="clear"  class="info">
+            <v-btn  slot="activator" fab small @click="clear" :loading="btnLoad" class="info">
                 <v-icon>refresh</v-icon>
             </v-btn>
         <span>Refrescar</span>
@@ -30,7 +30,7 @@
     </div>
 
     <v-tooltip top>
-        <v-btn slot="activator" fab small @click="cancel"  class="error">
+        <v-btn slot="activator" fab small @click="cancel" :loading="btnLoad" class="error">
             <v-icon>reply</v-icon>
         </v-btn>
     <span>Regresar</span>
@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    props: ['btnAccion', 'valido'],
+    props: ['btnAccion', 'valido' ,'btnLoad'],
 
     methods:{
         

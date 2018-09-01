@@ -178,7 +178,7 @@
             item-text="nb_servicio"
             item-value="id_servicio"
             v-model="form.nac.servicios"
-            :rules="rules.select"
+            :rules="rules.mutiple"
             label="Servicios Basicos"
             multiple
             ></v-select>
