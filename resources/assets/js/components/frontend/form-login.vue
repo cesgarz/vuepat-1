@@ -1,231 +1,151 @@
 <template>
-
-  <v-card class="rounded-10 transparent">
+    
+    <v-card class="rounded-10 transparent" >
+    
     <v-card-title class="blue-grey lighten-4">
-
         <span class="headline"><v-icon large>account_circle</v-icon> Iniciar Sesión</span>
-      
     </v-card-title>
-  <v-card-text>
 
-      <v-form ref="loginForm" v-model="valid" color="blue">
-        
-        <v-text-field
-          :error="errors['email']"
-          :error-messages="errors['email']"
-          :rules="emailRules"
-          color="blue"
-          label="Email"
-          name="email"
-          append-icon="mail"
-          v-model="email">
-        </v-text-field>
+    <v-form ref="loginForm" v-model="valido">    
+    <v-card-text>
 
         <v-text-field
-          :append-icon="showPass ? 'visibility_off' : 'visibility'"
-          @click:append="() => (showPass = !showPass)"
-          :rules="passwordRules"
-          :type="showPass ? 'text' : 'password'"
-          color="blue"
-          label="Password"
-          name="password"
-          required
-          v-model="password">
-        </v-text-field>
+            v-model="form.email"
+            :rules="rules.email"
+            label="Correo *"
+            append-icon="mail"
+            color="blue"
+        ></v-text-field>
 
-      
+        <v-text-field
+            v-model="form.password"
+            :rules="rules.password"
+            label="Contraseña *"
+            :append-icon ="showPass ? 'visibility_off' : 'visibility'"
+            :type="showPass ? 'text' : 'password'"
+            @click:append="showPass = !showPass"
+            color="blue"
+        ></v-text-field>
 
-      <v-container grid-list-md text-xs-left>
-        <v-layout row wrap>
-          <v-btn block color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Ingresar</v-btn>
-          <v-flex xs12>
-            <a class="recuperar-clave" v-on:click="verFormRecovery">
-              Olvidastes tu Contraseña?
-            </a>
-          </v-flex>
-        </v-layout>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <v-alert
-              :type="alertOpts.type"
-              v-model="alertOpts.show"
-              dismissible>
-              {{ alertOpts.message }}
-            </v-alert>
-          </v-flex>
-        </v-layout>
-      </v-container>
-
-      </v-form>
     </v-card-text>
     
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn flat color="blue darken-2" class="white--text" @click.native="onSubmit" :loading="loginLoading">Ingresar</v-btn>
 
-      <vue-recaptcha 
-        ref="invisibleRecaptcha"
-        :sitekey="siteKey"
-        size="invisible"
-        @verify="onVerify"
-        @expired="onExpired"
-      ></vue-recaptcha>
+        <v-container grid-list-md text-xs-left>
+        <v-layout row wrap>
+          
+            <v-flex xs12>
+            <v-btn block color="blue darken-2" class="white--text" @click.native="onSubmit()" :loading="loginLoading">Ingresar</v-btn>
+            </v-flex>
+
+            <v-flex xs12>
+                <a class="recuperar-clave" @click="formRecovery()">Olvidastes tu Contraseña?</a>
+            </v-flex>
+
+        </v-layout>
+        </v-container>
+
+        <vue-recaptcha 
+            ref="invisibleRecaptcha"
+            :sitekey="siteKey"
+            size="invisible"
+            @verify="onVerify"
+            @expired="onExpired"
+        ></vue-recaptcha>
 
     </v-card-actions>
-  </v-card>
-</template>
+    </v-form>
 
+    </v-card>
+
+</template>
 
 <script>
   import * as actions from '../../store/action-types'
   import withSnackbar from '../mixins/withSnackbar'
-  import axios from 'axios';
-  import VueRecaptcha from 'vue-recaptcha';
-  import $ from "jquery";
+  import VueRecaptcha from 'vue-recaptcha'
+  import rules from '../mixins/rules'
+
   export default {
-    mixins: [withSnackbar],
-    components: { 
+    mixins: [withSnackbar, rules],
+    components: 
+    { 
       "vue-recaptcha": VueRecaptcha
-     },
+    },
     data () {
       return {
-        alertOpts: {
-          message: "",
-          show: false,
-          type: "info"
+        form: {
+            email:    '',
+            password: ''
         },
-        showPass: false,
-        errors: [],
-        internalAction: this.action,
-        email: '',
-        emailRules: [
-          (v) => !!v || 'El correo es obligatorio'
-        ],
-        password: '',
-        passwordRules: [
-          (v) => !!v || 'La contraseña es obligatoria'
-        ],
-        valid: false,
-        loginLoading: false,
-        siteKey: "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2"
-      }
-    },
-    props: {
-      action: {
-        type: String,
-        default: null
-      },
-      show: {
-        type: Boolean,
-        default: true
-      }
-    },
-    computed: {
-      showLogin: {
-        get () {
-          if (this.internalAction && this.internalAction === 'login') return true
-          return false
-        },
-        set (value) {
-          if (value) this.internalAction = 'login'
-          else this.internalAction = null
-        }
+        showPass:       false,
+        valido:         false,
+        loginLoading:   false,
+        siteKey:        "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2"
       }
     },
     methods: {
-      verFormRecovery () {
-        window.location.href = '/recovery'
-      },
-      onSubmit: function () 
-      {
-        this.loginLoading = true
-        this.$refs.invisibleRecaptcha.execute()
-      },
-      onVerify: function (responseFront) 
-      {
-        var self = this
-        console.log('VERIFICAR', responseFront)
-        axios.post('../api/recaptcha', 
+        formRecovery() 
         {
-          token: responseFront
-        })
-        .then(function (responseBack) 
+            window.location.href = '/recovery'
+        },
+        onSubmit() 
         {
-          if ( responseBack.data.success ) 
-          { 
-            console.log('login')
-            self.login()
-          } 
-          else 
-          { 
-            console.log('fallo', responseBack.data)
-            this.loginLoading = false
-            self.resetRecaptcha() 
-          }
-        })
-        .catch(function (error) {
-          console.log('error', error)
-          self.loginLoading = false
-          self.resetRecaptcha()
+            this.loginLoading = true
+            this.$refs.invisibleRecaptcha.execute()
+        },
+        onVerify(responseFront) 
+        {
+            axios.post('../api/recaptcha',{token: responseFront})
+            .then(respuesta => 
+            {
+                if ( respuesta.data.success ) 
+                { 
+                    this.login()
+                } 
+                else 
+                { 
+                    this.resetRecaptcha() 
+                }
+            })
+            .catch(error => 
+            {
+                this.showError(error)
+                this.resetRecaptcha()
+            });
+        },
+        onExpired() 
+        {
+            this.resetRecaptcha()
+        },
+        resetRecaptcha () 
+        {
+            this.$refs.invisibleRecaptcha.reset()
+        },
+        login () 
+        {
+            if(this.$refs.loginForm.validate()) 
+            {
+                const credentials = {
+                                    'email':    this.form.email,
+                                    'password': this.form.password
+                                    }
 
-        });
-      },
-      onExpired: function () {
-        console.log('expired')
-        this.resetRecaptcha()
-      },
-      resetRecaptcha () {
-        console.log('reset')
-
-        this.$refs.invisibleRecaptcha.reset() // Direct call reset method
-      },
-      login () {
-         console.log('finlogin')
-        if(this.$refs.loginForm.validate()) {
-
-          
-          const credentials = {
-            'tx_email': this.email,
-            'password': this.password
-          }
-
-          this.$store.dispatch(actions.LOGIN, credentials).then(response => {
-
-            this.loginLoading = false
-            this.showLogin = false
-            window.location = '/home'
-
-          }).catch(error => {
-
-            this.loginLoading = false
-
-            if (error.response && error.response.status === 422) {
-
-              this.alertOpts = {
-                message: "Datos incorrectos!",
-                show: true,
-                type: "error"
-              }
-
-            } else {
-
-              this.alertOpts = {
-                message: "Ocurrio un error, por favor intente nuevamente!",
-                show: true,
-                type: "error"
-              }
-
+                this.$store.dispatch(actions.LOGIN, credentials)
+                .then(response => 
+                {
+                    window.location = '/home'
+                })
+                .catch(error => 
+                {
+                    this.showError(error);
+                })
+                .then(() => 
+                {
+                    this.loginLoading = false
+                })
             }
-
-          }).then(() => {
-            this.loginLoading = false
-          })
-        }
-      },
+        },
     }
   }
 </script>
-
-<style scoped lang="less">
-
-</style>

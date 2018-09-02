@@ -45,12 +45,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nb_usuario' => 'required|max:255|unique:usuario,nb_usuario',
-            'tx_email'   => 'required|email|max:255|unique:usuario,tx_email',
+            'email'   => 'required|email|max:255|unique:usuario,tx_email',
             'password'   => 'required|min:6'
         ],
         [
             'nb_usuario.unique'   => 'El usuario ya está en uso.',
-            'tx_email.unique'     => 'El correo ya está en uso.',
+            'email.unique'     => 'El correo ya está en uso.',
         ]);
 
     }
@@ -65,7 +65,7 @@ class RegisterController extends Controller
     {
         $usuario = Usuario::create([
             'nb_usuario'    => $data['nb_usuario'],
-            'tx_email'      => $data['tx_email'],
+            'email'         => $data['email'],
             'password'      => bcrypt($data['password']),
             'id_status'     => 1,
             'id_usuario_e'  => 1

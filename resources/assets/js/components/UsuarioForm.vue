@@ -25,7 +25,7 @@
 
             <v-flex xs12 sm6 >
             <v-text-field
-                v-model="form.tx_email"
+                v-model="form.email"
                 :rules="rules.requerido"
                 label="Correo del Usuario"
                 required
@@ -118,7 +118,7 @@ export default {
                 id_usuario:       '',
                 nb_usuario:       '',
                 password:         '',
-                tx_email:        '',
+                email:            '',
                 tx_observaciones: '',
                 id_status:        '',
             },

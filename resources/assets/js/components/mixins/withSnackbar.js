@@ -30,6 +30,10 @@ export default {
           case 404:
             msg = 'Servicio No disponible'
             break;
+          
+          case 403:
+            msg = 'Sin autorizacion'
+            break;
 
           case 401:
             msg = 'Session invalida favor Ingresar nuevamente '
@@ -47,9 +51,19 @@ export default {
               msg = msg + error.response.data.errors[idx];
             }
             break;
+          
+          case 400:
+            for (var idx in error.response.data) 
+            {
+              msg = msg + error.response.data[idx];
+            }
+            break;
 
           default:
-            msg = error.response.data.message
+            for (var idx in error.response.data) 
+            {
+              msg = msg + error.response.data[idx];
+            }
             break;
         }
 

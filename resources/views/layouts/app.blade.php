@@ -112,7 +112,7 @@
             <v-container fluid grid-list-md class="grey lighten-4">
                 <v-list-tile >
                     <v-list-tile-avatar>
-                        <v-icon>account_circle</v-icon>
+                        <v-icon large>account_circle</v-icon>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title>@{{ user.usuario }} </v-list-tile-title>
@@ -130,7 +130,7 @@
                     <v-list-tile >
                         <v-list-tile-content>
                             <v-list-tile-title>Email </v-list-tile-title>
-                            <v-list-tile-sub-title >@{{ user.tx_email }}</v-list-tile-sub-title>
+                            <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>

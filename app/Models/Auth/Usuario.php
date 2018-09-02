@@ -3,10 +3,12 @@
 namespace App\Models\Auth;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use \App\Notifications\RecoverPasswordNotificaction;
 
-class Usuario extends Authenticatable
+class Usuario extends Authenticatable implements CanResetPassword
 {
     use HasApiTokens,Notifiable;
 
@@ -20,7 +22,7 @@ class Usuario extends Authenticatable
     protected $fillable   = [
                             'nb_usuario',
                             'password',
-                            'tx_email',
+                            'email',
                             'nb_nombre',
                             'nb_apellido',
                             'tx_token',
@@ -54,6 +56,17 @@ class Usuario extends Authenticatable
     public function getRememberTokenName()
     {
         return 'tx_token';
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new RecoverPasswordNotificaction($token));
     }
 
     public function status()

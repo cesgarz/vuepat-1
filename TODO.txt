@@ -22,12 +22,14 @@
   reporte excel
 
 
+php artisan vendor-publish --tag=laravel-notifications:
+
  - pase a produccion 
   npm run prod
   Laravel
   APP_DEBUG=false
   APP_ENV=production
-  APP_URL=http://localhost
+  APP_URL=http://localhost <- ip del equipo
 
   artisan auth:clear-resets 
   artisan cache:clear

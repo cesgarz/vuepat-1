@@ -3,15 +3,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-//tools
+//tools 
 Vue.component('form-buttons',        require('./components/FormButtons.vue'));
 Vue.component('form-container',      require('./components/FormContainer.vue'));
 Vue.component('list-buttons',        require('./components/ListButtons.vue'));
 
 Vue.component('dialogo',             require('./components/Dialogo.vue'));
 Vue.component('snackbar',            require('./components/SnackBarComponent.vue'));
-Vue.component('v-autonumeric',       require('./components/VAutonumeric.vue'));
-Vue.component('currency-field',      require('./components/CurrencyField.vue'));
 
 //login/registro/password
 Vue.component('login-button',        require('./components/LoginButtonComponent.vue'));
@@ -21,6 +19,7 @@ Vue.component('reset-password',      require('./components/ResetPasswordComponen
 Vue.component('form-login',          require('./components/frontend/form-login.vue'));
 Vue.component('form-register',       require('./components/frontend/form-register.vue'));
 Vue.component('form-recovery',       require('./components/frontend/form-recovery.vue'));
+Vue.component('form-passreset',      require('./components/frontend/form-passreset.vue'));
 
 //Registro
 Vue.component('home',                require('./components/Home.vue'));
@@ -77,9 +76,10 @@ if (window.user) {
     if(window.location.pathname != '/' &&
        window.location.pathname != '/welcome' &&
        window.location.pathname != '/registration' &&
-       window.location.pathname != '/recovery')
+       window.location.pathname != '/recovery'   &&
+       window.location.pathname != '/password/reset/')
     {
-      alert('La session actual es Invalida Favor Ingresar nuevamente');  
+      alert('La session actual es Invalida Favor Ingresar nuevamente ');  
       window.location = '/'
     }
 }
@@ -219,6 +219,7 @@ const app = new Vue({
       }
     },
     changePassword () {
+
       this.changingPassword = true
       this.$store.dispatch(actions.REMEMBER_PASSWORD, this.user.email).then(response => {
         this.showMessage(`Correo para reinicio de contraseña`)
@@ -229,5 +230,7 @@ const app = new Vue({
         this.changingPassword = false
       })
     }
+
+
   }
 });

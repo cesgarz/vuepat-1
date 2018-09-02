@@ -21,7 +21,7 @@ class UsuarioController extends Controller
                                  'nb_usuario', 
                                  'nb_nombre', 
                                  'nb_apellido', 
-                                 'tx_email'
+                                 'email'
 
                                 )->with(['status'])->get();
         

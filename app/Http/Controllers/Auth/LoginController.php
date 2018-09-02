@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'tx_email';
+        return 'email';
     }
     /**
      * Attempt to log the user into the application.
@@ -33,7 +33,7 @@ class LoginController extends Controller
      */
     protected function xattemptLogin(Request $request)
     {
-        $credentials = ['tx_email' => $request->tx_email , 'password' => $request->password];
+        $credentials = ['email' => $request->email , 'password' => $request->password];
         $token = $this->guard()->attempt($credentials);
 
         if ($token) {
@@ -75,11 +75,11 @@ class LoginController extends Controller
         $this->guard()->logout();
     }
 
-    protected function xvalidator(array $data)
+    protected function validator(array $data)
     {
         return Validator::make($data, [
-            'tx_email' => 'required|email|max:255',
-            'tx_password' => 'required|min:6',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
         ]);
     }
 }
