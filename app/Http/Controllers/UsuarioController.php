@@ -101,16 +101,26 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::where('co_confirmacion', $codigo)->first();
 
-        if (! $usuario)
+        $mensaje = null;
+        $tipo    = null;
+
+        if ($usuario)
         {
-            return ['msj' => 'codigo de confirmacion invalido'];
+            $usuario->bo_confirmado    = true;
+            $usuario->co_confirmacion  = null;
+            $usuario->save();
+
+            $mensaje = 'Usuario Confirmado ';
+            $tipo    = 'success';
         }
-    
-        $usuario->bo_confirmado    = true;
-        $usuario->co_confirmacion  = null;
-        $usuario->save();
-    
-        return ['msj' => 'Usuario Confirmado'];
+        else
+        {
+            $mensaje = 'Código de confirmacion inválido';
+            $tipo    = 'error';
+        }
+
+        return view('auth.confirm', compact('mensaje', 'tipo'));
+
     }
 
 }

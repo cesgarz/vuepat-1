@@ -12,11 +12,8 @@ Vue.component('dialogo',             require('./components/Dialogo.vue'));
 Vue.component('snackbar',            require('./components/SnackBarComponent.vue'));
 
 //login/registro/password
-Vue.component('login-button',        require('./components/LoginButtonComponent.vue'));
-Vue.component('remember-password',   require('./components/RememberPasswordComponent.vue'));
-Vue.component('reset-password',      require('./components/ResetPasswordComponent.vue'));
-
 Vue.component('form-login',          require('./components/frontend/form-login.vue'));
+Vue.component('form-confirm',        require('./components/frontend/form-confirm.vue'));
 Vue.component('form-register',       require('./components/frontend/form-register.vue'));
 Vue.component('form-recovery',       require('./components/frontend/form-recovery.vue'));
 Vue.component('form-passreset',      require('./components/frontend/form-passreset.vue'));
@@ -45,13 +42,12 @@ Vue.component('sector-form',         require('./components/tablas_maestras/Secto
 //reportes
 Vue.component('report',              require('./components/reports/Report.vue'));
 Vue.component('report-data',         require('./components/reports/ReportData.vue'));
-Vue.component('planilla',            require('./components/Planilla.vue'));
+Vue.component('planilla',            require('./components/reports/Planilla.vue'));
 
 //admin
 Vue.component('usuario-lista',       require('./components/UsuarioLista.vue'));
 Vue.component('usuario-form',        require('./components/UsuarioForm.vue'));
 Vue.component('usuario-password',    require('./components/UsuarioPassword.vue'));
-
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -73,7 +69,7 @@ if (window.user) {
 
 }else{
   
-    if(window.location.pathname != '/' &&
+    /*if(window.location.pathname != '/' &&
        window.location.pathname != '/welcome' &&
        window.location.pathname != '/registration' &&
        window.location.pathname != '/recovery'   &&
@@ -81,7 +77,7 @@ if (window.user) {
     {
       alert('La session actual es Invalida Favor Ingresar nuevamente ');  
       window.location = '/'
-    }
+    }*/
 }
 
 Vue.use(Vuetify, {

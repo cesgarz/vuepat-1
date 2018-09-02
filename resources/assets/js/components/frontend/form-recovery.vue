@@ -144,5 +144,30 @@
         },
  
     }
+
+
+    /*
+    
+    rememberPassword () {
+        if (this.$refs.resetPasswordForm.validate()) {
+          this.loading = true
+          this.$store.dispatch(actions.REMEMBER_PASSWORD, this.email).then(response => {
+            this.loading = false
+            this.done = true
+            sleep(4000).then(() => { this.showRememberPassword = false })
+          }).catch(error => {
+            if (error.response && error.response.status === 422) {
+              this.showError({
+                message: 'Invalid data'
+              })
+            } else {
+              this.showError(error)
+            }
+          }).then(() => {
+            this.loading = false
+          })
+        }
+      }
+    */
   }
 </script>

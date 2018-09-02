@@ -1,64 +1,17 @@
-@component('mail::message')
-{{-- Greeting --}}
-@if (! empty($greeting))
-# {{ $greeting }}
-@else
-@if ($level == 'error')
-# @lang('Whoops!')
-@else
-# @lang('Hello!')
-@endif
-@endif
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
 
-{{-- Intro Lines --}}
-@foreach ($introLines as $line)
-{{ $line }}
+    <h2>Hola {{ $nb_usuario }}, gracias por registrarte en <strong>Programación y más</strong> !</h2>
+    <p>Por favor confirma tu correo electrónico.</p>
+    <p>Para ello simplemente debes hacer click en el siguiente enlace:</p>
 
-@endforeach
+    <a href="{{ url('/usuario/verificar/' . $co_confirmacion) }}">
+        Clic para confirmar tu email
+    </a>
 
-{{-- Action Button --}}
-@isset($actionText)
-<?php
-    switch ($level) {
-        case 'success':
-            $color = 'green';
-            break;
-        case 'error':
-            $color = 'red';
-            break;
-        default:
-            $color = 'blue';
-    }
-?>
-@component('mail::button', ['url' => $actionUrl, 'color' => $color])
-{{ $actionText }}
-@endcomponent
-@endisset
-
-{{-- Outro Lines --}}
-@foreach ($outroLines as $line)
-{{ $line }}
-
-@endforeach
-
-{{-- Salutation --}}
-@if (! empty($salutation))
-{{ $salutation }}
-@else
-@lang('Regards'),<br>{{ config('app.name') }}
-@endif
-
-{{-- Subcopy --}}
-@isset($actionText)
-@component('mail::subcopy')
-@lang(
-    "Si tienes problemas al dar click al boton \":actionText\", copia y pega la siguiente URL \n".
-    'en tu navegador: [:actionURL](:actionURL)',
-    [
-        'actionText' => $actionText,
-        'actionURL' => $actionUrl
-    ]
-)
-@endcomponent
-@endisset
-@endcomponent
+</body>
+</html>

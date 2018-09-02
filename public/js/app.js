@@ -43069,11 +43069,8 @@ Vue.component('dialogo', __webpack_require__(196));
 Vue.component('snackbar', __webpack_require__(201));
 
 //login/registro/password
-Vue.component('login-button', __webpack_require__(204));
-Vue.component('remember-password', __webpack_require__(207));
-Vue.component('reset-password', __webpack_require__(210));
-
 Vue.component('form-login', __webpack_require__(213));
+Vue.component('form-confirm', __webpack_require__(415));
 Vue.component('form-register', __webpack_require__(216));
 Vue.component('form-recovery', __webpack_require__(221));
 Vue.component('form-passreset', __webpack_require__(224));
@@ -43102,7 +43099,7 @@ Vue.component('sector-form', __webpack_require__(364));
 //reportes
 Vue.component('report', __webpack_require__(367));
 Vue.component('report-data', __webpack_require__(372));
-Vue.component('planilla', __webpack_require__(375));
+Vue.component('planilla', __webpack_require__(418));
 
 //admin
 Vue.component('usuario-lista', __webpack_require__(380));
@@ -43128,10 +43125,15 @@ if (window.user) {
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].commit(__WEBPACK_IMPORTED_MODULE_2__store_mutation_types__["a" /* LOGGED */], true);
 } else {
 
-  if (window.location.pathname != '/' && window.location.pathname != '/welcome' && window.location.pathname != '/registration' && window.location.pathname != '/recovery' && window.location.pathname != '/password/reset/') {
-    alert('La session actual es Invalida Favor Ingresar nuevamente ');
-    window.location = '/';
-  }
+  /*if(window.location.pathname != '/' &&
+     window.location.pathname != '/welcome' &&
+     window.location.pathname != '/registration' &&
+     window.location.pathname != '/recovery'   &&
+     window.location.pathname != '/password/reset/')
+  {
+    alert('La session actual es Invalida Favor Ingresar nuevamente ');  
+    window.location = '/'
+  }*/
 }
 
 Vue.use(Vuetify, {
@@ -45563,1059 +45565,15 @@ if (false) {
 }
 
 /***/ }),
-/* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(205)
-/* template */
-var __vue_template__ = __webpack_require__(206)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/LoginButtonComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-331b08f9", Component.options)
-  } else {
-    hotAPI.reload("data-v-331b08f9", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 205 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_withSnackbar__ = __webpack_require__(3);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
-      errors: [],
-      internalAction: this.action,
-      username: '',
-      password: '',
-      rules: {
-        username: [function (v) {
-          return !!v || 'Email is mandatory';
-        }],
-        password: [function (v) {
-          return !!v || 'Password is mandatory';
-        }, function (v) {
-          return v.length >= 6 || 'Password have to be at least 6 characters long';
-        }]
-      },
-      valid: false,
-      loginLoading: false
-    };
-  },
-
-  props: {
-    action: {
-      type: String,
-      default: null
-    },
-    show: {
-      type: Boolean,
-      default: true
-    }
-  },
-  computed: {
-    showLogin: {
-      get: function get() {
-        if (this.internalAction && this.internalAction === 'login') return true;
-        return false;
-      },
-      set: function set(value) {
-        if (value) this.internalAction = 'login';else this.internalAction = null;
-      }
-    }
-  },
-  methods: {
-    login: function login() {
-      var _this = this;
-
-      if (this.$refs.loginForm.validate()) {
-        this.loginLoading = true;
-        var credentials = {
-          'username': this.username,
-          'password': this.password
-        };
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* LOGIN */], credentials).then(function (response) {
-          _this.loginLoading = false;
-          _this.showLogin = false;
-          window.location = '/home';
-        }).catch(function (error) {
-
-          _this.loginLoading = false;
-          console.log(error.response);
-
-          if (error.response && error.response.status === 422) {
-            _this.showError(error);
-          } else {
-            _this.showError(error);
-          }
-
-          _this.errors = error.response.data.errors;
-        }).then(function () {
-          _this.loginLoading = false;
-        });
-      }
-    }
-  }
-});
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-dialog",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ],
-      attrs: {
-        persistent: "",
-        "max-width": "500px",
-        fullscreen: _vm.$vuetify.breakpoint.xsOnly
-      },
-      model: {
-        value: _vm.showLogin,
-        callback: function($$v) {
-          _vm.showLogin = $$v
-        },
-        expression: "showLogin"
-      }
-    },
-    [
-      _c(
-        "v-btn",
-        {
-          attrs: { slot: "activator", color: "primary", dark: "" },
-          slot: "activator"
-        },
-        [_vm._v("Ingresar")]
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card",
-        [
-          _c("v-card-title", [
-            _c("span", { staticClass: "headline" }, [_vm._v("Ingresar")])
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c(
-                "v-form",
-                {
-                  ref: "loginForm",
-                  model: {
-                    value: _vm.valid,
-                    callback: function($$v) {
-                      _vm.valid = $$v
-                    },
-                    expression: "valid"
-                  }
-                },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      name: "username",
-                      label: "Usuario",
-                      rules: _vm.rules.username,
-                      error: _vm.errors["username"],
-                      "error-messages": _vm.errors["username"],
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.username,
-                      callback: function($$v) {
-                        _vm.username = $$v
-                      },
-                      expression: "username"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("v-text-field", {
-                    attrs: {
-                      name: "password",
-                      label: "Password",
-                      rules: _vm.rules.password,
-                      hint: "At least 6 characters",
-                      min: "6",
-                      type: "password",
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.password,
-                      callback: function($$v) {
-                        _vm.password = $$v
-                      },
-                      expression: "password"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-container",
-                { attrs: { "grid-list-md": "", "text-xs-center": "" } },
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "/password/reset",
-                              color: "blue darken-2"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Recuperar Password"
-                            )
-                          ]
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "blue darken-2", flat: "" },
-                  nativeOn: {
-                    click: function($event) {
-                      _vm.showLogin = false
-                    }
-                  }
-                },
-                [_vm._v("Cerrar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "white--text",
-                  attrs: { color: "blue darken-2", loading: _vm.loginLoading },
-                  nativeOn: {
-                    click: function($event) {
-                      return _vm.login($event)
-                    }
-                  }
-                },
-                [_vm._v("Ingresar")]
-              ),
-              _vm._v(" "),
-              _c("v-spacer")
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-331b08f9", module.exports)
-  }
-}
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(208)
-/* template */
-var __vue_template__ = __webpack_require__(209)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/RememberPasswordComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-85b99e24", Component.options)
-  } else {
-    hotAPI.reload("data-v-85b99e24", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 208 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_sleep__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__ = __webpack_require__(3);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
-      valid: false,
-      internalAction: this.action,
-      loading: false,
-      done: false,
-      errorMessage: '',
-      errors: [],
-      email: '',
-      emailRules: [function (v) {
-        return !!v || 'Email is mandatory';
-      }, function (v) {
-        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email have to be valid'
-        );
-      }]
-    };
-  },
-
-  props: {
-    action: {
-      type: String,
-      default: null
-    }
-  },
-  methods: {
-    rememberPassword: function rememberPassword() {
-      var _this = this;
-
-      if (this.$refs.resetPasswordForm.validate()) {
-        this.loading = true;
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["e" /* REMEMBER_PASSWORD */], this.email).then(function (response) {
-          _this.loading = false;
-          _this.done = true;
-          Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
-            _this.showRememberPassword = false;
-          });
-        }).catch(function (error) {
-          if (error.response && error.response.status === 422) {
-            _this.showError({
-              message: 'Invalid data'
-            });
-          } else {
-            _this.showError(error);
-          }
-        }).then(function () {
-          _this.loading = false;
-        });
-      }
-    }
-  },
-  computed: {
-    showRememberPassword: {
-      get: function get() {
-        if (this.internalAction && this.internalAction === 'request_new_password') return true;
-        return false;
-      },
-      set: function set(value) {
-        if (value) this.internalAction = 'request_new_password';else this.internalAction = null;
-      }
-    }
-  }
-});
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-dialog",
-    {
-      attrs: { persistent: "", "max-width": "500px" },
-      model: {
-        value: _vm.showRememberPassword,
-        callback: function($$v) {
-          _vm.showRememberPassword = $$v
-        },
-        expression: "showRememberPassword"
-      }
-    },
-    [
-      _c(
-        "v-card",
-        [
-          _c("v-card-title", [
-            _c("span", { staticClass: "headline" }, [
-              _vm._v("Send reset password email")
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c(
-                "v-form",
-                {
-                  ref: "resetPasswordForm",
-                  model: {
-                    value: _vm.valid,
-                    callback: function($$v) {
-                      _vm.valid = $$v
-                    },
-                    expression: "valid"
-                  }
-                },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      label: "E-mail",
-                      rules: _vm.emailRules,
-                      error: _vm.errors["email"],
-                      "error-messages": _vm.errors["email"],
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.email,
-                      callback: function($$v) {
-                        _vm.email = $$v
-                      },
-                      expression: "email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "/login", color: "blue darken-2" } }, [
-                _vm._v("\n                Login\n            ")
-              ]),
-              _vm._v("   |\n            "),
-              _c(
-                "a",
-                { attrs: { href: "/register", color: "blue darken-2" } },
-                [_vm._v("\n                Register\n            ")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "blue darken-1", flat: "" },
-                  nativeOn: {
-                    click: function($event) {
-                      _vm.showRememberPassword = false
-                    }
-                  }
-                },
-                [_vm._v("Tancar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    loading: _vm.loading,
-                    flat: "",
-                    color: _vm.done ? "green" : "blue"
-                  },
-                  nativeOn: {
-                    click: function($event) {
-                      return _vm.rememberPassword($event)
-                    }
-                  }
-                },
-                [
-                  !_vm.done
-                    ? _c("v-icon", [_vm._v("mail_outline")])
-                    : _c("v-icon", [_vm._v("done")]),
-                  _vm._v("\n                 \n                "),
-                  !_vm.done ? [_vm._v("Send")] : [_vm._v("Done")]
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-85b99e24", module.exports)
-  }
-}
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(211)
-/* template */
-var __vue_template__ = __webpack_require__(212)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/ResetPasswordComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7300008a", Component.options)
-  } else {
-    hotAPI.reload("data-v-7300008a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 211 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_sleep__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__ = __webpack_require__(3);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
-      internalAction: this.action,
-      internalEmail: this.email,
-      loading: false,
-      done: false,
-      emailRules: [function (v) {
-        return !!v || 'El correo és obligatorio';
-      }, function (v) {
-        return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
-        );
-      }],
-      password: '',
-      passwordConfirmation: '',
-      passwordRules: [function (v) {
-        return !!v || 'El password es obligatorio';
-      }, function (v) {
-        return v.length >= 6 || 'El password debe tener almenos 6 caracteres';
-      }],
-      valid: false
-    };
-  },
-
-  props: {
-    action: {
-      type: String,
-      default: null
-    },
-    token: {
-      type: String,
-      default: null
-    },
-    email: {
-      type: String,
-      default: null
-    }
-  },
-  computed: {
-    showResetPassword: {
-      get: function get() {
-        return this.internalAction && this.internalAction === 'reset_password';
-      },
-      set: function set(value) {
-        if (value) this.internalAction = 'reset_password';else this.internalAction = null;
-      }
-    }
-  },
-  methods: {
-    reset: function reset() {
-      var _this = this;
-
-      if (this.$refs.resetPasswordForm.validate()) {
-        var user = {
-          'email': this.internalEmail,
-          'password': this.password,
-          'password_confirmation': this.passwordConfirmation,
-          'token': this.token
-        };
-        this.loading = true;
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["f" /* RESET_PASSWORD */], user).then(function (response) {
-          _this.loading = false;
-          _this.done = true;
-          Object(__WEBPACK_IMPORTED_MODULE_1__utils_sleep__["a" /* default */])(4000).then(function () {
-            _this.showResetPassword = false;
-            window.location = '/home';
-          });
-        }).catch(function (error) {
-          if (error.response && error.response.status === 422) {
-            _this.showError({
-              message: 'Invalid data'
-            });
-          } else {
-            _this.showError(error);
-          }
-          _this.errors = error.response.data.errors;
-        }).then(function () {
-          _this.loading = false;
-        });
-      }
-    }
-  }
-});
-
-/***/ }),
-/* 212 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-dialog",
-    {
-      attrs: { persistent: "", "max-width": "500px" },
-      model: {
-        value: _vm.showResetPassword,
-        callback: function($$v) {
-          _vm.showResetPassword = $$v
-        },
-        expression: "showResetPassword"
-      }
-    },
-    [
-      _c(
-        "v-card",
-        [
-          _c("v-card-title", [
-            _c("span", { staticClass: "headline" }, [
-              _vm._v("Recuperar Password")
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c(
-                "v-form",
-                {
-                  ref: "resetPasswordForm",
-                  model: {
-                    value: _vm.valid,
-                    callback: function($$v) {
-                      _vm.valid = $$v
-                    },
-                    expression: "valid"
-                  }
-                },
-                [
-                  _c("v-text-field", {
-                    attrs: {
-                      label: "Email",
-                      rules: _vm.emailRules,
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.internalEmail,
-                      callback: function($$v) {
-                        _vm.internalEmail = $$v
-                      },
-                      expression: "internalEmail"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("v-text-field", {
-                    attrs: {
-                      name: "password",
-                      label: "Password",
-                      rules: _vm.passwordRules,
-                      hint: "At least 6 characters",
-                      min: "6",
-                      type: "password",
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.password,
-                      callback: function($$v) {
-                        _vm.password = $$v
-                      },
-                      expression: "password"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("v-text-field", {
-                    attrs: {
-                      name: "passwordConfirmation",
-                      label: "Password confirmation",
-                      rules: _vm.passwordRules,
-                      hint: "At least 6 characters",
-                      min: "6",
-                      type: "password",
-                      required: ""
-                    },
-                    model: {
-                      value: _vm.passwordConfirmation,
-                      callback: function($$v) {
-                        _vm.passwordConfirmation = $$v
-                      },
-                      expression: "passwordConfirmation"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { color: "blue darken-1", flat: "" },
-                  nativeOn: {
-                    click: function($event) {
-                      _vm.showResetPassword = false
-                    }
-                  }
-                },
-                [_vm._v("Cerrar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    loading: _vm.loading,
-                    flat: "",
-                    color: _vm.done ? "green" : "blue"
-                  },
-                  nativeOn: {
-                    click: function($event) {
-                      return _vm.reset($event)
-                    }
-                  }
-                },
-                [
-                  _vm.done ? _c("v-icon", [_vm._v("done")]) : _vm._e(),
-                  _vm._v("\n                 \n                "),
-                  !_vm.done ? [_vm._v("Reset")] : [_vm._v("Done")]
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7300008a", module.exports)
-  }
-}
-
-/***/ }),
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
 /* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47697,6 +46655,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }
     }
+
+    /*
+    
+    rememberPassword () {
+        if (this.$refs.resetPasswordForm.validate()) {
+          this.loading = true
+          this.$store.dispatch(actions.REMEMBER_PASSWORD, this.email).then(response => {
+            this.loading = false
+            this.done = true
+            sleep(4000).then(() => { this.showRememberPassword = false })
+          }).catch(error => {
+            if (error.response && error.response.status === 422) {
+              this.showError({
+                message: 'Invalid data'
+              })
+            } else {
+              this.showError(error)
+            }
+          }).then(() => {
+            this.loading = false
+          })
+        }
+      }
+    */
 });
 
 /***/ }),
@@ -74993,269 +73975,11 @@ if (false) {
 }
 
 /***/ }),
-/* 375 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(376)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(378)
-/* template */
-var __vue_template__ = __webpack_require__(379)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Planilla.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-073a7d38", Component.options)
-  } else {
-    hotAPI.reload("data-v-073a7d38", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 376 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(377);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("ef439394", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-073a7d38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-073a7d38\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 377 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 378 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      confirmacion: false,
-      confirmado: false
-    };
-  }
-});
-
-/***/ }),
-/* 379 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    [
-      _c(
-        "v-card",
-        { staticClass: "rounded-10" },
-        [
-          _c(
-            "v-card-title",
-            { staticClass: "light-blue darken-3 white--text" },
-            [_c("h2", [_vm._v("Planilla de Registro")])]
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-text",
-            [
-              _c(
-                "v-form",
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      _c(
-                        "v-flex",
-                        { attrs: { xs12: "", "text-lg-left": "" } },
-                        [
-                          _vm._v(
-                            "\n                DECLARO que los datos consignados en el presente registro son correctos, completos y fiel\n                expresión de la verdad, comprometiéndome a comunicar en forma fehaciente cualquier cambio\n                que se produzca sobre los mismos.\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-flex",
-                        { attrs: { xs12: "" } },
-                        [
-                          _c("v-checkbox", {
-                            attrs: { label: "Aceptar", value: "si" },
-                            model: {
-                              value: _vm.confirmacion,
-                              callback: function($$v) {
-                                _vm.confirmacion = $$v
-                              },
-                              expression: "confirmacion"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-flex",
-                        { attrs: { xs12: "" } },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.confirmacion,
-                                  expression: "confirmacion"
-                                }
-                              ],
-                              attrs: {
-                                dark: "",
-                                color: "red",
-                                href: "/PlanillaPdf",
-                                target: "_bank"
-                              }
-                            },
-                            [
-                              _vm._v("Ver Planilla de Registro"),
-                              _c("v-icon", [_vm._v("assignment")])
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-073a7d38", module.exports)
-  }
-}
-
-/***/ }),
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
 /* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -100723,6 +99447,510 @@ exports.default = Object.freeze({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(416)
+/* template */
+var __vue_template__ = __webpack_require__(417)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/frontend/form-confirm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-858fffe6", Component.options)
+  } else {
+    hotAPI.reload("data-v-858fffe6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 416 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      valido: false
+    };
+  },
+
+  props: ['mensaje', 'tipo'],
+  methods: {
+    formLogin: function formLogin() {
+      window.location = '/';
+    }
+  }
+});
+
+/***/ }),
+/* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-card",
+    { staticClass: "rounded-10 transparent" },
+    [
+      _c("v-card-title", { staticClass: "blue-grey lighten-4" }, [
+        _c(
+          "span",
+          { staticClass: "headline" },
+          [
+            _c("v-icon", { attrs: { large: "" } }, [_vm._v("how_to_reg")]),
+            _vm._v(" Confirmacion de Usuario")
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-form",
+        {
+          ref: "recoveryForm",
+          model: {
+            value: _vm.valido,
+            callback: function($$v) {
+              _vm.valido = $$v
+            },
+            expression: "valido"
+          }
+        },
+        [
+          _c(
+            "v-card-text",
+            [
+              _c("v-flex", { attrs: { xs12: "" } }),
+              _vm._v(" "),
+              _c(
+                "v-chip",
+                {
+                  attrs: { close: "", color: _vm.tipo, "text-color": "white" }
+                },
+                [
+                  _c("v-avatar", [
+                    _vm.tipo == "success"
+                      ? _c("div", [_c("v-icon", [_vm._v("check_circle")])], 1)
+                      : _c("div", [_c("v-icon", [_vm._v("error")])], 1)
+                  ]),
+                  _vm._v(" "),
+                  _c("h3", [_vm._v(_vm._s(_vm.mensaje))])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c(
+                "v-container",
+                { attrs: { "grid-list-md": "", "text-xs-left": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { block: "", color: "primary", dark: "" },
+                              on: {
+                                click: function($event) {
+                                  _vm.formLogin()
+                                }
+                              }
+                            },
+                            [_vm._v("Formulario  de Ingreso")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-858fffe6", module.exports)
+  }
+}
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(419)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(421)
+/* template */
+var __vue_template__ = __webpack_require__(422)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/reports/Planilla.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-53707c88", Component.options)
+  } else {
+    hotAPI.reload("data-v-53707c88", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(420);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("4d98cabc", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53707c88\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53707c88\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Planilla.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 421 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      confirmacion: false,
+      confirmado: false
+    };
+  }
+});
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    [
+      _c(
+        "v-card",
+        { staticClass: "rounded-10" },
+        [
+          _c(
+            "v-card-title",
+            { staticClass: "light-blue darken-3 white--text" },
+            [_c("h2", [_vm._v("Planilla de Registro")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            [
+              _c(
+                "v-form",
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", "text-lg-left": "" } },
+                        [
+                          _vm._v(
+                            "\n                DECLARO que los datos consignados en el presente registro son correctos, completos y fiel\n                expresión de la verdad, comprometiéndome a comunicar en forma fehaciente cualquier cambio\n                que se produzca sobre los mismos.\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Aceptar", value: "si" },
+                            model: {
+                              value: _vm.confirmacion,
+                              callback: function($$v) {
+                                _vm.confirmacion = $$v
+                              },
+                              expression: "confirmacion"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.confirmacion,
+                                  expression: "confirmacion"
+                                }
+                              ],
+                              attrs: {
+                                dark: "",
+                                color: "red",
+                                href: "/PlanillaPdf",
+                                target: "_bank"
+                              }
+                            },
+                            [
+                              _vm._v("Ver Planilla de Registro"),
+                              _c("v-icon", [_vm._v("assignment")])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-53707c88", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
