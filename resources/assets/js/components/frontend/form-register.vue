@@ -1,255 +1,194 @@
 <template>
 
   <v-card class="rounded-10 transparent">
+    
     <v-card-title class="blue-grey lighten-4">
-
-      <span class="headline"><v-icon large>person_add</v-icon>   Registrarse</span>
-
+        <span class="headline"><v-icon large>person_add</v-icon> Registrarse</span>
     </v-card-title>
+    
+    <v-form v-model="valido" ref="registerForm" >
     <v-card-text>
 
-      <v-form ref="registerForm" v-model="valid" color="blue">
-
+        <v-flex xs12>
         <v-text-field
-          :error="errors['username']"
-          :error-messages="errors['username']"
-          :rules="usernameRules"
-          color="blue"
-          label="Usuario"
-          name="username"
-          required
-          v-model="username"
-          append-icon="person"></v-text-field>
+            v-model="form.nb_usuario"
+            :rules="rules.requerido"
+            label="Usuario *"
+            append-icon="person"
+        ></v-text-field>
+        </v-flex> 
 
+        <v-flex xs12>
         <v-text-field
-          :error="errors['email']"
-          :error-messages="errors['email']"
-          :rules="emailRules"
-          color="blue"
-          label="Correo"
-          name="email"
-          required
-          v-model="email"
-          append-icon="mail"></v-text-field>
+            v-model="form.email"
+            :rules="rules.email"
+            label="Correo *"
+            append-icon="mail"
+        ></v-text-field>
+        </v-flex> 
 
+        <v-flex xs12>   
         <v-text-field
-          :append-icon="showPass ? 'visibility_off' : 'visibility'"
-          :append-icon-cb="() => (showPass = !showPass)"
-          :rules="passwordRules"
-          :type="showPass ? 'text' : 'password'"
-          color="blue"
-          label="Contraseña"
-          name="password"
-          required
-          v-model="password"></v-text-field>
+            v-model="form.password"
+            :rules="rules.password"
+            label="Contraseña *"
+            :append-icon ="showPass ? 'visibility' :'visibility_off' "
+            :type="showPass ? 'text' : 'password'"
+            @click:append="showPass = !showPass"
+            color="blue"
+        ></v-text-field>        
+        </v-flex>
 
-          <v-text-field
-          :rules="passwordConfirmationRules"
-          :type="showPass ? 'text' : 'password'"
-          color="blue"
-          label="Confiirmar Contraseña"
-          name="passwordConfirmation"
-          required
-          v-model="passwordConfirmation"
-          append-icon="lock"></v-text-field>
+        <v-flex xs12>   
+        <v-text-field
+            v-model="form.password_confirmation"
+            :rules="rules.password_confirmation"
+            label="Confirmar Contraseña *"
+            :append-icon ="showPass ? 'visibility' :'visibility_off' "
+            :type="showPass ? 'text' : 'password'"
+            @click:append="showPass = !showPass"
+            color="blue"
+        ></v-text-field>        
+        </v-flex>
 
-      </v-form>
+        <v-flex xs12 v-show="done">
+            <v-icon color="green">done</v-icon><v-icon color="green">email</v-icon>   
+            <div color="green">Se ha enviado un correo para activar el Usuario</div>  
+        </v-flex>
 
-      <v-container grid-list-md text-xs-left>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <v-alert
-              :type="alertOpts.type"
-              v-model="alertOpts.show"
-              dismissible>
-              {{ alertOpts.message }}
-            </v-alert>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn flat color="blue darken-2" class="white--text" @click.native="onSubmit">Registrar</v-btn>
-
-      <vue-recaptcha 
+        <vue-recaptcha 
         ref="invisibleRecaptcha"
         :sitekey="siteKey"
         size="invisible"
         @verify="onVerify"
         @expired="onExpired"
-      ></vue-recaptcha>
+        ></vue-recaptcha>   
 
-      <v-spacer></v-spacer>
+    </v-card-text>   
+    
+    <v-card-actions>
+
+        <v-container grid-list-md text-xs-left>
+        <v-layout row wrap>
+            
+            <v-flex xs12>
+            <v-btn block @click="register()" color="primary" :loading="loading" dark>Registrar</v-btn>
+            </v-flex>
+
+            <v-flex xs12>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+            <v-btn block @click="formLogin() " color="error" dark>ya poseeo una cuenta</v-btn>
+            </v-flex>
+        
+        </v-layout>
+        </v-container>
+        
     </v-card-actions>
-  </v-card>
+
+    </v-form>
+    </v-card>
 </template>
 
 
 <script>
   import * as actions from '../../store/action-types'
+  import sleep from '../../utils/sleep'
   import withSnackbar from '../mixins/withSnackbar'
-  import formHelper from '../../components/mixins/formHelper';
-  import axios from 'axios';
-  import VueRecaptcha from 'vue-recaptcha';
-  import $ from "jquery";
+  import VueRecaptcha from 'vue-recaptcha'
+  import rules from '../mixins/rules'
+
   export default {
-    mixins: [withSnackbar],
-    components: { 
+    mixins: [withSnackbar, rules],
+    components: 
+    { 
       "vue-recaptcha": VueRecaptcha
-     },
+    },
     data () {
       return {
-        alertOpts: {
-          message: "",
-          show:    false,
-          type:    "info"
+        form:{
+            nb_usuario:             '',
+            email:                  '',
+            password:               '',
+            password_confirmation:  ''
         },
-        siteKey: "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2",
-        showPass: false,
-        valid: false,
-        errors: [],
-        username: '',
-        usernameRules: [
-          (v) => !!v || 'El nombre de usuario es obligatorio',
-          (v) => v.length >= 6 || 'El nombre de usuario debe tener almenos 6 caracteres'
-        ],
-        email: '',
-        emailRules: [
-          (v) => !!v || 'El correo es obligatorio',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email inválido'
-        ],
-        password: '',
-        passwordRules: [
-          (v) => !!v || 'La contraseña es obligatoria',
-          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres'
-        ],
-        passwordConfirmation: '',
-        passwordConfirmationRules: [
-          (v) => v.length >= 6 || 'La contraseña debe tener almenos 6 caracteres',
-          (v) => this.password === this.passwordConfirmation || 'Las contraseñas no coinciden'
-        ],
+        loading:    false,
+        valido:     false,
+        activo:     true,
+        showPass:   false,
+        done:       false,
+        siteKey:    "6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2"
       }
     },
-    props: {},
-    computed: {},
-    methods: {
-      onSubmit: function () {
-        this.$refs.invisibleRecaptcha.execute()
-      },
-      onVerify: function (responseFront) {
-
-        var self = this
-
-        axios.post('../api/recaptcha', {
-          token: responseFront
-        })
-        .then(function (responseBack) {
-          if ( responseBack.data.success ) { 
-            self.register()
-          } 
-          else { 
-            self.resetRecaptcha() 
-          }
-        })
-        .catch(function (error) {
-          self.resetRecaptcha()
-        });
-      },
-      onExpired: function () {
-        this.resetRecaptcha()
-      },
-      resetRecaptcha () {
-        this.$refs.invisibleRecaptcha.reset() // Direct call reset method
-      },
-      register () {
-
-        if (this.$refs.registerForm.validate()) {
-          
-          const form = {
-            'nb_usuario': this.username,
-            'password':   this.password,
-            'tx_email':   this.email,
-          }
-
-            this.$store.dispatch(actions.REGISTER, form).then(response => {
-              
-              this.login()
-
-            }).catch(error => {
-
-              let msg = '';
-              
-              if(error.hasOwnProperty('response'))
-              {
-                for (var idx in error.response.data.errors) {
-                  msg = msg + ' ' + error.response.data.errors[idx];
-                }
-
-                switch (status) {
-                  case 500:
-                    msg = 'Error interno ->' + error.response.data.message
-                    break;
-                  case 404:
-                    msg = '404 No Encontrado'
-                  break;
-                  case 401:
-                    msg = 'Session invalida favor Ingresar nuevamente '
-                    window.location.href = '/'
-                  break;
-                  case 429:
-                    msg = 'Demasiadas peticiones'
-                  break;
-                }
-
-                this.alertOpts = {
-                        message: msg,
-                        show:    true,
-                        type:    "error"
-                      }
-                  
-              }
-              else
-              {
-                this.alertOpts = {
-                        message: "Ocurrio un error, por favor intente registrarse nuevamente",
-                        show:    true,
-                        type:    "error"
-                      }
-              }
-            }).then(() => {
-              //nothing
-            })
-        }
-
-      },
-      login () {
-
-          const credentials = {
-            'tx_email': this.email,
-            'password': this.password
-          }
-
-          this.$store.dispatch(actions.LOGIN, credentials).then(response => {
-
-           window.location = '/home'
-
-          }).catch(error => {
-            
-            this.alertOpts = {
-              message: "Ocurrio un error, por favor intente ingresar nuevamente desde el Inicio de Sesion",
-              show:    true,
-              type:    "error"
+    methods: 
+    {
+        formLogin() 
+        {
+            window.location = '/'
+        },
+        onSubmit() 
+        {
+            if (this.$refs.registerForm.validate())
+            {
+                this.loading = true
+                this.$refs.invisibleRecaptcha.execute()
             }
+        },
+        onVerify(responseFront) 
+        {
+            console.log('verificar')
+            axios.post('../../api/recaptcha',{token: responseFront})
+            .then(respuesta => 
+            {
+                if ( respuesta.data.success ) 
+                { 
+                    this.register()
+                } 
+                else 
+                { 
+                    this.resetRecaptcha()
+                    
+                }
+            })
+            .catch(error => 
+            {
+                this.showError(error)
+                this.loading = false
+                this.resetRecaptcha()
+            });
+        },
+        onExpired() 
+        {
+           console.log('expira') 
+           this.resetRecaptcha()
+        },
+        resetRecaptcha () 
+        {
+           console.log('reset') 
+           this.$refs.invisibleRecaptcha.reset()
+        },
+        register () {
+          
+           console.log('registrar')
+            this.$store.dispatch(actions.REGISTER, this.form).then(response => {
+              
+              this.done    = true
+              this.$refs.registerForm.reset()
+              sleep(4000).then(() => {
+                    this.done    = false
+              })
 
-
-          }).then(() => {
-            //nothing
-          })
+            }).catch(error =>
+            {
+                this.showError(error);
+            })
+            .then(() => 
+            {
+                this.loading = false
+            })
       },
-    }
-  }
+   }
+}
 </script>
 
 <style scoped lang="less">

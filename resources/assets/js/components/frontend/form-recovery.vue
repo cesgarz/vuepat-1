@@ -124,22 +124,22 @@
         recovery()
         {
                        
-                axios.post('/api/password/email', this.form)
-                .then(respuesta => 
-                {
-                    this.showMessage(respuesta.data.status)
-                    sleep(4000).then(() => {
-                        window.location = '/'
-                    })
+            axios.post('/api/password/email', this.form)
+            .then(respuesta => 
+            {
+                this.showMessage(respuesta.data.status)
+                sleep(4000).then(() => {
+                    window.location = '/'
                 })
-                .catch(error => 
-                {
-                    this.showError(error);
-                })
-                .then(()=>
-                {
-                    this.loading = false
-                })
+            })
+            .catch(error => 
+            {
+                this.showError(error);
+            })
+            .then(()=>
+            {
+                this.loading = false
+            })
             
         },
  

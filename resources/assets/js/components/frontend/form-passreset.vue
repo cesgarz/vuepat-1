@@ -59,7 +59,7 @@
         <v-layout row wrap>
             
             <v-flex xs12>
-            <v-btn block @click="onSubmit()" color="primary" :loading="loading" dark>Restablecer Password</v-btn>
+            <v-btn block @click="passReset()" color="primary" :loading="loading" dark>Restablecer Password</v-btn>
             </v-flex>
 
             <v-flex xs12>
@@ -161,7 +161,7 @@
         },
         resetRecaptcha () 
         {
-            this.$refs.invisibleRecaptcha.reset()
+            this.$refs.resetPasswordForm.reset()
         },
         passReset()
         {
@@ -170,6 +170,7 @@
             .then(respuesta => 
             {
                 this.showMessage(respuesta.data.status)
+                this.$refs.registerForm.reset()
             })
             .catch(error => 
             {

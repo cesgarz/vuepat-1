@@ -29,6 +29,8 @@ class Usuario extends Authenticatable implements CanResetPassword
                             'tx_observaciones',
                             'id_status',
                             'id_usuario_e',
+                            'bo_confirmado',
+                            'co_confirmacion'
                             ]; 
     
     protected $hidden     = ['tx_token','password','fe_creado','fe_actualizado' ];

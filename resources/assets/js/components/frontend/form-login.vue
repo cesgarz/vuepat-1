@@ -35,7 +35,7 @@
         <v-layout row wrap>
           
             <v-flex xs12>
-            <v-btn block color="blue darken-2" class="white--text" @click.native="onSubmit()" :loading="loginLoading">Ingresar</v-btn>
+            <v-btn block color="blue darken-2" class="white--text" @click.native="login()" :loading="loginLoading">Ingresar</v-btn>
             </v-flex>
 
             <v-flex xs12>

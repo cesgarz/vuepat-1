@@ -94,4 +94,23 @@ class UsuarioController extends Controller
  
         return [ 'msj' => 'Registro Eliminado' , compact('usuario')];
     }
+
+
+
+    public function verificar( $codigo)
+    {
+        $usuario = Usuario::where('co_confirmacion', $codigo)->first();
+
+        if (! $usuario)
+        {
+            return ['msj' => 'codigo de confirmacion invalido'];
+        }
+    
+        $usuario->bo_confirmado    = true;
+        $usuario->co_confirmacion  = null;
+        $usuario->save();
+    
+        return ['msj' => 'Usuario Confirmado'];
+    }
+
 }

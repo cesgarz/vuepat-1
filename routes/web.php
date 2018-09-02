@@ -1,6 +1,8 @@
 <?php
 
 
+Route::get('/usuario/verificar/{codigo}', 'UsuarioController@verificar');
+
 Route::get('codigo-qr/ejemplo', function () 
 {
     return QRCode::meCard('John Doe', '1234 Main st.', '+1 001 555-1234', 'john.doe@example.com')->svg();

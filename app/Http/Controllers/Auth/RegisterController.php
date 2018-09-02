@@ -45,7 +45,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nb_usuario' => 'required|max:255|unique:usuario,nb_usuario',
-            'email'   => 'required|email|max:255|unique:usuario,tx_email',
+            'email'   => 'required|email|max:255|unique:usuario,email',
             'password'   => 'required|min:6'
         ],
         [
@@ -63,13 +63,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['co_confirmacion'] = str_random(60);
+
         $usuario = Usuario::create([
-            'nb_usuario'    => $data['nb_usuario'],
-            'email'         => $data['email'],
-            'password'      => bcrypt($data['password']),
-            'id_status'     => 1,
-            'id_usuario_e'  => 1
+            'nb_usuario'      => $data['nb_usuario'],
+            'email'           => $data['email'],
+            'password'        => bcrypt($data['password']),
+            'id_status'       => 1,
+            'id_usuario_e'    => 1,
+            'co_confirmacion' => $data['co_confirmacion']
         ]);
+
+        // Send confirmation code
+        \Mail::send('auth.mail.confirmar_usuario', $data, function($message) use ($data) {
+            $message->to($data['email'], $data['nb_usuario'])->subject('Por favor confirma tu correo');
+        });
 
         $rolUsuario = RolUsuario::create([
                 'id_rol'        => 1,
