@@ -74,9 +74,9 @@ class RegisterController extends Controller
             'co_confirmacion' => $data['co_confirmacion']
         ]);
 
-        // Send confirmation code
+        // Enviar codigo de confirmacion
         \Mail::send('auth.mail.confirmar_usuario', $data, function($message) use ($data) {
-            $message->to($data['email'], $data['nb_usuario'])->subject('Por favor confirma tu correo');
+            $message->to($data['email'], $data['nb_usuario'])->subject('"Vuelta a la Patria", Por favor confirma tu correo');
         });
 
         $rolUsuario = RolUsuario::create([
