@@ -6,7 +6,6 @@ Route::View('/registration',    'registration')->name('registration'); ;
 Route::View('/recovery',        'recovery'); 
 Route::get('/usuario/verificar/{codigo}', 'UsuarioController@verificar');
 
-
 Route::middleware(['auth'])->group(function () 
 {
     //usuario 
@@ -30,7 +29,6 @@ Route::middleware(['auth'])->group(function ()
     //reportes
     Route::View('/reports.persona', 'reports.persona');
     Route::get('/getReporteExcel',  'Reportes\ReporteController@getArchivo');
-    
 });
 
 Auth::routes();

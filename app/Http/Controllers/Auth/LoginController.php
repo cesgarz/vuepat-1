@@ -32,17 +32,16 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    protected function xattemptLogin(Request $request)
-    {
-        $credentials = ['email' => $request->email , 'password' => $request->password];
-        $token = $this->guard()->attempt($credentials);
+    protected function attemptLogin(Request $request)
+    {           
+        $credentials = [
+                        'email'     => $request->email , 
+                        'password'  => $request->password, 
+                        'id_status' => 1
+                       ];
 
-        if ($token) {
-            $this->guard()->setToken($token);
-            return true;
-        }
-
-        return false;
+        return $this->guard()->attempt($credentials);
+        
     }
 
     /**

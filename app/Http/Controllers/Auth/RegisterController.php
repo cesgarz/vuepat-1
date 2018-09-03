@@ -13,6 +13,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
+    protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *

@@ -15,6 +15,7 @@ export default {
     },
     showError (error) {
            
+      console.log(error);
       if(error.hasOwnProperty('response'))
       {
         console.log(error.response.status,error.response.data); 
@@ -42,7 +43,11 @@ export default {
             break;
 
           case 429:
-            msg = 'Servicio Ocupado favor Ingresar en unos Minutos'
+            for (var idx in error.response.data.errors) 
+            {
+              msg = msg + error.response.data.errors[idx];
+            }
+            msg = ( msg != '') ? msg :  'Servicio Ocupado favor Ingresar en unos Minutos'
             break;
 
           case 422:

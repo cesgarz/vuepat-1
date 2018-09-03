@@ -60,10 +60,12 @@ class PersonaController extends Controller
         
         $persona = Persona::create($request->all());
 
-        if( count($request->misiones) > 0)
+     
+        if($request->filled('misiones'))
         {
             $misiones = $this->storeMisiones($request, $persona->id_persona);
         }
+        
 
         if($request->bo_discapacidad)
         {
@@ -153,7 +155,7 @@ class PersonaController extends Controller
             'id_status'         => 'required'
         ]);
 
-        if( count($request->misiones) > 0)
+        if( $request->filled('misiones'))
         {
             $misiones = $this->storeMisiones($request, $persona->id_persona);
         }
@@ -161,7 +163,7 @@ class PersonaController extends Controller
         {
             PersonaMision::where('id_persona', $persona->id_persona)->delete();
         }
-
+    
         if($request->bo_discapacidad)
         {
             $discapacidad = $this->storeDiscapacidad($request,  $persona->id_persona);
