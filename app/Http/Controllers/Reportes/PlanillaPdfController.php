@@ -16,11 +16,13 @@ class PlanillaPdfController extends Controller
 {
     private $fpdf;
     private $directoryPath = './img/qr/';
-    private $qrImageName = 'temp.png';
+    private $qrImageName   = 'temp.png';
+    private $timeZone      = 'America/Caracas';
 
     function __construct()
     {
         $this->fpdf = app('FPDF');
+        date_default_timezone_set($this->timeZone);
 	}
 	
     function index(){
@@ -100,8 +102,8 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->SetXY(170, 19);
 		$this->fpdf->Cell(30,4,'Pagina: '.$this->fpdf->PageNo(),0,0,'L');
 		
-		$this->fpdf->SetY(60);
-		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->SetY(62);
+		$this->fpdf->SetFont('Arial','B',12);
 		//$this->fpdf->SetFillColor(00,66,99);
 		$this->fpdf->SetFillColor(255, 26, 26);
 		//$this->fpdf->SetTextColor(255);
@@ -112,58 +114,60 @@ class PlanillaPdfController extends Controller
 	
 	function getDatosReportePDF(Persona $persona, Vivienda $vivienda, Pais $pais){
 						
-		$this->fpdf->SetFont('Arial','B',7);
-		$this->fpdf->SetFillColor(255);
 		$this->fpdf->SetTextColor(0);
-		
-		$this->fpdf->SetY(70);
+		$this->fpdf->SetY(75);
 		
 		//DATOS PERSONALES
+		$this->fpdf->SetFillColor(190);
 
-		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),0,0,'C', true);
-		$this->fpdf->Ln(12);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),1,1,'C', true);
+		//$this->fpdf->Ln(12);
+
+		$this->fpdf->SetFont('Arial','B',9);
+		$this->fpdf->SetFillColor(237);
+
+		$this->fpdf->Cell(35,6,'Ciudadano: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),1,1,'C', true);
 		
-		$this->fpdf->SetFont('Arial','B',7);
-		$this->fpdf->Cell(35,6,'Ciudadano: ',0,0,'D', true);
-		$this->fpdf->Cell(91,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),0,1,'D', true);
-		
-		$this->fpdf->Cell(35,6,'Cedula: ',0,0,'D', true);
-		$this->fpdf->Cell(55,6,$persona->tx_cedula,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Cedula: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$persona->tx_cedula,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$persona->fe_nacimiento,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$this->getFormatedDate($persona->fe_nacimiento),1,1,'C', true);
 
-		$this->fpdf->Ln(12); 
+		$this->fpdf->Ln(8); 
 
 		//VIVIENDA
+		$this->fpdf->SetFillColor(190);
 
-		$this->fpdf->SetFont('Arial','B',10);
-		$this->fpdf->Cell(NULL,6,utf8_decode('Residencia en el Extranjero'),0,0,'C', true);
-		$this->fpdf->Ln(12);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(NULL,6,utf8_decode('Residencia en el Extranjero'),1,1,'C', true);
+		//$this->fpdf->Ln(12);
 
-		$this->fpdf->SetFont('Arial','B',7);
+		$this->fpdf->SetFont('Arial','B',9);
+		$this->fpdf->SetFillColor(237);
 
-		$this->fpdf->Cell(35,6,'Pais: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$pais->nb_pais,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Pais: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$pais->nb_pais,1,1,'C', true);
 		
-		$this->fpdf->Cell(35,6,'Estado: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->nb_estado,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Estado: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->nb_estado,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Ciudad: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->nb_ciudad,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Ciudad: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->nb_ciudad,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Calle: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->tx_calle,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Calle: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->tx_calle,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Casa: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->tx_casa,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Casa: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->tx_casa,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->tx_telefono,0,1,'D', true);
+		$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->tx_telefono,1,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Tipo de vivienda: ',0,0,'D', true);
-		$this->fpdf->Cell(35,6,$vivienda->tipoVivienda->nb_tipo_vivienda,0,1,'D', true);
+		$this->fpdf->Cell(35,6,'Tipo de vivienda: ',1,0,'C', true);
+		$this->fpdf->Cell(0,6,$vivienda->tipoVivienda->nb_tipo_vivienda,1,1,'C', true);
 
 	}
 	
@@ -235,6 +239,22 @@ class PlanillaPdfController extends Controller
 
 	    //RETURNS TEMPORAL QR IMAGE ROUTE
         return $qrImageRoute;
+	}
+
+	private function getFormatedDate ($date) 
+	{
+		if (!isset($date))
+		{
+			return '';
+		}
+
+		$dateArray = explode("-", $date);
+
+		$day = $dateArray[2];
+		$month = $dateArray[1];
+		$year = $dateArray[0];
+
+		return $day . '-' . $month . '-' . $year;
 	}
 
 }
