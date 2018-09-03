@@ -58,10 +58,22 @@ class PlanillaPdfController extends Controller
                               ->where('id_ubicacion', 2)
                               ->first();
 
+        if (!issed($vivienda)) {
+
+        	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
+
+        }
+
         //GET PAIS BY VIVIENDA
         $pais = Pais::select('nb_pais')
 	                      ->where('co_pais', $vivienda->co_pais)
 	                      ->first();
+
+	    if (!issed($pais)) {
+
+        	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
+        	
+        }
 
 	    //GET GENERATED CODE IMAGE ROUTE
         $qrRoute = $this->getQRCode($user, $persona, $vivienda, $pais);
