@@ -106,7 +106,7 @@ class UsuarioController extends Controller
 
         if ($usuario)
         {
-            $usuario->bo_confirmado    = true;
+            $usuario->id_satatus       = 1;
             $usuario->co_confirmacion  = null;
             $usuario->save();
 

@@ -46,8 +46,8 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-          <v-btn flat @click="onWelcomePageButtonClicked('login')">Ingresar</v-btn>
-          <v-btn flat @click="onWelcomePageButtonClicked('registration')">Registro</v-btn>
+          <v-btn flat @click="frontLocation('login')">Ingresar</v-btn>
+          <v-btn flat @click="frontLocation('registration')">Registro</v-btn>
       </v-toolbar-items>
 
     </v-toolbar>

@@ -1,142 +1,215 @@
-$ php artisan r:l
-+--------+-----------+-------------------------------------------------------+-----------------------+---------------------------------------------------------------------------+--------------+
-| Domain | Method    | URI                                                   | Name                  | Action                                                                    | Middleware   |
-+--------+-----------+-------------------------------------------------------+-----------------------+---------------------------------------------------------------------------+--------------+
-|        | GET|HEAD  | /                                                     |                       | Closure                                                                   | web          |
-|        | GET|HEAD  | api/user                                              |                       | Closure                                                                   | api,auth:api |
-|        | POST      | api/v1/banco                                          | banco.store           | App\Http\Controllers\BancoController@store                                | api,auth:api |
-|        | GET|HEAD  | api/v1/banco                                          | banco.index           | App\Http\Controllers\BancoController@index                                | api,auth:api |
-|        | GET|HEAD  | api/v1/banco/grupo/{id_grupo_banco}                   |                       | App\Http\Controllers\BancoController@bancoGrupo                           | api,auth:api |
-|        | DELETE    | api/v1/banco/{banco}                                  | banco.destroy         | App\Http\Controllers\BancoController@destroy                              | api,auth:api |
-|        | PUT|PATCH | api/v1/banco/{banco}                                  | banco.update          | App\Http\Controllers\BancoController@update                               | api,auth:api |
-|        | GET|HEAD  | api/v1/banco/{banco}                                  | banco.show            | App\Http\Controllers\BancoController@show                                 | api,auth:api |
-|        | POST      | api/v1/categoria                                      | categoria.store       | App\Http\Controllers\CategoriaController@store                            | api,auth:api |
-|        | GET|HEAD  | api/v1/categoria                                      | categoria.index       | App\Http\Controllers\CategoriaController@index                            | api,auth:api |
-|        | PUT|PATCH | api/v1/categoria/{categoria}                          | categoria.update      | App\Http\Controllers\CategoriaController@update                           | api,auth:api |
-|        | GET|HEAD  | api/v1/categoria/{categoria}                          | categoria.show        | App\Http\Controllers\CategoriaController@show                             | api,auth:api |
-|        | DELETE    | api/v1/categoria/{categoria}                          | categoria.destroy     | App\Http\Controllers\CategoriaController@destroy                          | api,auth:api |
-|        | POST      | api/v1/cuenta                                         | cuenta.store          | App\Http\Controllers\CuentaController@store                               | api,auth:api |
-|        | GET|HEAD  | api/v1/cuenta                                         | cuenta.index          | App\Http\Controllers\CuentaController@index                               | api,auth:api |
-|        | GET|HEAD  | api/v1/cuenta/moneda/{id_moneda}                      |                       | App\Http\Controllers\CuentaController@cuentaMoneda                        | api,auth:api |
-|        | GET|HEAD  | api/v1/cuenta/{cuenta}                                | cuenta.show           | App\Http\Controllers\CuentaController@show                                | api,auth:api |
-|        | DELETE    | api/v1/cuenta/{cuenta}                                | cuenta.destroy        | App\Http\Controllers\CuentaController@destroy                             | api,auth:api |
-|        | PUT|PATCH | api/v1/cuenta/{cuenta}                                | cuenta.update         | App\Http\Controllers\CuentaController@update                              | api,auth:api |
-|        | POST      | api/v1/ejecucionPago                                  | ejecucionPago.store   | App\Http\Controllers\EjecucionPagoController@store                        | api,auth:api |
-|        | GET|HEAD  | api/v1/ejecucionPago                                  | ejecucionPago.index   | App\Http\Controllers\EjecucionPagoController@index                        | api,auth:api |
-|        | GET|HEAD  | api/v1/ejecucionPago/pago/{id_pago}                   |                       | App\Http\Controllers\EjecucionPagoController@ejecucionPagoPago            | api,auth:api |
-|        | DELETE    | api/v1/ejecucionPago/{ejecucionPago}                  | ejecucionPago.destroy | App\Http\Controllers\EjecucionPagoController@destroy                      | api,auth:api |
-|        | PUT|PATCH | api/v1/ejecucionPago/{ejecucionPago}                  | ejecucionPago.update  | App\Http\Controllers\EjecucionPagoController@update                       | api,auth:api |
-|        | GET|HEAD  | api/v1/ejecucionPago/{ejecucionPago}                  | ejecucionPago.show    | App\Http\Controllers\EjecucionPagoController@show                         | api,auth:api |
-|        | GET|HEAD  | api/v1/ente                                           | ente.index            | App\Http\Controllers\EnteController@index                                 | api,auth:api |
-|        | POST      | api/v1/ente                                           | ente.store            | App\Http\Controllers\EnteController@store                                 | api,auth:api |
-|        | GET|HEAD  | api/v1/ente/grupo/{id_grupo_ente}                     |                       | App\Http\Controllers\EnteController@enteGrupo                             | api,auth:api |
-|        | GET|HEAD  | api/v1/ente/tipo/{id_tipo_ente}                       |                       | App\Http\Controllers\EnteController@enteTipo                              | api,auth:api |
-|        | GET|HEAD  | api/v1/ente/tipo/{id_tipo_ente}/grupo/{id_grupo_ente} |                       | App\Http\Controllers\EnteController@enteTipoGrupo                         | api,auth:api |
-|        | GET|HEAD  | api/v1/ente/{ente}                                    | ente.show             | App\Http\Controllers\EnteController@show                                  | api,auth:api |
-|        | PUT|PATCH | api/v1/ente/{ente}                                    | ente.update           | App\Http\Controllers\EnteController@update                                | api,auth:api |
-|        | DELETE    | api/v1/ente/{ente}                                    | ente.destroy          | App\Http\Controllers\EnteController@destroy                               | api,auth:api |
-|        | GET|HEAD  | api/v1/esquema                                        | esquema.index         | App\Http\Controllers\EsquemaController@index                              | api,auth:api |
-|        | POST      | api/v1/esquema                                        | esquema.store         | App\Http\Controllers\EsquemaController@store                              | api,auth:api |
-|        | GET|HEAD  | api/v1/esquema/padre                                  |                       | App\Http\Controllers\EsquemaController@esquemaPadre                       | api,auth:api |
-|        | DELETE    | api/v1/esquema/{esquema}                              | esquema.destroy       | App\Http\Controllers\EsquemaController@destroy                            | api,auth:api |
-|        | PUT|PATCH | api/v1/esquema/{esquema}                              | esquema.update        | App\Http\Controllers\EsquemaController@update                             | api,auth:api |
-|        | GET|HEAD  | api/v1/esquema/{esquema}                              | esquema.show          | App\Http\Controllers\EsquemaController@show                               | api,auth:api |
-|        | GET|HEAD  | api/v1/etapaEnvio                                     | etapaEnvio.index      | App\Http\Controllers\EtapaEnvioController@index                           | api,auth:api |
-|        | POST      | api/v1/etapaEnvio                                     | etapaEnvio.store      | App\Http\Controllers\EtapaEnvioController@store                           | api,auth:api |
-|        | GET|HEAD  | api/v1/etapaEnvio/{etapaEnvio}                        | etapaEnvio.show       | App\Http\Controllers\EtapaEnvioController@show                            | api,auth:api |
-|        | PUT|PATCH | api/v1/etapaEnvio/{etapaEnvio}                        | etapaEnvio.update     | App\Http\Controllers\EtapaEnvioController@update                          | api,auth:api |
-|        | DELETE    | api/v1/etapaEnvio/{etapaEnvio}                        | etapaEnvio.destroy    | App\Http\Controllers\EtapaEnvioController@destroy                         | api,auth:api |
-|        | POST      | api/v1/grupoBanco                                     | grupoBanco.store      | App\Http\Controllers\GrupoBancoController@store                           | api,auth:api |
-|        | GET|HEAD  | api/v1/grupoBanco                                     | grupoBanco.index      | App\Http\Controllers\GrupoBancoController@index                           | api,auth:api |
-|        | PUT|PATCH | api/v1/grupoBanco/{grupoBanco}                        | grupoBanco.update     | App\Http\Controllers\GrupoBancoController@update                          | api,auth:api |
-|        | DELETE    | api/v1/grupoBanco/{grupoBanco}                        | grupoBanco.destroy    | App\Http\Controllers\GrupoBancoController@destroy                         | api,auth:api |
-|        | GET|HEAD  | api/v1/grupoBanco/{grupoBanco}                        | grupoBanco.show       | App\Http\Controllers\GrupoBancoController@show                            | api,auth:api |
-|        | GET|HEAD  | api/v1/grupoEnte                                      | grupoEnte.index       | App\Http\Controllers\GrupoEnteController@index                            | api,auth:api |
-|        | POST      | api/v1/grupoEnte                                      | grupoEnte.store       | App\Http\Controllers\GrupoEnteController@store                            | api,auth:api |
-|        | GET|HEAD  | api/v1/grupoEnte/{grupoEnte}                          | grupoEnte.show        | App\Http\Controllers\GrupoEnteController@show                             | api,auth:api |
-|        | PUT|PATCH | api/v1/grupoEnte/{grupoEnte}                          | grupoEnte.update      | App\Http\Controllers\GrupoEnteController@update                           | api,auth:api |
-|        | DELETE    | api/v1/grupoEnte/{grupoEnte}                          | grupoEnte.destroy     | App\Http\Controllers\GrupoEnteController@destroy                          | api,auth:api |
-|        | GET|HEAD  | api/v1/ingreso                                        | ingreso.index         | App\Http\Controllers\IngresoController@index                              | api,auth:api |
-|        | POST      | api/v1/ingreso                                        | ingreso.store         | App\Http\Controllers\IngresoController@store                              | api,auth:api |
-|        | GET|HEAD  | api/v1/ingreso/{ingreso}                              | ingreso.show          | App\Http\Controllers\IngresoController@show                               | api,auth:api |
-|        | PUT|PATCH | api/v1/ingreso/{ingreso}                              | ingreso.update        | App\Http\Controllers\IngresoController@update                             | api,auth:api |
-|        | DELETE    | api/v1/ingreso/{ingreso}                              | ingreso.destroy       | App\Http\Controllers\IngresoController@destroy                            | api,auth:api |
-|        | POST      | api/v1/instruccion                                    | instruccion.store     | App\Http\Controllers\InstruccionController@store                          | api,auth:api |
-|        | GET|HEAD  | api/v1/instruccion                                    | instruccion.index     | App\Http\Controllers\InstruccionController@index                          | api,auth:api |
-|        | GET|HEAD  | api/v1/instruccion/pagos                              |                       | App\Http\Controllers\InstruccionController@instruccionPagos               | api,auth:api |
-|        | GET|HEAD  | api/v1/instruccion/{instruccion}                      | instruccion.show      | App\Http\Controllers\InstruccionController@show                           | api,auth:api |
-|        | DELETE    | api/v1/instruccion/{instruccion}                      | instruccion.destroy   | App\Http\Controllers\InstruccionController@destroy                        | api,auth:api |
-|        | PUT|PATCH | api/v1/instruccion/{instruccion}                      | instruccion.update    | App\Http\Controllers\InstruccionController@update                         | api,auth:api |
-|        | POST      | api/v1/moneda                                         | moneda.store          | App\Http\Controllers\MonedaController@store                               | api,auth:api |
-|        | GET|HEAD  | api/v1/moneda                                         | moneda.index          | App\Http\Controllers\MonedaController@index                               | api,auth:api |
-|        | DELETE    | api/v1/moneda/{moneda}                                | moneda.destroy        | App\Http\Controllers\MonedaController@destroy                             | api,auth:api |
-|        | PUT|PATCH | api/v1/moneda/{moneda}                                | moneda.update         | App\Http\Controllers\MonedaController@update                              | api,auth:api |
-|        | GET|HEAD  | api/v1/moneda/{moneda}                                | moneda.show           | App\Http\Controllers\MonedaController@show                                | api,auth:api |
-|        | GET|HEAD  | api/v1/pago                                           | pago.index            | App\Http\Controllers\PagoController@index                                 | api,auth:api |
-|        | POST      | api/v1/pago                                           | pago.store            | App\Http\Controllers\PagoController@store                                 | api,auth:api |
-|        | GET|HEAD  | api/v1/pago/instruccion/{id_instruccion}              |                       | App\Http\Controllers\PagoController@pagoInstruccion                       | api,auth:api |
-|        | GET|HEAD  | api/v1/pago/{pago}                                    | pago.show             | App\Http\Controllers\PagoController@show                                  | api,auth:api |
-|        | DELETE    | api/v1/pago/{pago}                                    | pago.destroy          | App\Http\Controllers\PagoController@destroy                               | api,auth:api |
-|        | PUT|PATCH | api/v1/pago/{pago}                                    | pago.update           | App\Http\Controllers\PagoController@update                                | api,auth:api |
-|        | POST      | api/v1/reports                                        |                       | App\Http\Controllers\Reportes\ReporteController@getReporte                | api,auth:api |
-|        | GET|HEAD  | api/v1/reports/{nb_tabla}                             |                       | App\Http\Controllers\Reportes\ReporteController@showReporte               | api,auth:api |
-|        | POST      | api/v1/solicitud                                      | solicitud.store       | App\Http\Controllers\SolicitudController@store                            | api,auth:api |
-|        | GET|HEAD  | api/v1/solicitud                                      | solicitud.index       | App\Http\Controllers\SolicitudController@index                            | api,auth:api |
-|        | GET|HEAD  | api/v1/solicitud/categoria/{idCategoria}              |                       | App\Http\Controllers\SolicitudController@solicitudCategoria               | api,auth:api |
-|        | PUT|PATCH | api/v1/solicitud/{solicitud}                          | solicitud.update      | App\Http\Controllers\SolicitudController@update                           | api,auth:api |
-|        | GET|HEAD  | api/v1/solicitud/{solicitud}                          | solicitud.show        | App\Http\Controllers\SolicitudController@show                             | api,auth:api |
-|        | DELETE    | api/v1/solicitud/{solicitud}                          | solicitud.destroy     | App\Http\Controllers\SolicitudController@destroy                          | api,auth:api |
-|        | GET|HEAD  | api/v1/status                                         | status.index          | App\Http\Controllers\StatusController@index                               | api,auth:api |
-|        | POST      | api/v1/status                                         | status.store          | App\Http\Controllers\StatusController@store                               | api,auth:api |
-|        | GET|HEAD  | api/v1/status/grupo/{id_grupo}                        |                       | App\Http\Controllers\StatusController@statusGrupo                         | api,auth:api |
-|        | GET|HEAD  | api/v1/status/{status}                                | status.show           | App\Http\Controllers\StatusController@show                                | api,auth:api |
-|        | DELETE    | api/v1/status/{status}                                | status.destroy        | App\Http\Controllers\StatusController@destroy                             | api,auth:api |
-|        | PUT|PATCH | api/v1/status/{status}                                | status.update         | App\Http\Controllers\StatusController@update                              | api,auth:api |
-|        | POST      | api/v1/tipoBanco                                      | tipoBanco.store       | App\Http\Controllers\TipoBancoController@store                            | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoBanco                                      | tipoBanco.index       | App\Http\Controllers\TipoBancoController@index                            | api,auth:api |
-|        | PUT|PATCH | api/v1/tipoBanco/{tipoBanco}                          | tipoBanco.update      | App\Http\Controllers\TipoBancoController@update                           | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoBanco/{tipoBanco}                          | tipoBanco.show        | App\Http\Controllers\TipoBancoController@show                             | api,auth:api |
-|        | DELETE    | api/v1/tipoBanco/{tipoBanco}                          | tipoBanco.destroy     | App\Http\Controllers\TipoBancoController@destroy                          | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoEnte                                       | tipoEnte.index        | App\Http\Controllers\TipoEnteController@index                             | api,auth:api |
-|        | POST      | api/v1/tipoEnte                                       | tipoEnte.store        | App\Http\Controllers\TipoEnteController@store                             | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoEnte/{tipoEnte}                            | tipoEnte.show         | App\Http\Controllers\TipoEnteController@show                              | api,auth:api |
-|        | DELETE    | api/v1/tipoEnte/{tipoEnte}                            | tipoEnte.destroy      | App\Http\Controllers\TipoEnteController@destroy                           | api,auth:api |
-|        | PUT|PATCH | api/v1/tipoEnte/{tipoEnte}                            | tipoEnte.update       | App\Http\Controllers\TipoEnteController@update                            | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoIngreso                                    | tipoIngreso.index     | App\Http\Controllers\TipoIngresoController@index                          | api,auth:api |
-|        | POST      | api/v1/tipoIngreso                                    | tipoIngreso.store     | App\Http\Controllers\TipoIngresoController@store                          | api,auth:api |
-|        | DELETE    | api/v1/tipoIngreso/{tipoIngreso}                      | tipoIngreso.destroy   | App\Http\Controllers\TipoIngresoController@destroy                        | api,auth:api |
-|        | PUT|PATCH | api/v1/tipoIngreso/{tipoIngreso}                      | tipoIngreso.update    | App\Http\Controllers\TipoIngresoController@update                         | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoIngreso/{tipoIngreso}                      | tipoIngreso.show      | App\Http\Controllers\TipoIngresoController@show                           | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoPago                                       | tipoPago.index        | App\Http\Controllers\TipoPagoController@index                             | api,auth:api |
-|        | POST      | api/v1/tipoPago                                       | tipoPago.store        | App\Http\Controllers\TipoPagoController@store                             | api,auth:api |
-|        | PUT|PATCH | api/v1/tipoPago/{tipoPago}                            | tipoPago.update       | App\Http\Controllers\TipoPagoController@update                            | api,auth:api |
-|        | DELETE    | api/v1/tipoPago/{tipoPago}                            | tipoPago.destroy      | App\Http\Controllers\TipoPagoController@destroy                           | api,auth:api |
-|        | GET|HEAD  | api/v1/tipoPago/{tipoPago}                            | tipoPago.show         | App\Http\Controllers\TipoPagoController@show                              | api,auth:api |
-|        | PUT       | api/v1/user                                           |                       | App\Http\Controllers\LoggedUserController@update                          | api,auth:api |
-|        | GET|HEAD  | login                                                 | login                 | App\Http\Controllers\Auth\LoginController@showLoginForm                   | web,guest    |
-|        | POST      | login                                                 |                       | App\Http\Controllers\Auth\LoginController@login                           | web,guest    |
-|        | POST      | logout                                                | logout                | App\Http\Controllers\Auth\LoginController@logout                          | web          |
-|        | GET|HEAD  | oauth/authorize                                       |                       | Laravel\Passport\Http\Controllers\AuthorizationController@authorize       | web,auth     |
-|        | POST      | oauth/authorize                                       |                       | Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve  | web,auth     |
-|        | DELETE    | oauth/authorize                                       |                       | Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny        | web,auth     |
-|        | POST      | oauth/clients                                         |                       | Laravel\Passport\Http\Controllers\ClientController@store                  | web,auth     |
-|        | GET|HEAD  | oauth/clients                                         |                       | Laravel\Passport\Http\Controllers\ClientController@forUser                | web,auth     |
-|        | DELETE    | oauth/clients/{client_id}                             |                       | Laravel\Passport\Http\Controllers\ClientController@destroy                | web,auth     |
-|        | PUT       | oauth/clients/{client_id}                             |                       | Laravel\Passport\Http\Controllers\ClientController@update                 | web,auth     |
-|        | POST      | oauth/personal-access-tokens                          |                       | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store     | web,auth     |
-|        | GET|HEAD  | oauth/personal-access-tokens                          |                       | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser   | web,auth     |
-|        | DELETE    | oauth/personal-access-tokens/{token_id}               |                       | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy   | web,auth     |
-|        | GET|HEAD  | oauth/scopes                                          |                       | Laravel\Passport\Http\Controllers\ScopeController@all                     | web,auth     |
-|        | POST      | oauth/token                                           |                       | Laravel\Passport\Http\Controllers\AccessTokenController@issueToken        | throttle     |
-|        | POST      | oauth/token/refresh                                   |                       | Laravel\Passport\Http\Controllers\TransientTokenController@refresh        | web,auth     |
-|        | GET|HEAD  | oauth/tokens                                          |                       | Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser | web,auth     |
-|        | DELETE    | oauth/tokens/{token_id}                               |                       | Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy | web,auth     |
-|        | POST      | password/email                                        | password.email        | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail     | web          |
-|        | GET|HEAD  | password/reset                                        | password.request      | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm    | web          |
-|        | POST      | password/reset                                        |                       | App\Http\Controllers\Auth\ResetPasswordController@reset                   | web,guest    |
-|        | GET|HEAD  | password/reset/{token}                                | password.reset        | App\Http\Controllers\Auth\ResetPasswordController@showResetForm           | web,guest    |
-|        | GET|HEAD  | register                                              | register              | App\Http\Controllers\Auth\RegisterController@showRegistrationForm         | web,guest    |
-|        | POST      | register                                              |                       | App\Http\Controllers\Auth\RegisterController@register                     | web,guest    |
-|        | GET|HEAD  | {vista}                                               |                       | Closure                                                                   | web          |
-+--------+-----------+-------------------------------------------------------+-----------------------+---------------------------------------------------------------------------+--------------+
-
++--------+-----------+-------------------------------------------------+--------------------------+---------------------------------------------------------------------------+---------------------+
+| Domain | Method    | URI                                             | Name                     | Action                                                                    | Middleware          |
++--------+-----------+-------------------------------------------------+--------------------------+---------------------------------------------------------------------------+---------------------+
+|        | GET|HEAD  | /                                               |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | PlanillaPdf                                     |                          | App\Http\Controllers\Reportes\PlanillaPdfController@index                 | web                 |
+|        | POST      | api/login                                       |                          | App\Http\Controllers\Auth\LoginController@login                           | api,guest:api,guest |
+|        | POST      | api/password/email                              |                          | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail     | api,guest:api,guest |
+|        | POST      | api/password/reset                              |                          | App\Http\Controllers\Auth\ResetPasswordController@reset                   | api,guest:api,guest |
+|        | POST      | api/recaptcha                                   |                          | App\Http\Controllers\Auth\CaptchaController@checkToken                    | api,guest:api,guest |
+|        | POST      | api/register                                    |                          | App\Http\Controllers\Auth\RegisterController@register                     | api,guest:api,guest |
+|        | POST      | api/v1/ciudad                                   | ciudad.store             | App\Http\Controllers\CiudadController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/ciudad                                   | ciudad.index             | App\Http\Controllers\CiudadController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/ciudad/estado/{nb_estado}                |                          | App\Http\Controllers\CiudadController@ciudadEstado                        | api,auth:api        |
+|        | GET|HEAD  | api/v1/ciudad/{ciudad}                          | ciudad.show              | App\Http\Controllers\CiudadController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/ciudad/{ciudad}                          | ciudad.update            | App\Http\Controllers\CiudadController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/ciudad/{ciudad}                          | ciudad.destroy           | App\Http\Controllers\CiudadController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/discapacidad                             | discapacidad.store       | App\Http\Controllers\DiscapacidadController@store                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/discapacidad                             | discapacidad.index       | App\Http\Controllers\DiscapacidadController@index                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/discapacidad/lista                       |                          | App\Http\Controllers\DiscapacidadController@lista                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/discapacidad/tipo/{id_tipo_discapacidad} |                          | App\Http\Controllers\DiscapacidadController@discapacidadTipo              | api,auth:api        |
+|        | GET|HEAD  | api/v1/discapacidad/{discapacidad}              | discapacidad.show        | App\Http\Controllers\DiscapacidadController@show                          | api,auth:api        |
+|        | PUT|PATCH | api/v1/discapacidad/{discapacidad}              | discapacidad.update      | App\Http\Controllers\DiscapacidadController@update                        | api,auth:api        |
+|        | DELETE    | api/v1/discapacidad/{discapacidad}              | discapacidad.destroy     | App\Http\Controllers\DiscapacidadController@destroy                       | api,auth:api        |
+|        | POST      | api/v1/empleo                                   | empleo.store             | App\Http\Controllers\EmpleoController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/empleo                                   | empleo.index             | App\Http\Controllers\EmpleoController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/empleo/usuario/{id_usuario}              |                          | App\Http\Controllers\EmpleoController@empleoUsuario                       | api,auth:api        |
+|        | DELETE    | api/v1/empleo/{empleo}                          | empleo.destroy           | App\Http\Controllers\EmpleoController@destroy                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/empleo/{empleo}                          | empleo.show              | App\Http\Controllers\EmpleoController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/empleo/{empleo}                          | empleo.update            | App\Http\Controllers\EmpleoController@update                              | api,auth:api        |
+|        | POST      | api/v1/estado                                   | estado.store             | App\Http\Controllers\EstadoController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/estado                                   | estado.index             | App\Http\Controllers\EstadoController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/estado/{estado}                          | estado.show              | App\Http\Controllers\EstadoController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/estado/{estado}                          | estado.update            | App\Http\Controllers\EstadoController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/estado/{estado}                          | estado.destroy           | App\Http\Controllers\EstadoController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/estadoCivil                              | estadoCivil.store        | App\Http\Controllers\EstadoCivilController@store                          | api,auth:api        |
+|        | GET|HEAD  | api/v1/estadoCivil                              | estadoCivil.index        | App\Http\Controllers\EstadoCivilController@index                          | api,auth:api        |
+|        | PUT|PATCH | api/v1/estadoCivil/{estadoCivil}                | estadoCivil.update       | App\Http\Controllers\EstadoCivilController@update                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/estadoCivil/{estadoCivil}                | estadoCivil.show         | App\Http\Controllers\EstadoCivilController@show                           | api,auth:api        |
+|        | DELETE    | api/v1/estadoCivil/{estadoCivil}                | estadoCivil.destroy      | App\Http\Controllers\EstadoCivilController@destroy                        | api,auth:api        |
+|        | POST      | api/v1/getReporteExcel                          |                          | App\Http\Controllers\Reportes\ReporteController@getReporteExcel           | api,auth:api        |
+|        | GET|HEAD  | api/v1/grupoMigracion                           | grupoMigracion.index     | App\Http\Controllers\GrupoMigracionController@index                       | api,auth:api        |
+|        | POST      | api/v1/grupoMigracion                           | grupoMigracion.store     | App\Http\Controllers\GrupoMigracionController@store                       | api,auth:api        |
+|        | DELETE    | api/v1/grupoMigracion/{grupoMigracion}          | grupoMigracion.destroy   | App\Http\Controllers\GrupoMigracionController@destroy                     | api,auth:api        |
+|        | PUT|PATCH | api/v1/grupoMigracion/{grupoMigracion}          | grupoMigracion.update    | App\Http\Controllers\GrupoMigracionController@update                      | api,auth:api        |
+|        | GET|HEAD  | api/v1/grupoMigracion/{grupoMigracion}          | grupoMigracion.show      | App\Http\Controllers\GrupoMigracionController@show                        | api,auth:api        |
+|        | POST      | api/v1/jornada                                  | jornada.store            | App\Http\Controllers\JornadaController@store                              | api,auth:api        |
+|        | GET|HEAD  | api/v1/jornada                                  | jornada.index            | App\Http\Controllers\JornadaController@index                              | api,auth:api        |
+|        | DELETE    | api/v1/jornada/{jornada}                        | jornada.destroy          | App\Http\Controllers\JornadaController@destroy                            | api,auth:api        |
+|        | PUT|PATCH | api/v1/jornada/{jornada}                        | jornada.update           | App\Http\Controllers\JornadaController@update                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/jornada/{jornada}                        | jornada.show             | App\Http\Controllers\JornadaController@show                               | api,auth:api        |
+|        | POST      | api/v1/logout                                   |                          | App\Http\Controllers\Auth\LoginController@logout                          | api,auth:api        |
+|        | POST      | api/v1/menu                                     | menu.store               | App\Http\Controllers\MenuController@store                                 | api,auth:api        |
+|        | GET|HEAD  | api/v1/menu                                     | menu.index               | App\Http\Controllers\MenuController@index                                 | api,auth:api        |
+|        | GET|HEAD  | api/v1/menu/padre                               |                          | App\Http\Controllers\MenuController@menuPadre                             | api,auth:api        |
+|        | PUT|PATCH | api/v1/menu/{menu}                              | menu.update              | App\Http\Controllers\MenuController@update                                | api,auth:api        |
+|        | GET|HEAD  | api/v1/menu/{menu}                              | menu.show                | App\Http\Controllers\MenuController@show                                  | api,auth:api        |
+|        | DELETE    | api/v1/menu/{menu}                              | menu.destroy             | App\Http\Controllers\MenuController@destroy                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/migracion                                | migracion.index          | App\Http\Controllers\MigracionController@index                            | api,auth:api        |
+|        | POST      | api/v1/migracion                                | migracion.store          | App\Http\Controllers\MigracionController@store                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/migracion/usuario/{id_usuario}           |                          | App\Http\Controllers\MigracionController@migracionUsuario                 | api,auth:api        |
+|        | GET|HEAD  | api/v1/migracion/{migracion}                    | migracion.show           | App\Http\Controllers\MigracionController@show                             | api,auth:api        |
+|        | DELETE    | api/v1/migracion/{migracion}                    | migracion.destroy        | App\Http\Controllers\MigracionController@destroy                          | api,auth:api        |
+|        | PUT|PATCH | api/v1/migracion/{migracion}                    | migracion.update         | App\Http\Controllers\MigracionController@update                           | api,auth:api        |
+|        | POST      | api/v1/mision                                   | mision.store             | App\Http\Controllers\MisionController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/mision                                   | mision.index             | App\Http\Controllers\MisionController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/mision/lista                             |                          | App\Http\Controllers\MisionController@lista                               | api,auth:api        |
+|        | DELETE    | api/v1/mision/{mision}                          | mision.destroy           | App\Http\Controllers\MisionController@destroy                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/mision/{mision}                          | mision.show              | App\Http\Controllers\MisionController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/mision/{mision}                          | mision.update            | App\Http\Controllers\MisionController@update                              | api,auth:api        |
+|        | POST      | api/v1/moneda                                   | moneda.store             | App\Http\Controllers\MonedaController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/moneda                                   | moneda.index             | App\Http\Controllers\MonedaController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/moneda/{moneda}                          | moneda.show              | App\Http\Controllers\MonedaController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/moneda/{moneda}                          | moneda.update            | App\Http\Controllers\MonedaController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/moneda/{moneda}                          | moneda.destroy           | App\Http\Controllers\MonedaController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/motivo                                   | motivo.store             | App\Http\Controllers\MotivoController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/motivo                                   | motivo.index             | App\Http\Controllers\MotivoController@index                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/motivo/lista                             |                          | App\Http\Controllers\MotivoController@lista                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/motivo/{motivo}                          | motivo.show              | App\Http\Controllers\MotivoController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/motivo/{motivo}                          | motivo.update            | App\Http\Controllers\MotivoController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/motivo/{motivo}                          | motivo.destroy           | App\Http\Controllers\MotivoController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/nivelEstudio                             | nivelEstudio.store       | App\Http\Controllers\NivelEstudioController@store                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/nivelEstudio                             | nivelEstudio.index       | App\Http\Controllers\NivelEstudioController@index                         | api,auth:api        |
+|        | PUT|PATCH | api/v1/nivelEstudio/{nivelEstudio}              | nivelEstudio.update      | App\Http\Controllers\NivelEstudioController@update                        | api,auth:api        |
+|        | DELETE    | api/v1/nivelEstudio/{nivelEstudio}              | nivelEstudio.destroy     | App\Http\Controllers\NivelEstudioController@destroy                       | api,auth:api        |
+|        | GET|HEAD  | api/v1/nivelEstudio/{nivelEstudio}              | nivelEstudio.show        | App\Http\Controllers\NivelEstudioController@show                          | api,auth:api        |
+|        | POST      | api/v1/pais                                     | pais.store               | App\Http\Controllers\PaisController@store                                 | api,auth:api        |
+|        | GET|HEAD  | api/v1/pais                                     | pais.index               | App\Http\Controllers\PaisController@index                                 | api,auth:api        |
+|        | DELETE    | api/v1/pais/{pai}                               | pais.destroy             | App\Http\Controllers\PaisController@destroy                               | api,auth:api        |
+|        | PUT|PATCH | api/v1/pais/{pai}                               | pais.update              | App\Http\Controllers\PaisController@update                                | api,auth:api        |
+|        | GET|HEAD  | api/v1/pais/{pai}                               | pais.show                | App\Http\Controllers\PaisController@show                                  | api,auth:api        |
+|        | POST      | api/v1/parentesco                               | parentesco.store         | App\Http\Controllers\ParentescoController@store                           | api,auth:api        |
+|        | GET|HEAD  | api/v1/parentesco                               | parentesco.index         | App\Http\Controllers\ParentescoController@index                           | api,auth:api        |
+|        | PUT|PATCH | api/v1/parentesco/{parentesco}                  | parentesco.update        | App\Http\Controllers\ParentescoController@update                          | api,auth:api        |
+|        | DELETE    | api/v1/parentesco/{parentesco}                  | parentesco.destroy       | App\Http\Controllers\ParentescoController@destroy                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/parentesco/{parentesco}                  | parentesco.show          | App\Http\Controllers\ParentescoController@show                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/persona                                  | persona.index            | App\Http\Controllers\PersonaController@index                              | api,auth:api        |
+|        | POST      | api/v1/persona                                  | persona.store            | App\Http\Controllers\PersonaController@store                              | api,auth:api        |
+|        | GET|HEAD  | api/v1/persona/familiar/{id_usuario}            |                          | App\Http\Controllers\PersonaController@personaFamiliar                    | api,auth:api        |
+|        | PUT|PATCH | api/v1/persona/{persona}                        | persona.update           | App\Http\Controllers\PersonaController@update                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/persona/{persona}                        | persona.show             | App\Http\Controllers\PersonaController@show                               | api,auth:api        |
+|        | DELETE    | api/v1/persona/{persona}                        | persona.destroy          | App\Http\Controllers\PersonaController@destroy                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/personaEmpleo                            | personaEmpleo.index      | App\Http\Controllers\PersonaEmpleoController@index                        | api,auth:api        |
+|        | POST      | api/v1/personaEmpleo                            | personaEmpleo.store      | App\Http\Controllers\PersonaEmpleoController@store                        | api,auth:api        |
+|        | GET|HEAD  | api/v1/personaEmpleo/usuario/{id_usuario}       |                          | App\Http\Controllers\PersonaEmpleoController@personaEmpleoUsuario         | api,auth:api        |
+|        | GET|HEAD  | api/v1/personaEmpleo/{personaEmpleo}            | personaEmpleo.show       | App\Http\Controllers\PersonaEmpleoController@show                         | api,auth:api        |
+|        | PUT|PATCH | api/v1/personaEmpleo/{personaEmpleo}            | personaEmpleo.update     | App\Http\Controllers\PersonaEmpleoController@update                       | api,auth:api        |
+|        | DELETE    | api/v1/personaEmpleo/{personaEmpleo}            | personaEmpleo.destroy    | App\Http\Controllers\PersonaEmpleoController@destroy                      | api,auth:api        |
+|        | GET|HEAD  | api/v1/recurso                                  | recurso.index            | App\Http\Controllers\RecursoController@index                              | api,auth:api        |
+|        | POST      | api/v1/recurso                                  | recurso.store            | App\Http\Controllers\RecursoController@store                              | api,auth:api        |
+|        | PUT|PATCH | api/v1/recurso/{recurso}                        | recurso.update           | App\Http\Controllers\RecursoController@update                             | api,auth:api        |
+|        | DELETE    | api/v1/recurso/{recurso}                        | recurso.destroy          | App\Http\Controllers\RecursoController@destroy                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/recurso/{recurso}                        | recurso.show             | App\Http\Controllers\RecursoController@show                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/remuneracion                             | remuneracion.index       | App\Http\Controllers\RemuneracionController@index                         | api,auth:api        |
+|        | POST      | api/v1/remuneracion                             | remuneracion.store       | App\Http\Controllers\RemuneracionController@store                         | api,auth:api        |
+|        | DELETE    | api/v1/remuneracion/{remuneracion}              | remuneracion.destroy     | App\Http\Controllers\RemuneracionController@destroy                       | api,auth:api        |
+|        | PUT|PATCH | api/v1/remuneracion/{remuneracion}              | remuneracion.update      | App\Http\Controllers\RemuneracionController@update                        | api,auth:api        |
+|        | GET|HEAD  | api/v1/remuneracion/{remuneracion}              | remuneracion.show        | App\Http\Controllers\RemuneracionController@show                          | api,auth:api        |
+|        | POST      | api/v1/reports                                  |                          | App\Http\Controllers\Reportes\ReporteController@getReporte                | api,auth:api        |
+|        | GET|HEAD  | api/v1/reports/{nb_tabla}                       |                          | App\Http\Controllers\Reportes\ReporteController@showReporte               | api,auth:api        |
+|        | POST      | api/v1/rol                                      | rol.store                | App\Http\Controllers\RolController@store                                  | api,auth:api        |
+|        | GET|HEAD  | api/v1/rol                                      | rol.index                | App\Http\Controllers\RolController@index                                  | api,auth:api        |
+|        | DELETE    | api/v1/rol/{rol}                                | rol.destroy              | App\Http\Controllers\RolController@destroy                                | api,auth:api        |
+|        | GET|HEAD  | api/v1/rol/{rol}                                | rol.show                 | App\Http\Controllers\RolController@show                                   | api,auth:api        |
+|        | PUT|PATCH | api/v1/rol/{rol}                                | rol.update               | App\Http\Controllers\RolController@update                                 | api,auth:api        |
+|        | GET|HEAD  | api/v1/sector                                   | sector.index             | App\Http\Controllers\SectorController@index                               | api,auth:api        |
+|        | POST      | api/v1/sector                                   | sector.store             | App\Http\Controllers\SectorController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/sector/lista                             |                          | App\Http\Controllers\SectorController@lista                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/sector/{sector}                          | sector.show              | App\Http\Controllers\SectorController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/sector/{sector}                          | sector.update            | App\Http\Controllers\SectorController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/sector/{sector}                          | sector.destroy           | App\Http\Controllers\SectorController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/servicio                                 | servicio.store           | App\Http\Controllers\ServicioController@store                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/servicio                                 | servicio.index           | App\Http\Controllers\ServicioController@index                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/servicio/{servicio}                      | servicio.show            | App\Http\Controllers\ServicioController@show                              | api,auth:api        |
+|        | PUT|PATCH | api/v1/servicio/{servicio}                      | servicio.update          | App\Http\Controllers\ServicioController@update                            | api,auth:api        |
+|        | DELETE    | api/v1/servicio/{servicio}                      | servicio.destroy         | App\Http\Controllers\ServicioController@destroy                           | api,auth:api        |
+|        | PATCH     | api/v1/settings/password                        |                          | App\Http\Controllers\Settings\UpdatePassword                              | api,auth:api        |
+|        | PATCH     | api/v1/settings/profile                         |                          | App\Http\Controllers\Settings\UpdateProfile                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/status                                   | status.index             | App\Http\Controllers\StatusController@index                               | api,auth:api        |
+|        | POST      | api/v1/status                                   | status.store             | App\Http\Controllers\StatusController@store                               | api,auth:api        |
+|        | GET|HEAD  | api/v1/status/grupo/{id_grupo}                  |                          | App\Http\Controllers\StatusController@statusGrupo                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/status/{status}                          | status.show              | App\Http\Controllers\StatusController@show                                | api,auth:api        |
+|        | PUT|PATCH | api/v1/status/{status}                          | status.update            | App\Http\Controllers\StatusController@update                              | api,auth:api        |
+|        | DELETE    | api/v1/status/{status}                          | status.destroy           | App\Http\Controllers\StatusController@destroy                             | api,auth:api        |
+|        | POST      | api/v1/tipoCargo                                | tipoCargo.store          | App\Http\Controllers\TipoCargoController@store                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoCargo                                | tipoCargo.index          | App\Http\Controllers\TipoCargoController@index                            | api,auth:api        |
+|        | DELETE    | api/v1/tipoCargo/{tipoCargo}                    | tipoCargo.destroy        | App\Http\Controllers\TipoCargoController@destroy                          | api,auth:api        |
+|        | PUT|PATCH | api/v1/tipoCargo/{tipoCargo}                    | tipoCargo.update         | App\Http\Controllers\TipoCargoController@update                           | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoCargo/{tipoCargo}                    | tipoCargo.show           | App\Http\Controllers\TipoCargoController@show                             | api,auth:api        |
+|        | POST      | api/v1/tipoDiscapacidad                         | tipoDiscapacidad.store   | App\Http\Controllers\TipoDiscapacidadController@store                     | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoDiscapacidad                         | tipoDiscapacidad.index   | App\Http\Controllers\TipoDiscapacidadController@index                     | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoDiscapacidad/{tipoDiscapacidad}      | tipoDiscapacidad.show    | App\Http\Controllers\TipoDiscapacidadController@show                      | api,auth:api        |
+|        | PUT|PATCH | api/v1/tipoDiscapacidad/{tipoDiscapacidad}      | tipoDiscapacidad.update  | App\Http\Controllers\TipoDiscapacidadController@update                    | api,auth:api        |
+|        | DELETE    | api/v1/tipoDiscapacidad/{tipoDiscapacidad}      | tipoDiscapacidad.destroy | App\Http\Controllers\TipoDiscapacidadController@destroy                   | api,auth:api        |
+|        | POST      | api/v1/tipoVivienda                             | tipoVivienda.store       | App\Http\Controllers\TipoViviendaController@store                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoVivienda                             | tipoVivienda.index       | App\Http\Controllers\TipoViviendaController@index                         | api,auth:api        |
+|        | PUT|PATCH | api/v1/tipoVivienda/{tipoVivienda}              | tipoVivienda.update      | App\Http\Controllers\TipoViviendaController@update                        | api,auth:api        |
+|        | DELETE    | api/v1/tipoVivienda/{tipoVivienda}              | tipoVivienda.destroy     | App\Http\Controllers\TipoViviendaController@destroy                       | api,auth:api        |
+|        | GET|HEAD  | api/v1/tipoVivienda/{tipoVivienda}              | tipoVivienda.show        | App\Http\Controllers\TipoViviendaController@show                          | api,auth:api        |
+|        | GET|HEAD  | api/v1/transporte                               | transporte.index         | App\Http\Controllers\TransporteController@index                           | api,auth:api        |
+|        | POST      | api/v1/transporte                               | transporte.store         | App\Http\Controllers\TransporteController@store                           | api,auth:api        |
+|        | PUT|PATCH | api/v1/transporte/{transporte}                  | transporte.update        | App\Http\Controllers\TransporteController@update                          | api,auth:api        |
+|        | DELETE    | api/v1/transporte/{transporte}                  | transporte.destroy       | App\Http\Controllers\TransporteController@destroy                         | api,auth:api        |
+|        | GET|HEAD  | api/v1/transporte/{transporte}                  | transporte.show          | App\Http\Controllers\TransporteController@show                            | api,auth:api        |
+|        | GET|HEAD  | api/v1/usuario                                  | usuario.index            | App\Http\Controllers\UsuarioController@index                              | api,auth:api        |
+|        | POST      | api/v1/usuario                                  | usuario.store            | App\Http\Controllers\UsuarioController@store                              | api,auth:api        |
+|        | GET|HEAD  | api/v1/usuario/lista                            |                          | App\Http\Controllers\UsuarioController@lista                              | api,auth:api        |
+|        | PUT       | api/v1/usuario/update/password/{usuario}        |                          | App\Http\Controllers\UsuarioController@updatePassword                     | api,auth:api        |
+|        | DELETE    | api/v1/usuario/{usuario}                        | usuario.destroy          | App\Http\Controllers\UsuarioController@destroy                            | api,auth:api        |
+|        | PUT|PATCH | api/v1/usuario/{usuario}                        | usuario.update           | App\Http\Controllers\UsuarioController@update                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/usuario/{usuario}                        | usuario.show             | App\Http\Controllers\UsuarioController@show                               | api,auth:api        |
+|        | POST      | api/v1/vivienda                                 | vivienda.store           | App\Http\Controllers\ViviendaController@store                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/vivienda                                 | vivienda.index           | App\Http\Controllers\ViviendaController@index                             | api,auth:api        |
+|        | GET|HEAD  | api/v1/vivienda/usuario/{id_usuario}            |                          | App\Http\Controllers\ViviendaController@viviendaUsuario                   | api,auth:api        |
+|        | DELETE    | api/v1/vivienda/{vivienda}                      | vivienda.destroy         | App\Http\Controllers\ViviendaController@destroy                           | api,auth:api        |
+|        | GET|HEAD  | api/v1/vivienda/{vivienda}                      | vivienda.show            | App\Http\Controllers\ViviendaController@show                              | api,auth:api        |
+|        | PUT|PATCH | api/v1/vivienda/{vivienda}                      | vivienda.update          | App\Http\Controllers\ViviendaController@update                            | api,auth:api        |
+|        | GET|HEAD  | discapacidad                                    |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | getReporteExcel                                 |                          | App\Http\Controllers\Reportes\ReporteController@getArchivo                | web                 |
+|        | GET|HEAD  | home                                            |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | POST      | login                                           |                          | App\Http\Controllers\Auth\LoginController@login                           | web,guest           |
+|        | GET|HEAD  | login                                           | login                    | App\Http\Controllers\Auth\LoginController@showLoginForm                   | web,guest           |
+|        | POST      | logout                                          | logout                   | App\Http\Controllers\Auth\LoginController@logout                          | web                 |
+|        | GET|HEAD  | mision                                          |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | motivo                                          |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | oauth/authorize                                 |                          | Laravel\Passport\Http\Controllers\AuthorizationController@authorize       | web,auth            |
+|        | POST      | oauth/authorize                                 |                          | Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve  | web,auth            |
+|        | DELETE    | oauth/authorize                                 |                          | Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny        | web,auth            |
+|        | POST      | oauth/clients                                   |                          | Laravel\Passport\Http\Controllers\ClientController@store                  | web,auth            |
+|        | GET|HEAD  | oauth/clients                                   |                          | Laravel\Passport\Http\Controllers\ClientController@forUser                | web,auth            |
+|        | DELETE    | oauth/clients/{client_id}                       |                          | Laravel\Passport\Http\Controllers\ClientController@destroy                | web,auth            |
+|        | PUT       | oauth/clients/{client_id}                       |                          | Laravel\Passport\Http\Controllers\ClientController@update                 | web,auth            |
+|        | POST      | oauth/personal-access-tokens                    |                          | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store     | web,auth            |
+|        | GET|HEAD  | oauth/personal-access-tokens                    |                          | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser   | web,auth            |
+|        | DELETE    | oauth/personal-access-tokens/{token_id}         |                          | Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy   | web,auth            |
+|        | GET|HEAD  | oauth/scopes                                    |                          | Laravel\Passport\Http\Controllers\ScopeController@all                     | web,auth            |
+|        | POST      | oauth/token                                     |                          | Laravel\Passport\Http\Controllers\AccessTokenController@issueToken        | throttle            |
+|        | POST      | oauth/token/refresh                             |                          | Laravel\Passport\Http\Controllers\TransientTokenController@refresh        | web,auth            |
+|        | GET|HEAD  | oauth/tokens                                    |                          | Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser | web,auth            |
+|        | DELETE    | oauth/tokens/{token_id}                         |                          | Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy | web,auth            |
+|        | POST      | password/email                                  | password.email           | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail     | web,guest           |
+|        | GET|HEAD  | password/reset                                  | password.request         | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm    | web,guest           |
+|        | POST      | password/reset                                  |                          | App\Http\Controllers\Auth\ResetPasswordController@reset                   | web,guest           |
+|        | GET|HEAD  | password/reset/{token}                          | password.reset           | App\Http\Controllers\Auth\ResetPasswordController@showResetForm           | web,guest           |
+|        | GET|HEAD  | planilla                                        |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | recovery                                        |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | register                                        | register                 | App\Http\Controllers\Auth\RegisterController@showRegistrationForm         | web,guest           |
+|        | POST      | register                                        |                          | App\Http\Controllers\Auth\RegisterController@register                     | web,guest           |
+|        | GET|HEAD  | registration                                    |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | registro                                        |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | reports.persona                                 |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | sector                                          |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | status                                          |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | usuario                                         |                          | Illuminate\Routing\ViewController                                         | web                 |
+|        | GET|HEAD  | usuario/verificar/{codigo}                      |                          | App\Http\Controllers\UsuarioController@verificar                          | web                 |
++--------+-----------+-------------------------------------------------+--------------------------+---------------------------------------------------------------------------+---------------------+

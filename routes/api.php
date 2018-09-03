@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 
-
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
     Route::get('/usuario/lista',      'UsuarioController@lista');
@@ -74,6 +73,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('/reports/{nb_tabla}',   'Reportes\ReporteController@showReporte');
     Route::post('/reports',             'Reportes\ReporteController@getReporte');
     Route::post('/getReporteExcel',     'Reportes\ReporteController@getReporteExcel');
+
+    
 
 });
 

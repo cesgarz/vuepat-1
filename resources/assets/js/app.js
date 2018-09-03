@@ -59,15 +59,19 @@ import * as mutations from './store/mutation-types'
 import { mapGetters } from 'vuex'
 import withSnackbar from './components/mixins/withSnackbar'
 
-import Slick from 'vue-slick';
 import colors from 'vuetify/es5/util/colors';
 
 if (window.user) {
- 
-  store.commit(mutations.USER,  user)
-  store.commit(mutations.LOGGED, true)
+
+  if(window.location != '/')
+  {
+    store.commit(mutations.USER,  user)
+    store.commit(mutations.LOGGED, true)
+  }
 
 }else{
+
+  window.user= 0; 
   
     /*if(window.location.pathname != '/' &&
        window.location.pathname != '/welcome' &&
@@ -92,23 +96,16 @@ const app = new Vue({
   el: '#app',
   store,
   mixins: [ withSnackbar ],
-  components: { Slick },
   data: () => ({
     parallax: {
       height: '0px',
       images: "/img/home.jpeg" 
     },
-    slickOptions: {
-      draggable: false,
-      nextArrow: "",
-      prevArrow: "",
-      slidesToShow: 1
-    },
-    drawer: false,
-    drawerRight: false,
+    drawer:           false,
+    drawerRight:      false,
     changingPassword: false,
-    updatingUser: false,
-    items: []
+    updatingUser:     false,
+    items:            []
   }),
   created: function () {
 
@@ -170,9 +167,9 @@ const app = new Vue({
     },
 
     windowResize () {
-      this.parallax.height = (window.innerHeight-60)+'px';
+      this.parallax.height = (window.innerHeight-90)+'px';
       window.addEventListener('resize', () => {
-        this.parallax.height = (window.innerHeight-60)+'px'
+        this.parallax.height = (window.innerHeight-90)+'px'
       });
 
     },
@@ -182,7 +179,7 @@ const app = new Vue({
     checkRoles (item) {
       if (item.role) {
         return this.$store.getters.roles.find(function (role) {
-          return role == item.role // eslint-disable-line
+          return role == item.role
         })
       }
       return true
@@ -206,7 +203,7 @@ const app = new Vue({
         }
       }
     },
-    onWelcomePageButtonClicked (action) {
+    frontLocation (action) {
       if (action == 'login') {
         window.location.href = '/welcome'
       }

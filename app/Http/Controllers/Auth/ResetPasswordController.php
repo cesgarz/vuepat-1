@@ -10,6 +10,7 @@ class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
+    protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *
