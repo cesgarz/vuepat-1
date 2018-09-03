@@ -2,6 +2,7 @@
 
 
 Route::View('/',                'welcome')->name('welcome'); 
+Route::View('/welcome',         'welcome'); 
 Route::View('/registration',    'registration')->name('registration'); ;
 Route::View('/recovery',        'recovery'); 
 Route::get('/usuario/verificar/{codigo}', 'UsuarioController@verificar');
