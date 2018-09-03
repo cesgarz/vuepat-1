@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card >
     <v-card-text>
     <v-layout row wrap>
 

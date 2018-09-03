@@ -55282,7 +55282,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_jsonp___default.a);
             },
             listaCiudadLoad: false,
             ubicacion: {
-                key: "32b8a15ada11d325f3efd61000bb6974",
+                key: "69bf41eca2eb931fdb5530a170cea2a5",
                 url: "https://battuta.medunes.net/api/",
                 estado: [],
                 ciudad: [],

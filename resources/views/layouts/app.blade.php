@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ url('/assets/vuetify/css/vuetify.min.css') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-
 </head>
 <body>
 <v-app light id="app" v-cloak>

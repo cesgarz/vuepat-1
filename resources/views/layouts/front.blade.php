@@ -41,7 +41,9 @@
 
     <v-toolbar color="blue lighten-1" dark >
 
-      <v-toolbar-title>{{ config('app.name') }}</v-toolbar-title>
+      <v-toolbar-title>
+       <v-btn flat @click="frontLocation('login')"><h2>{{ config('app.name') }}</h2></v-btn>
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
