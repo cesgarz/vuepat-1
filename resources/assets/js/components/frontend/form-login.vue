@@ -134,8 +134,7 @@
                 this.$store.dispatch(actions.LOGIN, credentials)
                 .then(response => 
                 {
-                    console.log('login', response)
-                    //window.location = '/home'
+                    window.location = '/home'
                 })
                 .catch(error => 
                 {

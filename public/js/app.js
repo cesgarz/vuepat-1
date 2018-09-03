@@ -35372,8 +35372,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
 
                 this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* LOGIN */], credentials).then(function (response) {
-                    console.log('login', response);
-                    //window.location = '/home'
+                    window.location = '/home';
                 }).catch(function (error) {
                     _this2.showError(error);
                 }).then(function () {
