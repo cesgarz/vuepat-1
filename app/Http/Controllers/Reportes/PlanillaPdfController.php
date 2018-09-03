@@ -58,7 +58,7 @@ class PlanillaPdfController extends Controller
                               ->where('id_ubicacion', 2)
                               ->first();
 
-        if (!issed($vivienda)) {
+        if (!isset($vivienda)) {
 
         	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
 
@@ -69,7 +69,7 @@ class PlanillaPdfController extends Controller
 	                      ->where('co_pais', $vivienda->co_pais)
 	                      ->first();
 
-	    if (!issed($pais)) {
+	    if (!isset($pais)) {
 
         	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
         	
@@ -120,7 +120,7 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->SetFillColor(255, 26, 26);
 		//$this->fpdf->SetTextColor(255);
 		$this->fpdf->SetTextColor(255, 255, 255);
-		$this->fpdf->Cell(0,6,'PLANILLA DE REGISTRO "VUELTA A LA PATRIA"',1,1,'C', true);
+		$this->fpdf->Cell(0,6,'PLANILLA DE REGISTRO "VUELTA A LA PATRIA"',0,1,'C', true);
 		$this->fpdf->Ln(2.5);
 	}
 	
@@ -132,54 +132,72 @@ class PlanillaPdfController extends Controller
 		//DATOS PERSONALES
 		$this->fpdf->SetFillColor(190);
 
-		$this->fpdf->SetFont('Arial','B',11);
-		$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),1,1,'C', true);
-		//$this->fpdf->Ln(12);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(NULL,6,utf8_decode('DATOS PERSONALES'),0,1,'C', true);
+		$this->fpdf->Ln(1);
 
-		$this->fpdf->SetFont('Arial','B',9);
 		$this->fpdf->SetFillColor(237);
 
-		$this->fpdf->Cell(35,6,'Ciudadano: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Ciudadano: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),0,1,'C', true);
 		
-		$this->fpdf->Cell(35,6,'Cedula: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$persona->tx_cedula,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Cedula: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$persona->tx_cedula,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$this->getFormatedDate($persona->fe_nacimiento),1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Fecha de Nacimiento: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$this->getFormatedDate($persona->fe_nacimiento),0,1,'C', true);
 
 		$this->fpdf->Ln(8); 
 
 		//VIVIENDA
 		$this->fpdf->SetFillColor(190);
 
-		$this->fpdf->SetFont('Arial','B',11);
-		$this->fpdf->Cell(NULL,6,utf8_decode('Residencia en el Extranjero'),1,1,'C', true);
-		//$this->fpdf->Ln(12);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(NULL,6,utf8_decode('RESIDENCIA EN EL EXTRANJERO'),0,1,'C', true);
+		$this->fpdf->Ln(1);
 
-		$this->fpdf->SetFont('Arial','B',9);
 		$this->fpdf->SetFillColor(237);
 
-		$this->fpdf->Cell(35,6,'Pais: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$pais->nb_pais,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Pais: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$pais->nb_pais,0,1,'C', true);
 		
-		$this->fpdf->Cell(35,6,'Estado: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->nb_estado,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Estado: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->nb_estado,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Ciudad: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->nb_ciudad,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Ciudad: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->nb_ciudad,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Calle: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->tx_calle,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Calle: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->tx_calle,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Casa: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->tx_casa,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Casa: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->tx_casa,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->tx_telefono,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,utf8_decode('Teléfono: '),0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->tx_telefono,0,1,'C', true);
 
-		$this->fpdf->Cell(35,6,'Tipo de vivienda: ',1,0,'C', true);
-		$this->fpdf->Cell(0,6,$vivienda->tipoVivienda->nb_tipo_vivienda,1,1,'C', true);
+		$this->fpdf->SetFont('Arial','B',11);
+		$this->fpdf->Cell(45,6,'Tipo de vivienda: ',0,0,'C', true);
+		$this->fpdf->SetFont('Arial','',11);
+		$this->fpdf->Cell(0,6,$vivienda->tipoVivienda->nb_tipo_vivienda,0,1,'C', true);
 
 	}
 	

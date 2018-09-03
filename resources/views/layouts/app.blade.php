@@ -118,17 +118,17 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </v-container>
-            <v-card-text class="px-0 grey lighten-3">
+            <v-card-text class="px-0 lighten-3">
                 <v-list two-line>
                     <v-list-tile >
                         <v-list-tile-content>
-                            <v-list-tile-title>Usuario</v-list-tile-title>
+                            <v-list-tile-title class="blue--text"><v-icon>person</v-icon> Usuario</v-list-tile-title>
                             <v-list-tile-sub-title >@{{ user.nb_usuario }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile >
                         <v-list-tile-content>
-                            <v-list-tile-title>Email </v-list-tile-title>
+                            <v-list-tile-title class="blue--text"><v-icon>email</v-icon> Email </v-list-tile-title>
                             <v-list-tile-sub-title >@{{ user.email }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -136,12 +136,9 @@
             </v-card-text>
             <v-card-actions>
 
-                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">
-                 <v-icon right dark>lock</v-icon>  Password
-                </v-btn>
+                <v-btn  @click="logout" flat color="red">
+                    <v-icon dark>exit_to_app</v-icon> Salir del Sistema
 
-                <v-btn  @click="logout" flat color="orange">
-                    <v-icon dark>exit_to_app</v-icon> Salir
                 </v-btn>
 
             </v-card-actions>
