@@ -35490,7 +35490,7 @@ var render = function() {
                               },
                               nativeOn: {
                                 click: function($event) {
-                                  _vm.login()
+                                  _vm.onSubmit()
                                 }
                               }
                             },
@@ -36269,7 +36269,7 @@ var render = function() {
                               },
                               on: {
                                 click: function($event) {
-                                  _vm.register()
+                                  _vm.onSubmit()
                                 }
                               }
                             },
@@ -37093,7 +37093,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.passReset()
+                                      _vm.onSubmit()
                                     }
                                   }
                                 },

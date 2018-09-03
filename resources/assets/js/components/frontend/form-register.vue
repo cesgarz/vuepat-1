@@ -72,7 +72,7 @@
         <v-layout row wrap>
             
             <v-flex xs12>
-            <v-btn block @click="register()" color="primary" :loading="loading" dark>Registrar</v-btn>
+            <v-btn block @click="onSubmit()" color="primary" :loading="loading" dark>Registrar</v-btn>
             </v-flex>
 
             <v-flex xs12>

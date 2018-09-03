@@ -43,3 +43,13 @@ php artisan vendor-publish --tag=laravel-notifications:
 
 
 cert **bandes2018.
+
+correo: vueltaalapatria2018@gmail.com
+contraseña: **vuepat2018
+cod verificacion: 958480
+siteKey: 6LdEo20UAAAAAAVJi1AQHQ-6GbpzIYRg7sw4V2d2  (Invisible capcha)
+Hosts:
+localhost
+confides.bandes.gob.ve
+vueltaalapatria.gob.ve
+127.0.0.1
