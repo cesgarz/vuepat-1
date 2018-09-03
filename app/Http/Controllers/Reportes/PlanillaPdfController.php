@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Storage;
 use \App\Models\Persona;
 use \App\Models\Vivienda;
 use \App\Models\Pais;
+use LaravelQRCode\Facades\QRCode;
 
 
 
 class PlanillaPdfController extends Controller
 {
     private $fpdf;
+    private $directoryPath = './img/qr/';
+    private $qrImageName = 'temp.png';
 
     function __construct()
     {
@@ -21,25 +24,72 @@ class PlanillaPdfController extends Controller
 	}
 	
     function index(){
-		
+
+    	//GET AUTHENTICATED USER
+    	$user = \Auth::user();
+
+    	//CHECK IF $user EXISTS TO AVOID ERRORS
+    	if(isset($user)){
+
+    		//GET PERSON BY USER	
+    		$persona = Persona::with(['estadoCivil:id_estado_civil,nb_estado_civil', 'personaDiscapacidad', 'vivienda'])
+                              ->where('id_usuario', $user->id_usuario)
+                              ->where('id_parentesco',  99)
+                              ->first();
+
+            //CHECK IF $persona EXISTS TO AVOID ERRORS
+            if(!isset($persona)){
+				
+				exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');	
+				
+			}
+
+    	}else{
+
+    		exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
+    	
+    	}
+
+    	//GET VIVIENDA BY USER
+        $vivienda = Vivienda::with(['tipoVivienda:id_tipo_vivienda,nb_tipo_vivienda'])
+                              ->where('id_usuario', $user->id_usuario)
+                              ->where('id_ubicacion', 2)
+                              ->first();
+
+        //GET PAIS BY VIVIENDA
+        $pais = Pais::select('nb_pais')
+	                      ->where('co_pais', $vivienda->co_pais)
+	                      ->first();
+
+	    //GET GENERATED CODE IMAGE ROUTE
+        $qrRoute = $this->getQRCode($user, $persona, $vivienda, $pais);
+    		
 		$this->fpdf->AddPage('P', 'Letter');
 		$this->fpdf->SetMargins(15,25,15);
 		$this->fpdf->SetAutoPageBreak(true , 25);
 		
-		$this->Header();
+		$this->Header($qrRoute);
 		
-		$this->getDatosReportePDF();
+		$this->getDatosReportePDF($persona, $vivienda, $pais);
 
 		$this->Footer();
         
         $headers=['Content-Type'=>'application/pdf'];
 
+        //DELETES TEMPORAL QR CODE IMAGE GENERATED PREVIOUSLY
+        unlink($qrRoute);
+
         return Response($this->fpdf->Output(), 200, $headers);		
 	}
 	
-	function Header(){   
+	function Header($qrRoute){   
 	
-		$this->fpdf->Image('./img/qr/qrcode.png',15,10,50,50); //xywh
+		if (!file_exists($qrRoute)) 
+		{
+			exit('Por favor vuelva a solicitar el comprobante de registro.');
+		}
+
+		$this->fpdf->Image($qrRoute,15,10,50,50); //xywh
 		$this->fpdf->SetY(22);
 
 		$this->fpdf->SetFont('Arial','B',8);
@@ -50,7 +100,7 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->SetXY(170, 19);
 		$this->fpdf->Cell(30,4,'Pagina: '.$this->fpdf->PageNo(),0,0,'L');
 		
-		$this->fpdf->SetY(55);
+		$this->fpdf->SetY(60);
 		$this->fpdf->SetFont('Arial','B',10);
 		//$this->fpdf->SetFillColor(00,66,99);
 		$this->fpdf->SetFillColor(255, 26, 26);
@@ -60,156 +110,68 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->Ln(2.5);
 	}
 	
-	function getDatosReportePDF(){
-				
-		   $user = \Auth::user();
-
-           $persona = Persona::with(['estadoCivil:id_estado_civil,nb_estado_civil', 'personaDiscapacidad', 'vivienda'])
-                              ->where('id_usuario', $user->id_usuario)
-                              ->where('id_parentesco',  99)
-                              ->first() ;
-
-            $vivienda = Vivienda::with(['tipoVivienda:id_tipo_vivienda,nb_tipo_vivienda'])
-                              ->where('id_usuario', $user->id_usuario)
-                              ->where('id_ubicacion', 2)
-                              ->first();
-
-            $pais = Pais::select('nb_pais')
-                              ->where('co_pais', $vivienda->co_pais)
-                              ->first();
-
-           if(!isset($persona) && !isset($vivienda)){
-				
-				exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
-				
-			}
+	function getDatosReportePDF(Persona $persona, Vivienda $vivienda, Pais $pais){
 						
-			$this->fpdf->SetFont('Arial','B',7);
-			$this->fpdf->SetFillColor(255);
-			$this->fpdf->SetTextColor(0);
-			
-			$this->fpdf->SetY(70);
-			
-			//DATOS PERSONALES
-
-			$this->fpdf->SetFont('Arial','B',10);
-			$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),0,0,'C', true);
-			$this->fpdf->Ln(12);
-			
-			$this->fpdf->SetFont('Arial','B',7);
-			$this->fpdf->Cell(35,6,'Ciudadano: ',0,0,'D', true);
-			$this->fpdf->Cell(91,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),0,1,'D', true);
-			
-			$this->fpdf->Cell(35,6,'Cedula: ',0,0,'D', true);
-			$this->fpdf->Cell(55,6,$persona->tx_cedula,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$persona->fe_nacimiento,0,1,'D', true);
-
-			$this->fpdf->Ln(12); 
-
-			//VIVIENDA
-
-			$this->fpdf->SetFont('Arial','B',10);
-			$this->fpdf->Cell(NULL,6,utf8_decode('Vivienda'),0,0,'C', true);
-			$this->fpdf->Ln(12);
-
-			$this->fpdf->SetFont('Arial','B',7);
-
-			$this->fpdf->Cell(35,6,'Pais: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$pais->nb_pais,0,1,'D', true);
-			
-			$this->fpdf->Cell(35,6,'Estado: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->nb_estado,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,'Ciudad: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->nb_ciudad,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,'Calle: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->tx_calle,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,'Casa: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->tx_casa,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->tx_telefono,0,1,'D', true);
-
-			$this->fpdf->Cell(35,6,'Tipo de vivienda: ',0,0,'D', true);
-			$this->fpdf->Cell(35,6,$vivienda->tipoVivienda->nb_tipo_vivienda,0,1,'D', true);
-
-			//IMAGEN FONDO
-
-			$this->fpdf->Image('./img/background-image.jpeg', 60, 180, 80,50);
-
-			/*
-			$this->fpdf->Cell(35,6,'Ubicacion: ',0,0,'D', true);
-	        $this->fpdf->Cell(151,6,utf8_decode($datosEmp['desuniadm']),0,1,'D', true);
-			
-			$this->fpdf->Cell(35,6,'Cargo: ',0,0,'D', true);
-	        $this->fpdf->Cell(151,6,$datosEmp['descar'],0,1,'D', true);
-			
-			$this->fpdf->Cell(35,6,'Periodo: ',0,0,'D', true);
-	        $this->fpdf->Cell(151,6,$datosEmp['fecdesper'].'  al  '.$datosEmp['fechasper'],0,1,'D', true);
-			
-			$this->fpdf->Ln(4);
-			
-			$this->fpdf->SetFillColor(245,242,242);
-			$this->fpdf->Cell(66,6,'Descripcion','TB',0,'D', true);
-			$this->fpdf->Cell(60,6,'Asignaciones','TB',0,'R', true);
-			$this->fpdf->Cell(60,6,'Deducciones','TB',0,'R', true);
-			
-			$this->fpdf->SetFillColor(255);
-			$this->fpdf->Ln(6);
-			
-			$asign = 0;
-			$deduc = 0;
-			$total = 0;
-			
-			foreach($datosPago as $row)
-			{
-				if($row['sigcon'] == 'A')
-			    {
-					$this->fpdf->Cell(66,6,utf8_decode($row['nomcon']),0,0,'L', true);
-					$this->fpdf->Cell(60,6,number_format($row['valsal'],2,',','.'),0,0,'R', true);
-					$this->fpdf->Cell(60,6,NULL,0,0,'C', true);
-					
-					$asign =  $asign+$row['valsal'];
-					
-				}else
-			    {
-					$this->fpdf->Cell(66,6,$row['nomcon'],0,0,'L', true);
-					$this->fpdf->Cell(60,6,NULL,0,0,'C', true);
-					$this->fpdf->Cell(60,6,number_format($row['valsal']*(-1),2,',','.'),0,0,'R', true);
-	
-					$deduc =  $deduc + ($row['valsal']*(-1));
-					
-				}
-				$this->fpdf->Ln(6);
-			}
-			$this->fpdf->Ln(8);
-			
-			$total = ($asign) - $deduc;
-			
-			$this->fpdf->SetFont('Arial','B',8);
-			$this->fpdf->SetFillColor(245,242,242);
-			$this->fpdf->Cell(66,6,'TOTALES: ',0,0,'D', true);
-	        $this->fpdf->Cell(60,6,number_format(($asign),2,',','.'),0,0,'R', true);
-			$this->fpdf->Cell(60,6,number_format($deduc,2,',','.'),0,0,'R', true);
-			
-			$this->fpdf->Ln(8);
+		$this->fpdf->SetFont('Arial','B',7);
+		$this->fpdf->SetFillColor(255);
+		$this->fpdf->SetTextColor(0);
 		
-			$this->fpdf->SetFont('Arial','B',10);
-			$this->fpdf->SetFillColor(00,66,99);
-			$this->fpdf->SetTextColor(255);
-			
-			$this->fpdf->Cell(66,6,'NETO A COBRAR: ',0,0,'D', true);
-			$this->fpdf->Cell(120,6,number_format($total,2,',','.'),0,1,'R', true);
-			*/
+		$this->fpdf->SetY(70);
+		
+		//DATOS PERSONALES
+
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(NULL,6,utf8_decode('Datos Personales'),0,0,'C', true);
+		$this->fpdf->Ln(12);
+		
+		$this->fpdf->SetFont('Arial','B',7);
+		$this->fpdf->Cell(35,6,'Ciudadano: ',0,0,'D', true);
+		$this->fpdf->Cell(91,6,utf8_decode($persona->nb_nombre.' '.$persona->nb_apellido),0,1,'D', true);
+		
+		$this->fpdf->Cell(35,6,'Cedula: ',0,0,'D', true);
+		$this->fpdf->Cell(55,6,$persona->tx_cedula,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,'Fecha de Nacimiento: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$persona->fe_nacimiento,0,1,'D', true);
+
+		$this->fpdf->Ln(12); 
+
+		//VIVIENDA
+
+		$this->fpdf->SetFont('Arial','B',10);
+		$this->fpdf->Cell(NULL,6,utf8_decode('Residencia en el Extranjero'),0,0,'C', true);
+		$this->fpdf->Ln(12);
+
+		$this->fpdf->SetFont('Arial','B',7);
+
+		$this->fpdf->Cell(35,6,'Pais: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$pais->nb_pais,0,1,'D', true);
+		
+		$this->fpdf->Cell(35,6,'Estado: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->nb_estado,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,'Ciudad: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->nb_ciudad,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,'Calle: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->tx_calle,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,'Casa: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->tx_casa,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,utf8_decode('Teléfono: '),0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->tx_telefono,0,1,'D', true);
+
+		$this->fpdf->Cell(35,6,'Tipo de vivienda: ',0,0,'D', true);
+		$this->fpdf->Cell(35,6,$vivienda->tipoVivienda->nb_tipo_vivienda,0,1,'D', true);
+
 	}
 	
 	function Footer(){
 		
-		#$this->fpdf->Image('./assets/modules/recibo_pago/images/firmarrhh.jpg',80,205,75,60); //xywh
+		//IMAGEN FONDO
+
+		$this->fpdf->Image('./img/vuepat-image.jpeg', 60, 180, 80,50);
 		
 		$this->fpdf->SetFillColor(255);
 		$this->fpdf->SetTextColor(0);
@@ -218,4 +180,61 @@ class PlanillaPdfController extends Controller
 		$this->fpdf->Cell(NULL,6,'**********',0,1,'C', FALSE);
 		$this->fpdf->Cell(NULL,6,'**********',0,0,'C', FALSE);
 	}
+
+	private function getQRCode ($user, Persona $persona, Vivienda $vivienda, Pais $pais) 
+	{
+		//ID
+		$id = str_pad($user->id_usuario, 9, "0", STR_PAD_LEFT);
+
+		// Personal Information
+	    $firstName = $persona->nb_nombre;
+	    $lastName  = $persona->nb_apellido;
+	    $email     = $user->email;
+	    $title = '';
+	    
+	    // Addresses
+	    $homeAddress = [
+	        'type'     => 'home',
+	        'pref'     => true,
+	        'street'   => $vivienda->tx_casa . ' ' . $vivienda->tx_calle,
+	        'city'     => $vivienda->nb_ciudad,
+	        'state'    => $vivienda->nb_estado,
+	        'country'  => $pais->nb_pais,
+	        'zip'      => ''
+	    ];
+	    
+	    $addresses = [$homeAddress];
+	    
+	    // Phones
+	    $homePhone = [
+	        'type'      => 'home',
+	        'number'    => $persona->tx_telefono,
+	        'cellPhone' => false
+	    ];
+	    $cellPhone = [
+	        'type'      => 'home',
+	        'number'    => $persona->tx_celular,
+	        'cellPhone' => true
+	    ];
+	    
+	    $phones = [$homePhone, $cellPhone];
+
+		//CHECK IF ROUTE EXISTS OR CREATE
+		if (!file_exists($this->directoryPath)) { mkdir($this->directoryPath, 0777, true); }
+
+		//SETTING ROUTE
+    	$qrImageRoute = $this->directoryPath . $this->qrImageName;
+
+    	//GENERATE QR CODE
+		QRCode::vCard($id, $firstName, $lastName, $email, $addresses, $phones)
+	            ->setErrorCorrectionLevel('H')
+	            ->setSize(4)
+	            ->setMargin(2)
+	            ->setOutfile($qrImageRoute)
+	            ->png();
+
+	    //RETURNS TEMPORAL QR IMAGE ROUTE
+        return $qrImageRoute;
+	}
+
 }
