@@ -58,7 +58,7 @@ class PlanillaPdfController extends Controller
                               ->where('id_ubicacion', 2)
                               ->first();
 
-        if (!issed($vivienda)) {
+        if (!isset($vivienda)) {
 
         	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
 
@@ -69,7 +69,7 @@ class PlanillaPdfController extends Controller
 	                      ->where('co_pais', $vivienda->co_pais)
 	                      ->first();
 
-	    if (!issed($pais)) {
+	    if (!isset($pais)) {
 
         	exit('Aun no ha llenado los datos del Registro favor ir a la Seccion de registro ');
         	
