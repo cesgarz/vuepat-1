@@ -60,6 +60,17 @@ class UsuarioController extends Controller
         return $usuarios;
     }
 
+    public function update(Request $request, Usuario $usuario)
+    {
+        $validate = request()->validate([
+            'nb_usuario'  => 'required',
+            'email'       => 'required',
+            'id_status'   => 'required',
+        ]);
+        $usuario = $usuario->update($validate);
+        return [ 'msj' => 'Registro Actualizado Correctamente', compact('usuario') ];
+    }
+
     public function updatePassword(Request $request, Usuario $usuario)
     {
         $validate = request()->validate([
@@ -106,7 +117,7 @@ class UsuarioController extends Controller
 
         if ($usuario)
         {
-            $usuario->id_satatus       = 1;
+            $usuario->id_status       = 1;
             $usuario->co_confirmacion  = null;
             $usuario->save();
 

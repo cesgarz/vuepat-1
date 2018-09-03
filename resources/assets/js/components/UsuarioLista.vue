@@ -37,7 +37,7 @@
             <template slot="items" slot-scope="item">
                 
                 <td class="text-xs-left">{{ item.item.nb_usuario }}</td>
-                <td class="text-xs-left">{{ item.item.tx_email }}</td>
+                <td class="text-xs-left">{{ item.item.email }}</td>
                 <td class="text-xs-left">{{ item.item.status.nb_status }}</td>
                 <!--acciones-->
                 <td class="text-xs-left">
@@ -101,7 +101,7 @@ export default {
         modalPasw : false,
         headers: [
         { text: 'Usuario',  value: 'nb_usuario' },
-        { text: 'Correo',   value: 'tx_email' },
+        { text: 'Correo',   value: 'email' },
         { text: 'Status',   value: 'status.nb_status'  },
         { text: 'Acciones', value: 'id_status'  },
         ]

@@ -64293,7 +64293,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             modalPasw: false,
-            headers: [{ text: 'Usuario', value: 'nb_usuario' }, { text: 'Correo', value: 'tx_email' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
+            headers: [{ text: 'Usuario', value: 'nb_usuario' }, { text: 'Correo', value: 'email' }, { text: 'Status', value: 'status.nb_status' }, { text: 'Acciones', value: 'id_status' }]
         };
     },
 
@@ -64432,7 +64432,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
-                                    _vm._v(_vm._s(item.item.tx_email))
+                                    _vm._v(_vm._s(item.item.email))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-xs-left" }, [
