@@ -160,6 +160,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
+        //QR
+        LaravelQRCode\Providers\QRCodeServiceProvider::class,
 
     ],
 
@@ -209,6 +211,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //QR
+        'QRCode' => LaravelQRCode\Facades\QRCode::class,
 
     ],
 
