@@ -12,7 +12,6 @@
     "devDependencies": {
         "axios": "^0.18",
         "cross-env": "^5.2.0",
-        "gravatar": "^1.0",
         "laravel-mix": "^2.1.14",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
@@ -23,14 +22,11 @@
     "dependencies": {
         "ajv": "^6.5.3",
         "chart.js": "^2.7.2",
-        "jquery": "^3.3.1",
-        "vue-autonumeric": "^1.2.5",
         "vue-chartjs": "^3.4.0",
         "vue-chartkick": "^0.4.0",
         "vue-jsonp": "^0.1.8",
         "vue-moment": "^4.0.0",
         "vue-recaptcha": "^1.1.1",
-        "vue-slick": "^1.1.13",
         "vue2-filters": "^0.3.0"
     }
 }
