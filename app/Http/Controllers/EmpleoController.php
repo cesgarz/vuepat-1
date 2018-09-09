@@ -93,8 +93,6 @@ class EmpleoController extends Controller
         return $estudio;
     }
 
-
-
     /**
      * Display the specified resource.
      *

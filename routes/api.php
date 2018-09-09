@@ -7,6 +7,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('/usuario/lista',      'UsuarioController@lista');
     Route::apiResource('/usuario',    'UsuarioController');
     Route::put('/usuario/update/password/{usuario}', 'UsuarioController@updatePassword');
+
+    Route::get('/home/data',          'HomeController@data');
     
     Route::apiResource('status',      'StatusController');
     Route::get('/status/grupo/{id_grupo}', 'StatusController@statusGrupo');

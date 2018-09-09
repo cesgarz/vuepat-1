@@ -9,25 +9,64 @@
     <v-card-text>
     <v-layout wrap>
 
-        <v-flex sm6>
+        <v-flex sm3>
             <v-text-field
             name="name"
-            label="Cedula"
+            label="Cedula*"
             v-model="form.tx_cedula"
-            required
             :rules="rules.requerido"
-            mask="########"
-            prefix="V-"
+            mask="A#########"
+            hint="Ej V13479148"
             ></v-text-field>
         </v-flex>
-        <v-flex sm8>
-        </v-flex>    
+
+        <v-flex xs12 sm3>
+          <v-checkbox
+            label="¿Posee Pasaporte?"
+            v-model="form.bo_pasaporte"
+          ></v-checkbox>
+        </v-flex>
+
+        <v-flex xs12 sm3>
+          <v-text-field v-if="form.bo_pasaporte"
+          label="Numero del Pasaporte*"
+          mask="#########"
+          v-model="form.nu_pasaporte"
+          :rules="rules.requerido"
+        ></v-text-field>
+        </v-flex>
+
+        <v-flex xs12 sm3>
+            <v-menu v-if="form.bo_pasaporte"
+                ref="pickerPasaporte"
+                :close-on-content-click="false"
+                v-model="picker.fe_pasaporte"
+                full-width
+                min-width="290px"
+            >
+                <v-text-field
+                slot="activator"
+                v-model="dates.fe_pasaporte"
+                :rules="rules.fecha"
+                label="Fecha de Vencimiento*"
+                prepend-icon="event"
+                readonly
+                ></v-text-field>
+                <v-date-picker 
+                v-model="form.fe_pasaporte" 
+                locale="es" 
+                @input="dates.fe_pasaporte = formatDate( form.fe_pasaporte )"
+                :max="new Date().toISOString().substr(0, 10)" 
+                @change="savePasaporte"
+                min="1950-01-01">
+                </v-date-picker>
+            </v-menu>
+          </v-flex>
+
 
         <v-flex sm6>
          <v-text-field
-          name="name"
-          label="Nombres"
-          required
+          label="Nombres *"
           v-model="form.nb_apellido"
           :rules="rules.requerido"
         ></v-text-field>
@@ -35,16 +74,14 @@
 
         <v-flex sm6>
          <v-text-field
-          name="name"
-          label="Apellidos"
-          required
+          label="Apellidos*"
           v-model="form.nb_nombre"
           :rules="rules.requerido"
         ></v-text-field>
         </v-flex>
 
         <v-flex sm2>
-        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc" :rules="rules.radio">
+        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc" :rules="rules.radio" hint="Sexo*" persistent-hint>
             <v-radio label="M" value="M" ></v-radio>
             <v-radio label="F" value="F"></v-radio>
         </v-radio-group>
@@ -52,9 +89,9 @@
 
         <v-flex xs12 sm5>
             <v-menu
-                ref="picker"
+                ref="pickerNacimiento"
                 :close-on-content-click="false"
-                v-model="picker"
+                v-model="picker.fe_nacimiento"
                 full-width
                 min-width="290px"
             >
@@ -62,7 +99,7 @@
                 slot="activator"
                 v-model="dates.fe_nacimiento"
                 :rules="rules.fecha"
-                label="Fecha de Nacimiento"
+                label="Fecha de Nacimiento*"
                 prepend-icon="event"
                 readonly
                 ></v-text-field>
@@ -71,7 +108,7 @@
                 locale="es" 
                 @input="dates.fe_nacimiento = formatDate( form.fe_nacimiento )"
                 :max="new Date().toISOString().substr(0, 10)" 
-                @change="save"
+                @change="saveNacimiento"
                 min="1950-01-01">
                 </v-date-picker>
             </v-menu>
@@ -82,45 +119,42 @@
             :items="listas.estadoCivil"
             item-text="nb_estado_civil"
             item-value="id_estado_civil"
-            label="Estado Civil"
+            label="Estado Civil*"
             v-model="form.id_estado_civil"
             :rules="rules.select"
-            required
             ></v-select>
         </v-flex>
 
         <v-flex sm6>
          <v-text-field
-          name="name"
-          label="Telefono"
+          label="Telefono*"
           v-model="form.tx_telefono"
           :rules="rules.requerido"
           prepend-icon="phone"
-          mask="+###-###-###-######"
+          mask="+###-###-#########"
           hint="Ej +058-212-505-8930"
         ></v-text-field>
         </v-flex>
 
         <v-flex sm6>
          <v-text-field
-          name="name"
           label="Celular"
           v-model="form.tx_celular"
           prepend-icon="phone_android"
-          mask="+###-###-###-######"
+          mask="+###-###-#########"
           hint="Ej +058-414-505-8930"
         ></v-text-field>
         </v-flex>
 
-        <v-flex xs12 sm3>
+        <v-flex xs12 sm4>
           <v-checkbox
-            label="Posee anguna Discapacidad?"
+            label="¿Posee anguna Discapacidad?"
             v-model="form.bo_discapacidad"
             prepend-icon="accessible"
           ></v-checkbox>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad">
+        <v-flex sm4 v-if="form.bo_discapacidad">
               <v-select
               :items="listas.tipoDiscapacidad"
               item-text="nb_tipo_discapacidad"
@@ -132,7 +166,7 @@
               ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
+        <v-flex sm4 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
               <v-select
               :items="discapacidad"
               item-text="nb_discapacidad"
@@ -144,11 +178,28 @@
               ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
+        <v-flex sm4 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
             <v-text-field
             label="Otros"
             hint="indique discapacidad"
             v-model="form.tx_discapacidad"
+            :rules="rules.requerido"
+            ></v-text-field>
+        </v-flex>
+
+        <v-flex sm4>
+            <v-checkbox
+            label="¿Posee anguna Enfermedad?"
+            v-model="form.bo_enfermedad"
+            prepend-icon="local_hospital"
+            ></v-checkbox>
+        </v-flex>
+
+        <v-flex sm4 v-if="form.bo_enfermedad">
+            <v-text-field
+            label="Enfermedad"
+            hint="indique Enfermedad"
+            v-model="form.tx_enfermedad"
             :rules="rules.requerido"
             ></v-text-field>
         </v-flex>
@@ -186,17 +237,32 @@ export default {
             tabla: 'persona',
             discapacidad: [],
             discapacidadLoad: false,
+            piker: {
+                fe_pasaporte: null,
+                fe_nacimiento: null,
+            },
+            dates: {
+                fe_pasaporte: null,
+                fe_nacimiento: null,
+            },
             form: {
                     id_persona:         null,
                     nb_nombre:          null,
                     nb_apellido:        null,
                     tx_cedula:          null,
+                    bo_pasaporte:       false,
+                    nu_pasaporte:       null,
+                    fe_pasaporte:       null,
+                    id_ubicacion:       2,
                     tx_sexo:            null,
                     fe_nacimiento:      null,
                     id_estado_civil:    null,
                     id_parentesco:      99,
                     tx_telefono:        null,
                     tx_celular:         null,
+                    bo_enfermedad:      false,
+                    tx_enfermedad:      null,
+                    tx_observaciones:   null,
                     id_status:          1,
                     id_usuario:         1,
                     bo_discapacidad:    false,
@@ -213,9 +279,13 @@ export default {
     },
     methods:
     {
-        save (date) 
+        savePasaporte (date) 
         {
-            this.$refs.picker.save(date)
+            this.$refs.pickerPasaporte.save(date)
+        },
+        saveNacimiento (date) 
+        {
+            this.$refs.pickerNacimiento.save(date)
         },
         getData()
         {
@@ -275,8 +345,10 @@ export default {
         store()
         {
             this.form.id_parentesco = 99
-            this.form.id_status  = 1
-            this.form.id_usuario = this.$store.getters.user.id_usuario
+            this.form.id_status     = 1
+            this.form.id_ubicacion  = 2
+            this.form.bo_enfermedad = (this.form.bo_enfermedad === null) ? false : this.form.bo_enfermedad;
+            this.form.id_usuario    = this.$store.getters.user.id_usuario
 
             if (this.$refs.form.validate()) 
             {  

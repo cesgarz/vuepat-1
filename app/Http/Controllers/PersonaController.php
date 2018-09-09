@@ -43,19 +43,26 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50|min:2',
             'nb_apellido'       => 'required|max:50|min:2',
-            'tx_cedula'         => 'required|max:10|min:6|unique:persona,tx_cedula',
+            'tx_cedula'         => 'required|unique:persona,tx_cedula|regex:^([VE]{1})([0-9]{7,9})$^',
+            'bo_pasaporte'      => 'required|boolean',
+            'nu_pasaporte'      => 'nullable|digits:9',
+            'fe_pasaporte'      => 'nullable|date',
+            'id_ubicacion'      => 'nullable|integer',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
-            'id_parentesco'     => 'required',
-            'id_estado_civil'   => 'required',
+            'id_parentesco'     => 'required|integer',
+            'id_estado_civil'   => 'required|integer',
             'tx_telefono'       => 'max:20',
             'tx_celular'        => 'max:20',
+            'bo_enfermedad'     => 'required|boolean',
+            'tx_enfermedad'     => 'nullable|max:100',
             'tx_observaciones'  => 'max:100',
-            'id_usuario'        => 'required',
-            'id_status'         => 'required'
+            'id_usuario'        => 'required|integer',
+            'id_status'         => 'required|integer'
         ],
         [
-			'tx_cedula.unique'   => 'Ya existe la cedula en nuestros Registros'
+            'tx_cedula.unique'   => 'Ya existe la cedula en nuestros Registros',
+            'tx_cedula.regex'    => 'Cedula inválidad favor corregir Ej V13479149'
         ]);
         
         $persona = Persona::create($request->all());
@@ -143,16 +150,22 @@ class PersonaController extends Controller
         $validate = request()->validate([
             'nb_nombre'         => 'required|max:50',
             'nb_apellido'       => 'required|max:50',
-            'tx_cedula'         => 'required|max:10|min:6',
+            'tx_cedula'         => 'required|regex:^([VE]{1})([0-9]{7,9})$^',
+            'bo_pasaporte'      => 'required|boolean',
+            'nu_pasaporte'      => 'nullable|digits:9',
+            'fe_pasaporte'      => 'nullable|date',
+            'id_ubicacion'      => 'nullable|integer',
             'tx_sexo'           => 'required|max:1',
             'fe_nacimiento'     => 'required|date',
-            'id_parentesco'     => 'required',
-            'id_estado_civil'   => 'required',
+            'id_parentesco'     => 'required|integer',
+            'id_estado_civil'   => 'required|integer',
             'tx_telefono'       => 'max:20',
             'tx_celular'        => 'max:20',
+            'bo_enfermedad'     => 'required|boolean',
+            'tx_enfermedad'     => 'nullable|max:100',
             'tx_observaciones'  => 'max:100',
-            'id_usuario'        => 'required',
-            'id_status'         => 'required'
+            'id_usuario'        => 'required|integer',
+            'id_status'         => 'required|integer'
         ]);
 
         if( $request->filled('misiones'))

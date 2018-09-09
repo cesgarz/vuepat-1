@@ -19,9 +19,9 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="blue--text">
                   <v-list-tile-title>Usuario Registrados</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ montos.euro | formatNumber}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title><h3>{{ registrados }}</h3></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -42,9 +42,9 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="red--text">
                   <v-list-tile-title>Paises Registrados</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ montos.dolar | formatNumber}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title><h3>{{ paises }}</h3></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -65,9 +65,9 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="green--text">
                   <v-list-tile-title>Discapacitados</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ montos.otros | formatNumber}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title><h3>{{ discapacitados }}</h3></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -88,9 +88,9 @@
           <v-card color="">
             <v-card-text>
               <v-list-tile>
-                <v-list-tile-content>
+                <v-list-tile-content class="orange--text">
                   <v-list-tile-title>Familiares Registrados</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ montos.total | formatNumber}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title><h3>{{ familiares }}</h3></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -104,7 +104,7 @@
         <v-flex flat xs12>
           <v-card  >
             <v-card-text class="text-xs-center">
-              <line-chart :data="chartProcesos.data"  :download="true"></line-chart>
+              <line-chart :data="chartUsuarios.data"  :download="true"></line-chart>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -127,7 +127,7 @@
         <v-flex flat xs12>
           <v-card >
             <v-card-text class="text-xs-center">
-              <column-chart :data="chartIngresos.data" :colors="chartIngresos.colors" :download="true"></column-chart>
+              <pie-chart :data="chartSexo.data" :colors="chartSexo.colors" :download="true"></pie-chart>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -136,8 +136,8 @@
             <v-card-text>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title><h3>Sexo</h3></v-list-tile-title>
-                  <v-list-tile-sub-title>hombres/mujeres</v-list-tile-sub-title>
+                  <v-list-tile-title><h3>Hombres vs Mujeres</h3></v-list-tile-title>
+                  <v-list-tile-sub-title>Registrados segun su Sexo</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-card-text>
@@ -164,24 +164,18 @@ export default {
     data () {
       return {
          
-        items:    [],
-        cuenta:   [],
-        ingreso:  [],
-        instruccion:[],
-        procesos: [],
-        montos: {
-              dolar: 0,
-              euro : 0,
-              otros: 0,
-              total: 0
+        registrados:    0,  
+        paises:         0,
+        discapacitados: 0,
+        familiares:     0,
+        usuarios:       [],
+        sexo:           [],
+        chartUsuarios:      {
+          data: [],
+          colors: ['#666', '#b00']
         },
-        chartProcesos:      {
-          data: [
-            {name: 'Usuarios Regitrados', data: {'2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5}},
-          ],
-        },
-        chartIngresos:      {
-          data: [['mujeres', 44], ['Hombres', 23]],
+        chartSexo:      {
+          data: [],
         },
       }
     },
@@ -190,120 +184,51 @@ export default {
       this.list();
 
     },
-     filters: {
-
-        formatNumber: function (value) 
+    watch:
+    {
+        usuarios()
         {
-            let val = (value/1).toFixed(2).replace('.', ',')
-            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        }
+            let sexo = []
 
+            this.sexo.forEach(function(item, index) 
+            {
+              sexo[index] = [item.tx_sexo, item.nu_cantidad];
+            }, this);
+  
+            this.chartSexo = { data: sexo } ;
+        },
+        sexo()
+        {
+            let usuarios = []
+
+            this.usuarios.forEach(function(item, index) 
+            {
+              usuarios[index] = [item.fe_creado, item.nu_cantidad];
+            }, this);
+  
+            this.chartUsuarios = { data: usuarios } ;
+        }
     },
     methods:{
 
-      list()
-      {
-        /*
-          axios.get('/api/v1/home/totales')
-            .then(respuesta => {
-                this.cuenta      = respuesta.data.cuenta
-                this.ingreso     = respuesta.data.ingreso
-                this.instruccion = respuesta.data.instruccion
-                this.procesos    = respuesta.data.procesos
-                this.setCuenta()
-                this.setProcesos()
-                this.setIngresos()
-                this.setInstruccion()
-
+        list()
+        {
+            axios.get('/api/v1/home/data')
+            .then(respuesta => 
+            {        
+                this.registrados    = respuesta.data.registrados; 
+                this.paises         = respuesta.data.paises[0].nu_cantidad;
+                this.discapacitados = respuesta.data.discapacidad;
+                this.familiares     = respuesta.data.familiares;
+                this.usuarios       = respuesta.data.usuario; 
+                this.sexo           = respuesta.data.sexo; 
             })
-            .catch(error => {
+            .catch(error => 
+            {
                 this.showError(error)
             })
-*/
-      },
-       setCuenta()
-        {
-            this.montos.otros = 0;
-            this.montos.total = 0;
-
-            this.cuenta.forEach(function(item, index) 
-            {
-               switch (item.nb_moneda) {
-                case 'Dolar':
-                    this.montos.dolar = Number(item.mo_total)
-                  break;
-                case 'Euro':
-                    this.montos.euro = Number(item.mo_total)
-                  break;
-                default:
-                    this.montos.otros += Number(item.mo_total)
-                  break;
-              }
-               this.montos.total += Number(item.mo_total);
-            }, this);
         },
-        setProcesos()
-        {
-          let ingreso     = new Object();
-          let solicitud   = new Object();
-          let instruccion = new Object();
-          let pago        = new Object();
-
-          this.procesos.forEach(function(item, index) 
-            {
-               switch (item.tipo) {
-                case 'ingreso':
-                  ingreso[item.fecha]     = item.cantidad;
-                  break;
-                case 'solicitud':
-                  solicitud[item.fecha]   = item.cantidad;
-                  break;
-                case 'instruccion':
-                  instruccion[item.fecha] = item.cantidad;
-                  break;
-                case 'pago':
-                  pago[item.fecha]        = item.cantidad;
-                  break;
-              }
-            }, this);
-            
-            this.chartProcesos = 
-                                {
-                                  data: 
-                                        [
-                                          {name: 'Ingresos',    data: ingreso},
-                                          {name: 'solicitud',   data: solicitud},
-                                          {name: 'instruccion', data: instruccion},
-                                          {name: 'pago',        data: pago}
-                                        ] 
-                                } ;
-
-        },
-        setIngresos()
-        {
-            let ingresos = [];
-
-            this.ingreso.forEach(function(item, index) 
-            {
-              ingresos[index] = [item.nb_tipo_ingreso, item.mo_ingreso];
-            }, this);
-
-            this.chartIngresos =  { data : ingresos } 
-                        
-        },
-        setInstruccion()
-        {
-            let instrucciones = [];
-
-            this.instruccion.forEach(function(item, index) 
-            {
-              instrucciones[index] = [item.nb_categoria, item.mo_instruccion];
-            }, this);
-
-            this.chartInstrucciones =  { data : instrucciones } 
-
-        }
-    },
+    }
 
 }
 

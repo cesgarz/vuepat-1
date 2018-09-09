@@ -21,8 +21,8 @@
             v-model="form.tx_cedula"
             :rules="rules.requerido"
             label="Cedula*"
-            hint="SI no posee colocar la de algun padre"
-            mask="########"
+            hint="Ej V13479148, Menor de edad CI padre + numero de hijo Ej V134791481"
+            mask="A#########"
             ></v-text-field>
         </v-flex>
 
@@ -43,13 +43,20 @@
         </v-flex>
 
         <v-flex sm4>
-        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc" :rules="rules.radio">
+        <v-radio-group v-model="form.id_ubicacion" row prepend-icon="public" :rules="rules.radio" hint="¿Se encuentra en el Extranjero?*" persistent-hint>
+            <v-radio label="Si" :value="2" ></v-radio>
+            <v-radio label="No" :value="1"></v-radio>
+        </v-radio-group>
+        </v-flex>
+
+        <v-flex sm4>
+        <v-radio-group v-model="form.tx_sexo" row prepend-icon="wc" :rules="rules.radio" hint="Sexo*" persistent-hint>
             <v-radio label="M" value="M" ></v-radio>
             <v-radio label="F" value="F"></v-radio>
         </v-radio-group>
         </v-flex>
 
-        <v-flex sm8>
+        <v-flex sm4>
             <v-menu
             ref="picker"
             :close-on-content-click="false"
@@ -89,15 +96,15 @@
             ></v-select>
         </v-flex>
 
-        <v-flex xs12 sm3>
+        <v-flex sm4>
             <v-checkbox
-            label="Posee anguna Discapacidad?"
+            label="¿Posee anguna Discapacidad?"
             v-model="form.bo_discapacidad"
             prepend-icon="accessible"
             ></v-checkbox>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad">
+        <v-flex sm4 v-if="form.bo_discapacidad">
             <v-select
             :items="listas.tipoDiscapacidad"
             item-text="nb_tipo_discapacidad"
@@ -109,7 +116,7 @@
             ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
+        <v-flex sm4 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad != 4">
             <v-select
             :items="discapacidad"
             item-text="nb_discapacidad"
@@ -121,11 +128,28 @@
             ></v-select>
         </v-flex>
 
-        <v-flex sm3 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
+        <v-flex sm4 v-if="form.bo_discapacidad && form.id_tipo_discapacidad && form.id_tipo_discapacidad == 4">
             <v-text-field
             label="Otros"
             hint="indique discapacidad"
             v-model="form.tx_discapacidad"
+            :rules="rules.requerido"
+            ></v-text-field>
+        </v-flex>
+
+        <v-flex sm4>
+            <v-checkbox
+            label="¿Posee anguna Enfermedad?"
+            v-model="form.bo_enfermedad"
+            prepend-icon="local_hospital"
+            ></v-checkbox>
+        </v-flex>
+
+        <v-flex sm4 v-if="form.bo_enfermedad">
+            <v-text-field
+            label="Enfermedad"
+            hint="indique Enfermedad"
+            v-model="form.tx_enfermedad"
             :rules="rules.requerido"
             ></v-text-field>
         </v-flex>
@@ -167,12 +191,18 @@ export default {
                 nb_nombre:        null,
                 nb_apellido:      null,
                 tx_cedula:        null,
+                bo_pasaporte:     false,
+                nu_pasaporte:     null,
+                fe_pasaporte:     null,
+                id_ubicacion:     null,
                 tx_sexo:          null,
                 fe_nacimiento:    null,
                 id_estado_civil:  1,
                 id_parentesco:    null,
                 tx_telefono:      null,
                 tx_celular:       null,
+                bo_enfermedad:    false,
+                tx_enfermedad:    null,
                 tx_observaciones: null,
                 id_status:        1,
                 id_usuario:       null,
@@ -246,9 +276,11 @@ export default {
         },
         store()
         {
-            this.form.id_status  = 1;
-            this.form.id_estado_civil  = 1;
-            this.form.id_usuario = this.$store.getters.user.id_usuario
+            this.form.id_status         = 1;
+            this.form.id_estado_civil   = 1;
+            this.form.bo_pasaporte      = false;
+            this.form.bo_enfermedad     = (this.form.bo_enfermedad === null) ? false : this.form.bo_enfermedad;
+            this.form.id_usuario        = this.$store.getters.user.id_usuario
 
             if (this.$refs.form.validate()) 
             {

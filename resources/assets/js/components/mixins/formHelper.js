@@ -18,10 +18,10 @@ export default {
             dates:     {},
             rules: {
                 select: [
-                    v => !!v || 'Seleccione una Opcion (Campo Requerido)',
+                    v => !!v || 'Seleccione una Opcion (Dato Requerido)',
                     ],
                 mutiple: [
-                    v =>  v.length > 0 || 'Seleccione una Opcion (Campo Requerido)',
+                    v =>  v.length > 0 || 'Seleccione una Opcion (Dato Requerido)',
                     ],    
                 requerido: [
                     v => !!v || 'Campo Requerido',

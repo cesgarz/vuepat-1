@@ -16,12 +16,18 @@ class Persona extends Model
                             'nb_nombre',
                             'nb_apellido',
                             'tx_cedula',
+                            'bo_pasaporte',
+                            'nu_pasaporte',
+                            'fe_pasaporte',
+                            'id_ubicacion',
                             'tx_sexo',
                             'fe_nacimiento',
                             'id_parentesco',
                             'id_estado_civil',
                             'tx_telefono',
                             'tx_celular',
+                            'bo_enfermedad',
+                            'tx_enfermedad',
                             'tx_observaciones',
                             'id_status',
                             'id_usuario'
@@ -74,6 +80,13 @@ class Persona extends Model
     {
     	return $this->HasMany('App\Models\Vivienda', 'id_vivienda');
     }
+
+    public function ubicacion()
+    {
+    	return $this->BelongsTo('App\Models\Ubicacion', 'id_ubicacion');
+    }
+
+    
 
     
 

@@ -21,6 +21,16 @@ class Ubicacion extends Model
     
     protected $hidden     = ['id_ubicacion','fe_creado','fe_actualizado'];
 
+    public function vivienda()
+    {
+        return $this->HasMany('App\Models\Vivienta', 'id_ubicacion');
+    }
+
+    public function persona()
+    {
+        return $this->HasMany('App\Models\Persona', 'id_ubicacion');
+    }
+    
     public function status()
     {
         return $this->BelongsTo('App\Models\Status', 'id_status');

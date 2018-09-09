@@ -5466,10 +5466,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             dates: {},
             rules: {
                 select: [function (v) {
-                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
+                    return !!v || 'Seleccione una Opcion (Dato Requerido)';
                 }],
                 mutiple: [function (v) {
-                    return v.length > 0 || 'Seleccione una Opcion (Campo Requerido)';
+                    return v.length > 0 || 'Seleccione una Opcion (Dato Requerido)';
                 }],
                 requerido: [function (v) {
                     return !!v || 'Campo Requerido';
@@ -7565,13 +7565,13 @@ var VueRecaptcha = {
         return {
             rules: {
                 select: [function (v) {
-                    return !!v || 'Seleccione una Opcion (Campo Requerido)';
+                    return !!v || 'Seleccione una Opcion (Dato Requerido)';
                 }],
                 mutiple: [function (v) {
-                    return v.length > 0 || 'Seleccione una Opcion (Campo Requerido)';
+                    return v.length > 0 || 'Seleccione una Opcion (Dato Requerido)';
                 }],
                 requerido: [function (v) {
-                    return !!v || 'Campo Requerido';
+                    return !!v || 'Dato Requerido';
                 }],
                 radio: [function (v) {
                     return !!v || 'Seleccione una Opcion (Requerido)';
@@ -37422,126 +37422,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_chartkick__["a" /* default */], { adapter: __WEBPACK_IMPORTED_MODULE_2_chart_js___default.a });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
-  data: function data() {
-    return {
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__components_mixins_withSnackbar__["a" /* default */]],
+    data: function data() {
+        return {
 
-      items: [],
-      cuenta: [],
-      ingreso: [],
-      instruccion: [],
-      procesos: [],
-      montos: {
-        dolar: 0,
-        euro: 0,
-        otros: 0,
-        total: 0
-      },
-      chartProcesos: {
-        data: [{ name: 'Usuarios Regitrados', data: { '2017-01-01': 3, '2017-01-02': 11, '2017-01-03': 5 } }]
-      },
-      chartIngresos: {
-        data: [['mujeres', 44], ['Hombres', 23]]
-      }
-    };
-  },
-  created: function created() {
-
-    this.list();
-  },
-
-  filters: {
-
-    formatNumber: function formatNumber(value) {
-      var val = (value / 1).toFixed(2).replace('.', ',');
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-
-  },
-  methods: {
-    list: function list() {
-      /*
-        axios.get('/api/v1/home/totales')
-          .then(respuesta => {
-              this.cuenta      = respuesta.data.cuenta
-              this.ingreso     = respuesta.data.ingreso
-              this.instruccion = respuesta.data.instruccion
-              this.procesos    = respuesta.data.procesos
-              this.setCuenta()
-              this.setProcesos()
-              this.setIngresos()
-              this.setInstruccion()
-            })
-          .catch(error => {
-              this.showError(error)
-          })
-      */
+            registrados: 0,
+            paises: 0,
+            discapacitados: 0,
+            familiares: 0,
+            usuarios: [],
+            sexo: [],
+            chartUsuarios: {
+                data: [],
+                colors: ['#666', '#b00']
+            },
+            chartSexo: {
+                data: []
+            }
+        };
     },
-    setCuenta: function setCuenta() {
-      this.montos.otros = 0;
-      this.montos.total = 0;
+    created: function created() {
 
-      this.cuenta.forEach(function (item, index) {
-        switch (item.nb_moneda) {
-          case 'Dolar':
-            this.montos.dolar = Number(item.mo_total);
-            break;
-          case 'Euro':
-            this.montos.euro = Number(item.mo_total);
-            break;
-          default:
-            this.montos.otros += Number(item.mo_total);
-            break;
+        this.list();
+    },
+
+    watch: {
+        usuarios: function usuarios() {
+            var sexo = [];
+
+            this.sexo.forEach(function (item, index) {
+                sexo[index] = [item.tx_sexo, item.nu_cantidad];
+            }, this);
+
+            this.chartSexo = { data: sexo };
+        },
+        sexo: function sexo() {
+            var usuarios = [];
+
+            this.usuarios.forEach(function (item, index) {
+                usuarios[index] = [item.fe_creado, item.nu_cantidad];
+            }, this);
+
+            this.chartUsuarios = { data: usuarios };
         }
-        this.montos.total += Number(item.mo_total);
-      }, this);
     },
-    setProcesos: function setProcesos() {
-      var ingreso = new Object();
-      var solicitud = new Object();
-      var instruccion = new Object();
-      var pago = new Object();
+    methods: {
+        list: function list() {
+            var _this = this;
 
-      this.procesos.forEach(function (item, index) {
-        switch (item.tipo) {
-          case 'ingreso':
-            ingreso[item.fecha] = item.cantidad;
-            break;
-          case 'solicitud':
-            solicitud[item.fecha] = item.cantidad;
-            break;
-          case 'instruccion':
-            instruccion[item.fecha] = item.cantidad;
-            break;
-          case 'pago':
-            pago[item.fecha] = item.cantidad;
-            break;
+            axios.get('/api/v1/home/data').then(function (respuesta) {
+                _this.registrados = respuesta.data.registrados;
+                _this.paises = respuesta.data.paises[0].nu_cantidad;
+                _this.discapacitados = respuesta.data.discapacidad;
+                _this.familiares = respuesta.data.familiares;
+                _this.usuarios = respuesta.data.usuario;
+                _this.sexo = respuesta.data.sexo;
+            }).catch(function (error) {
+                _this.showError(error);
+            });
         }
-      }, this);
-
-      this.chartProcesos = {
-        data: [{ name: 'Ingresos', data: ingreso }, { name: 'solicitud', data: solicitud }, { name: 'instruccion', data: instruccion }, { name: 'pago', data: pago }]
-      };
-    },
-    setIngresos: function setIngresos() {
-      var ingresos = [];
-
-      this.ingreso.forEach(function (item, index) {
-        ingresos[index] = [item.nb_tipo_ingreso, item.mo_ingreso];
-      }, this);
-
-      this.chartIngresos = { data: ingresos };
-    },
-    setInstruccion: function setInstruccion() {
-      var instrucciones = [];
-
-      this.instruccion.forEach(function (item, index) {
-        instrucciones[index] = [item.nb_categoria, item.mo_instruccion];
-      }, this);
-
-      this.chartInstrucciones = { data: instrucciones };
     }
-  }
 
 });
 
@@ -52814,17 +52754,14 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "blue--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Usuario Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(_vm.montos.euro)
-                                      )
-                                    )
+                                    _c("h3", [_vm._v(_vm._s(_vm.registrados))])
                                   ])
                                 ],
                                 1
@@ -52896,17 +52833,14 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "red--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Paises Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(_vm.montos.dolar)
-                                      )
-                                    )
+                                    _c("h3", [_vm._v(_vm._s(_vm.paises))])
                                   ])
                                 ],
                                 1
@@ -52978,17 +52912,16 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "green--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Discapacitados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(_vm.montos.otros)
-                                      )
-                                    )
+                                    _c("h3", [
+                                      _vm._v(_vm._s(_vm.discapacitados))
+                                    ])
                                   ])
                                 ],
                                 1
@@ -53060,17 +52993,14 @@ var render = function() {
                             [
                               _c(
                                 "v-list-tile-content",
+                                { staticClass: "orange--text" },
                                 [
                                   _c("v-list-tile-title", [
                                     _vm._v("Familiares Registrados")
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatNumber")(_vm.montos.total)
-                                      )
-                                    )
+                                    _c("h3", [_vm._v(_vm._s(_vm.familiares))])
                                   ])
                                 ],
                                 1
@@ -53116,7 +53046,7 @@ var render = function() {
                         [
                           _c("line-chart", {
                             attrs: {
-                              data: _vm.chartProcesos.data,
+                              data: _vm.chartUsuarios.data,
                               download: true
                             }
                           })
@@ -53194,10 +53124,10 @@ var render = function() {
                         "v-card-text",
                         { staticClass: "text-xs-center" },
                         [
-                          _c("column-chart", {
+                          _c("pie-chart", {
                             attrs: {
-                              data: _vm.chartIngresos.data,
-                              colors: _vm.chartIngresos.colors,
+                              data: _vm.chartSexo.data,
+                              colors: _vm.chartSexo.colors,
                               download: true
                             }
                           })
@@ -53229,11 +53159,11 @@ var render = function() {
                                 "v-list-tile-content",
                                 [
                                   _c("v-list-tile-title", [
-                                    _c("h3", [_vm._v("Sexo")])
+                                    _c("h3", [_vm._v("Hombres vs Mujeres")])
                                   ]),
                                   _vm._v(" "),
                                   _c("v-list-tile-sub-title", [
-                                    _vm._v("hombres/mujeres")
+                                    _vm._v("Registrados segun su Sexo")
                                   ])
                                 ],
                                 1
@@ -54178,7 +54108,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54191,6 +54121,57 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54378,17 +54359,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tabla: 'persona',
             discapacidad: [],
             discapacidadLoad: false,
+            piker: {
+                fe_pasaporte: null,
+                fe_nacimiento: null
+            },
+            dates: {
+                fe_pasaporte: null,
+                fe_nacimiento: null
+            },
             form: {
                 id_persona: null,
                 nb_nombre: null,
                 nb_apellido: null,
                 tx_cedula: null,
+                bo_pasaporte: false,
+                nu_pasaporte: null,
+                fe_pasaporte: null,
+                id_ubicacion: 2,
                 tx_sexo: null,
                 fe_nacimiento: null,
                 id_estado_civil: null,
                 id_parentesco: 99,
                 tx_telefono: null,
                 tx_celular: null,
+                bo_enfermedad: false,
+                tx_enfermedad: null,
+                tx_observaciones: null,
                 id_status: 1,
                 id_usuario: 1,
                 bo_discapacidad: false,
@@ -54405,8 +54401,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        save: function save(date) {
-            this.$refs.picker.save(date);
+        savePasaporte: function savePasaporte(date) {
+            this.$refs.pickerPasaporte.save(date);
+        },
+        saveNacimiento: function saveNacimiento(date) {
+            this.$refs.pickerNacimiento.save(date);
         },
         getData: function getData() {
             var _this = this;
@@ -54455,6 +54454,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form.id_parentesco = 99;
             this.form.id_status = 1;
+            this.form.id_ubicacion = 2;
+            this.form.bo_enfermedad = this.form.bo_enfermedad === null ? false : this.form.bo_enfermedad;
             this.form.id_usuario = this.$store.getters.user.id_usuario;
 
             if (this.$refs.form.validate()) {
@@ -54527,16 +54528,15 @@ var render = function() {
                 [
                   _c(
                     "v-flex",
-                    { attrs: { sm6: "" } },
+                    { attrs: { sm3: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
                           name: "name",
-                          label: "Cedula",
-                          required: "",
+                          label: "Cedula*",
                           rules: _vm.rules.requerido,
-                          mask: "########",
-                          prefix: "V-"
+                          mask: "A#########",
+                          hint: "Ej V13479148"
                         },
                         model: {
                           value: _vm.form.tx_cedula,
@@ -54550,7 +54550,118 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-flex", { attrs: { sm8: "" } }),
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm3: "" } },
+                    [
+                      _c("v-checkbox", {
+                        attrs: { label: "¿Posee Pasaporte?" },
+                        model: {
+                          value: _vm.form.bo_pasaporte,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "bo_pasaporte", $$v)
+                          },
+                          expression: "form.bo_pasaporte"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm3: "" } },
+                    [
+                      _vm.form.bo_pasaporte
+                        ? _c("v-text-field", {
+                            attrs: {
+                              label: "Numero del Pasaporte*",
+                              mask: "#########",
+                              rules: _vm.rules.requerido
+                            },
+                            model: {
+                              value: _vm.form.nu_pasaporte,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "nu_pasaporte", $$v)
+                              },
+                              expression: "form.nu_pasaporte"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm3: "" } },
+                    [
+                      _vm.form.bo_pasaporte
+                        ? _c(
+                            "v-menu",
+                            {
+                              ref: "pickerPasaporte",
+                              attrs: {
+                                "close-on-content-click": false,
+                                "full-width": "",
+                                "min-width": "290px"
+                              },
+                              model: {
+                                value: _vm.picker.fe_pasaporte,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.picker, "fe_pasaporte", $$v)
+                                },
+                                expression: "picker.fe_pasaporte"
+                              }
+                            },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  slot: "activator",
+                                  rules: _vm.rules.fecha,
+                                  label: "Fecha de Vencimiento*",
+                                  "prepend-icon": "event",
+                                  readonly: ""
+                                },
+                                slot: "activator",
+                                model: {
+                                  value: _vm.dates.fe_pasaporte,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.dates, "fe_pasaporte", $$v)
+                                  },
+                                  expression: "dates.fe_pasaporte"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-date-picker", {
+                                attrs: {
+                                  locale: "es",
+                                  max: new Date().toISOString().substr(0, 10),
+                                  min: "1950-01-01"
+                                },
+                                on: {
+                                  input: function($event) {
+                                    _vm.dates.fe_pasaporte = _vm.formatDate(
+                                      _vm.form.fe_pasaporte
+                                    )
+                                  },
+                                  change: _vm.savePasaporte
+                                },
+                                model: {
+                                  value: _vm.form.fe_pasaporte,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "fe_pasaporte", $$v)
+                                  },
+                                  expression: "form.fe_pasaporte"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "v-flex",
@@ -54558,9 +54669,7 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
-                          label: "Nombres",
-                          required: "",
+                          label: "Nombres *",
                           rules: _vm.rules.requerido
                         },
                         model: {
@@ -54581,9 +54690,7 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
-                          label: "Apellidos",
-                          required: "",
+                          label: "Apellidos*",
                           rules: _vm.rules.requerido
                         },
                         model: {
@@ -54608,7 +54715,9 @@ var render = function() {
                           attrs: {
                             row: "",
                             "prepend-icon": "wc",
-                            rules: _vm.rules.radio
+                            rules: _vm.rules.radio,
+                            hint: "Sexo*",
+                            "persistent-hint": ""
                           },
                           model: {
                             value: _vm.form.tx_sexo,
@@ -54636,18 +54745,18 @@ var render = function() {
                       _c(
                         "v-menu",
                         {
-                          ref: "picker",
+                          ref: "pickerNacimiento",
                           attrs: {
                             "close-on-content-click": false,
                             "full-width": "",
                             "min-width": "290px"
                           },
                           model: {
-                            value: _vm.picker,
+                            value: _vm.picker.fe_nacimiento,
                             callback: function($$v) {
-                              _vm.picker = $$v
+                              _vm.$set(_vm.picker, "fe_nacimiento", $$v)
                             },
-                            expression: "picker"
+                            expression: "picker.fe_nacimiento"
                           }
                         },
                         [
@@ -54655,7 +54764,7 @@ var render = function() {
                             attrs: {
                               slot: "activator",
                               rules: _vm.rules.fecha,
-                              label: "Fecha de Nacimiento",
+                              label: "Fecha de Nacimiento*",
                               "prepend-icon": "event",
                               readonly: ""
                             },
@@ -54681,7 +54790,7 @@ var render = function() {
                                   _vm.form.fe_nacimiento
                                 )
                               },
-                              change: _vm.save
+                              change: _vm.saveNacimiento
                             },
                             model: {
                               value: _vm.form.fe_nacimiento,
@@ -54707,9 +54816,8 @@ var render = function() {
                           items: _vm.listas.estadoCivil,
                           "item-text": "nb_estado_civil",
                           "item-value": "id_estado_civil",
-                          label: "Estado Civil",
-                          rules: _vm.rules.select,
-                          required: ""
+                          label: "Estado Civil*",
+                          rules: _vm.rules.select
                         },
                         model: {
                           value: _vm.form.id_estado_civil,
@@ -54729,11 +54837,10 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
-                          label: "Telefono",
+                          label: "Telefono*",
                           rules: _vm.rules.requerido,
                           "prepend-icon": "phone",
-                          mask: "+###-###-###-######",
+                          mask: "+###-###-#########",
                           hint: "Ej +058-212-505-8930"
                         },
                         model: {
@@ -54754,10 +54861,9 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          name: "name",
                           label: "Celular",
                           "prepend-icon": "phone_android",
-                          mask: "+###-###-###-######",
+                          mask: "+###-###-#########",
                           hint: "Ej +058-414-505-8930"
                         },
                         model: {
@@ -54774,11 +54880,11 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-flex",
-                    { attrs: { xs12: "", sm3: "" } },
+                    { attrs: { xs12: "", sm4: "" } },
                     [
                       _c("v-checkbox", {
                         attrs: {
-                          label: "Posee anguna Discapacidad?",
+                          label: "¿Posee anguna Discapacidad?",
                           "prepend-icon": "accessible"
                         },
                         model: {
@@ -54796,7 +54902,7 @@ var render = function() {
                   _vm.form.bo_discapacidad
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-select", {
                             attrs: {
@@ -54825,7 +54931,7 @@ var render = function() {
                   _vm.form.id_tipo_discapacidad != 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-select", {
                             attrs: {
@@ -54854,7 +54960,7 @@ var render = function() {
                   _vm.form.id_tipo_discapacidad == 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-text-field", {
                             attrs: {
@@ -54868,6 +54974,51 @@ var render = function() {
                                 _vm.$set(_vm.form, "tx_discapacidad", $$v)
                               },
                               expression: "form.tx_discapacidad"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm4: "" } },
+                    [
+                      _c("v-checkbox", {
+                        attrs: {
+                          label: "¿Posee anguna Enfermedad?",
+                          "prepend-icon": "local_hospital"
+                        },
+                        model: {
+                          value: _vm.form.bo_enfermedad,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "bo_enfermedad", $$v)
+                          },
+                          expression: "form.bo_enfermedad"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.form.bo_enfermedad
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm4: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Enfermedad",
+                              hint: "indique Enfermedad",
+                              rules: _vm.rules.requerido
+                            },
+                            model: {
+                              value: _vm.form.tx_enfermedad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_enfermedad", $$v)
+                              },
+                              expression: "form.tx_enfermedad"
                             }
                           })
                         ],
@@ -56435,7 +56586,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -56448,6 +56599,30 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_mixins_formHelper__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_mixins_withSnackbar__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56616,12 +56791,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 nb_nombre: null,
                 nb_apellido: null,
                 tx_cedula: null,
+                bo_pasaporte: false,
+                nu_pasaporte: null,
+                fe_pasaporte: null,
+                id_ubicacion: null,
                 tx_sexo: null,
                 fe_nacimiento: null,
                 id_estado_civil: 1,
                 id_parentesco: null,
                 tx_telefono: null,
                 tx_celular: null,
+                bo_enfermedad: false,
+                tx_enfermedad: null,
                 tx_observaciones: null,
                 id_status: 1,
                 id_usuario: null,
@@ -56688,6 +56869,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form.id_status = 1;
             this.form.id_estado_civil = 1;
+            this.form.bo_pasaporte = false;
+            this.form.bo_enfermedad = this.form.bo_enfermedad === null ? false : this.form.bo_enfermedad;
             this.form.id_usuario = this.$store.getters.user.id_usuario;
 
             if (this.$refs.form.validate()) {
@@ -56781,8 +56964,9 @@ var render = function() {
                         attrs: {
                           rules: _vm.rules.requerido,
                           label: "Cedula*",
-                          hint: "SI no posee colocar la de algun padre",
-                          mask: "########"
+                          hint:
+                            "Ej V13479148, Menor de edad CI padre + numero de hijo Ej V134791481",
+                          mask: "A#########"
                         },
                         model: {
                           value: _vm.form.tx_cedula,
@@ -56847,8 +57031,43 @@ var render = function() {
                         {
                           attrs: {
                             row: "",
+                            "prepend-icon": "public",
+                            rules: _vm.rules.radio,
+                            hint: "¿Se encuentra en el Extranjero?*",
+                            "persistent-hint": ""
+                          },
+                          model: {
+                            value: _vm.form.id_ubicacion,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "id_ubicacion", $$v)
+                            },
+                            expression: "form.id_ubicacion"
+                          }
+                        },
+                        [
+                          _c("v-radio", { attrs: { label: "Si", value: 2 } }),
+                          _vm._v(" "),
+                          _c("v-radio", { attrs: { label: "No", value: 1 } })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm4: "" } },
+                    [
+                      _c(
+                        "v-radio-group",
+                        {
+                          attrs: {
+                            row: "",
                             "prepend-icon": "wc",
-                            rules: _vm.rules.radio
+                            rules: _vm.rules.radio,
+                            hint: "Sexo*",
+                            "persistent-hint": ""
                           },
                           model: {
                             value: _vm.form.tx_sexo,
@@ -56871,7 +57090,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-flex",
-                    { attrs: { sm8: "" } },
+                    { attrs: { sm4: "" } },
                     [
                       _c(
                         "v-menu",
@@ -56968,11 +57187,11 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-flex",
-                    { attrs: { xs12: "", sm3: "" } },
+                    { attrs: { sm4: "" } },
                     [
                       _c("v-checkbox", {
                         attrs: {
-                          label: "Posee anguna Discapacidad?",
+                          label: "¿Posee anguna Discapacidad?",
                           "prepend-icon": "accessible"
                         },
                         model: {
@@ -56990,7 +57209,7 @@ var render = function() {
                   _vm.form.bo_discapacidad
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-select", {
                             attrs: {
@@ -57019,7 +57238,7 @@ var render = function() {
                   _vm.form.id_tipo_discapacidad != 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-select", {
                             attrs: {
@@ -57048,7 +57267,7 @@ var render = function() {
                   _vm.form.id_tipo_discapacidad == 4
                     ? _c(
                         "v-flex",
-                        { attrs: { sm3: "" } },
+                        { attrs: { sm4: "" } },
                         [
                           _c("v-text-field", {
                             attrs: {
@@ -57062,6 +57281,51 @@ var render = function() {
                                 _vm.$set(_vm.form, "tx_discapacidad", $$v)
                               },
                               expression: "form.tx_discapacidad"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { sm4: "" } },
+                    [
+                      _c("v-checkbox", {
+                        attrs: {
+                          label: "¿Posee anguna Enfermedad?",
+                          "prepend-icon": "local_hospital"
+                        },
+                        model: {
+                          value: _vm.form.bo_enfermedad,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "bo_enfermedad", $$v)
+                          },
+                          expression: "form.bo_enfermedad"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.form.bo_enfermedad
+                    ? _c(
+                        "v-flex",
+                        { attrs: { sm4: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Enfermedad",
+                              hint: "indique Enfermedad",
+                              rules: _vm.rules.requerido
+                            },
+                            model: {
+                              value: _vm.form.tx_enfermedad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tx_enfermedad", $$v)
+                              },
+                              expression: "form.tx_enfermedad"
                             }
                           })
                         ],

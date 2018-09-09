@@ -8,7 +8,7 @@
   </div>
   
   <div v-else>
-    <registro></registro> 
+  <registro></registro>
   </div>
 
 
