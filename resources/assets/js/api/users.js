@@ -9,5 +9,11 @@ export default {
       'name': user.name,
       'email': user.email
     })
+  },
+  getRol (id_usuario) {
+    return axios.post('/api/v1/rol', { 'id_usuario': id_usuario })
+  },
+  getMenu (id_rol) {
+    return axios.post('/api/v1/menu/rol', { 'id_rol': id_rol })
   }
 }

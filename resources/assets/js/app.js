@@ -105,13 +105,19 @@ const app = new Vue({
     drawerRight:      false,
     changingPassword: false,
     updatingUser:     false,
-    items:            []
+    items:            [],
+    rol:              "",
+    menus:            []
   }),
   created: function () {
 
     this.windowResize();
 
-    this.getMenu()
+    this.getMenu();
+
+    this.rol = this.getRolByUser();
+
+    this.menus = this.getMenuByRol();
 
   },
   computed: {
@@ -122,8 +128,12 @@ const app = new Vue({
   methods: {
     getMenu()
     {
+
+      this.items = JSON.parse(this.getMenuJson());
+
+
       //provisionalmente mientras se arreglan los  permisos
-      if(this.$store.getters.user)
+      /*if(this.$store.getters.user)
       {
         if(this.$store.getters.user.id_usuario == 1)
       {
@@ -162,7 +172,7 @@ const app = new Vue({
           { icon: 'assignment', text: 'Planilla', href: '/planilla' },      
         ]
       }
-      }
+      }*/
       
     },
 
@@ -222,8 +232,122 @@ const app = new Vue({
       }).then(() => {
         this.changingPassword = false
       })
+    },
+
+    getRolByUser () {
+
+      this.$store.dispatch(actions.GET_ROL, this.$store.getters.user.id_usuario).then(response => {
+        console.log(response);
+        return response.rol;
+      }).catch(error => {
+        console.log(error)
+      }).then(() => {
+        //NOTHING
+      })
+
+    },
+
+    getMenuByRol () {
+
+      this.$store.dispatch(actions.GET_MENU, this.rol.id_rol).then(response => {
+        console.log(response)
+        return response.menu;
+      }).catch(error => {
+        console.log(error)
+      }).then(() => {
+        //NOTHING
+      })
+
     }
 
+    getMenuJson (hasChilds = false, menuPadre = null) {
+
+      //HANDLES WHEN MENU HAS CHILDS
+      if(hasChilds){
+        
+        foreach(menu in this.menus){
+
+          menuJson = '';
+          isParent = false;
+
+          //CHECKS IF MENU IS PARENT
+          foreach(menuChild in this.menus){
+            
+            if(menu.id_menu == menuChild.id_padre) {
+
+              isParent = true;
+              break;
+
+            }
+          }
+
+          if (menuPadre.id_menu == menu.id_padre) {
+
+            if (isParent) {
+
+              menuJson += '{ "icon" : "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "children": [ ';
+
+              menuJson += getMenuJson(true, menu);
+
+              menuJson += '], },';
+
+              return menuJson;
+
+            }else {
+
+              menuJson += '{ "icon": "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "href": "' + menu.tx_ruta + '" },';
+
+              return menuJson;
+            }
+
+          }//END IF
+
+        }//END FOREACH
+
+      }else{
+
+        menuJson = "[";
+        isParent = false;
+
+        foreach(menu in this.menus){
+        
+          //CHECK IF MENU IS PARENT
+          foreach(menuChild in this.menus){
+            
+            if(menu.id_menu == menuChild.id_padre) {
+
+              isParent = true;
+              break;
+
+            }
+          }
+
+          if(menu.id_padre == 0){
+        
+            menuJson += '{ "heading": "' + menu.nb_menu + '" },';
+        
+          }else if (isParent) {
+
+            menuJson += '{ "icon" : "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "children": [ ';
+
+            menuJson += getMenuJson(true, menu);
+
+            menuJson += '], },';
+
+          }else {
+
+            menuJson += '{ "icon": "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "href": "' + menu.tx_ruta + '" },';
+
+          }
+
+        }//END FOREACH
+
+        menuJson += ']';
+        return menuJson;
+
+      }//END ELSE HAS CHILD
+
+    }//END FUNCTION GETMENUJSON
 
   }
 });

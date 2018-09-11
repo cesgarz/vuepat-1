@@ -16,6 +16,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::apiResource('menu',         'MenuController');
     Route::get('/menu/padre',          'MenuController@menuPadre');
 
+    Route::get('/rolmenu/menus',       'RolMenuController@getMenusByRol');
+
     Route::apiResource('persona',      'PersonaController');
     Route::get('persona/familiar/{id_usuario}', 'PersonaController@personaFamiliar');
 

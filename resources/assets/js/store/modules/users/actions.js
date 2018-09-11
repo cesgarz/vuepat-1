@@ -25,5 +25,23 @@ export default {
         reject(error)
       })
     })
-  }
+  },
+  [ actions.GET_ROL ] (context, id_usuario) {
+    return new Promise((resolve, reject) => {
+      users.getRol().then(response => {
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  [ actions.GET_MENU ] (context, id_rol) {
+    return new Promise((resolve, reject) => {
+      users.getMenu().then(response => {
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
 }
