@@ -5915,15 +5915,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return REGISTER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return REMEMBER_PASSWORD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return RESET_PASSWORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return REGISTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return REMEMBER_PASSWORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return RESET_PASSWORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FETCH_USERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return UPDATE_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SELECTED_USER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GET_ROLES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return UPDATE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SELECTED_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GET_MENU; });
 // AUTH MODULE
 var LOGIN = 'LOGIN';
@@ -5936,7 +5935,6 @@ var RESET_PASSWORD = 'RESET_PASSWORD';
 var FETCH_USERS = 'FETCH_USERS';
 var UPDATE_USER = 'UPDATE_USER';
 var SELECTED_USER = 'SELECTED_USER';
-var GET_ROLES = 'GET_ROL';
 var GET_MENU = 'GET_MENU';
 
 // BANCO MODULE
@@ -32796,18 +32794,15 @@ var app = new Vue({
       drawerRight: false,
       changingPassword: false,
       updatingUser: false,
-      items: [],
-      roles: [],
-      menus: []
+      items: []
     };
   },
+
   created: function created() {
 
     this.windowResize();
 
     this.getMenu();
-
-    this.getRolesByUser();
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
     user: 'user'
@@ -32815,20 +32810,9 @@ var app = new Vue({
   methods: {
     getMenu: function getMenu() {
 
-      //this.items = JSON.parse(this.getMenuJson());
-
-
-      //provisionalmente mientras se arreglan los  permisos
       if (this.$store.getters.user) {
-        if (this.$store.getters.user.id_usuario == 1) {
-          this.items = [{ heading: 'Menu' }, { icon: 'home', text: 'Inicio', href: '/home' }, { heading: 'Datos Maestros' }, { icon: 'assignment', text: 'Datos Maestros',
-            children: [{ icon: 'star_border', text: 'Misiones', href: '/mision' }, { icon: 'accessible', text: 'Discapacidad', href: '/discapacidad' }, { icon: 'directions_run', text: 'Motivos de Viaje', href: '/motivo' }, { icon: 'device_hub', text: 'Sector', href: '/sector' }]
-          }, { heading: 'Reportes' }, { icon: 'description', text: 'Reportes',
-            children: [{ icon: 'description', text: 'Personas', href: '/reports.persona' }, { icon: 'description', text: 'Bitacora', href: '/reports.bitacora' }]
-          }, { heading: 'Administracion' }, { icon: 'person', text: 'Usuarios', href: '/usuario' }];
-        } else {
-          this.items = [{ heading: 'Menu' }, { icon: 'assignment_ind', text: 'Registro', href: '/home' }, { icon: 'assignment', text: 'Planilla', href: '/planilla' }];
-        }
+
+        this.items = JSON.parse(this.getMenuByUser());
       }
     },
     windowResize: function windowResize() {
@@ -32854,7 +32838,7 @@ var app = new Vue({
       var _this2 = this;
 
       this.logoutLoading = true;
-      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["e" /* LOGOUT */]).then(function (response) {
+      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["d" /* LOGOUT */]).then(function (response) {
         window.location = '/';
       }).catch(function (error) {
         console.log(error);
@@ -32882,7 +32866,7 @@ var app = new Vue({
       var _this3 = this;
 
       this.changingPassword = true;
-      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["g" /* REMEMBER_PASSWORD */], this.user.email).then(function (response) {
+      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["f" /* REMEMBER_PASSWORD */], this.user.email).then(function (response) {
         _this3.showMessage('Correo para reinicio de contrase\xF1a');
       }).catch(function (error) {
         console.dir(error);
@@ -32891,11 +32875,11 @@ var app = new Vue({
         _this3.changingPassword = false;
       });
     },
-    getRolesByUser: function getRolesByUser() {
+    getMenuByUser: function getMenuByUser() {
 
-      if (this.$store.getters.user.id_usuario) {
-        alert(this.$store.getters.user.id_usuario);
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["c" /* GET_ROLES */], this.$store.getters.user.id_usuario).then(function (response) {
+      if (this.$store.getters.user) {
+
+        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["b" /* GET_MENU */], this.$store.getters.user.id_usuario).then(function (response) {
           console.log(response);
           return response;
         }).catch(function (error) {
@@ -32904,152 +32888,7 @@ var app = new Vue({
           //NOTHING
         });
       }
-    },
-    getMenuByRol: function getMenuByRol() {
-
-      if (this.rol.id_rol) {
-
-        this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["b" /* GET_MENU */], this.rol.id_rol).then(function (response) {
-          console.log(response);
-          return response;
-        }).catch(function (error) {
-          console.log(error);
-        }).then(function () {
-          //NOTHING
-        });
-      }
-    },
-    getMenuJson: function (_getMenuJson) {
-      function getMenuJson() {
-        return _getMenuJson.apply(this, arguments);
-      }
-
-      getMenuJson.toString = function () {
-        return _getMenuJson.toString();
-      };
-
-      return getMenuJson;
-    }(function () {
-      var hasChilds = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var menuPadre = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-
-      //HANDLES WHEN MENU HAS CHILDS
-      if (hasChilds) {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-
-          for (var _iterator = this.menus[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            menu = _step.value;
-
-
-            menuJson = '';
-            isParent = false;
-
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-              for (var _iterator2 = this.menus[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                menuChild = _step2.value;
-
-
-                if (menu.id_menu == menuChild.id_padre) {
-
-                  isParent = true;
-                  break;
-                }
-              }
-            } catch (err) {
-              _didIteratorError2 = true;
-              _iteratorError2 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                  _iterator2.return();
-                }
-              } finally {
-                if (_didIteratorError2) {
-                  throw _iteratorError2;
-                }
-              }
-            }
-
-            if (menuPadre.id_menu == menu.id_padre) {
-
-              if (isParent) {
-
-                menuJson += '{ "icon" : "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "children": [ ';
-
-                menuJson += getMenuJson(true, menu);
-
-                menuJson += '], },';
-
-                return menuJson;
-              } else {
-
-                menuJson += '{ "icon": "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "href": "' + menu.tx_ruta + '" },';
-
-                return menuJson;
-              }
-            } //END IF
-
-          } //END FOREACH
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-      } else {
-
-        menuJson = "[";
-        isParent = false;
-
-        for (menu in this.menus) {
-
-          for (menuChild in this.menus) {
-
-            if (menu.id_menu == menuChild.id_padre) {
-
-              isParent = true;
-              break;
-            }
-          }
-
-          if (menu.id_padre == 0) {
-
-            menuJson += '{ "heading": "' + menu.nb_menu + '" },';
-          } else if (isParent) {
-
-            menuJson += '{ "icon" : "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "children": [ ';
-
-            menuJson += getMenuJson(true, menu);
-
-            menuJson += '], },';
-          } else {
-
-            menuJson += '{ "icon": "' + menu.nb_icon + '", "text": "' + menu.nb_menu + '", "href": "' + menu.tx_ruta + '" },';
-          }
-        } //END FOREACH
-
-        menuJson += ']';
-        return menuJson;
-      } //END ELSE HAS CHILD
-    }) //END FUNCTION GETMENUJSON
-
+    }
   }
 });
 
@@ -35542,7 +35381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'password': this.form.password
                 };
 
-                this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["d" /* LOGIN */], credentials).then(function (response) {
+                this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["c" /* LOGIN */], credentials).then(function (response) {
                     window.location = '/home';
                 }).catch(function (error) {
                     _this2.showError(error);
@@ -36217,7 +36056,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             console.log('registrar');
-            this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["f" /* REGISTER */], this.form).then(function (response) {
+            this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["e" /* REGISTER */], this.form).then(function (response) {
 
                 _this2.done = true;
                 _this2.$refs.registerForm.reset();
@@ -86110,7 +85949,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_actions$LOGIN$action = {}, _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["d" /* LOGIN */], function (context, credentials) {
+/* harmony default export */ __webpack_exports__["a"] = (_actions$LOGIN$action = {}, _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["c" /* LOGIN */], function (context, credentials) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].login(credentials).then(function (response) {
       context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* LOGGED */], true);
@@ -86119,7 +85958,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["f" /* REGISTER */], function (context, form) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["e" /* REGISTER */], function (context, form) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].register(form).then(function (response) {
       resolve(response);
@@ -86127,7 +85966,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["e" /* LOGOUT */], function (context) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["d" /* LOGOUT */], function (context) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].logout().then(function (response) {
       context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* LOGGED */], false);
@@ -86136,7 +85975,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["g" /* REMEMBER_PASSWORD */], function (context, email) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["f" /* REMEMBER_PASSWORD */], function (context, email) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].remember(email).then(function (response) {
       resolve(response);
@@ -86144,7 +85983,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["h" /* RESET_PASSWORD */], function (context, user) {
+}), _defineProperty(_actions$LOGIN$action, __WEBPACK_IMPORTED_MODULE_1__action_types__["g" /* RESET_PASSWORD */], function (context, user) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_auth__["a" /* default */].reset(user).then(function (response) {
       resolve(response);
@@ -86329,7 +86168,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = (_actions$SELECTED_USE = {}, _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["i" /* SELECTED_USER */], function (context, user) {
+/* harmony default export */ __webpack_exports__["a"] = (_actions$SELECTED_USE = {}, _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["h" /* SELECTED_USER */], function (context, user) {
   context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["b" /* SELECTED_USER */], user);
 }), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["a" /* FETCH_USERS */], function (context) {
   return new Promise(function (resolve, reject) {
@@ -86340,7 +86179,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["j" /* UPDATE_USER */], function (context, user) {
+}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["i" /* UPDATE_USER */], function (context, user) {
   return new Promise(function (resolve, reject) {
     __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* default */].update(user).then(function (response) {
       context.commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["i" /* USER */], user);
@@ -86349,17 +86188,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       reject(error);
     });
   });
-}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["c" /* GET_ROLES */], function (context, id_usuario) {
+}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["b" /* GET_MENU */], function (context, id) {
   return new Promise(function (resolve, reject) {
-    __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* default */].getRoles(id_usuario).then(function (response) {
-      resolve(response);
-    }).catch(function (error) {
-      reject(error);
-    });
-  });
-}), _defineProperty(_actions$SELECTED_USE, __WEBPACK_IMPORTED_MODULE_1__action_types__["b" /* GET_MENU */], function (context, id_rol) {
-  return new Promise(function (resolve, reject) {
-    __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* default */].getMenu(id_rol).then(function (response) {
+    __WEBPACK_IMPORTED_MODULE_2__api_users__["a" /* default */].getMenu(id).then(function (response) {
       resolve(response);
     }).catch(function (error) {
       reject(error);
@@ -86386,11 +86217,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       'email': user.email
     });
   },
-  getRoles: function getRoles(id_usuario) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/v1/rolbyuser/' + id_usuario);
-  },
-  getMenu: function getMenu(id_rol) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/v1/menubyrol/' + id_rol);
+  getMenu: function getMenu(id) {
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/v1/menu/usuario/' + id);
   }
 });
 
