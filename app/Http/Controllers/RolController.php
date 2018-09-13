@@ -19,6 +19,11 @@ class RolController extends Controller
         return $roles;
     }
 
+    public function getRolByUser()
+    {
+        
+    }
+
     /**
      * Store a newly created resource in storage.
      *
