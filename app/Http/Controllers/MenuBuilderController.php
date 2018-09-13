@@ -18,25 +18,29 @@ class MenuBuilderController extends Controller
         $menusArray = array();
         $counter = 0;
 
-        foreach($rolesUsuario as $id_rol){
+        foreach($rolesUsuario as $rolUsuario){
 
-        	if(isset(($counter == 0) ? $counter : $counter - 1)){
-	         
-				$menus = RolMenu::select('id_menu')
-									->where('id_rol', '=', $id_rol)
+          $counterVerif = ($counter == 0) ? $counter : $counter - 1;
+
+				  $menus = RolMenu::select('id_menu')
+									->where('id_rol', '=', $rolUsuario->id_rol)
 									->where('id_status', '=', 1)
 									->get();
 
-				foreach($menus as $menu){
+  				foreach($menus as $menu){
 
-					if($menu->id_menu != $menusArray[$counter - 1]->id_menu){
-						array_push($menusArray, $menu);
-						$counter ++;
-					}
+            if($counter > 0){
+              if($menu->id_menu != $menusArray[$counter - 1]->id_menu){
+                array_push($menusArray, $menu);
+                $counter ++;
+              }
+            }else {
+                array_push($menusArray, $menu);
+                $counter ++;
+              }
 
-				}
-        		
-	        }
+            }		
+	        
         }
 
         $counter = 0;
@@ -45,19 +49,16 @@ class MenuBuilderController extends Controller
         foreach ($menusArray as $menu) {
         	
         	$menus[$counter] = Menu::select('id_menu', 'nb_menu', 'nb_icon', 'tx_ruta', 'id_padre')
-        					->where('id_menu', '=', $menu->id_menu
+        					->where('id_menu', '=', $menu->id_menu)
         					->where('id_status', '=', 1)
         					->get();
 
         	$counter ++;
         }
-
-
-        $menuJson = getMenuJson($menus, false, null);
+       
+        $menuJson = $this->getMenuJson($menus, false, null);
 
         return json_encode($menuJson);
-
-
 
     }
 
@@ -75,7 +76,7 @@ class MenuBuilderController extends Controller
 
           foreach($menus as $menuChild){
 
-            if($menu->id_menu == $menuChild->id_padre) {
+            if($menu[0]->id_menu == $menuChild[0]->id_padre) {
 
               $isParent = true;
               break;
@@ -84,21 +85,21 @@ class MenuBuilderController extends Controller
 
           }
 
-          if ($menuPadre->id_menu == $menu->id_padre) {
+          if ($menuPadre[0]->id_menu == $menu[0]->id_padre) {
 
             if ($isParent) {
 
-              $menuJson += '{ "icon" : "' + $menu->nb_icon + '", "text": "' + $menu->nb_menu + '", "children": [ ';
+              $menuJson .= '{ "icon" : "' . $menu[0]->nb_icon . '", "text": "' . $menu[0]->nb_menu . '", "children": [ ';
 
-              $menuJson += getMenuJson(null, true, $menu);
+              $menuJson .= $this->getMenuJson($menus, true, $menu);
 
-              $menuJson += '], },';
+              $menuJson .= '], },';
 
               return $menuJson;
 
             }else {
 
-              $menuJson += '{ "icon": "' + $menu->nb_icon + '", "text": "' + $menu->nb_menu + '", "href": "' + $menu->tx_ruta + '" },';
+              $menuJson .= '{ "icon": "' . $menu[0]->nb_icon . '", "text": "' . $menu[0]->nb_menu . '", "href": "' . $menu[0]->tx_ruta . '" },';
 
               return $menuJson;
             }
@@ -117,7 +118,7 @@ class MenuBuilderController extends Controller
 
          foreach($menus as $menuChild){
 
-            if($menu->id_menu == $menuChild->id_padre) {
+            if($menu[0]->id_menu == $menuChild[0]->id_padre) {
 
               $isParent = true;
               break;
@@ -126,27 +127,27 @@ class MenuBuilderController extends Controller
 
           }
 
-          if($menu->id_padre == 0){
+          if($menu[0]->id_padre == 0){
         
-            $menuJson += '{ "heading": "' + $menu->nb_menu + '" },';
+            $menuJson .= '{ "heading": "' . $menu[0]->nb_menu . '" },';
         
           }else if ($isParent) {
 
-            $menuJson += '{ "icon" : "' + $menu->nb_icon + '", "text": "' + $menu->nb_menu + '", "children": [ ';
+            $menuJson .= '{ "icon" : "' . $menu[0]->nb_icon . '", "text": "' . $menu[0]->nb_menu . '", "children": [ ';
 
-            $menuJson += getMenuJson(null, true, $menu);
+            $menuJson .= $this->getMenuJson($menus, true, $menu);
 
-            $menuJson += '], },';
+            $menuJson .= '], },';
 
           }else {
 
-            $menuJson += '{ "icon": "' + $menu->nb_icon + '", "text": "' + $menu->nb_menu + '", "href": "' + $menu->tx_ruta + '" },';
+            $menuJson .= '{ "icon": "' . $menu[0]->nb_icon . '", "text": "' . $menu[0]->nb_menu . '", "href": "' . $menu[0]->tx_ruta . '" },';
 
           }
 
         }//END FOREACH
 
-        $menuJson += ']';
+        $menuJson .= ']';
         return $menuJson;
 
       }//END ELSE HAS CHILD
