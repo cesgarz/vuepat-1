@@ -20,8 +20,6 @@ class MenuBuilderController extends Controller
 
         foreach($rolesUsuario as $rolUsuario){
 
-          $counterVerif = ($counter == 0) ? $counter : $counter - 1;
-
 				  $menus = RolMenu::select('id_menu')
 									->where('id_rol', '=', $rolUsuario->id_rol)
 									->where('id_status', '=', 1)
@@ -58,7 +56,7 @@ class MenuBuilderController extends Controller
        
         $menuJson = $this->getMenuJson($menus, false, null);
 
-        return json_encode($menuJson);
+        return $menuJson;
 
     }
 
@@ -94,6 +92,8 @@ class MenuBuilderController extends Controller
               $menuJson .= $this->getMenuJson($menus, true, $menu);
 
               $menuJson .= '], },';
+
+              $isParent = false;
 
               return $menuJson;
 
@@ -138,6 +138,8 @@ class MenuBuilderController extends Controller
             $menuJson .= $this->getMenuJson($menus, true, $menu);
 
             $menuJson .= '], },';
+
+            $isParent = false;
 
           }else {
 

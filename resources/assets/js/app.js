@@ -127,7 +127,7 @@ const app = new Vue({
 
       if(this.$store.getters.user){
 
-        this.items = JSON.parse(this.getMenuByUser());
+        this.items = this.getMenuByUser();
 
       }
       
@@ -196,7 +196,6 @@ const app = new Vue({
       if(this.$store.getters.user){
 
         this.$store.dispatch(actions.GET_MENU, this.$store.getters.user.id_usuario).then(response => {
-          console.log(response)
           return response;
         }).catch(error => {
           console.log(error)

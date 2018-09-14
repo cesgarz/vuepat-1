@@ -32812,7 +32812,7 @@ var app = new Vue({
 
       if (this.$store.getters.user) {
 
-        this.items = JSON.parse(this.getMenuByUser());
+        this.items = this.getMenuByUser();
       }
     },
     windowResize: function windowResize() {
