@@ -32880,7 +32880,6 @@ var app = new Vue({
       if (this.$store.getters.user) {
 
         this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["b" /* GET_MENU */], this.$store.getters.user.id_usuario).then(function (response) {
-          console.log(response);
           return response;
         }).catch(function (error) {
           console.log(error);

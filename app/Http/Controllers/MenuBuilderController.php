@@ -49,6 +49,7 @@ class MenuBuilderController extends Controller
         	$menus[$counter] = Menu::select('id_menu', 'nb_menu', 'nb_icon', 'tx_ruta', 'id_padre')
         					->where('id_menu', '=', $menu->id_menu)
         					->where('id_status', '=', 1)
+                  ->orderBy('order', 'asc')
         					->get();
 
         	$counter ++;
