@@ -19,6 +19,14 @@ class MenuController extends Controller
         return $menus;
     }
 
+     public function menus()
+    {
+         $menus = Menu::select('id_menu', 'nb_menu')
+                        ->where('id_status', 1)
+                        ->get();
+        
+        return $menus;
+    }
 
     public function menuPadre()
     {

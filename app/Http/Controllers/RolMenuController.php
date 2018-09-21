@@ -14,9 +14,26 @@ class RolMenuController extends Controller
      */
     public function index()
     {
-        $rolesMenu = RolMenu::with(['rol', 'menu', 'usuario', 'status'])->get();
+        $rolesMenu = RolMenu::with(['rol', 'menu', 'usuario', 'status'])
+                                ->where('id_status', 1)
+                                ->get();
         
         return $rolesMenu;
+    }
+
+    public function lista()
+    {
+         $rolesmenus = RolMenu::with(['rol', 'menu', 'usuario', 'status'])
+                            ->get(); 
+        return $rolesmenus;
+    }
+
+    public function ordenMenus()
+    {
+         $ordenMenus = RolMenu::select('orden')
+                            ->where('id_status', 1)
+                            ->get(); 
+        return $ordenMenus;
     }
 
     /**
@@ -32,7 +49,8 @@ class RolMenuController extends Controller
             'id_menu'           => 'required',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
-            'id_status'         => 'required'
+            'id_status'         => 'required',
+            'orden'             => 'required'
         ]);
 
         $rolMenu = RolMenu::create($request->all());
@@ -65,7 +83,8 @@ class RolMenuController extends Controller
             'id_menu'           => 'required',
             'tx_observaciones'  => 'max:100',
             'id_usuario'        => 'required',
-            'id_status'         => 'required'
+            'id_status'         => 'required',
+            'orden'             => 'required'
         ]);
         
         $rolMenu = $rolMenu->update($request->all());

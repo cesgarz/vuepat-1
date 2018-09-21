@@ -15,6 +15,7 @@
  Date: 09/09/2018 00:06:22
 */
 
+DROP VIEW IF EXISTS "public"."rep_persona";
 
 -- ----------------------------
 -- Table structure for persona

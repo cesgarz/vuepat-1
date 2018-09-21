@@ -58,6 +58,13 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     Route::get('sector/lista',          'SectorController@lista');
     Route::apiResource('sector',        'SectorController');
+
+    Route::get('rolmenu/lista',          'RolMenuController@lista');
+    Route::apiResource('rolmenu',        'RolMenuController');
+
+    Route::get('/roles', 'RolController@roles');
+    Route::get('/menus', 'MenuController@menus');
+    Route::get('/ordenMenus', 'RolMenuController@ordenMenus');
     
     Route::apiResource('rol',           'RolController');
 

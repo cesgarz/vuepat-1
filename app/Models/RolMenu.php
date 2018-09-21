@@ -17,7 +17,8 @@ class RolMenu extends Model
                             'id_menu',
                             'tx_observaciones',
                             'id_status',
-                            'id_usuario'
+                            'id_usuario',
+                            'orden'
                             ]; 
     
     protected $hidden     = ['id_rol_menu','fe_creado','fe_actualizado'];

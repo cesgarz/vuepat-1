@@ -19,9 +19,13 @@ class RolController extends Controller
         return $roles;
     }
 
-    public function getRolByUser()
+    public function roles()
     {
+        $roles = Rol::select('id_rol', 'nb_rol')
+                    ->where('id_status', 1)
+                    ->get();
         
+        return $roles;
     }
 
     /**
